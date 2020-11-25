@@ -1,0 +1,107 @@
+<mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
+    <span class="titulo-Ayuda-Ventana">{{TituloVentana}}</span>
+    <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
+</mat-toolbar>
+<mat-dialog-content class="contenido-ayuda-ventana">
+    <mat-toolbar class="toolbarMatDialog">
+        <button mat-icon-button class="sinborde" tabindex="-1"  matTooltip="Guardar" [matTooltipPosition]="'right'" (click)="guardar()">
+            <mat-icon>save</mat-icon>
+        </button>
+    </mat-toolbar>
+    <div class="container-fluid contenido">
+        <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field  >
+                    <mat-label>Código</mat-label>
+                    <input matInput #inputNombre [(ngModel)]="MateriaSrv.CODIGO" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo" [disabled]="modo == 'MODIFICAR'" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field >
+                  <mat-label>Categoría</mat-label>
+                  <mat-select [(ngModel)]="MateriaSrv.CATEGORIA">
+                    <mat-option *ngFor="let Categoria of ListaCategorias" [value]="Categoria.NOMBRE">
+                      {{Categoria.NOMBRE}}
+                    </mat-option>
+                  </mat-select>
+              </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <button mat-icon-button  (click)="agregarUM()"  tabindex="-1" matTooltip="Agregar categoría">
+              <mat-icon>add</mat-icon>
+          </button>
+        </div>
+            <div class="col-md-6">
+                <mat-form-field  >
+                    <mat-label>Materia prima</mat-label>
+                    <input matInput #inputMonto [(ngModel)]="MateriaSrv.MATERIA_PRIMA" (focus)="ObtenerFoco($event)" autocomplete="off"  (keydown)="presionaBoton($event)">
+                </mat-form-field>
+
+            </div>
+            <div class="col-md-4">
+                <mat-form-field >
+                    <mat-label>Unidad de medida</mat-label>
+                    <mat-select [(ngModel)]="MateriaSrv.UNIDAD_MEDIDA">
+                      <mat-option *ngFor="let UnidadMedida of ListaUndidadMedida" [value]="UnidadMedida.NOMBRE">
+                        {{UnidadMedida.NOMBRE}}
+                      </mat-option>
+                    </mat-select>
+                    <!-- <input matInput #inputDias [(ngModel)]="MateriaSrv.UNIDAD_MEDIDA" autocomplete="off" (keypress)="validarTyping($event,'PRECIOCOMP')" (keydown)="presionaBoton($event)"> -->
+                </mat-form-field>
+            </div>
+            <div class="col-md-2">
+              <button mat-icon-button  (click)="agregarUM()"  tabindex="-1" matTooltip="Agregar Unidad de medida">
+                <mat-icon>add</mat-icon>
+            </button>
+          </div>
+            <div class="col-md-6">
+                <mat-form-field  >
+                    <mat-label>Cantidad</mat-label>
+                    <input matInput #inputDias [(ngModel)]="MateriaSrv.CANTIDAD" (focus)="ObtenerFoco($event)" autocomplete="off" (keypress)="validarTyping($event,'CANTIDAD')" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field  >
+                    <mat-label>Precio de venta</mat-label>
+                    <input matInput #inputDias [(ngModel)]="MateriaSrv.PRECIO_VENTA" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_VENTA')" (keypress)="validarTyping($event,'PRECIO_VENTA')" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field  >
+                    <mat-label>Precio de venta actualizado</mat-label>
+                    <input matInput #inputDias [(ngModel)]="MateriaSrv.PRECIO_VENTA_ACTUALIZADO" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_VENTA_ACTUALIZADO')" (keypress)="validarTyping($event,'PRECIO_VENTA_ACTUALIZADO')" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field  >
+                    <mat-label>Costo de compra</mat-label>
+                    <input matInput #inputDias [(ngModel)]="MateriaSrv.COSTO_COMPRA" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('COSTO_COMPRA')" (keypress)="validarTyping($event,'COSTO_COMPRA')" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field  >
+                    <mat-label>Costeo de compra reciente</mat-label>
+                    <input matInput #inputDias [(ngModel)]="MateriaSrv.COSTEO_PROMEDIO_RECIENTE" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('COSTEO_PROMEDIO_RECIENTE')" (keypress)="validarTyping($event,'COSTEO_PROMEDIO_RECIENTE')" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field  >
+                    <mat-label>Inventario</mat-label>
+                    <input matInput #inputDias [(ngModel)]="MateriaSrv.INVENTARIO" autocomplete="off" (focus)="ObtenerFoco($event)" (keypress)="validarTyping($event,'INVENTARIO')" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field  >
+                    <mat-label>Punto de reorden</mat-label>
+                    <input matInput #inputDias [(ngModel)]="MateriaSrv.PUNTO_REORDEN" autocomplete="off" (focus)="ObtenerFoco($event)" (keypress)="validarTyping($event,'PUNTO_REORDEN')" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</mat-dialog-content>

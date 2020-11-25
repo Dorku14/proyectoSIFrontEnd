@@ -1,0 +1,33 @@
+export enum PATH {
+    paginaMestra = 'PMA'
+}
+
+export enum NombreComponente{
+    PRODCOMERCIAL = 'PC',
+    SERVICIOS = 'SRV',
+    PRODFABRICADOS = 'PF',
+    MATERIAPRIMA = 'MT',
+    MANOSDOBRA = 'MO',
+    CATEGORIA = 'CAT',
+    UNIDADDMEDIDA = 'UM',
+    PRODUCCION = 'PRODUCCION',
+    ASIGNARMATERIASP = 'ASIGNARMP',
+    IMPUESTOS = 'IM',
+    COMPRAS = 'COMPRAS'
+}
+
+export enum clasesEstilos{
+    noActivo = 'noActivo',
+    Activo = 'Activo'
+}
+
+export enum MODO{
+    ALTA = 'ALTA',
+    MODIFICAR = 'MODIFICAR',
+    DETALLE = 'DETALLE',
+    REACTIVAR = 'REACTIVAR',
+}
+
+export const EXITO = '00';
+export const NOEXISTE = '10';
+export const direccionHttp = 'http://127.0.0.1:8000/api/';

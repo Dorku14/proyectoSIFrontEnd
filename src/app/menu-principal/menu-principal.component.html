@@ -1,0 +1,43 @@
+<mat-drawer-container class="Sidenav-container" autosize>
+    <mat-drawer #drawer class="sidenav" mode="over">
+        <mat-selection-list #shoes [multiple]="false">
+            <mat-list-option  #matList *ngFor="let opcion of opcionesMenuPadre" tabindex="-1" [ngClass]="cambiarEstiloscssOpcionPrincipal(opcion)"
+               [matMenuTriggerFor]="menu" (click)="cambiarEstiloBtnPrin(opcion.ID)">
+              <!-- <mat-icon mat-list-icon>{{opcion.ICONO}}</mat-icon> -->
+              <div mat-line>{{opcion.DESCRIPCION}}</div>
+            </mat-list-option>
+          </mat-selection-list>
+          <mat-menu #menu >
+            <div *ngFor="let opcion of opcionesMenu">
+              <button mat-menu-item  *ngIf="opcion.PADRE === opcionPrincipal"  tabindex="-1" [ngClass]="cambiarEstilocss(opcion)" tabindex="-1"  (click)="elegirVista(opcion.TEMPLATE)">{{opcion.DESCRIPCION}}</button>
+            </div>
+          </mat-menu>
+    </mat-drawer>
+
+    <div class="sidenav-content">
+        <mat-toolbar [color]="'primary'">
+            <button mat-icon-button (click)="drawer.toggle()" tabindex="-1">
+              <mat-icon>{{icono}}</mat-icon>
+            </button >
+            <span (click)="elegirVista('RE')">Para tu negocio</span>
+
+          </mat-toolbar>
+
+          <div class="container-fluid">
+            <app-productos-comerciales *ngIf="componente === NombresComponetes.PRODCOMERCIAL"></app-productos-comerciales>
+            <app-servicios *ngIf="componente === NombresComponetes.SERVICIOS"></app-servicios>
+            <app-producto-fabricado *ngIf="componente === NombresComponetes.PRODFABRICADOS"></app-producto-fabricado>
+            <app-materia-prima *ngIf="componente === NombresComponetes.MATERIAPRIMA"></app-materia-prima>
+            <app-mano-de-obra *ngIf="componente === NombresComponetes.MANOSDOBRA"></app-mano-de-obra>
+            <app-categoria *ngIf="componente === NombresComponetes.CATEGORIA"></app-categoria>
+            <app-unidad-de-medida *ngIf="componente === NombresComponetes.UNIDADDMEDIDA"></app-unidad-de-medida>
+            <app-materias-primas-asignados  *ngIf="componente === NombresComponetes.ASIGNARMATERIASP"></app-materias-primas-asignados>
+            <app-impuestos *ngIf="componente === NombresComponetes.IMPUESTOS"></app-impuestos>
+            <app-compras *ngIf="componente === NombresComponetes.COMPRAS"></app-compras>
+          </div>
+
+
+
+    </div>
+
+  </mat-drawer-container>

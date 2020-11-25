@@ -1,0 +1,202 @@
+.titulo-Ayuda-Ventana {
+  width: 90% !important;
+  display: inline-block !important;
+  vertical-align: -webkit-baseline-middle !important;
+  vertical-align: -moz-middle-with-baseline !important;
+}
+
+.toolbarAyudaVentana {
+  height: 50px;
+  margin: 0px;
+  /*padding: 5px 25px !important;*/
+}
+
+.cerrar-estilo-Ayuda {
+  cursor: pointer !important;
+  width: 10% !important;
+  text-align: right;
+  display: inline-block !important;
+  vertical-align: -webkit-baseline-middle !important;
+  vertical-align: -moz-middle-with-baseline !important;
+}
+
+.toolbarMatDialog {
+  background-color: #ffffff;
+}
+.contenido-ayuda-ventana {
+  padding: 0px !important;
+  margin: 0px !important;
+  align-items: center !important;
+  height: 90%;
+  overflow-y: scroll !important;
+}
+
+.checkP {
+  padding-top: 18px !important;
+}
+
+.botonOK {
+  width: 100% !important;
+  height: 50px;
+  bottom: -75%;
+  border: green 2px solid!important;
+  color: green;
+}
+
+.botonCancelar {
+  width: 100% !important;
+  height: 50px;
+  bottom: -75%;
+  border: red 2px solid!important;
+  color: red;
+
+
+}
+
+.contenedorBotones {
+  margin-top: 5%;
+}
+
+
+.mensaje{
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 100%;
+}
+.contendorMensaje{
+  text-align: center;
+  overflow-y: scroll;
+  height: 99% !important;
+}
+
+.textBoxEdit{
+  width: 100%;
+}
+.textBoxEditC{
+  width: 50%;
+}
+$primary_color: #9e9e9e !important;
+
+// table {
+//     width: 100%;
+//   }
+body {
+  padding: 2em;
+  font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Roboto, Helvetica,
+    Arial, sans-serif, “Apple Color Emoji”, “Segoe UI Emoji”, “Segoe UI Symbol”;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+// td, th {
+//   width: 25%;
+// }
+
+//   tr:hover{
+//         background-color: rgba(255, 255, 255, 0.397);
+//   }
+
+//   tr.example-element-row:not(.example-expanded-row):hover {
+//   background: whitesmoke;
+// }
+
+// tr.example-element-row:not(.example-expanded-row):active {
+//   background: #efefef;
+// }
+
+.dark {
+  font-size: 1rem;
+  color: black;
+  background: white;
+  padding: 0.5rem 0.5rem;
+  border: 1px solid #383838;
+  appearance: none;
+  border-radius: 3px;
+  padding-left: 30px;
+  height: 7%;
+  width: 100%;
+}
+.dark:focus {
+  border-color: white;
+  border-style: solid;
+}
+.dark:hover {
+  border-color: white;
+  border-style: solid;
+}
+
+.pi-search {
+    color: black;
+  display: inline !important;
+//   padding-right: 50px !important;
+  padding-left: 5px !important;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+.tituloCat{
+  text-align: center;
+  align-items: center;
+}
+.toolBarCat {
+  margin-top: 10px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+.Nombrecatalogo{
+  margin-left: 5px;
+}
+.seleccionOpcion{
+  width: 30% !important;
+}
+
+.seleccionError{
+  background-color: #FF7777 !important;
+}
+.seleccitonTemplate{
+  width: 100% !important;
+}
+
+.titulo-Ayuda-Ventana {
+  width: 90% !important;
+  display: inline-block !important;
+  vertical-align: -webkit-baseline-middle !important;
+  vertical-align: -moz-middle-with-baseline !important;
+}
+
+.toolbarAyudaVentana {
+  height: 50px;
+  margin: 0px;
+  /*padding: 5px 25px !important;*/
+}
+
+.cerrar-estilo-Ayuda {
+  cursor: pointer !important;
+  width: 10% !important;
+  text-align: right;
+  display: inline-block !important;
+  vertical-align: -webkit-baseline-middle !important;
+  vertical-align: -moz-middle-with-baseline !important;
+}
+
+.toolbarMatDialog {
+  background-color: #ffffff;
+}
+.contenido-ayuda-ventana {
+  padding: 0px !important;
+  margin: 0px !important;
+  align-items: center !important;
+  height: 95%;
+  overflow-y: scroll !important;
+}
+
+.checkP {
+  padding-top: 18px !important;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}

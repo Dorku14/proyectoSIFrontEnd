@@ -1,0 +1,70 @@
+.titulo-Ayuda-Ventana {
+  width: 90% !important;
+  display: inline-block !important;
+  vertical-align: -webkit-baseline-middle !important;
+  vertical-align: -moz-middle-with-baseline !important;
+}
+
+.toolbarAyudaVentana {
+  height: 50px;
+  margin: 0px;
+  /*padding: 5px 25px !important;*/
+}
+
+.cerrar-estilo-Ayuda {
+  cursor: pointer !important;
+  width: 10% !important;
+  text-align: right;
+  display: inline-block !important;
+  vertical-align: -webkit-baseline-middle !important;
+  vertical-align: -moz-middle-with-baseline !important;
+}
+
+.toolbarMatDialog {
+  background-color: #ffffff;
+}
+.contenido-ayuda-ventana {
+  padding: 0px !important;
+  margin: 0px !important;
+  align-items: center !important;
+  height: 95%;
+  overflow-y: scroll !important;
+}
+
+.checkP {
+  padding-top: 18px !important;
+}
+
+.botonOK {
+  width: 100% !important;
+  height: 50px;
+  bottom: -75%;
+  border: green 2px solid!important;
+  color: green;
+}
+
+.botonCancelar {
+  width: 100% !important;
+  height: 50px;
+  bottom: -75%;
+  border: red 2px solid!important;
+  color: red;
+
+
+}
+
+.contenedorBotones {
+  margin-top: 5%;
+}
+
+
+.mensaje{
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 100%;
+}
+.contendorMensaje{
+  text-align: center;
+  overflow-y: scroll;
+  height: 99% !important;
+}
