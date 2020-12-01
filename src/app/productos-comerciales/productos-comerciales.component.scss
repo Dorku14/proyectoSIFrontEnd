@@ -1,6 +1,5 @@
-
+@import '../../styles.scss';
 $primary_color: #9e9e9e !important;
-
 // table {
 //     width: 100%;
 //   }
@@ -31,7 +30,7 @@ body {
 // }
 
 .dark {
-  font-size: 1rem;
+  font-size: 110% !important;
   color: black;
   background: white;
   padding: 0.5rem 0.5rem;
@@ -72,5 +71,6 @@ body {
 }
 .Nombrecatalogo{
   margin-left: 5px;
+  @include tamanioLetrasGrandes();
 }
 

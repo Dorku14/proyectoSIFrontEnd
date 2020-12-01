@@ -1,5 +1,5 @@
 <mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
-    <span class="titulo-Ayuda-Ventana">{{TituloVentana}}</span>
+    <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
     <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
 </mat-toolbar>
 <mat-dialog-content class="contenido-ayuda-ventana">
@@ -13,20 +13,20 @@
         <div class="row">
             <div class="col-md-6">
                 <mat-form-field  >
-                    <mat-label>Código</mat-label>
-                    <input matInput #inputCodigo [(ngModel)]="ManoSrv.CODIGO" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo" [disabled]="modo == 'MODIFICAR'"  (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Código</mat-label>
+                    <input class="Input" matInput #inputCodigo [(ngModel)]="ManoSrv.CODIGO" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo" [disabled]="modo == 'MODIFICAR'"  (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <mat-form-field  >
-                    <mat-label>Actividad</mat-label>
-                    <input matInput #inputActividad [(ngModel)]="ManoSrv.ACTIVIDAD" (focus)="ObtenerFoco($event)" autocomplete="off"  (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Actividad</mat-label>
+                    <input class="Input" matInput #inputActividad [(ngModel)]="ManoSrv.ACTIVIDAD" (focus)="ObtenerFoco($event)" autocomplete="off"  (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-4">
               <mat-form-field >
-                <mat-label>Unidad de medida</mat-label>
-                <mat-select [(ngModel)]="ManoSrv.UNIDAD_MEDIDA">
+                <mat-label class="labelForm">Unidad de medida</mat-label>
+                <mat-select class="Input" [(ngModel)]="ManoSrv.UNIDAD_MEDIDA">
                   <mat-option *ngFor="let UnidadMedida of ListaUndidadMedida" [value]="UnidadMedida.NOMBRE">
                     {{UnidadMedida.NOMBRE}}
                   </mat-option>
@@ -40,8 +40,8 @@
           </div>
             <div class="col-md-6">
                 <mat-form-field >
-                    <mat-label>Costo</mat-label>
-                    <input matInput #inputVentAct [(ngModel)]="ManoSrv.COSTO" (focus)="ObtenerFoco($event)" autocomplete="off" (keypress)="validarTyping($event,'COSTO')" (blur)="perderFoco('COSTO')" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Costo</mat-label>
+                    <input class="Input" matInput #inputVentAct [(ngModel)]="ManoSrv.COSTO" (focus)="ObtenerFoco($event)" autocomplete="off" (keypress)="validarTyping($event,'COSTO')" (blur)="perderFoco('COSTO')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
         </div>

@@ -82,8 +82,8 @@ export class ComprasComponent implements OnInit {
   configuraDataGrid(): void {
     let configGrid = {
       columns: 8,
-      header: ['#', 'Folio','Código del producto','Descripción', 'Tipo de documento','Forma de pago', 'Proveedor','Tipo de elemento', 'IVA', 'Importe sin IVA', 'Total'],
-      field: ['NUM', 'FOLIO','CODIGO_PROD','DESCRIPCION', 'TIPO_DOC', 'FORMA_PAGO','PROVEEDOR', 'TIPO_ELEMENT', 'IVA_PROD','IMPORTE_SIN_IVA','TOTAL'],
+      header: ['#', 'Folio','Tipo de documento','Forma de pago', 'Proveedor','Tipo de elemento', 'IVA', 'Importe sin IVA', 'Total'],
+      field: ['NUM','FOLIO', 'TIPO_DOC', 'FORMA_PAGO','PROVEEDOR', 'TIPO_ELEMENT', 'IVA','IMPORTE_SIN_IVA','TOTAL'],
 
     };
     this.columns = this.funcGenerales.aplicaConfigGrid(configGrid);
@@ -139,7 +139,7 @@ export class ComprasComponent implements OnInit {
     @param[in] -> el modo en el que se comportará la ventana
   */
   ventanaDetalle(Modo) {
-    var width = '100vh';
+    var width = '120vh';
     var height = '85vh';
 
     const dialogRef = this.dialog.open(DetalleComprasComponent, {

@@ -1,5 +1,5 @@
 <mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
-  <span class="titulo-Ayuda-Ventana">{{Nombrecatalogo}}</span>
+  <span class="titulo-Ayuda-Ventana labelForm">{{Nombrecatalogo}}</span>
   <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
 </mat-toolbar>
 <mat-dialog-content class="contenido-ayuda-ventana">
@@ -22,45 +22,46 @@
     <div>
       <div class="row">
         <div class="col-md-6">
-          <mat-form-field [color]="colorSelect" appearance="fill" >
-            <mat-label>Tipo documento</mat-label>
-            <mat-select #CampoSelectPF (selectionChange)="cambiarColorSelectPF()"
-              [(ngModel)]="productoFabricadoSeleccionado" name="ProductoF">
-              <mat-option *ngFor="let documento of listaDocumentos" [value]="documento.NOMBRE">
+          <mat-form-field [color]="colorSelect" appearance="fill">
+            <mat-label class="labelSelect">Tipo documento</mat-label>
+            <mat-select  class="labelForm" #CampoSelectPF (selectionChange)="cambiarColorSelectPF()" [(ngModel)]="tipoDoc"
+              name="ProductoF">
+              <mat-option *ngFor="let documento of listaDocumentos" [value]="documento.ID">
                 {{documento.NOMBRE}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="col-md-6">
-          <mat-form-field [color]="colorSelect" appearance="fill" >
-            <mat-label>Forma de pago</mat-label>
-            <mat-select  (selectionChange)="cambiarColorSelectPF()"
-              [(ngModel)]="formaDePago" name="ProductoF">
-              <mat-option *ngFor="let formaPago of listaFormasPago" [value]="formaPago.DESCRIP">
+          <mat-form-field [color]="colorSelect" appearance="fill">
+            <mat-label  class="labelForm">Forma de pago</mat-label>
+            <mat-select  class="Input" (selectionChange)="cambiarColorSelectPF()" [(ngModel)]="formaDePago" name="ProductoF">
+              <mat-option *ngFor="let formaPago of listaFormasPago" [value]="formaPago.ID">
                 {{formaPago.DESCRIP}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-      </div>
+        </div>
         <div class="col-md-4">
-          <mat-radio-group [color]="'primary'" aria-label="Selecciona una opcion">
-            <mat-radio-button  #radioBtnP value="1">Producto</mat-radio-button>
-            <mat-radio-button value="2">Materia prima</mat-radio-button>
+          <mat-radio-group  [(ngModel)]="tipoProd" [color]="'primary'" aria-label="Selecciona una opcion">
+            <mat-radio-button #radioBtnP value="P" class="labelForm">Producto</mat-radio-button>
+            <mat-radio-button value="M" class="labelForm">Materia prima</mat-radio-button>
           </mat-radio-group>
-      </div>
-      <div class="col-md-4">
-        <mat-form-field  >
-            <mat-label>Folio</mat-label>
-            <input matInput #inputCodigo [(ngModel)]="Folio" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo"   (keydown)="presionaBoton($event)">
-        </mat-form-field>
-    </div>
+        </div>
         <div class="col-md-4">
-          <mat-form-field  >
-              <mat-label>Proveedor</mat-label>
-              <input matInput #inputCodigo [(ngModel)]="Proveedor" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo"   (keydown)="presionaBoton($event)">
+          <mat-form-field>
+            <mat-label class="labelForm">Folio</mat-label>
+            <input class="Input" matInput #inputCodigo [(ngModel)]="Folio" (focus)="ObtenerFoco($event)" autocomplete="off"
+              name="codigo" (keydown)="presionaBoton($event)">
           </mat-form-field>
-      </div>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <mat-label class="labelForm">Proveedor</mat-label>
+            <input class="Input" matInput #inputCodigo [(ngModel)]="Proveedor" (focus)="ObtenerFoco($event)" autocomplete="off"
+              name="codigo" (keydown)="presionaBoton($event)">
+          </mat-form-field>
+        </div>
 
       </div>
 
@@ -71,20 +72,20 @@
           <tr>
             <th [pSortableColumn]="'NUM'"># <p-sortIcon field="NUM"></p-sortIcon>
             </th>
-            <th [pSortableColumn]="'CODIGO'">Código <p-sortIcon field="CODIGO"></p-sortIcon>
+            <th [pSortableColumn]="'CODIGO_PROD'">Código <p-sortIcon field="CODIGO_PROD"></p-sortIcon>
             </th>
-            <th [pSortableColumn]="'DESCRIPCION'">Descripción<p-sortIcon field="MATERIA_PRIMA"></p-sortIcon>
+            <th [pSortableColumn]="'DESCRIPCION'">Descripción<p-sortIcon field="DESCRIPCION"></p-sortIcon>
             </th>
             <th [pSortableColumn]="'CANTIDAD'">Cantidad<p-sortIcon field="CANTIDAD"></p-sortIcon>
             </th>
-            <th [pSortableColumn]="'COSTO'">Costo (Unidad sin IVA)<p-sortIcon field="UNIDAD_MEDIDA">
+            <th [pSortableColumn]="'COSTO'">Costo (Unidad sin IVA)<p-sortIcon field="COSTO">
               </p-sortIcon>
             </th>
-            <th [pSortableColumn]="'PORCENTAJE'">% Asignado<p-sortIcon field="UNIDAD_MEDIDA"></p-sortIcon>
+            <th [pSortableColumn]="'PORCENTAJE'">% Asignado<p-sortIcon field="PORCENTAJE"></p-sortIcon>
             </th>
-            <th [pSortableColumn]="'PORCENTAJE'">IVA<p-sortIcon field="UNIDAD_MEDIDA"></p-sortIcon>
+            <th [pSortableColumn]="'IVA_PROD'">IVA<p-sortIcon field="IVA_PROD"></p-sortIcon>
             </th>
-            <th [pSortableColumn]="'TOTAL'">Total<p-sortIcon field="UNIDAD_MEDIDA"></p-sortIcon>
+            <th [pSortableColumn]="'TOTAL'">Total<p-sortIcon field="TOTAL"></p-sortIcon>
             </th>
 
           </tr>
@@ -94,11 +95,11 @@
             <!-- NUM -->
             <td>{{rowData.NUM}}</td>
             <!-- CODIGO -->
-            <td pEditableColumn [pEditableColumnField]="'CODIGO'" [pEditableColumnRowIndex]="rowData.NUM">
+            <td pEditableColumn [pEditableColumnField]="'CODIGO_PROD'" [pEditableColumnRowIndex]="rowData.NUM">
               <p-cellEditor>
                 <ng-template pTemplate="input">
-                  <input matInput  class="textBoxEditC"  [maxLength]="50" pInputText
-                  type="text" [(ngModel)]="rowData.CODIGO">
+                  <input matInput class="textBoxEditC" [maxLength]="50" pInputText type="text"
+                    [(ngModel)]="rowData.CODIGO_PROD">
                   <button mat-icon-button (click)="buscarProductos(rowData.NUM)">
                     <mat-icon>search</mat-icon>
                   </button>
@@ -114,7 +115,7 @@
 
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{rowData.CODIGO}}
+                  {{rowData.CODIGO_PROD}}
                 </ng-template>
               </p-cellEditor>
             </td>
@@ -124,46 +125,84 @@
             <td pEditableColumn [pEditableColumnField]="'CANTIDAD'" [pEditableColumnRowIndex]="rowData.NUM">
               <p-cellEditor>
                 <ng-template pTemplate="input">
-                  <input class="textBoxEdit" (keypress)="validarTyping($event,'CANTIDAD')" [maxLength]="2" pInputText
+                  <input class="textBoxEdit" (focus)="ObtenerFoco($event)" (keypress)="validarTyping($event,'CANTIDAD')" [maxLength]="10" pInputText
                     type="text" [(ngModel)]="rowData.CANTIDAD">
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{rowData.CANTIDAD}}
+                  {{dameFormatoCantidad(rowData.CANTIDAD)}}
                 </ng-template>
               </p-cellEditor>
 
             </td>
             <!-- COSTO -->
-            <td> {{rowData.COSTO}} </td>
-            <!-- PORCENTAJE -->
-            <td> {{rowData.PRORCENTAJE}} </td>
+            <td pEditableColumn [pEditableColumnField]="'COSTO'" [pEditableColumnRowIndex]="rowData.NUM">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input class="textBoxEdit" (focus)="ObtenerFoco($event)" (keypress)="validarTyping($event,'COSTO')" [maxLength]="10" pInputText
+                    type="text" [(ngModel)]="rowData.COSTO">
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{dameFormatoMoneda(rowData.COSTO)}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <!-- ASIGNADO -->
+            <td pEditableColumn [pEditableColumnField]="'ASIGNADO'" [pEditableColumnRowIndex]="rowData.NUM">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input class="textBoxEdit" (focus)="ObtenerFoco($event)" (keypress)="validarTyping($event,'ASIGNADO')" [maxLength]="10" pInputText
+                    type="text" [(ngModel)]="rowData.ASIGNADO">
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{funcGenerales.formatoPorcentaje(rowData.ASIGNADO)}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
             <!-- IVA x Producto -->
-            <td> {{rowData.IVA}} </td>
+            <td pEditableColumn [pEditableColumnField]="'IVA_PROD'" [pEditableColumnRowIndex]="rowData.NUM">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input matInput class="textBoxEditC" [maxLength]="50" pInputText type="text"
+                  [(ngModel)]="rowData.IVA_PROD">
+                <button mat-icon-button (click)="buscarImpuestos(rowData.NUM)">
+                  <mat-icon>search</mat-icon>
+                </button>
+                  <!-- <input class="textBoxEdit" (focus)="ObtenerFoco($event)" (keypress)="validarTyping($event,'IVA_PROD')" [maxLength]="10" pInputText
+                    type="text" [(ngModel)]="rowData.IVA_PROD"> -->
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{funcGenerales.formatoPorcentaje( rowData.IVA_PROD)}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
             <!-- TOTAL -->
-            <td> {{rowData.TOTAL}} </td>
+            <td> {{dameFormatoMoneda(rowData.TOTAL)}}</td>
 
           </tr>
         </ng-template>
       </p-table>
       <div class="row" style="margin-top: 5px;">
         <div class="col-md-4">
-          <mat-form-field  >
-              <mat-label>Importe (sin IVA)</mat-label>
-              <input matInput #inputImporte [(ngModel)]="importeSINIVA" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo"   (keydown)="presionaBoton($event)">
+          <mat-form-field>
+            <mat-label>Importe (sin IVA)</mat-label>
+            <input matInput #inputImporte [(ngModel)]="importeSINIVA" (focus)="ObtenerFoco($event)" autocomplete="off"
+              name="codigo" (keydown)="presionaBoton($event)">
           </mat-form-field>
-      </div>
-      <div class="col-md-4">
-        <mat-form-field  >
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
             <mat-label>IVA</mat-label>
-            <input matInput #inputIVA [(ngModel)]="IVA" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo"   (keydown)="presionaBoton($event)">
-        </mat-form-field>
-    </div>
-    <div class="col-md-4">
-      <mat-form-field  >
-          <mat-label>Total</mat-label>
-          <input matInput #imputTotal [(ngModel)]="Total" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo"   (keydown)="presionaBoton($event)">
-      </mat-form-field>
-  </div>
+            <input matInput #inputIVA [(ngModel)]="IVA" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo"
+              (keydown)="presionaBoton($event)">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <mat-label>Total</mat-label>
+            <input matInput #imputTotal [(ngModel)]="Total" (focus)="ObtenerFoco($event)" autocomplete="off"
+              name="codigo" (keydown)="presionaBoton($event)">
+          </mat-form-field>
+        </div>
       </div>
 
     </div>

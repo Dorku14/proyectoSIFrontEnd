@@ -1,5 +1,5 @@
 <mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
-  <span class="titulo-Ayuda-Ventana">{{TituloVentana}}</span>
+  <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
   <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
 </mat-toolbar>
 <mat-dialog-content class="contenido-ayuda-ventana">
@@ -13,15 +13,15 @@
       <div class="row">
           <div class="col-md-6">
               <mat-form-field  >
-                  <mat-label>Nombre</mat-label>
-                  <input matInput #inputCodigo [(ngModel)]="ImpustoSrv.NOMBRE" autocomplete="off" [maxLength]="50" (focus)="ObtenerFoco($event)" name="codigo" [disabled]="modo == 'MODIFICAR'"  (keydown)="presionaBoton($event)" >
+                  <mat-label class="labelForm">Nombre</mat-label>
+                  <input  class="Input" matInput #inputCodigo [(ngModel)]="ImpustoSrv.NOMBRE" autocomplete="off" [maxLength]="50" (focus)="ObtenerFoco($event)" name="codigo" [disabled]="modo == 'MODIFICAR'"  (keydown)="presionaBoton($event)" >
               </mat-form-field>
           </div>
           <div class="col-md-6">
               <!-- producto -->
               <mat-form-field  >
-                  <mat-label>Porcentaje</mat-label>
-                  <input matInput #inputActividad [(ngModel)]="ImpustoSrv.PORCENTAJE" autocomplete="off" (focus)="ObtenerFoco($event)" [maxLength]="50" >
+                  <mat-label class="labelForm">Porcentaje</mat-label>
+                  <input class="Input" matInput #inputActividad [(ngModel)]="ImpustoSrv.PORCENTAJE" autocomplete="off" (focus)="ObtenerFoco($event)" [maxLength]="50" >
               </mat-form-field>
           </div>
       </div>

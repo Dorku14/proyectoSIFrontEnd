@@ -1,5 +1,5 @@
 <mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
-    <span class="titulo-Ayuda-Ventana">{{TituloVentana}}</span>
+    <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
     <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
 </mat-toolbar>
 <mat-dialog-content class="contenido-ayuda-ventana">
@@ -14,65 +14,65 @@
             <div class="col-md-6">
                 <mat-form-field  >
                     <!-- codigo -->
-                    <mat-label>Código</mat-label>
-                    <input matInput #inputNombre [(ngModel)]="ProductoFSrv.CODIGO" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo" [disabled]="modo == 'MODIFICAR'" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Código</mat-label>
+                    <input class="Input" matInput #inputNombre [(ngModel)]="ProductoFSrv.CODIGO" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo" [disabled]="modo == 'MODIFICAR'" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <!-- producto -->
                 <mat-form-field  >
-                    <mat-label>Producto</mat-label>
-                    <input matInput #inputMonto [(ngModel)]="ProductoFSrv.PRODUCTO" (focus)="ObtenerFoco($event)" autocomplete="off"  (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Producto</mat-label>
+                    <input class="Input" matInput #inputMonto [(ngModel)]="ProductoFSrv.PRODUCTO" (focus)="ObtenerFoco($event)" autocomplete="off"  (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <!-- cantidad -->
                 <mat-form-field  >
-                    <mat-label>Cantidad</mat-label>
-                    <input matInput #inputMonto [(ngModel)]="ProductoFSrv.CANTIDAD" (focus)="ObtenerFoco($event)" (focus)="ObtenerFoco($event)" autocomplete="off" (keypress)="validarTyping($event,'CANTIDAD')" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Cantidad</mat-label>
+                    <input class="Input" matInput #inputMonto [(ngModel)]="ProductoFSrv.CANTIDAD" (focus)="ObtenerFoco($event)" (focus)="ObtenerFoco($event)" autocomplete="off" (keypress)="validarTyping($event,'CANTIDAD')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
 
             </div>
             <div class="col-md-6">
                 <!-- precio de compra -->
                 <mat-form-field >
-                    <mat-label>Precio de compra</mat-label>
-                    <input matInput #inputDias [(ngModel)]="ProductoFSrv.PRECIO_COMPRA" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_COMPRA')" (keypress)="validarTyping($event,'PRECIO_COMPRA')" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Precio de compra</mat-label>
+                    <input class="Input" matInput #inputDias [(ngModel)]="ProductoFSrv.PRECIO_COMPRA" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_COMPRA')" (keypress)="validarTyping($event,'PRECIO_COMPRA')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <!-- Costo actualizado -->
                 <mat-form-field  >
-                    <mat-label>Costo actualizado</mat-label>
-                    <input matInput #inputDias [(ngModel)]="ProductoFSrv.COSTO_ACTUALIZADO" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('COSTO_ACTUALIZADO')" (keypress)="validarTyping($event,'COSTO_ACTUALIZADO')" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Costo actualizado</mat-label>
+                    <input class="Input" matInput #inputDias [(ngModel)]="ProductoFSrv.COSTO_ACTUALIZADO" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('COSTO_ACTUALIZADO')" (keypress)="validarTyping($event,'COSTO_ACTUALIZADO')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <!-- precio de venta actualizado -->
                 <mat-form-field  >
-                    <mat-label>Precio de venta</mat-label>
-                    <input matInput #inputDias [(ngModel)]="ProductoFSrv.PRECIO_VENTA" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_VENTA')" (keypress)="validarTyping($event,'PRECIO_VENTA')" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Precio de venta</mat-label>
+                    <input class="Input" matInput #inputDias [(ngModel)]="ProductoFSrv.PRECIO_VENTA" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_VENTA')" (keypress)="validarTyping($event,'PRECIO_VENTA')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <!-- precio de venta actualizado -->
                 <mat-form-field  >
-                    <mat-label>Precio de venta actualizado</mat-label>
-                    <input matInput #inputDias [(ngModel)]="ProductoFSrv.PRECIO_VENT_ACT" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_VENT_ACT')" (keypress)="validarTyping($event,'PRECIO_VENT_ACT')" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Precio de venta actualizado</mat-label>
+                    <input class="Input" matInput #inputDias [(ngModel)]="ProductoFSrv.PRECIO_VENT_ACT" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_VENT_ACT')" (keypress)="validarTyping($event,'PRECIO_VENT_ACT')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <!-- Inventario -->
                 <mat-form-field  >
-                    <mat-label>Inventario</mat-label>
-                    <input matInput #inputDias [(ngModel)]="ProductoFSrv.INVENTARIO" (focus)="ObtenerFoco($event)" autocomplete="off" (keypress)="validarTyping($event,'INVENTARIO')" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Inventario</mat-label>
+                    <input class="Input" matInput #inputDias [(ngModel)]="ProductoFSrv.INVENTARIO" (focus)="ObtenerFoco($event)" autocomplete="off" (keypress)="validarTyping($event,'INVENTARIO')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <!-- Punto de reorden -->
                 <mat-form-field  >
-                    <mat-label>Punto de reorden</mat-label>
-                    <input matInput #inputDias [(ngModel)]="ProductoFSrv.PUNTO_REORDEN" (focus)="ObtenerFoco($event)" autocomplete="off" (keypress)="validarTyping($event,'PUNTO_REORDEN')" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Punto de reorden</mat-label>
+                    <input class="Input" matInput #inputDias [(ngModel)]="ProductoFSrv.PUNTO_REORDEN" (focus)="ObtenerFoco($event)" autocomplete="off" (keypress)="validarTyping($event,'PUNTO_REORDEN')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
         </div>

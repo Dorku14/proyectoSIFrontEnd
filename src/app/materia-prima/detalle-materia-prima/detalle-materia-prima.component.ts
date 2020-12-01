@@ -10,6 +10,7 @@ import { MODO, EXITO, NOEXISTE } from 'src/app/sharedModules/constantes';
 import { ServiciosService } from 'src/app/services/servicios.service';
 import { MateriasPrimasService } from 'src/app/services/MateriPrima.service';
 import { DetalleUnidadMedidaComponent } from 'src/app/unidad-de-medida/detalle-unidad-medida/detalle-unidad-medida.component';
+import { DetalleCategoriaComponent } from 'src/app/categoria/detalle-categoria/detalle-categoria.component';
 
 @Component({
   selector: 'app-detalle-materia-prima',
@@ -41,10 +42,10 @@ export class DetalleMateriaPrimaComponent implements OnInit {
     this.MateriaSrv.incicializarVariables();
     this.inicializarUnidades();
     this.inicializaCategorias();
-    this.MateriaSrv.PRECIO_VENTA = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.PRECIO_VENTA, 2, '$');
-    this.MateriaSrv.COSTO_COMPRA = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.COSTO_COMPRA, 2, '$');
-    this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE, 2, '$');
-    this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO, 2, '$');
+    this.MateriaSrv.PRECIO_VENTA = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.PRECIO_VENTA, 2);
+    this.MateriaSrv.COSTO_COMPRA = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.COSTO_COMPRA, 2);
+    this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE, 2);
+    this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO, 2);
   }
 
   inicializarUnidades() {
@@ -146,10 +147,10 @@ export class DetalleMateriaPrimaComponent implements OnInit {
     this.MateriaSrv.MATERIA_PRIMA = datos.MATERIA_PRIMA;
     this.MateriaSrv.UNIDAD_MEDIDA = datos.UNIDAD_MEDIDA;
     // this.MateriaSrv.CANTIDAD = this.funcGenerales.dameFormatoCantidad(datos.CANTIDAD,2);
-    this.MateriaSrv.PRECIO_VENTA = this.funcGenerales.dameFormatoMoneda(datos.PRECIO_VENTA, 2, '$');
-    this.MateriaSrv.COSTO_COMPRA = this.funcGenerales.dameFormatoMoneda(datos.COSTO_COMPRA, 2, '$');
-    this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE = this.funcGenerales.dameFormatoMoneda(datos.COSTEO_PROMEDIO_RECIENTE, 2, '$');
-    this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO = this.funcGenerales.dameFormatoMoneda(datos.PRECIO_VENTA_ACTUALIZADO, 2, '$');
+    this.MateriaSrv.PRECIO_VENTA = this.funcGenerales.dameFormatoMoneda(datos.PRECIO_VENTA, 2);
+    this.MateriaSrv.COSTO_COMPRA = this.funcGenerales.dameFormatoMoneda(datos.COSTO_COMPRA, 2);
+    this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE = this.funcGenerales.dameFormatoMoneda(datos.COSTEO_PROMEDIO_RECIENTE, 2);
+    this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO = this.funcGenerales.dameFormatoMoneda(datos.PRECIO_VENTA_ACTUALIZADO, 2);
     this.MateriaSrv.INVENTARIO = datos.INVENTARIO;
     this.MateriaSrv.PUNTO_REORDEN = datos.PUNTO_REORDEN;
     this.quitarCargando();
@@ -329,19 +330,41 @@ export class DetalleMateriaPrimaComponent implements OnInit {
     });
   }
 
+  agregarCAT(){
+    let modo = MODO.ALTA;
+    var width = '45vh';
+    var height = '25vh';
+
+    const dialogRef = this.dialog.open(DetalleCategoriaComponent, {
+      disableClose: true,
+      width: width,
+      height: height,
+      data: {
+        Proceso: modo,
+        item: this.itemSeleccionado,
+      },
+    });
+
+    return new Promise((resolve) => {
+      dialogRef.afterClosed().subscribe((result) => {
+        console.log(result);
+        this.inicializarUnidades();
+      });
+    });
+  }
   perderFoco(campo) {
     switch (campo) {
       case 'PRECIO_VENTA':
-        this.MateriaSrv.PRECIO_VENTA = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.PRECIO_VENTA, 2, '$');
+        this.MateriaSrv.PRECIO_VENTA = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.PRECIO_VENTA, 2);
         break;
       case 'PRECIO_VENTA_ACTUALIZADO':
-        this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO, 2, '$');
+        this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO, 2);
         break;
       case 'COSTO_COMPRA':
-        this.MateriaSrv.COSTO_COMPRA = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.COSTO_COMPRA, 2, '$');
+        this.MateriaSrv.COSTO_COMPRA = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.COSTO_COMPRA, 2);
         break;
       case 'COSTEO_PROMEDIO_RECIENTE':
-        this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE, 2, '$');
+        this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE, 2);
         break;
     }
   }

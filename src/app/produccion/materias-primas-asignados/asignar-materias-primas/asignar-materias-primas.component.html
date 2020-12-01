@@ -1,91 +1,114 @@
-    <mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
-      <span class="titulo-Ayuda-Ventana">{{Nombrecatalogo}}</span>
-      <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
-  </mat-toolbar>
-  <mat-dialog-content class="contenido-ayuda-ventana">
+<mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
+  <span class="titulo-Ayuda-Ventana">{{Nombrecatalogo}}</span>
+  <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
+</mat-toolbar>
+<mat-dialog-content class="contenido-ayuda-ventana">
 
-    <div class="container-fluid">
-      <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
-      <mat-toolbar class="toolbarMatDialog">
-        <button mat-icon-button class="sinborde" tabindex="-1"  matTooltip="Guardar" (click)="guardar()">
-            <mat-icon>save</mat-icon>
-        </button>
-        <button mat-icon-button  (click)="agregar()"  tabindex="-1" matTooltip="Agregar">
-          <mat-icon>add</mat-icon>
+  <div class="container-fluid">
+    <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
+    <mat-toolbar class="toolbarMatDialog">
+      <button mat-icon-button class="sinborde" tabindex="-1" matTooltip="Guardar" (click)="guardar()">
+        <mat-icon>save</mat-icon>
       </button>
-      <button mat-icon-button  matTooltip="Eliminar"   tabindex="-1" [disabled]="!itemSeleccionado"
-      (click)="eliminar()">
-      <mat-icon>delete</mat-icon>
-  </button>
+      <button mat-icon-button (click)="agregar()" tabindex="-1" matTooltip="Agregar">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="Eliminar" tabindex="-1" [disabled]="!itemSeleccionado" (click)="eliminar()">
+        <mat-icon>delete</mat-icon>
+      </button>
     </mat-toolbar>
 
 
-      <div >
-        <mat-form-field [color]="colorSelect" appearance="fill" class="seleccionOpcion">
-          <mat-label >Producto Fabricado</mat-label>
-          <mat-select #CampoSelectPF (selectionChange)="cambiarColorSelectPF()"  [(ngModel)]="productoFabricadoSeleccionado" name="ProductoF">
-            <mat-option *ngFor="let ProdFa of listaProductosF" [value]="ProdFa.PRODUCTO">
-              {{ProdFa.PRODUCTO}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-          <p-table #dt [responsive]="true" [columns]="columns" [scrollable]="true"  styleClass="p-datatable-gridlines"  [value]="dataSource" scrollHeight="55vh"
-              selectionMode="single" [(selection)]="itemSeleccionado" dataKey="NUM" (onEditComplete)="terminarProcesoEditar($event)" (onEditInit)="inicarProcesoEdicion($event)" >
-              <ng-template pTemplate="header">
-                  <tr>
-                      <th    [pSortableColumn]="'NUM'"># <p-sortIcon field="NUM"></p-sortIcon></th>
-                      <th    [pSortableColumn]="'CODIGO'">Código <p-sortIcon field="CODIGO"></p-sortIcon></th>
-                      <th    [pSortableColumn]="'MATERIA_PRIMA'">Materia prima <p-sortIcon field="MATERIA_PRIMA"></p-sortIcon></th>
-                      <th    [pSortableColumn]="'CANTIDAD'">Cantidad <p-sortIcon field="CANTIDAD"></p-sortIcon></th>
-                      <th    [pSortableColumn]="'UNIDAD_MEDIDA'">Unidad de medida <p-sortIcon field="UNIDAD_MEDIDA"></p-sortIcon></th>
+    <div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field [color]="colorSelect">
+            <mat-label class="labelForm">Producto Fabricado</mat-label>
+            <input  class="Input" matInput name="ProductoF"  [maxLength]="50"
+            [(ngModel)]="productoFabricadoSeleccionado">
 
-                  </tr>
-              </ng-template>
-              <ng-template pEditableColumn pTemplate="body" let-rowData >
-                  <tr [pSelectableRow]="rowData" >
-                    <!-- NUM -->
-                    <td >{{rowData.NUM}}</td>
-                    <!-- CODIGO -->
-                    <td pEditableColumn [pEditableColumnField]="'CODIGO'"  [pEditableColumnRowIndex]="rowData.NUM" >
-                      <p-cellEditor>
-                        <ng-template pTemplate="input">
-                          <mat-form-field appearance="fill" class="seleccitonTemplate" >
-                            <mat-select [(ngModel)]="rowData.CODIGO"  name="ProductoF" (click)="inicarProcesoEdicion(rowData.NUM)" (selectionChange)="cambioDeOpcionSelect($event)">
-                              <mat-option >Código | Materia Prima</mat-option>
-                              <mat-option *ngFor="let MateriaP of listaMaterasP" [value]="MateriaP.CODIGO">
-                                {{MateriaP.CODIGO}} | {{MateriaP.MATERIA_PRIMA}}
-                              </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{rowData.CODIGO}}
-                        </ng-template>
-                    </p-cellEditor>
-                    </td>
-                    <!-- MATERIA -->
-                      <td>{{rowData.MATERIA_PRIMA}}</td>
-                      <!-- CANTIDAD -->
-                    <td pEditableColumn [pEditableColumnField]="'CANTIDAD'" [pEditableColumnRowIndex]="rowData.NUM">
-                      <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <input  class="textBoxEdit" (keypress)="validarTyping($event,'CANTIDAD')" [maxLength]="2" pInputText type="text" [(ngModel)]="rowData.CANTIDAD">
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{rowData.CANTIDAD}}
-                        </ng-template>
-                    </p-cellEditor>
-
-                  </td>
-                  <!-- UNIDAD DE MEDIDA -->
-                  <td > {{rowData.UNIDAD_MEDIDA}} </td>
-
-                  </tr>
-              </ng-template>
-          </p-table>
+            <!-- <mat-select class="labelForm" #CampoSelectPF (selectionChange)="cambiarColorSelectPF()"
+              [(ngModel)]="productoFabricadoSeleccionado" name="ProductoF">
+              <mat-option *ngFor="let ProdFa of listaProductosF" [value]="ProdFa.PRODUCTO">
+                {{ProdFa.PRODUCTO}}
+              </mat-option>
+            </mat-select> -->
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <button mat-icon-button matTooltip="Buscar Productos" (click)="buscarProductos()" style="margin: 0px !important;padding: 0px !important;">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
       </div>
+
+      <p-table #dt [responsive]="true" [columns]="columns" [scrollable]="true" styleClass="p-datatable-gridlines"
+        [value]="dataSource" scrollHeight="55vh" selectionMode="single" [(selection)]="itemSeleccionado" dataKey="NUM"
+        (onEditComplete)="terminarProcesoEditar($event)" (onEditInit)="inicarProcesoEdicion($event)">
+        <ng-template pTemplate="header">
+          <tr>
+            <th [pSortableColumn]="'NUM'">
+              <div class="headerGrid">#</div>
+              <p-sortIcon class="iconoOrdenamiento" field="NUM"></p-sortIcon>
+            </th>
+            <th [pSortableColumn]="'CODIGO'"><div class="headerGrid">Código</div> <p-sortIcon class="iconoOrdenamiento" field="CODIGO"></p-sortIcon>
+            </th>
+            <th [pSortableColumn]="'MATERIA_PRIMA'"> <div class="headerGrid">Materia prima</div> <p-sortIcon class="iconoOrdenamiento" field="MATERIA_PRIMA"></p-sortIcon>
+            </th>
+            <th [pSortableColumn]="'CANTIDAD'"> <div class="headerGrid">Cantidad</div> <p-sortIcon class="iconoOrdenamiento" field="CANTIDAD"></p-sortIcon>
+            </th>
+            <th [pSortableColumn]="'UNIDAD_MEDIDA'"><div class="headerGrid">Unidad de medida</div> <p-sortIcon class="iconoOrdenamiento" field="UNIDAD_MEDIDA"></p-sortIcon>
+            </th>
+
+          </tr>
+        </ng-template>
+        <ng-template pEditableColumn pTemplate="body" let-rowData>
+          <tr [pSelectableRow]="rowData">
+            <!-- NUM -->
+            <td>{{rowData.NUM}}</td>
+            <!-- CODIGO -->
+            <td pEditableColumn [pEditableColumnField]="'CODIGO'" [pEditableColumnRowIndex]="rowData.NUM">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <mat-form-field appearance="fill" class="seleccitonTemplate">
+                    <mat-select class="labelForm" [(ngModel)]="rowData.CODIGO" name="ProductoF"
+                      (click)="inicarProcesoEdicion(rowData.NUM)" (selectionChange)="cambioDeOpcionSelect($event)">
+                      <mat-option>Código | Materia Prima</mat-option>
+                      <mat-option *ngFor="let MateriaP of listaMaterasP" [value]="MateriaP.CODIGO">
+                        {{MateriaP.CODIGO}} | {{MateriaP.MATERIA_PRIMA}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{rowData.CODIGO}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <!-- MATERIA -->
+            <td>{{rowData.MATERIA_PRIMA}}</td>
+            <!-- CANTIDAD -->
+            <td pEditableColumn [pEditableColumnField]="'CANTIDAD'" [pEditableColumnRowIndex]="rowData.NUM">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input class="textBoxEdit" (keypress)="validarTyping($event,'CANTIDAD')" [maxLength]="2" pInputText
+                    type="text" [(ngModel)]="rowData.CANTIDAD">
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{dameFormatoCantidad(rowData.CANTIDAD)}}
+                </ng-template>
+              </p-cellEditor>
+
+            </td>
+            <!-- UNIDAD DE MEDIDA -->
+            <td> {{rowData.UNIDAD_MEDIDA}} </td>
+
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
+  </div>
 
 
 
-  </mat-dialog-content>
+</mat-dialog-content>

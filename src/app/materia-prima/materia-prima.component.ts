@@ -75,7 +75,7 @@ export class MateriaPrimaComponent implements OnInit {
   configuraDataGrid(): void {
     let configGrid = {
       columns: 12,
-      header: ['#', 'Código', 'Categoría', 'Materia prima', 'Unidad de medida', 'Cantidad(Balance inicial)','Precio de venta(Sin IVA)','Precio de compra(Sin IVA)','Costeo promedio reciente','Precio de venta actualizado','Inventario','Punto de reorden'],
+      header: ['#', 'Código', 'Categoría', 'Materia prima', 'Unidad de medida', 'Cantidad (Balance inicial)','Precio de venta (Sin IVA)','Precio de compra (Sin IVA)','Costeo promedio reciente','Precio de venta actualizado','Inventario','Punto de reorden'],
       field: ['NUM', 'CODIGO', 'CATEGORIA', 'MATERIA_PRIMA', 'UNIDAD_MEDIDA', 'CANTIDAD','PRECIO_VENTA','COSTO_COMPRA','COSTEO_PROMEDIO_RECIENTE','PRECIO_VENTA_ACTUALIZADO','INVENTARIO','PUNTO_REORDEN'],
 
     };

@@ -1,5 +1,5 @@
 <mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
-    <span class="titulo-Ayuda-Ventana">{{TituloVentana}}</span>
+    <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
     <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
 </mat-toolbar>
 <mat-dialog-content class="contenido-ayuda-ventana">
@@ -14,37 +14,37 @@
             <div class="col-md-6">
                 <mat-form-field  >
                     <!-- codigo -->
-                    <mat-label>Código</mat-label>
-                    <input matInput #inputCodigo [(ngModel)]="ServiciosSrv.CODIGO" autocomplete="off" [maxLength]="50" (focus)="ObtenerFoco($event)" name="codigo" [disabled]="modo == 'MODIFICAR'"  (keydown)="presionaBoton($event)" >
+                    <mat-label  class="labelForm">Código</mat-label>
+                    <input class="Input" matInput #inputCodigo [(ngModel)]="ServiciosSrv.CODIGO" autocomplete="off" [maxLength]="50" (focus)="ObtenerFoco($event)" name="codigo" [disabled]="modo == 'MODIFICAR'"  (keydown)="presionaBoton($event)" >
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <!-- producto -->
                 <mat-form-field  >
-                    <mat-label>Actividad</mat-label>
-                    <input matInput #inputActividad [(ngModel)]="ServiciosSrv.ACTIVIDAD" autocomplete="off" (focus)="ObtenerFoco($event)" [maxLength]="50" >
+                    <mat-label  class="labelForm">Actividad</mat-label>
+                    <input class="Input" matInput #inputActividad [(ngModel)]="ServiciosSrv.ACTIVIDAD" autocomplete="off" (focus)="ObtenerFoco($event)" [maxLength]="50" >
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <!-- cantidad -->
                 <mat-form-field  >
-                    <mat-label>Precio de venta</mat-label>
-                    <input matInput #inputPrecioventa [(ngModel)]="ServiciosSrv.PRECIO_VENT" [maxLength]="12" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIOVENT')" (keypress)="validarTyping($event,'PRECIOVENT')" (keydown)="presionaBoton($event)">
+                    <mat-label  class="labelForm">Precio de venta</mat-label>
+                    <input class="Input" matInput #inputPrecioventa [(ngModel)]="ServiciosSrv.PRECIO_VENT" [maxLength]="12" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIOVENT')" (keypress)="validarTyping($event,'PRECIOVENT')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
 
             </div>
             <div class="col-md-6">
                 <!-- precio de compra -->
                 <mat-form-field >
-                    <mat-label>Precio de venta actualizado</mat-label>
-                    <input matInput #inputVentAct [(ngModel)]="ServiciosSrv.PRECIO_VENT_ACT" [maxLength]="12" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_VENT_ACT')" (keypress)="validarTyping($event,'PRECIO_VENT_ACT')" (keydown)="presionaBoton($event)">
+                    <mat-label  class="labelForm">Precio de venta actualizado</mat-label>
+                    <input class="Input" matInput #inputVentAct [(ngModel)]="ServiciosSrv.PRECIO_VENT_ACT" [maxLength]="12" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_VENT_ACT')" (keypress)="validarTyping($event,'PRECIO_VENT_ACT')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <!-- precio de venta -->
                 <mat-form-field  >
-                    <mat-label>Pago para el que presta el servicio (Empleado)</mat-label>
-                    <input matInput #inputPagoEmpleado [(ngModel)]="ServiciosSrv.PAGO_EMPLEADO" [maxLength]="12" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIOPAGO')" (keypress)="validarTyping($event,'PRECIOPAGO')" (keydown)="presionaBoton($event)">
+                    <mat-label  class="labelForm">Pago para el que presta el servicio (Empleado)</mat-label>
+                    <input class="Input" matInput #inputPagoEmpleado [(ngModel)]="ServiciosSrv.PAGO_EMPLEADO" [maxLength]="12" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIOPAGO')" (keypress)="validarTyping($event,'PRECIOPAGO')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
         </div>

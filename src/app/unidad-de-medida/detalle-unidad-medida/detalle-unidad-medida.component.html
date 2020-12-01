@@ -1,5 +1,5 @@
 <mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
-    <span class="titulo-Ayuda-Ventana">{{TituloVentana}}</span>
+    <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
     <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
 </mat-toolbar>
 <mat-dialog-content class="contenido-ayuda-ventana">
@@ -13,14 +13,14 @@
         <div class="row">
             <div class="col-md-6">
                 <mat-form-field  >
-                    <mat-label>Unidad de medida</mat-label>
-                    <input matInput #inputCodigo [(ngModel)]="UniSrv.NOMBRE" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo" [disabled]="modo == 'MODIFICAR'"  (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Unidad de medida</mat-label>
+                    <input  class="Input" matInput #inputCodigo [(ngModel)]="UniSrv.NOMBRE" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo" [disabled]="modo == 'MODIFICAR'"  (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
               <mat-form-field  >
-                  <mat-label>Abreviación</mat-label>
-                  <input matInput #inputCodigo [(ngModel)]="UniSrv.ABREVIACION" (focus)="ObtenerFoco($event)" autocomplete="off" name="abreviación"  (keydown)="presionaBoton($event)">
+                  <mat-label class="labelForm">Abreviación</mat-label>
+                  <input  class="Input" matInput #inputCodigo [(ngModel)]="UniSrv.ABREVIACION" (focus)="ObtenerFoco($event)" autocomplete="off" name="abreviación"  (keydown)="presionaBoton($event)">
               </mat-form-field>
           </div>
         </div>

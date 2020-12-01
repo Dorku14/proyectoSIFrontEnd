@@ -7,6 +7,7 @@ import { EXITO, MODO, NOEXISTE } from './../../../sharedModules/constantes';
 import { EditableColumn, Table } from 'primeng/table';
 import { ServiciosService } from '../../../services/servicios.service';
 import { MatSelect } from '@angular/material/select';
+import { BusquedasComponent } from 'src/app/sharedModules/busquedas/busquedas.component';
 
 @Component({
   selector: 'app-asignar-materias-primas',
@@ -30,9 +31,10 @@ export class AsignarMateriasPrimasComponent implements OnInit {
   listaMaterasP: any;
   colorSelect = 'primary';
   validando = false;
+  decimalesCantidad:number = 2;
   constructor(private peticiones: PeticionesWebComponent,
     public ServiciosService: ServiciosService,
-    private funcGenerales: FuncionesGenerales,
+    public funcGenerales: FuncionesGenerales,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AsignarMateriasPrimasComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
@@ -417,5 +419,50 @@ export class AsignarMateriasPrimasComponent implements OnInit {
 
   }
 
+  dameFormatoCantidad(valor){
+    return this.funcGenerales.dameFormatoCantidad(valor,this.decimalesCantidad);
+  }
+
+
+  buscarProductos() {
+
+    let configGrid = {
+      columns: 2,
+      header: ['Código', 'Producto'],
+      field: ['CODIGO', 'PRODUCTO'],
+    };
+    this.mostrarCargado();
+    this.peticiones.peticionPost({}, 'consultaProductosF').then((resultado: any) => {
+      this.abrirVtnBusqueda(resultado, configGrid);
+      this.quitarCargando();
+    }).catch((error) => {
+      console.log(error);
+      this.quitarCargando();
+    });
+
+  }
+
+  abrirVtnBusqueda(dataSource, configGrid) {
+    var width = '40%';
+    var height = '45%';
+    const dialogRef = this.dialog.open(BusquedasComponent, {
+      disableClose: true,
+      width: width,
+      height: height,
+      data: {
+        TituloVentana: 'Busqueda de productos',
+        dataSource: dataSource,
+        configGrid: configGrid,
+      }
+    });
+
+    return new Promise(resolve => {
+      dialogRef.afterClosed().subscribe(result => {
+        this.funcGenerales.otorgaFoco('ProductoF');
+        this.productoFabricadoSeleccionado = result.itemSeleccionado.CODIGO;
+        resolve(result);
+      });
+    });
+  }
 
 }

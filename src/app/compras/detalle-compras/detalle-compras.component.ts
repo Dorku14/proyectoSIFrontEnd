@@ -20,15 +20,15 @@ export class DetalleComprasComponent implements OnInit {
   @ViewChild('CampoSelectPF', { static: false }) CampoSelectPF: MatSelect;
   @ViewChildren(EditableColumn) private editableColumns: QueryList<EditableColumn>;
   @ViewChild(EditableColumn) editableColumn: EditableColumn;
-  @ViewChild('radioBtnP', { static: false }) radioBtnP: MatRadioButton;
+  tipoProd
   dataSource: Array<any> = [];
   isCargando: boolean;
   itemSeleccionado: any;
   columns: any;
-  datos = { 'NUM': 0, 'CODIGO': '', 'MATERIA_PRIMA': '', 'CANTIDAD': 0, 'UNIDAD_MEDIDA': '' }
+  datos = { 'NUM': 0, 'CODIGO_PROD': '', 'DESCRIPCION': '', 'CANTIDAD': 0, 'COSTO': 0, 'ASIGNADO': "0", 'IVA_PROD': "0", 'TOTAL': 0 };
   @ViewChild('dt') table: Table;
   Nombrecatalogo: any;
-  productoFabricadoSeleccionado: any;
+  tipoDoc: any;
   listaDocumentos: any;
   listaMaterasP: any;
   colorSelect = 'primary';
@@ -39,10 +39,11 @@ export class DetalleComprasComponent implements OnInit {
   importeSINIVA: any;
   IVA: any;
   Total: any;
-  Folio:any;
+  Folio: any;
+  NumDecimales: number = 2;
   constructor(private peticiones: PeticionesWebComponent,
     public ServiciosService: ServiciosService,
-    private funcGenerales: FuncionesGenerales,
+    public funcGenerales: FuncionesGenerales,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<DetalleComprasComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
@@ -61,19 +62,26 @@ export class DetalleComprasComponent implements OnInit {
           this.consultaDetalle();
           break;
         case MODO.ALTA:
-          this.radioBtnP.checked = true;
+          this.tipoProd = 'P';
           break;
       }
     }, 100);
   }
   consultaDetalle() {
     let json: any = {};
-    json.CODIGO_PRODUCTOF = this.data.item.CODIGO_PRODUCTOF;
+    json.FOLIO = this.data.item.FOLIO;
     this.mostrarCargado();
-    this.peticiones.peticionPost(json, 'detalleMPasignados').then((resultado: any) => {
+    this.peticiones.peticionPost(json, 'detalleCompras').then((resultado: any) => {
+      debugger
       console.log(resultado);
-      this.productoFabricadoSeleccionado = resultado.datos.CODIGO_PRODUCTOF;
-      this.dataSource = resultado.datos.REGISTROS;
+      this.Folio = resultado.datos.FOLIO;
+      this.formaDePago = resultado.datos.FORMA_PAGO;
+      this.importeSINIVA = resultado.datos.IMPORTE_SIN_IVA;
+      this.Proveedor = resultado.datos.PROVEEDOR;
+      this.tipoDoc = resultado.datos.TIPO_DOC;
+      this.tipoProd = resultado.datos.TIPO_ELEMENT;
+      this.Total = resultado.datos.TOTAL;
+      this.dataSource = resultado.datos.COMPRAS;
       let num = 1;
       for (let item of this.dataSource) {
         item.NUM = num;
@@ -86,6 +94,7 @@ export class DetalleComprasComponent implements OnInit {
       console.log(error);
       this.isCargando = false;
       this.quitarCargando();
+      // });
     });
   }
 
@@ -93,8 +102,8 @@ export class DetalleComprasComponent implements OnInit {
 
   inicializarTipoDocs() {
     this.listaDocumentos = [
-      { ID: 1, NOMBRE: 'Remisión' },
-      { ID: 2, NOMBRE: 'Factura' }
+      { ID: 'RC', NOMBRE: 'Remisión' },
+      { ID: 'FC', NOMBRE: 'Factura' }
     ]
   }
 
@@ -142,8 +151,8 @@ export class DetalleComprasComponent implements OnInit {
   agregar() {
     let siguienteIndice = this.dataSource.length + 1;
     if (!this.validaCamposVacios()) {
-      if (this.datos.CODIGO) {
-        this.datos[this.EncontrarIndice(this.datos.CODIGO)] = this.datos;
+      if (this.datos.CODIGO_PROD) {
+        this.datos[this.EncontrarIndice(this.datos.CODIGO_PROD)] = this.datos;
       }
       else {
         this.datos.NUM = siguienteIndice = this.dataSource.length + 1;
@@ -151,16 +160,16 @@ export class DetalleComprasComponent implements OnInit {
       }
 
       this.dataSource = [...this.dataSource];
-      this.datos = { 'NUM': 0, 'CODIGO': '', 'MATERIA_PRIMA': '', 'CANTIDAD': 0, 'UNIDAD_MEDIDA': '' };
+      this.datos = { 'NUM': 0, 'CODIGO_PROD': '', 'DESCRIPCION': '', 'CANTIDAD': 0, 'COSTO': 0, 'ASIGNADO': "0", 'IVA_PROD': "0", 'TOTAL': 0 }
     }
   }
 
   validaCamposVacios(): boolean {
     let campoVacio = false;
-    let buscar = this.dataSource.find(item => item.CODIGO === '');
+    let buscar = this.dataSource.find(item => item.CODIGO_PROD === '');
     if (buscar) {
       campoVacio = true;
-      let indice = this.dataSource.findIndex(item => item.CODIGO === '');
+      let indice = this.dataSource.findIndex(item => item.CODIGO_PROD === '');
       this.itemSeleccionado = this.dataSource[indice];
       this.funcGenerales.popUpAlerta('Error', 'No se ha capturado el código en la fila ' + buscar.NUM, 'ACEPTAR', '').then(() => {
       });
@@ -256,9 +265,9 @@ export class DetalleComprasComponent implements OnInit {
 
   cambioDeOpcionSelect(e) {
     console.log(e);
-    let buscar = this.listaMaterasP.find(item => item.CODIGO === e.value);
+    let buscar = this.listaMaterasP.find(item => item.CODIGO_PROD === e.value);
     for (let i = 0; i < this.dataSource.length; i++) {
-      if (this.dataSource[i].CODIGO === e.value) {
+      if (this.dataSource[i].CODIGO_PROD === e.value) {
         this.dataSource[i].MATERIA_PRIMA = buscar.MATERIA_PRIMA;
         this.dataSource[i].UNIDAD_MEDIDA = buscar.UNIDAD_MEDIDA;
       }
@@ -279,15 +288,24 @@ export class DetalleComprasComponent implements OnInit {
   }
 
   guardar() {
+    debugger
+    let json: any = {};
+    json.FOLIO = this.Folio;
+    json.TIPO_DOC = this.tipoDoc;
+    json.TIPO_ELEMENT = this.tipoProd;
+    json.IMPORTE_SIN_IVA = this.importeSINIVA;
+    json.FORMA_PAGO = this.formaDePago;
+    json.PROVEEDOR = this.Proveedor;
+    json.TOTAL = this.Total;
+    json.COMPRAS = this.dataSource;
     switch (this.data.Proceso) {
       case MODO.ALTA:
         if (!this.validaAlta()) {
-          let json: any = {};
-          json.CODIGO_PRODUCTOF = this.productoFabricadoSeleccionado;
-          json.REGISTROS = this.dataSource;
+          this.mostrarCargado();
           console.log(json)
+
           this.peticiones
-            .peticionPost(json, 'altaMPasignados')
+            .peticionPost(json, 'altaCompras')
             .then((resultado: any) => {
               console.log('resultado then');
               console.log(resultado);
@@ -308,12 +326,9 @@ export class DetalleComprasComponent implements OnInit {
 
         break;
       case MODO.MODIFICAR:
-        let jsonM: any = {};
-        jsonM.CODIGO_PRODUCTOF = this.productoFabricadoSeleccionado;
-        jsonM.REGISTROS = this.dataSource;
-        console.log(jsonM)
+        this.mostrarCargado();
         this.peticiones
-          .peticionPost(jsonM, 'modificarMPasignados')
+          .peticionPost(json, 'modificarCompras')
           .then((resultado: any) => {
             console.log('resultado then');
             console.log(resultado);
@@ -349,9 +364,8 @@ export class DetalleComprasComponent implements OnInit {
 
   validaAlta(): boolean {
     let respuesta = false;
-    console.log(this.productoFabricadoSeleccionado);
 
-    if (this.funcGenerales.EsVacioNulo(this.productoFabricadoSeleccionado)) {
+    if (this.funcGenerales.EsVacioNulo(this.tipoDoc)) {
       respuesta = true;
       this.funcGenerales.popUpAlerta('Error', 'No se ha seleccionado un producto fabricado', 'Aceptar', '').then(() => {
         this.colorSelect = 'warn';
@@ -402,7 +416,7 @@ export class DetalleComprasComponent implements OnInit {
       let duplicado = false;
       let indexDuplicado = 0;
       for (let i = 0; i < this.dataSource.length; i++) {
-        if (this.dataSource[i].CODIGO === buscarItem.CODIGO) {
+        if (this.dataSource[i].CODIGO_PROD === buscarItem.CODIGO_PROD) {
           coincidencias++
           if (coincidencias > 1) {
             duplicado = true;
@@ -447,10 +461,10 @@ export class DetalleComprasComponent implements OnInit {
 
   inicializarFormasPago() {
     this.listaFormasPago = [
-      { ID: 1, DESCRIP: 'EFECTIVO' },
-      { ID: 2, DESCRIP: 'BANCO' },
-      { ID: 3, DESCRIP: 'CRÉDITO' },
-      { ID: 4, DESCRIP: 'TARJETA' }
+      { ID: 'E', DESCRIP: 'EFECTIVO' },
+      { ID: 'B', DESCRIP: 'BANCO' },
+      { ID: 'C', DESCRIP: 'CRÉDITO' },
+      { ID: 'T', DESCRIP: 'TARJETA' }
     ]
   }
 
@@ -471,6 +485,7 @@ export class DetalleComprasComponent implements OnInit {
     });
 
   }
+
   abrirVtnBusqueda(dataSource, configGrid, index) {
     var width = '40%';
     var height = '45%';
@@ -489,20 +504,68 @@ export class DetalleComprasComponent implements OnInit {
     return new Promise(resolve => {
       dialogRef.afterClosed().subscribe(result => {
         for (let item of this.dataSource) {
-          if (item.CODIGO == result.itemSeleccionado.CODIGO) {
+          if (item.CODIGO_PROD == result.itemSeleccionado.CODIGO) {
             this.funcGenerales.popUpAlerta('Error', 'Solo puede haber un registro por cada producto', 'Aceptar', '').then(() => {
-              let indice = item.NUM -1;
-              this.dataSource[indice].CODIGO = '';
+              let indice = item.NUM - 1;
+              this.dataSource[indice].CODIGO_PROD = '';
 
             });
           } else {
             if (item.NUM === result.idGrid) {
               item.DESCRIPCION = result.itemSeleccionado.PRODUCTO;
-              item.CODIGO = result.itemSeleccionado.CODIGO;
+              item.CODIGO_PROD = result.itemSeleccionado.CODIGO;
             }
           }
 
         }
+        resolve(result);
+      });
+    });
+  }
+
+  dameFormatoMoneda(valor) {
+    return this.funcGenerales.dameFormatoMoneda(valor, this.NumDecimales);
+  }
+
+  dameFormatoCantidad(valor) {
+    return this.funcGenerales.dameFormatoCantidad(valor, this.NumDecimales);
+  }
+
+  buscarImpuestos(index) {
+    this.inicarProcesoEdicion(index);
+    let configGrid = {
+      columns: 2,
+      header: ['Nombre', 'Porcentaje'],
+      field: ['NOMBRE', 'PORCENTAJE'],
+    };
+    this.mostrarCargado();
+    this.peticiones.peticionPost({}, 'consultaImpuestos').then((resultado: any) => {
+      this.abrirVtnImporte(resultado, configGrid, index);
+      this.quitarCargando();
+    }).catch((error) => {
+      console.log(error);
+      this.quitarCargando();
+    });
+  }
+
+  abrirVtnImporte(dataSource, configGrid, index) {
+    var width = '40%';
+    var height = '45%';
+    const dialogRef = this.dialog.open(BusquedasComponent, {
+      disableClose: true,
+      width: width,
+      height: height,
+      data: {
+        TituloVentana: 'Busqueda de impuestos',
+        dataSource: dataSource,
+        configGrid: configGrid,
+        idGrid: index
+      }
+    });
+
+    return new Promise(resolve => {
+      dialogRef.afterClosed().subscribe(result => {
+         this.dataSource[index - 1].PORCENTAJE = result.itemSeleccionado.PORCENTAJE;
         resolve(result);
       });
     });

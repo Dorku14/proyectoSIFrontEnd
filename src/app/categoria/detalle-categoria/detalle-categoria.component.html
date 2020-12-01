@@ -1,5 +1,5 @@
 <mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
-    <span class="titulo-Ayuda-Ventana">{{TituloVentana}}</span>
+    <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
     <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
 </mat-toolbar>
 <mat-dialog-content class="contenido-ayuda-ventana">
@@ -13,8 +13,8 @@
         <div class="row">
             <div class="col-md-12">
                 <mat-form-field  >
-                    <mat-label>Categoría</mat-label>
-                    <input matInput #inputCodigo [(ngModel)]="CatSrv.NOMBRE" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo" [disabled]="modo == 'MODIFICAR'"  (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Nombre de la categoría</mat-label>
+                    <input   class="Input" matInput #inputCodigo [(ngModel)]="CatSrv.NOMBRE" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo" [disabled]="modo == 'MODIFICAR'"  (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
         </div>

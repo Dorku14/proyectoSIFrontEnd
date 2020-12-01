@@ -24,11 +24,38 @@ $proyectoSI-theme: mat-light-theme($proyectoSI-primary, $proyectoSI-accent, $pro
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($proyectoSI-theme);
-
 /* You can add global styles to this file, and also import other style files */
 // $font-size :100%;
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+$letrasGrandes: 140%;
+$letraGrandeSelect:130%;
+@mixin tamanioLetrasGrandes {
+    font-size: $letrasGrandes !important;
+}
+@mixin tamanioLetrasGrandesSelect {
+  font-size: $letraGrandeSelect !important;
+}
+
+
+.labelForm{
+  @include tamanioLetrasGrandesSelect();
+}
+
+.Input{
+  @include tamanioLetrasGrandes();
+}
+
+.headerGrid{
+  width: 50% !important;
+  // float: left;
+   display: inline-block;
+}
+.iconoOrdenamiento{
+  float: left;
+  // display: inline-block;
+}
+
 
 .Activo{
     background-color: #9e9e9e !important;
@@ -128,10 +155,10 @@ tr{
   }
   @media  (min-width: 768px) {
     th {
-      font-size: 100% !important;
+     @include tamanioLetrasGrandes()
     }
     td{
-        font-size: 100% !important;
+      @include tamanioLetrasGrandes()
 
     }
     tr{
@@ -145,7 +172,7 @@ tr{
   }
   @media (min-width: 992px) {
     th {
-        font-size: 80%;
+        font-size: 500px;
     }
     td{
         font-size: 80%;
@@ -158,14 +185,14 @@ tr{
   }
   @media (min-width: 1200px) {
     .th {
-        font-size: 100%;
+        font-size: 500px;
     }
     td{
-        font-size: 100%;
+        font-size: 500px;
 
     }
     tr{
-        font-size: 100%;
+        font-size: 500px;
 
     }
   }

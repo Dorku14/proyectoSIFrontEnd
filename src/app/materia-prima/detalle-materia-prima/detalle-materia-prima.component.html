@@ -1,5 +1,5 @@
 <mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
-    <span class="titulo-Ayuda-Ventana">{{TituloVentana}}</span>
+    <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
     <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
 </mat-toolbar>
 <mat-dialog-content class="contenido-ayuda-ventana">
@@ -13,14 +13,14 @@
         <div class="row">
             <div class="col-md-6">
                 <mat-form-field  >
-                    <mat-label>Código</mat-label>
-                    <input matInput #inputNombre [(ngModel)]="MateriaSrv.CODIGO" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo" [disabled]="modo == 'MODIFICAR'" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Código</mat-label>
+                    <input class="Input" matInput #inputNombre [(ngModel)]="MateriaSrv.CODIGO" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo" [disabled]="modo == 'MODIFICAR'" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-4">
               <mat-form-field >
-                  <mat-label>Categoría</mat-label>
-                  <mat-select [(ngModel)]="MateriaSrv.CATEGORIA">
+                  <mat-label class="labelForm">Categoría</mat-label>
+                  <mat-select class="Input" [(ngModel)]="MateriaSrv.CATEGORIA">
                     <mat-option *ngFor="let Categoria of ListaCategorias" [value]="Categoria.NOMBRE">
                       {{Categoria.NOMBRE}}
                     </mat-option>
@@ -28,21 +28,21 @@
               </mat-form-field>
           </div>
           <div class="col-md-2">
-            <button mat-icon-button  (click)="agregarUM()"  tabindex="-1" matTooltip="Agregar categoría">
+            <button mat-icon-button  (click)="agregarCAT()"  tabindex="-1" matTooltip="Agregar categoría">
               <mat-icon>add</mat-icon>
           </button>
         </div>
             <div class="col-md-6">
                 <mat-form-field  >
-                    <mat-label>Materia prima</mat-label>
-                    <input matInput #inputMonto [(ngModel)]="MateriaSrv.MATERIA_PRIMA" (focus)="ObtenerFoco($event)" autocomplete="off"  (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Materia prima</mat-label>
+                    <input class="Input" matInput #inputMonto [(ngModel)]="MateriaSrv.MATERIA_PRIMA" (focus)="ObtenerFoco($event)" autocomplete="off"  (keydown)="presionaBoton($event)">
                 </mat-form-field>
 
             </div>
             <div class="col-md-4">
                 <mat-form-field >
-                    <mat-label>Unidad de medida</mat-label>
-                    <mat-select [(ngModel)]="MateriaSrv.UNIDAD_MEDIDA">
+                    <mat-label class="labelForm">Unidad de medida</mat-label>
+                    <mat-select class="Input" [(ngModel)]="MateriaSrv.UNIDAD_MEDIDA">
                       <mat-option *ngFor="let UnidadMedida of ListaUndidadMedida" [value]="UnidadMedida.NOMBRE">
                         {{UnidadMedida.NOMBRE}}
                       </mat-option>
@@ -57,44 +57,44 @@
           </div>
             <div class="col-md-6">
                 <mat-form-field  >
-                    <mat-label>Cantidad</mat-label>
-                    <input matInput #inputDias [(ngModel)]="MateriaSrv.CANTIDAD" (focus)="ObtenerFoco($event)" autocomplete="off" (keypress)="validarTyping($event,'CANTIDAD')" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Cantidad</mat-label>
+                    <input class="Input" matInput #inputDias [(ngModel)]="MateriaSrv.CANTIDAD" (focus)="ObtenerFoco($event)" autocomplete="off" (keypress)="validarTyping($event,'CANTIDAD')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <mat-form-field  >
-                    <mat-label>Precio de venta</mat-label>
-                    <input matInput #inputDias [(ngModel)]="MateriaSrv.PRECIO_VENTA" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_VENTA')" (keypress)="validarTyping($event,'PRECIO_VENTA')" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Precio de venta</mat-label>
+                    <input class="Input" matInput #inputDias [(ngModel)]="MateriaSrv.PRECIO_VENTA" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_VENTA')" (keypress)="validarTyping($event,'PRECIO_VENTA')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <mat-form-field  >
-                    <mat-label>Precio de venta actualizado</mat-label>
-                    <input matInput #inputDias [(ngModel)]="MateriaSrv.PRECIO_VENTA_ACTUALIZADO" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_VENTA_ACTUALIZADO')" (keypress)="validarTyping($event,'PRECIO_VENTA_ACTUALIZADO')" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Precio de venta actualizado</mat-label>
+                    <input class="Input" matInput #inputDias [(ngModel)]="MateriaSrv.PRECIO_VENTA_ACTUALIZADO" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_VENTA_ACTUALIZADO')" (keypress)="validarTyping($event,'PRECIO_VENTA_ACTUALIZADO')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <mat-form-field  >
-                    <mat-label>Costo de compra</mat-label>
-                    <input matInput #inputDias [(ngModel)]="MateriaSrv.COSTO_COMPRA" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('COSTO_COMPRA')" (keypress)="validarTyping($event,'COSTO_COMPRA')" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Costo de compra</mat-label>
+                    <input class="Input" matInput #inputDias [(ngModel)]="MateriaSrv.COSTO_COMPRA" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('COSTO_COMPRA')" (keypress)="validarTyping($event,'COSTO_COMPRA')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <mat-form-field  >
-                    <mat-label>Costeo de compra reciente</mat-label>
-                    <input matInput #inputDias [(ngModel)]="MateriaSrv.COSTEO_PROMEDIO_RECIENTE" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('COSTEO_PROMEDIO_RECIENTE')" (keypress)="validarTyping($event,'COSTEO_PROMEDIO_RECIENTE')" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Costeo de compra reciente</mat-label>
+                    <input class="Input" matInput #inputDias [(ngModel)]="MateriaSrv.COSTEO_PROMEDIO_RECIENTE" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('COSTEO_PROMEDIO_RECIENTE')" (keypress)="validarTyping($event,'COSTEO_PROMEDIO_RECIENTE')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <mat-form-field  >
-                    <mat-label>Inventario</mat-label>
-                    <input matInput #inputDias [(ngModel)]="MateriaSrv.INVENTARIO" autocomplete="off" (focus)="ObtenerFoco($event)" (keypress)="validarTyping($event,'INVENTARIO')" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Inventario</mat-label>
+                    <input class="Input" matInput #inputDias [(ngModel)]="MateriaSrv.INVENTARIO" autocomplete="off" (focus)="ObtenerFoco($event)" (keypress)="validarTyping($event,'INVENTARIO')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <mat-form-field  >
-                    <mat-label>Punto de reorden</mat-label>
-                    <input matInput #inputDias [(ngModel)]="MateriaSrv.PUNTO_REORDEN" autocomplete="off" (focus)="ObtenerFoco($event)" (keypress)="validarTyping($event,'PUNTO_REORDEN')" (keydown)="presionaBoton($event)">
+                    <mat-label  class="labelForm">Punto de reorden</mat-label>
+                    <input class="Input" matInput #inputDias [(ngModel)]="MateriaSrv.PUNTO_REORDEN" autocomplete="off" (focus)="ObtenerFoco($event)" (keypress)="validarTyping($event,'PUNTO_REORDEN')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
         </div>

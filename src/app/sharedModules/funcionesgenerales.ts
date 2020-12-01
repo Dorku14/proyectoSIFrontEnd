@@ -109,7 +109,7 @@ export class FuncionesGenerales {
 *@param valor -> Valor a convertir
 *@param CantCeros -> cantidad de ceros
 */
-  dameFormatoMoneda(valor, decimales, simbolo?: string) {
+  dameFormatoMoneda(valor, decimales) {
 
 
     valor += ''; // por si pasan un numero en vez de un string
@@ -240,6 +240,23 @@ export class FuncionesGenerales {
         break;
     }
     return valorFormateado;
+  }
+
+  formatoTipoMov(valor) {
+    let valorFormateado: string;
+    switch (valor) {
+      case 'C':
+        valorFormateado = 'Compra';
+        break;
+      case 'V':
+        valorFormateado = 'Venta';
+        break;
+    }
+    return valorFormateado;
+  }
+
+  formatoPorcentaje(valor){
+    return valor + '%';
   }
 }
 

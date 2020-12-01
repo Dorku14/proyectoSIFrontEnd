@@ -30,9 +30,9 @@
             <ng-template pTemplate="header">
                 <tr>
                     <!-- <th pResizableColumn>CODIGO <p-sortIcon field="code"></p-sortIcon></th> -->
-                    <th  *ngFor="let col of columns" [pSortableColumn]="col.field" pReorderableColumn >
-                        {{col.header}}
-                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    <th  *ngFor="let col of columns" [pSortableColumn]="col.field" pReorderableColumn style="width: 100% !important;">
+                        <div class="headerGrid">{{col.header}}</div>
+                        <p-sortIcon class="iconoOrdenamiento" [field]="col.field"></p-sortIcon>
                     </th>
                 </tr>
             </ng-template>
