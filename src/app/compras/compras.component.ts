@@ -139,7 +139,7 @@ export class ComprasComponent implements OnInit {
     @param[in] -> el modo en el que se comportará la ventana
   */
   ventanaDetalle(Modo) {
-    var width = '120vh';
+    var width = '150vh';
     var height = '85vh';
 
     const dialogRef = this.dialog.open(DetalleComprasComponent, {

@@ -256,7 +256,7 @@ export class FuncionesGenerales {
   }
 
   formatoPorcentaje(valor){
-    return valor + '%';
+    return String(valor) + '%';
   }
 }
 

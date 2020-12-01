@@ -23,8 +23,8 @@
       <div class="row">
         <div class="col-md-6">
           <mat-form-field [color]="colorSelect" appearance="fill">
-            <mat-label class="labelSelect">Tipo documento</mat-label>
-            <mat-select  class="labelForm" #CampoSelectPF (selectionChange)="cambiarColorSelectPF()" [(ngModel)]="tipoDoc"
+            <mat-label class="labelForm">Tipo documento</mat-label>
+            <mat-select  class="Input" #CampoSelectPF (selectionChange)="cambiarColorSelectPF()" [(ngModel)]="tipoDoc"
               name="ProductoF">
               <mat-option *ngFor="let documento of listaDocumentos" [value]="documento.ID">
                 {{documento.NOMBRE}}
@@ -70,22 +70,22 @@
         (onEditComplete)="terminarProcesoEditar($event)" (onEditInit)="inicarProcesoEdicion($event)">
         <ng-template pTemplate="header">
           <tr>
-            <th [pSortableColumn]="'NUM'"># <p-sortIcon field="NUM"></p-sortIcon>
+            <th [pSortableColumn]="'NUM'"> <div class="headerGrid">#</div> <p-sortIcon class="iconoOrdenamiento" field="NUM"></p-sortIcon>
             </th>
-            <th [pSortableColumn]="'CODIGO_PROD'">Código <p-sortIcon field="CODIGO_PROD"></p-sortIcon>
+            <th [pSortableColumn]="'CODIGO_PROD'"> <div class="headerGrid">Código</div> <p-sortIcon class="iconoOrdenamiento" field="CODIGO_PROD"></p-sortIcon>
             </th>
-            <th [pSortableColumn]="'DESCRIPCION'">Descripción<p-sortIcon field="DESCRIPCION"></p-sortIcon>
+            <th [pSortableColumn]="'DESCRIPCION'"> <div class="headerGrid">Descripción</div><p-sortIcon class="iconoOrdenamiento" field="DESCRIPCION"></p-sortIcon>
             </th>
-            <th [pSortableColumn]="'CANTIDAD'">Cantidad<p-sortIcon field="CANTIDAD"></p-sortIcon>
+            <th [pSortableColumn]="'CANTIDAD'"> <div class="headerGrid">Cantidad</div><p-sortIcon class="iconoOrdenamiento" field="CANTIDAD"></p-sortIcon>
             </th>
-            <th [pSortableColumn]="'COSTO'">Costo (Unidad sin IVA)<p-sortIcon field="COSTO">
+            <th [pSortableColumn]="'COSTO'"> <div class="headerGrid">Costo (Unidad sin IVA)</div><p-sortIcon class="iconoOrdenamiento" field="COSTO">
               </p-sortIcon>
             </th>
-            <th [pSortableColumn]="'PORCENTAJE'">% Asignado<p-sortIcon field="PORCENTAJE"></p-sortIcon>
+            <th [pSortableColumn]="'PORCENTAJE'"> <div class="headerGrid">%Asignado</div><p-sortIcon class="iconoOrdenamiento" field="PORCENTAJE"></p-sortIcon>
             </th>
-            <th [pSortableColumn]="'IVA_PROD'">IVA<p-sortIcon field="IVA_PROD"></p-sortIcon>
+            <th [pSortableColumn]="'IVA_PROD'"> <div class="headerGrid">IVA</div><p-sortIcon class="iconoOrdenamiento" field="IVA_PROD"></p-sortIcon>
             </th>
-            <th [pSortableColumn]="'TOTAL'">Total<p-sortIcon field="TOTAL"></p-sortIcon>
+            <th [pSortableColumn]="'TOTAL'"> <div class="headerGrid">Total</div><p-sortIcon class="iconoOrdenamiento" field="TOTAL"></p-sortIcon>
             </th>
 
           </tr>
@@ -171,7 +171,7 @@
                     type="text" [(ngModel)]="rowData.IVA_PROD"> -->
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{funcGenerales.formatoPorcentaje( rowData.IVA_PROD)}}
+                  {{funcGenerales.formatoPorcentaje(rowData.IVA_PROD)}}
                 </ng-template>
               </p-cellEditor>
             </td>
@@ -184,22 +184,22 @@
       <div class="row" style="margin-top: 5px;">
         <div class="col-md-4">
           <mat-form-field>
-            <mat-label>Importe (sin IVA)</mat-label>
-            <input matInput #inputImporte [(ngModel)]="importeSINIVA" (focus)="ObtenerFoco($event)" autocomplete="off"
+            <mat-label class="labelForm">Importe (sin IVA)</mat-label>
+            <input class="Input" matInput #inputImporte [(ngModel)]="importeSINIVA" (focus)="ObtenerFoco($event)" autocomplete="off"
               name="codigo" (keydown)="presionaBoton($event)">
           </mat-form-field>
         </div>
         <div class="col-md-4">
           <mat-form-field>
-            <mat-label>IVA</mat-label>
-            <input matInput #inputIVA [(ngModel)]="IVA" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo"
+            <mat-label class="labelForm">IVA</mat-label>
+            <input class="Input" matInput #inputIVA [(ngModel)]="IVA" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo"
               (keydown)="presionaBoton($event)">
           </mat-form-field>
         </div>
         <div class="col-md-4">
           <mat-form-field>
-            <mat-label>Total</mat-label>
-            <input matInput #imputTotal [(ngModel)]="Total" (focus)="ObtenerFoco($event)" autocomplete="off"
+            <mat-label class="labelForm">Total</mat-label>
+            <input class="Input" matInput #imputTotal [(ngModel)]="Total" (focus)="ObtenerFoco($event)" autocomplete="off"
               name="codigo" (keydown)="presionaBoton($event)">
           </mat-form-field>
         </div>

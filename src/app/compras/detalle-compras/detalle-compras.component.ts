@@ -565,7 +565,7 @@ export class DetalleComprasComponent implements OnInit {
 
     return new Promise(resolve => {
       dialogRef.afterClosed().subscribe(result => {
-         this.dataSource[index - 1].PORCENTAJE = result.itemSeleccionado.PORCENTAJE;
+         this.dataSource[index - 1].IVA_PROD = result.itemSeleccionado.PORCENTAJE;
         resolve(result);
       });
     });
