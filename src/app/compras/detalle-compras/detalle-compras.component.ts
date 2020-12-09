@@ -3,12 +3,13 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { FuncionesGenerales } from '../../sharedModules/funcionesgenerales'
 import { PeticionesWebComponent } from '../../sharedModules/peticiones-web/peticiones-web.component';
 import { SortEvent } from 'primeng/api';
-import { EXITO, MODO, NOEXISTE } from '../../sharedModules/constantes';
+import { EXITO, MODO, NOEXISTE, mascaraMoneda } from '../../sharedModules/constantes';
 import { EditableColumn, Table } from 'primeng/table';
 import { ServiciosService } from '../../services/servicios.service';
 import { MatSelect } from '@angular/material/select';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { BusquedasComponent } from 'src/app/sharedModules/busquedas/busquedas.component';
+import { DetalleProductosComercialesComponent } from 'src/app/productos-comerciales/detalle-productos-comerciales/detalle-productos-comerciales.component';
 
 @Component({
   selector: 'app-compras-producto',
@@ -36,11 +37,19 @@ export class DetalleComprasComponent implements OnInit {
   Proveedor: any;
   formaDePago: any;
   listaFormasPago: any;
-  importeSINIVA: any;
-  IVA: any;
-  Total: any;
+  listaDeBanco: Array<any>;
+  listaDeCuentas: Array<any>;
+  importeSINIVA: any = 0;
+  IVA: any = 0;
+  Total: any = 0;
   Folio: any;
   NumDecimales: number = 2;
+  mascaraMoneda: any;
+  ivaConfigurado = 16;
+  NumeroReferencia: string = "";
+  nombreBanco: any;
+  NumeroCuenta: any;
+  NombreServicios:any ={};
   constructor(private peticiones: PeticionesWebComponent,
     public ServiciosService: ServiciosService,
     public funcGenerales: FuncionesGenerales,
@@ -49,7 +58,7 @@ export class DetalleComprasComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data,
     private renderer: Renderer2) {
     this.isCargando = false;
-    this.Nombrecatalogo = 'Alta de compras';
+    this.mascaraMoneda = mascaraMoneda;
   }
 
   ngOnInit(): void {
@@ -59,17 +68,41 @@ export class DetalleComprasComponent implements OnInit {
       this.consultMateriasPrimas();
       switch (this.data.Proceso) {
         case MODO.MODIFICAR:
+          switch (this.data.TIPO_MOV) {
+            case 'C':
+              this.Nombrecatalogo = 'Modificar compra';
+
+              break;
+            case 'V':
+              this.Nombrecatalogo = 'Modificar venta';
+
+              break;
+          }
           this.consultaDetalle();
+
           break;
         case MODO.ALTA:
+          switch (this.data.TIPO_MOV) {
+            case 'C':
+              this.Nombrecatalogo = 'Alta de compras';
+
+              break;
+            case 'V':
+              this.Nombrecatalogo = 'Alta de ventas';
+
+              break;
+          }
           this.tipoProd = 'P';
           break;
       }
     }, 100);
   }
+
+
   consultaDetalle() {
     let json: any = {};
     json.FOLIO = this.data.item.FOLIO;
+    json.TIPO_MOV = this.data.TIPO_MOV;
     this.mostrarCargado();
     this.peticiones.peticionPost(json, 'detalleCompras').then((resultado: any) => {
       debugger
@@ -80,8 +113,9 @@ export class DetalleComprasComponent implements OnInit {
       this.Proveedor = resultado.datos.PROVEEDOR;
       this.tipoDoc = resultado.datos.TIPO_DOC;
       this.tipoProd = resultado.datos.TIPO_ELEMENT;
+      this.IVA = resultado.datos.IVA;
       this.Total = resultado.datos.TOTAL;
-      this.dataSource = resultado.datos.COMPRAS;
+      this.dataSource = resultado.datos.PARTIDAS;
       let num = 1;
       for (let item of this.dataSource) {
         item.NUM = num;
@@ -187,34 +221,6 @@ export class DetalleComprasComponent implements OnInit {
 
   }
 
-  /**
-   *\brief   Función que invoca la ventana del detalle
-   *\author  Alexis Osvaldo Dorantes Ku
-   *\date    23/09/2020
-   *\version	1.00.00
-   @param[in] -> el modo en el que se comportará la ventana
- */
-  // ventanaDetalle(Modo) {
-  //   var width = '70vh';
-  //   var height = '50';
-
-  //   const dialogRef = this.dialog.open(DetalleMateriaPrimaComponent, {
-  //     disableClose: true,
-  //     width: width,
-  //     height: height,
-  //     data: {
-  //       Proceso: Modo,
-  //       item: this.itemSeleccionado
-  //     }
-  //   });
-
-  //   return new Promise(resolve => {
-  //     dialogRef.afterClosed().subscribe(result => {
-  //       console.log(result)
-  //       this.consulta();
-  //     });
-  //   });
-  // }
 
   /**
      *\brief   Función para eliminar un registro
@@ -226,20 +232,7 @@ export class DetalleComprasComponent implements OnInit {
     let index = this.itemSeleccionado.NUM - 1;
     this.dataSource.splice(index, 1);
     this.itemSeleccionado = '';
-    // this.funcGenerales.popUpAlerta('Confirmación', '¿Seguro que deseas eliminar el registro \"' + this.itemSeleccionado.CODIGO + "\" ?'", 'Si', 'No').then((respuesta) => {
-
-    //   if (respuesta) {
-    //     this.mostrarCargado();
-    //     let json: any = {};
-    //     json.CODIGO = this.itemSeleccionado.CODIGO;
-    //     this.peticiones.peticionPost(json, 'eliminarMateriPrima').then((resultado: any) => {
-    //       this.quitarCargando();
-    //     }).catch((error) => {
-    //       console.log(error);
-    //       this.quitarCargando();
-    //     });
-    //   }
-    // });
+    this.calculaImportes()
   }
 
   EncontrarIndice(id: string): number {
@@ -274,10 +267,14 @@ export class DetalleComprasComponent implements OnInit {
     }
   }
 
-  validarTyping(e, campo) {
+  validarTyping(e, campo, valorE?) {
     let respuesta: boolean = true;
-    let valor = Number(e.key);
+    let valor = e.key;
     switch (campo) {
+      case 'ASIGNADO':
+        respuesta = this.funcGenerales.permiteNumerico(valorE, valor);
+        break;
+
       default:
         if (isNaN(valor)) {
           respuesta = false;
@@ -296,8 +293,10 @@ export class DetalleComprasComponent implements OnInit {
     json.IMPORTE_SIN_IVA = this.importeSINIVA;
     json.FORMA_PAGO = this.formaDePago;
     json.PROVEEDOR = this.Proveedor;
+    json.TIPO_MOV = this.data.TIPO_MOV;
+    json.IVA = this.IVA;
     json.TOTAL = this.Total;
-    json.COMPRAS = this.dataSource;
+    json.PARTIDAS = this.dataSource;
     switch (this.data.Proceso) {
       case MODO.ALTA:
         if (!this.validaAlta()) {
@@ -383,28 +382,10 @@ export class DetalleComprasComponent implements OnInit {
 
   cambiarColorSelectPF() {
     this.colorSelect = 'primary';
-    // this.mostrarCargado();
-    // let json:any = {};
-    // json.CODIGO_PRODUCTOF = this.productoFabricadoSeleccionado;
-    // this.peticiones.peticionPost(json, 'detalleMPasignados').then((resultado: any) => {
-    //   debugger
-    //   console.log(resultado);
-    //   if(this.funcGenerales.extraerCodigo(resultado) === EXITO){
-    //     this.funcGenerales.popUpAlerta('Error', 'El producto fabricado ya se le ha asignado materías primas', 'Aceptar', '').then(() => {
-    //       this.colorSelect = 'warn';
-    //       this.CampoSelectPF.focus();
-    //     });
-    //   }else{
-
-    //   }
-    //   this.quitarCargando();
-    // }).catch((error) => {
-    //   console.log(error);
-    //   this.isCargando = false;
-    //   this.quitarCargando();
-    // });
-
-
+    if (this.formaDePago == 'B') {
+      this.listaBancos();
+      this.listaCuentas();
+    }
   }
 
   terminarProcesoEditar(e) {
@@ -448,6 +429,8 @@ export class DetalleComprasComponent implements OnInit {
         // this.ManoSrv.COSTO = this.funcGenerales.dameFormatoMoneda(this.ManoSrv.COSTO, 2);
         break;
     }
+
+    this.calculaImportes();
   }
   ObtenerFoco(e) {
     e.target.select()
@@ -488,7 +471,7 @@ export class DetalleComprasComponent implements OnInit {
 
   abrirVtnBusqueda(dataSource, configGrid, index) {
     var width = '40%';
-    var height = '45%';
+    var height = '50%';
     const dialogRef = this.dialog.open(BusquedasComponent, {
       disableClose: true,
       width: width,
@@ -497,7 +480,12 @@ export class DetalleComprasComponent implements OnInit {
         TituloVentana: 'Busqueda de productos',
         dataSource: dataSource,
         configGrid: configGrid,
-        idGrid: index
+        idGrid: index,
+        componenteAlta: DetalleProductosComercialesComponent,
+        modo: MODO.ALTA,
+        anchoAlta: '70vh',
+        altoAlta: '40vh',
+        nombreConsulta: 'consultaProductosCompras'
       }
     });
 
@@ -565,9 +553,54 @@ export class DetalleComprasComponent implements OnInit {
 
     return new Promise(resolve => {
       dialogRef.afterClosed().subscribe(result => {
-         this.dataSource[index - 1].IVA_PROD = result.itemSeleccionado.PORCENTAJE;
+        this.dataSource[index - 1].IVA_PROD = result.itemSeleccionado.PORCENTAJE;
         resolve(result);
       });
     });
   }
+
+  calculaTotalFila(cantidad, costo, asignado, key) {
+    let indice = key - 1;
+    let Cant = Number(cantidad);
+    let Cost = Number(costo);
+    let PorcAsig = Number(asignado);
+    let ResultMult = Cant * Cost;
+    let total = PorcAsig > 0 ? (PorcAsig * ResultMult / 100) + ResultMult : ResultMult;
+    this.dataSource[indice].TOTAL = total;
+    return total;
+  }
+
+  calculaImportes() {
+    this.importeSINIVA = 0;
+    if (this.dataSource.length > 0) {
+      for (let i = 0; i < this.dataSource.length; i++) {
+        this.importeSINIVA = Number(this.dataSource[i].TOTAL) + Number(this.importeSINIVA);
+      }
+      this.IVA = (this.ivaConfigurado * this.importeSINIVA / 100);
+      this.Total = this.IVA + this.importeSINIVA;
+    } else {
+      this.importeSINIVA = 0;
+      this.IVA = 0;
+      this.Total = 0;
+    }
+  }
+
+  listaBancos() {
+    this.listaDeBanco = [
+      { ID: 1, DESCRICPION: 'BBVA' },
+      { ID: 2, DESCRICPION: 'BANORTE' },
+      { ID: 3, DESCRICPION: 'SANTANDER' },
+      { ID: 4, DESCRICPION: 'INBURSA' }
+    ]
+
+  }
+  listaCuentas() {
+    this.listaDeCuentas = [
+      { ID: 1, DESCRICPION: '011615616' },
+      { ID: 2, DESCRICPION: '16516512511' },
+      { ID: 3, DESCRICPION: '21615641615' },
+      { ID: 4, DESCRICPION: '415165161' }
+    ]
+  }
+
 }

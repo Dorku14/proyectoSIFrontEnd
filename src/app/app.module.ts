@@ -53,7 +53,9 @@ import { DetalleImpuestosComponent } from './impuestos/detalle-impuestos/detalle
 import { ComprasComponent } from './compras/compras.component';
 import { DetalleComprasComponent } from './compras/detalle-compras/detalle-compras.component';
 import { BusquedasComponent } from './sharedModules/busquedas/busquedas.component';
-
+import { TextMaskModule } from 'angular2-text-mask';
+import { CurrencyMaskModule } from "ng2-currency-mask";
+import { VentasComponent } from './ventas/ventas.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,7 +83,8 @@ import { BusquedasComponent } from './sharedModules/busquedas/busquedas.componen
     DetalleImpuestosComponent,
     ComprasComponent,
     DetalleComprasComponent,
-    BusquedasComponent
+    BusquedasComponent,
+    VentasComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +111,9 @@ import { BusquedasComponent } from './sharedModules/busquedas/busquedas.componen
     ToastModule,
     MatTooltipModule,
     MatMenuModule,
-    SlideMenuModule
+    SlideMenuModule,
+    TextMaskModule,
+    CurrencyMaskModule
   ],
   providers: [],
   bootstrap: [AppComponent]

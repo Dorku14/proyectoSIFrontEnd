@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FuncionesGenerales } from '../sharedModules/funcionesgenerales'
 import { PeticionesWebComponent } from '../sharedModules/peticiones-web/peticiones-web.component';
 import { SortEvent } from 'primeng/api';
-import { MODO } from './../sharedModules/constantes';
+import { MODO,TIPOMOVDOCS } from './../sharedModules/constantes';
 import { Table } from 'primeng/table';
 import { ServiciosService } from '../services/servicios.service';
 import { DetalleComprasComponent } from './detalle-compras/detalle-compras.component';
@@ -82,8 +82,8 @@ export class ComprasComponent implements OnInit {
   configuraDataGrid(): void {
     let configGrid = {
       columns: 8,
-      header: ['#', 'Folio','Tipo de documento','Forma de pago', 'Proveedor','Tipo de elemento', 'IVA', 'Importe sin IVA', 'Total'],
-      field: ['NUM','FOLIO', 'TIPO_DOC', 'FORMA_PAGO','PROVEEDOR', 'TIPO_ELEMENT', 'IVA','IMPORTE_SIN_IVA','TOTAL'],
+      header: ['#', 'Folio','Tipo de documento','Forma de pago', 'Proveedor','Tipo de elemento', 'Importe sin IVA', 'Importe con IVA' ,'Total'],
+      field: ['NUM','FOLIO', 'TIPO_DOC', 'FORMA_PAGO','PROVEEDOR', 'TIPO_ELEMENT','IMPORTE_SIN_IVA','IVA','TOTAL'],
 
     };
     this.columns = this.funcGenerales.aplicaConfigGrid(configGrid);
@@ -148,7 +148,8 @@ export class ComprasComponent implements OnInit {
       height: height,
       data: {
         Proceso: Modo,
-        item: this.itemSeleccionado
+        item: this.itemSeleccionado,
+        TIPO_MOV: TIPOMOVDOCS.COMPRAS
       }
     });
 

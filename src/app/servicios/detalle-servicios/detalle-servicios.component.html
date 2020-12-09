@@ -29,7 +29,7 @@
                 <!-- cantidad -->
                 <mat-form-field  >
                     <mat-label  class="labelForm">Precio de venta</mat-label>
-                    <input class="Input" matInput #inputPrecioventa [(ngModel)]="ServiciosSrv.PRECIO_VENT" [maxLength]="12" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIOVENT')" (keypress)="validarTyping($event,'PRECIOVENT')" (keydown)="presionaBoton($event)">
+                    <input class="Input" currencyMask matInput #inputPrecioventa [(ngModel)]="ServiciosSrv.PRECIO_VENT" [options]="mascaraMoneda"  [maxLength]="16" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIOVENT')" (keypress)="validarTyping($event,'PRECIOVENT')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
 
             </div>
@@ -37,14 +37,14 @@
                 <!-- precio de compra -->
                 <mat-form-field >
                     <mat-label  class="labelForm">Precio de venta actualizado</mat-label>
-                    <input class="Input" matInput #inputVentAct [(ngModel)]="ServiciosSrv.PRECIO_VENT_ACT" [maxLength]="12" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_VENT_ACT')" (keypress)="validarTyping($event,'PRECIO_VENT_ACT')" (keydown)="presionaBoton($event)">
+                    <input class="Input" currencyMask matInput #inputVentAct [(ngModel)]="ServiciosSrv.PRECIO_VENT_ACT" [options]="mascaraMoneda"  [maxLength]="16" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_VENT_ACT')" (keypress)="validarTyping($event,'PRECIO_VENT_ACT')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <!-- precio de venta -->
                 <mat-form-field  >
                     <mat-label  class="labelForm">Pago para el que presta el servicio (Empleado)</mat-label>
-                    <input class="Input" matInput #inputPagoEmpleado [(ngModel)]="ServiciosSrv.PAGO_EMPLEADO" [maxLength]="12" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIOPAGO')" (keypress)="validarTyping($event,'PRECIOPAGO')" (keydown)="presionaBoton($event)">
+                    <input class="Input" currencyMask matInput #inputPagoEmpleado [(ngModel)]="ServiciosSrv.PAGO_EMPLEADO" [options]="mascaraMoneda"  [maxLength]="16" (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIOPAGO')" (keypress)="validarTyping($event,'PRECIOPAGO')" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
         </div>

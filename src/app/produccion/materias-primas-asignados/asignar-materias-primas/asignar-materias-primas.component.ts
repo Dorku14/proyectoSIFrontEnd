@@ -31,7 +31,7 @@ export class AsignarMateriasPrimasComponent implements OnInit {
   listaMaterasP: any;
   colorSelect = 'primary';
   validando = false;
-  decimalesCantidad:number = 2;
+  decimalesCantidad: number = 2;
   constructor(private peticiones: PeticionesWebComponent,
     public ServiciosService: ServiciosService,
     public funcGenerales: FuncionesGenerales,
@@ -362,17 +362,17 @@ export class AsignarMateriasPrimasComponent implements OnInit {
 
   cambiarColorSelectPF() {
     this.mostrarCargado();
-    let json:any = {};
+    let json: any = {};
     json.CODIGO_PRODUCTOF = this.productoFabricadoSeleccionado;
     this.peticiones.peticionPost(json, 'detalleMPasignados').then((resultado: any) => {
       debugger
       console.log(resultado);
-      if(this.funcGenerales.extraerCodigo(resultado) === EXITO){
+      if (this.funcGenerales.extraerCodigo(resultado) === EXITO) {
         this.funcGenerales.popUpAlerta('Error', 'El producto fabricado ya se le ha asignado materías primas', 'Aceptar', '').then(() => {
           this.colorSelect = 'warn';
           this.CampoSelectPF.focus();
         });
-      }else{
+      } else {
         this.colorSelect = 'primary';
       }
       this.quitarCargando();
@@ -386,7 +386,7 @@ export class AsignarMateriasPrimasComponent implements OnInit {
   }
 
   terminarProcesoEditar(e) {
-    if(!this.validando){
+    if (!this.validando) {
       this.validando = true;
       let buscarItem = this.dataSource.find(item => item.NUM === e.index);
       e.data = buscarItem;
@@ -412,15 +412,15 @@ export class AsignarMateriasPrimasComponent implements OnInit {
           columna.openCell();
         });
 
-      }else{
+      } else {
         this.validando = false;
       }
     }
 
   }
 
-  dameFormatoCantidad(valor){
-    return this.funcGenerales.dameFormatoCantidad(valor,this.decimalesCantidad);
+  dameFormatoCantidad(valor) {
+    return this.funcGenerales.dameFormatoCantidad(valor, this.decimalesCantidad);
   }
 
 
@@ -463,6 +463,10 @@ export class AsignarMateriasPrimasComponent implements OnInit {
         resolve(result);
       });
     });
+  }
+
+  ObtenerFoco(e) {
+    e.target.select()
   }
 
 }

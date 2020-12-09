@@ -162,7 +162,7 @@ export class FuncionesGenerales {
     return amount_parts.join('.');
   }
 
-  dameFormatoNumero(valor) {
+  dameFormatoNumero=(valor)=> {
     // valor = valor.slice(1);
     valor = valor.match(/(\d)+.+/g);
     valor = valor[0];
@@ -258,5 +258,10 @@ export class FuncionesGenerales {
   formatoPorcentaje(valor){
     return String(valor) + '%';
   }
+
+  // mask = (valor)=> {
+  //   // add logic to generate your mask array
+  //   return [ /*your mask array*/ ]
+  // }
 }
 

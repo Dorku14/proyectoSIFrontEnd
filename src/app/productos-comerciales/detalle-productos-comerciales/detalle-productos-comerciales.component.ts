@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProductosComercialesService } from 'src/app/services/ProductosComerciales.service';
 import { FuncionesGenerales } from 'src/app/sharedModules/funcionesgenerales';
 import { PeticionesWebComponent } from 'src/app/sharedModules/peticiones-web/peticiones-web.component';
-import { MODO, EXITO, NOEXISTE } from 'src/app/sharedModules/constantes';
+import { MODO, EXITO, NOEXISTE, mascaraMoneda } from 'src/app/sharedModules/constantes';
 
 @Component({
   selector: 'app-detalle-productos-comerciales',
@@ -16,35 +16,23 @@ export class DetalleProductosComercialesComponent implements OnInit {
   TituloVentana: string;
   isCargando: boolean;
   datosTemporales: any;
+  mascaraMoneda: any;
   constructor(
     public dialogRef: MatDialogRef<DetalleProductosComercialesComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     public PRODC: ProductosComercialesService,
     private peticiones: PeticionesWebComponent,
-    private funcGenerales: FuncionesGenerales
-  ) {}
+    private funcGenerales: FuncionesGenerales) {
+    this.mascaraMoneda = mascaraMoneda;
+  }
 
   ngOnInit(): void {
     this.modo = this.data.Proceso;
     this.itemSeleccionado = this.data.item;
     this.definirModo();
     this.PRODC.incicializarVariables();
-    this.darFormatoIniciales();
   }
-  darFormatoIniciales() {
-    this.PRODC.COSTACT = this.funcGenerales.dameFormatoMoneda(
-      this.PRODC.COSTACT,
-      2
-    );
-    this.PRODC.PRECIOCOMP = this.funcGenerales.dameFormatoMoneda(
-      this.PRODC.PRECIOCOMP,
-      2
-    );
-    this.PRODC.PRECIOVENT = this.funcGenerales.dameFormatoMoneda(
-      this.PRODC.PRECIOVENT,
-      2
-    );
-  }
+
 
   definirModo() {
     switch (this.modo) {
@@ -74,14 +62,14 @@ export class DetalleProductosComercialesComponent implements OnInit {
           respuesta = false;
         }
         break;
-      case 'PRECIOCOMP':
-        respuesta = this.funcGenerales.permiteNumerico(this.PRODC.PRECIOCOMP,valorS);
+      case 'PRECIO_VENTA_ACT':
+        respuesta = this.funcGenerales.permiteNumerico(this.PRODC.PRECIO_VENTA_ACT, valorS);
         break;
       case 'PRECIOVENT':
-        respuesta = this.funcGenerales.permiteNumerico(this.PRODC.PRECIOVENT,valorS);
+        respuesta = this.funcGenerales.permiteNumerico(this.PRODC.PRECIOVENT, valorS);
         break;
       case 'COSTACT':
-        respuesta = this.funcGenerales.permiteNumerico(this.PRODC.COSTACT,valorS);
+        respuesta = this.funcGenerales.permiteNumerico(this.PRODC.COSTACT, valorS);
         break;
     }
     // if (isNaN(valor)) {
@@ -109,19 +97,7 @@ export class DetalleProductosComercialesComponent implements OnInit {
   }
 
   llenarCampoDetalle(datos: any) {
-    this.PRODC.CODIGO = datos.CODIGO;
-    this.PRODC.PRODUCTO = datos.PRODUCTO;
-    this.PRODC.CANTIDAD = datos.CANTIDAD;
-    this.PRODC.COSTACT = this.funcGenerales.dameFormatoMoneda(datos.COSTACT, 2);
-    this.PRODC.PRECIOCOMP = this.funcGenerales.dameFormatoMoneda(
-      datos.PRECIOCOMP,
-      2
-    );
-    this.PRODC.PRECIOVENT = this.funcGenerales.dameFormatoMoneda(
-      datos.PRECIOVENT,
-      2
-    );
-    let v = this.funcGenerales.dameFormatoNumero(this.PRODC.PRECIOCOMP);
+    this.PRODC.llenarCampos(datos);
     this.quitarCargando();
   }
 
@@ -140,13 +116,10 @@ export class DetalleProductosComercialesComponent implements OnInit {
       json.CODIGO = this.PRODC.CODIGO;
       json.PRODUCTO = this.PRODC.PRODUCTO;
       json.CANTIDAD = this.PRODC.CANTIDAD;
-      json.PRECIOCOMP = this.funcGenerales.dameFormatoNumero(
-        this.PRODC.PRECIOCOMP
-      );
-      json.PRECIOVENT = this.funcGenerales.dameFormatoNumero(
-        this.PRODC.PRECIOVENT
-      );
-      json.COSTACT = this.funcGenerales.dameFormatoNumero(this.PRODC.COSTACT);
+      json.COSTO_COMPRA = this.PRODC.COSTO_COMPRA;
+      json.PRECIOVENT = this.PRODC.PRECIOVENT;
+      json.PRECIO_VENTA_ACT = this.PRODC.PRECIO_VENTA_ACT;
+      json.COSTACT = this.PRODC.COSTACT;
       switch (this.modo) {
         case MODO.ALTA:
           json.ESTATUS = 'A';
@@ -266,28 +239,26 @@ export class DetalleProductosComercialesComponent implements OnInit {
 
   perderFoco(campo) {
     switch (campo) {
-      case 'PRECIOCOMP':
-        this.PRODC.PRECIOCOMP = this.funcGenerales.dameFormatoMoneda(
-          this.PRODC.PRECIOCOMP,
-          2
-        );
+      case 'COSTO_COMPRA':
+        if (this.funcGenerales.EsVacioNulo(this.PRODC.COSTO_COMPRA))
+          this.PRODC.COSTO_COMPRA = 0;
         break;
       case 'COSTACT':
-        this.PRODC.COSTACT = this.funcGenerales.dameFormatoMoneda(
-          this.PRODC.COSTACT,
-          2
-        );
+        if (this.funcGenerales.EsVacioNulo(this.PRODC.COSTACT))
+          this.PRODC.COSTACT = 0;
         break;
       case 'PRECIOVENT':
-        this.PRODC.PRECIOVENT = this.funcGenerales.dameFormatoMoneda(
-          this.PRODC.PRECIOVENT,
-          2
-        );
+        if (this.funcGenerales.EsVacioNulo(this.PRODC.PRECIOVENT))
+          this.PRODC.PRECIOVENT = 0;
+        break;
+      case 'PRECIO_VENTA_ACT':
+        if (this.funcGenerales.EsVacioNulo(this.PRODC.PRECIO_VENTA_ACT))
+          this.PRODC.PRECIO_VENTA_ACT = 0;
         break;
     }
   }
 
-  ObtenerFoco(e){
+  ObtenerFoco(e) {
     e.target.select()
   }
 }

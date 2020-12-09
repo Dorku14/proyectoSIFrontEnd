@@ -13,7 +13,8 @@ export enum NombreComponente{
     PRODUCCION = 'PRODUCCION',
     ASIGNARMATERIASP = 'ASIGNARMP',
     IMPUESTOS = 'IM',
-    COMPRAS = 'COMPRAS'
+    COMPRAS = 'COMPRAS',
+    VENTAS = 'VENTAS'
 }
 
 export enum clasesEstilos{
@@ -31,3 +32,10 @@ export enum MODO{
 export const EXITO = '00';
 export const NOEXISTE = '10';
 export const direccionHttp = 'http://127.0.0.1:8000/api/';
+
+export const mascaraMoneda = { prefix: '$ ', thousands: ',', decimal: '.' , align:'left',allowNegative:false,precision: 2};
+
+export enum TIPOMOVDOCS{
+  COMPRAS = 'C',
+  VENTAS = 'V'
+}

@@ -73,7 +73,7 @@ export class ServiciosComponent implements OnInit {
   configuraDataGrid(): void {
     let configGrid = {
       columns: 6,
-      header: ['#', 'Código', 'Actividad', 'Precio venta', 'Precio venta actualizado', 'Pago empleado'],
+      header: ['#', 'Código', 'Actividad', 'Precio venta (sin IVA)', 'Precio venta actualizado', 'Pago empleado'],
       field: ['NUM', 'CODIGO', 'ACTIVIDAD', 'PRECIO_VENT', 'PRECIO_VENT_ACT', 'PAGO_EMPLEADO'],
 
     };

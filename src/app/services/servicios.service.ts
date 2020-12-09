@@ -7,9 +7,9 @@ import { Injectable } from '@angular/core';
 export class ServiciosService {
     CODIGO: string;
     ACTIVIDAD: string;
-    PRECIO_VENT: any;
-    PRECIO_VENT_ACT: any;
-    PAGO_EMPLEADO: any;
+    PRECIO_VENT: number;
+    PRECIO_VENT_ACT: number;
+    PAGO_EMPLEADO: number;
     ESTATUS: string;
 
     incicializarVariables() {

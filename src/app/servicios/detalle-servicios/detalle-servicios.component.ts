@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuncionesGenerales } from 'src/app/sharedModules/funcionesgenerales';
 import { PeticionesWebComponent } from 'src/app/sharedModules/peticiones-web/peticiones-web.component';
-import { MODO, EXITO, NOEXISTE } from 'src/app/sharedModules/constantes';
+import { MODO, EXITO, NOEXISTE,mascaraMoneda } from 'src/app/sharedModules/constantes';
 import { ServiciosService } from 'src/app/services/servicios.service';
 
 
@@ -17,12 +17,13 @@ export class DetalleServiciosComponent implements OnInit {
   TituloVentana: string;
   isCargando: boolean;
   datosTemporales: any;
+  mascaraMoneda:any
   constructor(public dialogRef: MatDialogRef<DetalleServiciosComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     public ServiciosSrv: ServiciosService,
     private peticiones: PeticionesWebComponent,
     private funcGenerales: FuncionesGenerales) {
-
+      this.mascaraMoneda = mascaraMoneda;
   }
 
   ngOnInit(): void {
@@ -30,9 +31,6 @@ export class DetalleServiciosComponent implements OnInit {
     this.itemSeleccionado = this.data.item;
     this.definirModo();
     this.ServiciosSrv.incicializarVariables();
-    this.ServiciosSrv.PAGO_EMPLEADO = this.funcGenerales.dameFormatoMoneda(this.ServiciosSrv.PAGO_EMPLEADO, 2);
-    this.ServiciosSrv.PRECIO_VENT = this.funcGenerales.dameFormatoMoneda(this.ServiciosSrv.PRECIO_VENT, 2);
-    this.ServiciosSrv.PRECIO_VENT_ACT = this.funcGenerales.dameFormatoMoneda(this.ServiciosSrv.PRECIO_VENT_ACT, 2);
 
   }
 
@@ -92,9 +90,6 @@ export class DetalleServiciosComponent implements OnInit {
 
   llenarCampoDetalle(datos: any) {
     this.ServiciosSrv.llenarCampos(datos);
-    this.ServiciosSrv.PAGO_EMPLEADO = this.funcGenerales.dameFormatoMoneda(this.ServiciosSrv.PAGO_EMPLEADO, 2);
-    this.ServiciosSrv.PRECIO_VENT = this.funcGenerales.dameFormatoMoneda(this.ServiciosSrv.PRECIO_VENT, 2);
-    this.ServiciosSrv.PRECIO_VENT_ACT = this.funcGenerales.dameFormatoMoneda(this.ServiciosSrv.PRECIO_VENT_ACT, 2);
     this.quitarCargando();
   }
 
@@ -113,9 +108,9 @@ export class DetalleServiciosComponent implements OnInit {
       let json: any = {};
       json.CODIGO = this.ServiciosSrv.CODIGO;
       json.ACTIVIDAD = this.ServiciosSrv.ACTIVIDAD;
-      json.PRECIO_VENT = this.funcGenerales.dameFormatoNumero(this.ServiciosSrv.PRECIO_VENT);;
-      json.PRECIO_VENT_ACT = this.funcGenerales.dameFormatoNumero(this.ServiciosSrv.PRECIO_VENT_ACT);
-      json.PAGO_EMPLEADO = this.funcGenerales.dameFormatoNumero(this.ServiciosSrv.PAGO_EMPLEADO);
+      json.PRECIO_VENT = this.ServiciosSrv.PRECIO_VENT;
+      json.PRECIO_VENT_ACT = this.ServiciosSrv.PRECIO_VENT_ACT;
+      json.PAGO_EMPLEADO = this.ServiciosSrv.PAGO_EMPLEADO;
       switch (this.modo) {
         case MODO.ALTA:
           json.ESTATUS = 'A';
@@ -221,13 +216,16 @@ export class DetalleServiciosComponent implements OnInit {
   perderFoco(campo) {
     switch (campo) {
       case 'PRECIOVENT':
-        this.ServiciosSrv.PRECIO_VENT = this.funcGenerales.dameFormatoMoneda(this.ServiciosSrv.PRECIO_VENT, 2);
+        if(this.funcGenerales.EsVacioNulo(this.ServiciosSrv.PRECIO_VENT))
+        this.ServiciosSrv.PRECIO_VENT = 0;
         break;
       case 'PRECIO_VENT_ACT':
-        this.ServiciosSrv.PRECIO_VENT_ACT = this.funcGenerales.dameFormatoMoneda(this.ServiciosSrv.PRECIO_VENT_ACT, 2);
+        if(this.funcGenerales.EsVacioNulo(this.ServiciosSrv.PRECIO_VENT_ACT))
+        this.ServiciosSrv.PRECIO_VENT_ACT = 0;
         break;
       case 'PRECIOPAGO':
-        this.ServiciosSrv.PAGO_EMPLEADO = this.funcGenerales.dameFormatoMoneda(this.ServiciosSrv.PAGO_EMPLEADO, 2);
+        if(this.funcGenerales.EsVacioNulo( this.ServiciosSrv.PAGO_EMPLEADO))
+        this.ServiciosSrv.PAGO_EMPLEADO = 0;
         break;
     }
   }

@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuncionesGenerales } from 'src/app/sharedModules/funcionesgenerales';
 import { PeticionesWebComponent } from 'src/app/sharedModules/peticiones-web/peticiones-web.component';
-import { MODO, EXITO, NOEXISTE } from 'src/app/sharedModules/constantes';
+import { MODO, EXITO, NOEXISTE,mascaraMoneda } from 'src/app/sharedModules/constantes';
 import { ProductosFabricadosService } from 'src/app/services/ProductosFabricados.service';
 import { ThrowStmt } from '@angular/compiler';
 
@@ -18,11 +18,13 @@ export class DetalleProductoFabricadoComponent implements OnInit {
   TituloVentana: string;
   isCargando: boolean;
   datosTemporales: any;
+  mascaraMoneda:any;
   constructor(public dialogRef: MatDialogRef<DetalleProductoFabricadoComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     public ProductoFSrv: ProductosFabricadosService,
     private peticiones: PeticionesWebComponent,
-    private funcGenerales: FuncionesGenerales) {
+    public funcGenerales: FuncionesGenerales) {
+      this.mascaraMoneda = mascaraMoneda;
 
   }
 
@@ -31,10 +33,6 @@ export class DetalleProductoFabricadoComponent implements OnInit {
     this.itemSeleccionado = this.data.item;
     this.definirModo();
     this.ProductoFSrv.incicializarVariables();
-    this.ProductoFSrv.PRECIO_COMPRA = this.funcGenerales.dameFormatoMoneda(this.ProductoFSrv.PRECIO_COMPRA,2);
-    this.ProductoFSrv.PRECIO_VENTA = this.funcGenerales.dameFormatoMoneda(this.ProductoFSrv.PRECIO_VENTA,2);
-    this.ProductoFSrv.COSTO_ACTUALIZADO = this.funcGenerales.dameFormatoMoneda(this.ProductoFSrv.COSTO_ACTUALIZADO,2);
-    this.ProductoFSrv.PRECIO_VENT_ACT = this.funcGenerales.dameFormatoMoneda(this.ProductoFSrv.PRECIO_VENT_ACT,2);
   }
 
   definirModo() {
@@ -59,8 +57,8 @@ export class DetalleProductoFabricadoComponent implements OnInit {
     let valor = Number(e.key);
     let valorS = e.key;
     switch (campo) {
-      case 'PRECIO_COMPRA':
-        respuesta = this.funcGenerales.permiteNumerico(this.ProductoFSrv.PRECIO_COMPRA,valorS);
+      case 'COSTO_PRODUCCION':
+        respuesta = this.funcGenerales.permiteNumerico(this.ProductoFSrv.COSTO_PRODUCCION,valorS);
         break;
       case 'COSTO_ACTUALIZADO':
         respuesta = this.funcGenerales.permiteNumerico(this.ProductoFSrv.COSTO_ACTUALIZADO,valorS);
@@ -101,10 +99,6 @@ export class DetalleProductoFabricadoComponent implements OnInit {
 
   llenarCampoDetalle(datos: any) {
     this.ProductoFSrv.llenarCampos(datos);
-    this.ProductoFSrv.PRECIO_COMPRA = this.funcGenerales.dameFormatoMoneda(this.ProductoFSrv.PRECIO_COMPRA,2);
-    this.ProductoFSrv.PRECIO_VENTA = this.funcGenerales.dameFormatoMoneda(this.ProductoFSrv.PRECIO_VENTA,2);
-    this.ProductoFSrv.COSTO_ACTUALIZADO = this.funcGenerales.dameFormatoMoneda(this.ProductoFSrv.COSTO_ACTUALIZADO,2);
-    this.ProductoFSrv.PRECIO_VENT_ACT = this.funcGenerales.dameFormatoMoneda(this.ProductoFSrv.PRECIO_VENT_ACT,2);
     this.quitarCargando();
   }
 
@@ -124,13 +118,13 @@ export class DetalleProductoFabricadoComponent implements OnInit {
       json.CODIGO = this.ProductoFSrv.CODIGO;
       json.PRODUCTO = this.ProductoFSrv.PRODUCTO;
       json.CANTIDAD = this.ProductoFSrv.CANTIDAD;
-      json.PRECIO_COMPRA = this.funcGenerales.dameFormatoNumero(this.ProductoFSrv.PRECIO_COMPRA);
-      json.PRECIO_VENTA = this.funcGenerales.dameFormatoNumero(this.ProductoFSrv.PRECIO_VENTA);
-      json.COSTO_ACTUALIZADO = this.funcGenerales.dameFormatoNumero(this.ProductoFSrv.COSTO_ACTUALIZADO);
-      json.PRECIO_VENT_ACT = this.funcGenerales.dameFormatoNumero(this.ProductoFSrv.PRECIO_VENT_ACT);
-      json.INVENTARIO = this.ProductoFSrv.INVENTARIO;
+      json.COSTO_PRODUCCION = this.ProductoFSrv.COSTO_PRODUCCION;
+      json.PRECIO_VENTA = this.ProductoFSrv.PRECIO_VENTA;
+      json.COSTO_ACTUALIZADO = this.ProductoFSrv.COSTO_ACTUALIZADO;
+      json.PRECIO_VENT_ACT = this.ProductoFSrv.PRECIO_VENT_ACT;
+      // json.INVENTARIO = this.ProductoFSrv.INVENTARIO;
       json.PUNTO_REORDEN = this.ProductoFSrv.PUNTO_REORDEN;
-
+      console.log(json);
       switch (this.modo) {
         case MODO.ALTA:
           json.ESTATUS = 'A';
@@ -235,28 +229,22 @@ export class DetalleProductoFabricadoComponent implements OnInit {
 
   perderFoco(campo) {
     switch (campo) {
-      case 'PRECIO_COMPRA':
-        this.ProductoFSrv.PRECIO_COMPRA = this.funcGenerales.dameFormatoMoneda(this.ProductoFSrv.PRECIO_COMPRA,2);
+      case 'COSTO_PRODUCCION':
+        if(this.funcGenerales.EsVacioNulo(this.ProductoFSrv.COSTO_PRODUCCION))
+        this.ProductoFSrv.COSTO_PRODUCCION = 0;
         break;
       case 'COSTO_ACTUALIZADO':
-        this.ProductoFSrv.COSTO_ACTUALIZADO = this.funcGenerales.dameFormatoMoneda(this.ProductoFSrv.COSTO_ACTUALIZADO,2);
+        if(this.funcGenerales.EsVacioNulo(this.ProductoFSrv.COSTO_ACTUALIZADO))
+        this.ProductoFSrv.COSTO_ACTUALIZADO = 0;
         break;
       case 'PRECIO_VENTA':
-        this.ProductoFSrv.PRECIO_VENTA = this.funcGenerales.dameFormatoMoneda(this.ProductoFSrv.PRECIO_VENTA,2);
+        if(this.funcGenerales.EsVacioNulo(this.ProductoFSrv.PRECIO_VENTA))
+        this.ProductoFSrv.PRECIO_VENTA = 0;
         break;
       case 'PRECIO_VENT_ACT':
-        this.ProductoFSrv.PRECIO_VENT_ACT = this.funcGenerales.dameFormatoMoneda(this.ProductoFSrv.PRECIO_VENT_ACT,2);
+        if(this.funcGenerales.EsVacioNulo(this.ProductoFSrv.PRECIO_VENT_ACT))
+        this.ProductoFSrv.PRECIO_VENT_ACT = 0;
         break;
-      // case 'INVENTARIO':
-
-      //   this.ServiciosSrv.PAGO_EMPLEADO = this.funcGenerales.dameFormatoMoneda(this.ServiciosSrv.PAGO_EMPLEADO, 2);
-      //   break;
-      // case 'PUNTO_REORDEN':
-      //   this.ServiciosSrv.PAGO_EMPLEADO = this.funcGenerales.dameFormatoMoneda(this.ServiciosSrv.PAGO_EMPLEADO, 2);
-      //   break;
-      // case 'CANTIDAD':
-      //   this.ServiciosSrv.PAGO_EMPLEADO = this.funcGenerales.dameFormatoMoneda(this.ServiciosSrv.PAGO_EMPLEADO, 2);
-      //   break;
     }
   }
   ObtenerFoco(e) {

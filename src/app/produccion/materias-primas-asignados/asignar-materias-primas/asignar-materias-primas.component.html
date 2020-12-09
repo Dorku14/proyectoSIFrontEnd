@@ -91,11 +91,11 @@
             <td pEditableColumn [pEditableColumnField]="'CANTIDAD'" [pEditableColumnRowIndex]="rowData.NUM">
               <p-cellEditor>
                 <ng-template pTemplate="input">
-                  <input class="textBoxEdit" (keypress)="validarTyping($event,'CANTIDAD')" [maxLength]="2" pInputText
+                  <input class="textBoxEdit" (keypress)="validarTyping($event,'CANTIDAD')" (focus)="ObtenerFoco($event)" [maxLength]="2" pInputText
                     type="text" [(ngModel)]="rowData.CANTIDAD">
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{dameFormatoCantidad(rowData.CANTIDAD)}}
+                  {{rowData.CANTIDAD}}
                 </ng-template>
               </p-cellEditor>
 

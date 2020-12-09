@@ -52,9 +52,10 @@ export class ProductosComercialesComponent implements OnInit {
       for (let i of this.dataSource) {
         num += 1;
         i.NUM = num;
-        i.PRECIOCOMP = this.funcGenerales.dameFormatoMoneda(i.PRECIOCOMP,2);
+        i.COSTO_COMPRA = this.funcGenerales.dameFormatoMoneda(i.COSTO_COMPRA,2);
         i.PRECIOVENT = this.funcGenerales.dameFormatoMoneda(i.PRECIOVENT,2);
         i.COSTACT = this.funcGenerales.dameFormatoMoneda(i.COSTACT,2);
+        i.PRECIO_VENTA_ACT = this.funcGenerales.dameFormatoMoneda(i.PRECIO_VENTA_ACT,2);
       }
       this.quitarCargando();
     }).catch((error) => {
@@ -72,9 +73,9 @@ export class ProductosComercialesComponent implements OnInit {
   */
   configuraDataGrid(): void {
     let configGrid = {
-      columns: 7,
-      header: ['#', 'Código', 'Producto', 'Cantidad (Balance Inicial)', 'Precio de compra (Sin IVA)', 'Precio de venta (Sin IVA)', 'Costo actualizado',],
-      field: ['NUM', 'CODIGO', 'PRODUCTO', 'CANTIDAD', 'PRECIOCOMP', 'PRECIOVENT', 'COSTACT'],
+      columns: 8,
+      header: ['#', 'Código','Producto','Cantidad (Balance Inicial)', 'Costo de compra (Sin IVA)', 'Precio de venta(Sin IVA)','Costo actualizado','Precio de venta actualizado'],
+      field: ['NUM', 'CODIGO', 'PRODUCTO', 'CANTIDAD', 'COSTO_COMPRA', 'PRECIOVENT', 'COSTACT','PRECIO_VENTA_ACT'],
 
     };
     this.columns = this.funcGenerales.aplicaConfigGrid(configGrid);
@@ -131,7 +132,7 @@ export class ProductosComercialesComponent implements OnInit {
   */
   ventanaDetalle(Modo) {
     var width = '70vh';
-    var height = '35vh';
+    var height = '40vh';
 
     const dialogRef = this.dialog.open(DetalleProductosComercialesComponent, {
       disableClose: true,

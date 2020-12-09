@@ -162,6 +162,14 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO_DISABLED: '',
         SELECTED: false,
         TEMPLATE: NombreComponente.COMPRAS
+      }, {// cuarto meny
+        PADRE: 4,
+        ID: 11,
+        DESCRIPCION: 'Ventas',
+        ICONO: '',
+        ICONO_DISABLED: '',
+        SELECTED: false,
+        TEMPLATE: NombreComponente.VENTAS
       }];
      this.opcionesMenuPadre = [{
       ID:1,
@@ -174,7 +182,7 @@ export class MenuPrincipalComponent implements OnInit {
       DESCRIPCION: 'Impuestos'
     },{
       ID:4,
-      DESCRIPCION: 'Compras'
+      DESCRIPCION: 'Movimientos'
     }]
   }
 
