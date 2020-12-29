@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuPrincipalComponent } from './menu-principal/menu-principal.component';
 // import { MatInputModule } from '@angular/material/input';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSidenavModule} from '@angular/material/sidenav'
 import {MatListModule} from '@angular/material/list'
 import {MatIconModule} from '@angular/material/icon'
@@ -20,6 +19,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { CargandoComponent } from './sharedModules/cargando/cargando.component';
 import { TableModule } from 'primeng/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -27,9 +29,11 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatCardModule} from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatTabsModule} from '@angular/material/tabs';
 import {AccordionModule} from 'primeng/accordion';
 import {ToastModule} from 'primeng/toast';
 import { DetalleProductosComercialesComponent } from './productos-comerciales/detalle-productos-comerciales/detalle-productos-comerciales.component';
@@ -56,6 +60,12 @@ import { BusquedasComponent } from './sharedModules/busquedas/busquedas.componen
 import { TextMaskModule } from 'angular2-text-mask';
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { VentasComponent } from './ventas/ventas.component';
+import { ClientesComponent } from './clientes/clientes.component';
+import { DetalleClientesComponent } from './clientes/detalle-clientes/detalle-clientes.component';
+import { CuentasComponent } from './clientes/cuentas/cuentas.component';
+import { DateAdapter, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,7 +94,10 @@ import { VentasComponent } from './ventas/ventas.component';
     ComprasComponent,
     DetalleComprasComponent,
     BusquedasComponent,
-    VentasComponent
+    VentasComponent,
+    ClientesComponent,
+    DetalleClientesComponent,
+    CuentasComponent
   ],
   imports: [
     BrowserModule,
@@ -113,9 +126,31 @@ import { VentasComponent } from './ventas/ventas.component';
     MatMenuModule,
     SlideMenuModule,
     TextMaskModule,
-    CurrencyMaskModule
-  ],
-  providers: [],
+    CurrencyMaskModule,
+    MatCardModule,
+    MatSlideToggleModule,
+    MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule ],
+  providers: [MatDatepickerModule,
+    // { provide: MAT_DATE_LOCALE, useValue: 'es-MX' },
+    // { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] }
+
+      // The locale would typically be provided on the root module of your application. We do it at
+      // the component level here, due to limitations of our example generation script.
+      {provide: MAT_DATE_LOCALE, useValue: 'es-MX'},
+
+      // `MomentDateAdapter` and `MAT_MOMENT_DATE_FORMATS` can be automatically provided by importing
+      // `MatMomentDateModule` in your applications root module. We provide it at the component level
+      // here, due to limitations of our example generation script.
+      {
+        provide: DateAdapter,
+        useClass: MomentDateAdapter,
+        deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+      },
+      {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

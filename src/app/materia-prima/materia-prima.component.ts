@@ -22,6 +22,7 @@ export class MateriaPrimaComponent implements OnInit {
   // data = { 'NUM': 1, 'CODIGO': '1231', 'ACTIVIDAD': 'camisa', 'PRECIO_VENT': 12, 'PRECIO_VENT_ACT': 80, 'PAGO_EMPLEADO': 120 }
   @ViewChild('dt') table: Table;
   Nombrecatalogo:any;
+  ocultarBTNEliminar:boolean = false;
   constructor(private peticiones: PeticionesWebComponent,
     public ServiciosService: ServiciosService,
     private funcGenerales: FuncionesGenerales,

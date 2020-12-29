@@ -14,7 +14,8 @@ export enum NombreComponente{
     ASIGNARMATERIASP = 'ASIGNARMP',
     IMPUESTOS = 'IM',
     COMPRAS = 'COMPRAS',
-    VENTAS = 'VENTAS'
+    VENTAS = 'VENTAS',
+    CLIENTES = 'CLIENTES'
 }
 
 export enum clasesEstilos{

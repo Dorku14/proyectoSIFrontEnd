@@ -162,7 +162,7 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO_DISABLED: '',
         SELECTED: false,
         TEMPLATE: NombreComponente.COMPRAS
-      }, {// cuarto meny
+      }, {// cuarto menu
         PADRE: 4,
         ID: 11,
         DESCRIPCION: 'Ventas',
@@ -170,10 +170,18 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO_DISABLED: '',
         SELECTED: false,
         TEMPLATE: NombreComponente.VENTAS
+      },{// cuarto menu
+        PADRE: 5,
+        ID: 12,
+        DESCRIPCION: 'Lista de clientes',
+        ICONO: '',
+        ICONO_DISABLED: '',
+        SELECTED: false,
+        TEMPLATE: NombreComponente.CLIENTES
       }];
      this.opcionesMenuPadre = [{
       ID:1,
-      DESCRIPCION:'Código'
+      DESCRIPCION:'Catálogos'
      },{
        ID:2,
        DESCRIPCION: 'Producción'
@@ -183,6 +191,9 @@ export class MenuPrincipalComponent implements OnInit {
     },{
       ID:4,
       DESCRIPCION: 'Movimientos'
+    },{
+      ID:5,
+      DESCRIPCION: 'Clientes'
     }]
   }
 

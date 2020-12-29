@@ -7,6 +7,7 @@ import { SortEvent } from 'primeng/api';
 import { MODO } from './../sharedModules/constantes';
 import { Table } from 'primeng/table';
 import { DetalleProductosComercialesComponent } from './detalle-productos-comerciales/detalle-productos-comerciales.component';
+import { ThemePalette } from '@angular/material/core';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class ProductosComercialesComponent implements OnInit {
   columns: any;
   data = { 'NUM': 1, 'CODIGO': '1231', 'PRODUCTO': 'camisa', 'CANTIDAD': 12, 'PRECIOCOMP': 50, 'PRECIOVENT': 80, 'COSTACT': 120 }
   @ViewChild('dt') table: Table;
+  ocultarBTNEliminar:boolean = false;
   Nombrecatalogo:any;
   constructor(private peticiones: PeticionesWebComponent,
     private funcGenerales: FuncionesGenerales,
@@ -132,7 +134,7 @@ export class ProductosComercialesComponent implements OnInit {
   */
   ventanaDetalle(Modo) {
     var width = '70vh';
-    var height = '40vh';
+    var height = '45vh';
 
     const dialogRef = this.dialog.open(DetalleProductosComercialesComponent, {
       disableClose: true,

@@ -1,0 +1,271 @@
+<mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
+  <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
+  <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
+</mat-toolbar>
+<mat-dialog-content class="contenido-ayuda-ventana">
+  <mat-toolbar class="toolbarMatDialog">
+    <button mat-icon-button class="sinborde" tabindex="-1" matTooltip="Guardar" [matTooltipPosition]="'right'"
+      (click)="guardar()">
+      <mat-icon>save</mat-icon>
+    </button>
+    <!-- <button mat-icon-button class="sinborde" tabindex="-1" matTooltip="Guardar" [matTooltipPosition]="'right'"
+      *ngIf="abonosCliente.isActive" (click)="agregar()">
+      <mat-icon>add</mat-icon>
+    </button> -->
+  </mat-toolbar>
+  <div class="container-fluid contenido">
+    <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
+    <mat-tab-group #GrupoTabs>
+      <mat-tab label="Datos del cliente">
+        <!-- tab datos del cliente -->
+        <div class="contenidoTab">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Clave del cliente</mat-label>
+                <input class="Input" matInput #inputCodigo [(ngModel)]="clientesSrv.ID" autocomplete="off"
+                  [maxLength]="25" (focus)="ObtenerFoco($event)" name="id" [disabled]="true"
+                  (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">*Nombres</mat-label>
+                <input class="Input" matInput #inputCodigo [(ngModel)]="clientesSrv.NOMBRES" autocomplete="off"
+                  [maxLength]="25" (focus)="ObtenerFoco($event)" name="nombres" (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">*Apellido paterno</mat-label>
+                <input class="Input" matInput #inputActividad [(ngModel)]="clientesSrv.APELLIDO_P" name="apellido_p"
+                  autocomplete="off" (keydown)="presionaBoton($event)" (focus)="ObtenerFoco($event)" [maxLength]="25">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Apellido materno</mat-label>
+                <input class="Input" matInput #inputPrecioventa [(ngModel)]="clientesSrv.APELLIDO_M" [maxLength]="25"
+                  (focus)="ObtenerFoco($event)" autocomplete="off" name="apellido_m" (blur)="perderFoco('PRECIOVENT')"
+                  (keypress)="validarTyping($event,'PRECIOVENT')" (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Dirección</mat-label>
+                <input class="Input" matInput #inputVentAct [(ngModel)]="clientesSrv.DIRECCION" [maxLength]="35"
+                  (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIO_VENT_ACT')"
+                  name="direccion" (keypress)="validarTyping($event,'PRECIO_VENT_ACT')"
+                  (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Correo electrónico</mat-label>
+                <input class="Input" matInput #inputPagoEmpleado [(ngModel)]="clientesSrv.CORREO" [maxLength]="30"
+                  (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIOPAGO')" name="correo"
+                  (keypress)="validarTyping($event,'PRECIOPAGO')" (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Facebook</mat-label>
+                <input class="Input" matInput #inputPagoEmpleado [(ngModel)]="clientesSrv.FACEBOOK" [maxLength]="25"
+                  (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIOPAGO')" name="facebook"
+                  (keypress)="validarTyping($event,'PRECIOPAGO')" (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">RFC</mat-label>
+                <input class="Input" matInput #inputPagoEmpleado [(ngModel)]="clientesSrv.RFC" [maxLength]="15"
+                  (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIOPAGO')" name="rfc"
+                  (keypress)="validarTyping($event,'PRECIOPAGO')" (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Teléfono</mat-label>
+                <input class="Input" matInput #inputPagoEmpleado [(ngModel)]="clientesSrv.TELEFONO" [maxLength]="15"
+                  (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('PRECIOPAGO')" name="telefono"
+                  (keypress)="validarTyping($event,'PRECIOPAGO')" (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Fecha de nacimiento</mat-label>
+                <input class="Input" #fechaNacimiento [textMask]="mask" name="FechaCampo" matInput
+                  [matDatepicker]="picker2" name="fechaNacimiento" (keydown)="presionaBoton($event)">
+                <mat-datepicker #picker2 (closed)="CierraVentanaFecha()"></mat-datepicker>
+                <button class="Input" matSuffix mat-icon-button (click)="muestraVentanaFecha(picker2)" tabIndex="-1">
+                  <mat-icon>date_range</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field>
+                <mat-label class="labelForm">Descuento al cliente</mat-label>
+                <input class="Input" matInput #inputCodigo [(ngModel)]="clientesSrv.DESCUENTO" autocomplete="off"
+                  name="descuento" [maxLength]="25" (focus)="ObtenerFoco($event)" name="clave"
+                  (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4" *ngIf="modo == 'MODIFICAR'">
+              <mat-form-field>
+                <mat-label class="labelForm">Es cliente desde</mat-label>
+                <input class="Input" #fechaAntiguedad name="FechaCampo" matInput [matDatepicker]="picker1 "
+                  name="antiguedad" (keydown)="presionaBoton($event)">
+                <mat-datepicker #picker1 (closed)="CierraVentanaFecha()"></mat-datepicker>
+                <button class="Input" matSuffix mat-icon-button (click)="muestraVentanaFecha(picker1)" [disabled]="true"
+                  tabIndex="-1">
+                  <mat-icon>date_range</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+
+              <mat-label class="labelForm" style="margin-right: 15px;">Estatus del cliente</mat-label>
+              <mat-slide-toggle class="example-margin" [color]="'primary'" [(ngModel)]="activarSlide"
+                [checked]="obetenerEstadoSlide()" [disabled]="deshabilitarSlide">
+                {{activarSlide ? 'Activo' : 'Baja'}}
+              </mat-slide-toggle>
+            </div>
+          </div>
+          <!-- credito cliente -->
+          <mat-card style="border: 2px solid;">
+            <mat-card-header>
+              <div mat-card-avatar></div>
+              <mat-card-title>Crédito</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="row">
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <mat-label class="labelForm">Limite de crédito</mat-label>
+                    <input class="Input" matInput #inputCodigo [(ngModel)]="creditoSrv.LIMITE_CREDITO"
+                      autocomplete="off" [maxLength]="25" (focus)="ObtenerFoco($event)" name="limite_credito"
+                      (keydown)="presionaBoton($event)">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-5">
+                  <mat-form-field>
+                    <mat-label class="labelForm">Plazo de pagos (en días)</mat-label>
+                    <input class="Input" matInput #inputCodigo [(ngModel)]="creditoSrv.PLAZO" autocomplete="off"
+                      [maxLength]="25" (focus)="ObtenerFoco($event)" name="plazo" (keydown)="presionaBoton($event)">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <mat-label class="labelForm">Crédito disponible</mat-label>
+                    <input class="Input" matInput #inputCodigo [(ngModel)]="creditoSrv.CREDITO_DIS" autocomplete="off"
+                      [maxLength]="25" (focus)="ObtenerFoco($event)" name="credito_dis"
+                      (keydown)="presionaBoton($event)">
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+
+      </mat-tab>
+
+      <mat-tab #abonosCliente label="Abonos">
+        <div class="contenidoTab">
+           <!-- cabecera abonos -->
+        <div class="row">
+          <div class="col-md-3">
+            <mat-form-field>
+              <mat-label class="labelForm">Saldo</mat-label>
+              <input class="Input" matInput #inputCodigo [(ngModel)]="abonosSrv.SALDO" autocomplete="off"
+                [maxLength]="25" (focus)="ObtenerFoco($event)" name="saldo" [disabled]="true"
+                (keydown)="presionaBoton($event)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field>
+              <mat-label class="labelForm">Fecha</mat-label>
+              <input class="Input" #filtroFecha [textMask]="mask" name="filtroFecha" matInput [matDatepicker]="picker3">
+              <mat-datepicker #picker3 (closed)="CierraVentanaFecha()"></mat-datepicker>
+              <button class="Input" matSuffix mat-icon-button (click)="muestraVentanaFecha(picker3)" tabIndex="-1">
+                <mat-icon>date_range</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field>
+              <mat-label class="labelForm">Monto a abonar</mat-label>
+              <input class="Input" matInput #inputCodigo [(ngModel)]="abonosSrv.MONTOaBONAR" autocomplete="off"
+                [maxLength]="25" (focus)="ObtenerFoco($event)" name="montoAabonar" (keydown)="presionaBoton($event)" [disabled]="campoMonto">
+                <button class="Input" matSuffix mat-icon-button
+                tabIndex="-1" [disabled]="campoMonto">
+                <mat-icon>check_circle</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field>
+              <mat-label class="labelForm">Forma de pago</mat-label>
+              <input class="Input" matInput #inputCodigo [(ngModel)]="abonosSrv.FORMA_PAGO" autocomplete="off"
+                [maxLength]="25" (focus)="ObtenerFoco($event)" name="forma_pago" (keydown)="presionaBoton($event)">
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- grid abonos -->
+
+        <p-table #dt [responsive]="true" [columns]="columns" [scrollable]="true" styleClass="p-datatable-gridlines"
+          [value]="dataSource" scrollHeight="55vh" [resizableColumns]="true " selectionMode="single" [(selection)]="itemSeleccionado" dataKey="NUM"
+          (onEditComplete)="terminarProcesoEditar($event)" (onEditInit)="inicarProcesoEdicion($event)">
+          <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+            </colgroup>
+        </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th [pSortableColumn]="'CAJA'" pResizableColumn>
+                <div class="headerGrid">Código</div>
+                <p-sortIcon class="iconoOrdenamiento" field="CAJA"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'FOLIO'" pResizableColumn>
+                <div class="headerGrid">Descripción</div>
+                <p-sortIcon class="iconoOrdenamiento" field="FOLIO"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'IMPORTE'" pResizableColumn>
+                <div class="headerGrid">Cantidad</div>
+                <p-sortIcon class="iconoOrdenamiento" field="IMPORTE"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'SALDO'" pResizableColumn>
+                <div class="headerGrid">Costo (Unidad sin IVA)</div>
+                <p-sortIcon class="iconoOrdenamiento" field="SALDO">
+                </p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'FECHA'" pResizableColumn>
+                <div class="headerGrid">%Asignado</div>
+                <p-sortIcon class="iconoOrdenamiento" field="FECHA"></p-sortIcon>
+              </th>
+
+
+            </tr>
+          </ng-template>
+          <ng-template pEditableColumn pTemplate="body" let-rowData>
+            <tr [pSelectableRow]="rowData">
+              <td>{{rowData.CAJA}}</td>
+              <td>{{rowData.FOLIO}}</td>
+              <td>{{rowData.IMPORTE}}</td>
+              <td>{{rowData.SALDO}}</td>
+              <td>{{rowData.FECHA}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+        </div>
+      </mat-tab>
+      <mat-tab label="Consulta de movimientos"> Content 3 </mat-tab>
+    </mat-tab-group>
+  </div>
+</mat-dialog-content>

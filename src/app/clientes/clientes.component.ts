@@ -5,30 +5,30 @@ import { PeticionesWebComponent } from '../sharedModules/peticiones-web/peticion
 import { SortEvent } from 'primeng/api';
 import { MODO } from './../sharedModules/constantes';
 import { Table } from 'primeng/table';
-import { DetalleServiciosComponent } from './detalle-servicios/detalle-servicios.component';
 import { ServiciosService } from '../services/servicios.service';
+import { DetalleClientesComponent } from './detalle-clientes/detalle-clientes.component';
 
 @Component({
-  selector: 'app-servicios',
+  selector: 'app-clientes',
   templateUrl: './../productos-comerciales/productos-comerciales.component.html',
   styleUrls: ['./../productos-comerciales/productos-comerciales.component.scss']
 })
 
-export class ServiciosComponent implements OnInit {
+export class ClientesComponent implements OnInit {
   dataSource: Array<any>;
   isCargando: boolean;
   itemSeleccionado: any;
   columns: any;
-  data = { 'NUM': 1, 'CODIGO': '1231', 'ACTIVIDAD': 'camisa', 'PRECIO_VENT': 12, 'PRECIO_VENT_ACT': 80, 'PAGO_EMPLEADO': 120 }
   @ViewChild('dt') table: Table;
   Nombrecatalogo:any;
-  ocultarBTNEliminar:boolean = false;
+  ocultarBTNEliminar:boolean = true;
   constructor(private peticiones: PeticionesWebComponent,
     public ServiciosService: ServiciosService,
     private funcGenerales: FuncionesGenerales,
     public dialog: MatDialog) {
     this.isCargando = false;
-    this.Nombrecatalogo = 'Servicios';
+    this.Nombrecatalogo = 'Clientes';
+
   }
 
   ngOnInit(): void {
@@ -46,16 +46,15 @@ export class ServiciosComponent implements OnInit {
  */
   consulta() {
     this.mostrarCargado();
-    this.peticiones.peticionPost({}, 'consultaServicios').then((resultado: any) => {
+    this.peticiones.peticionPost({}, 'consultaClientes').then((resultado: any) => {
       console.log(resultado);
       this.dataSource = resultado;
       let num = 0;
       for (let i of this.dataSource) {
         num += 1;
         i.NUM = num;
-        i.PRECIO_VENT = this.funcGenerales.dameFormatoMoneda(i.PRECIO_VENT,2);
-        i.PRECIO_VENT_ACT = this.funcGenerales.dameFormatoMoneda(i.PRECIO_VENT_ACT,2);
-        i.PAGO_EMPLEADO = this.funcGenerales.dameFormatoMoneda(i.PAGO_EMPLEADO,2);
+        i.created_at = this.funcGenerales.dameFechaString(new Date(i.created_at));
+        i.FECHA_NACIMIENTO = this.funcGenerales.fechaFormatoYYMMDDtoDDMMYY(i.FECHA_NACIMIENTO);
       }
       this.quitarCargando();
     }).catch((error) => {
@@ -73,9 +72,9 @@ export class ServiciosComponent implements OnInit {
   */
   configuraDataGrid(): void {
     let configGrid = {
-      columns: 6,
-      header: ['#', 'Código', 'Actividad', 'Precio venta (sin IVA)', 'Precio venta actualizado', 'Pago empleado'],
-      field: ['NUM', 'CODIGO', 'ACTIVIDAD', 'PRECIO_VENT', 'PRECIO_VENT_ACT', 'PAGO_EMPLEADO'],
+      columns: 10,
+      header: ['Nombres', 'Apellido paterno', 'Apellido materno','Fecha de nacimiento' ,'Dirección', 'Facebook','Correo','RFC','Teléfono','Cliente desde'],
+      field: ['NOMBRES', 'APELLIDO_P', 'APELLIDO_M','FECHA_NACIMIENTO','DIRECCION','FACEBOOK','CORREO','RFC','TELEFONO','created_at'],
 
     };
     this.columns = this.funcGenerales.aplicaConfigGrid(configGrid);
@@ -104,7 +103,7 @@ export class ServiciosComponent implements OnInit {
 
    /**
     *\brief   Función que invoca el componente detalle y ponerlo en modo alta
-    *\author  Alexis Osvaldo Dorantes Ku
+    *\author  Alexis Osvaldo Dorantes Kupcom
     *\date    23/09/2020
     *\version	1.00.00
   */
@@ -131,10 +130,10 @@ export class ServiciosComponent implements OnInit {
     @param[in] -> el modo en el que se comportará la ventana
   */
   ventanaDetalle(Modo) {
-    var width = '40%';
-    var height = '40%';
+    var width = '90%';
+    var height = '90%';
 
-    const dialogRef = this.dialog.open(DetalleServiciosComponent, {
+    const dialogRef = this.dialog.open(DetalleClientesComponent, {
       disableClose: true,
       width: width,
       height: height,
@@ -159,13 +158,13 @@ export class ServiciosComponent implements OnInit {
     *\version	1.00.00
   */
   eliminar() {
-    this.funcGenerales.popUpAlerta('Confirmación', '¿Seguro que deseas eliminar el registro \"' + this.itemSeleccionado.CODIGO + "\" ?'", 'Si', 'No').then((respuesta) => {
+    this.funcGenerales.popUpAlerta('Confirmación', '¿Seguro que deseas eliminar el registro \"' + this.itemSeleccionado.ID + "\" ?'", 'Si', 'No').then((respuesta) => {
 
       if (respuesta) {
         this.mostrarCargado();
         let json: any = {};
-        json.CODIGO = this.itemSeleccionado.CODIGO;
-        this.peticiones.peticionPost(json, 'eliminarServicios').then((resultado: any) => {
+        json.ID = this.itemSeleccionado.ID;
+        this.peticiones.peticionPost(json, '').then((resultado: any) => {
           this.consulta();
           this.quitarCargando();
         }).catch((error) => {

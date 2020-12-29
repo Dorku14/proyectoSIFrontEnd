@@ -9,7 +9,11 @@ import { ConfirmacionPopUpComponent } from './confirmacion-pop-up/confirmacion-p
   providedIn: 'root'
 })
 export class FuncionesGenerales {
-  constructor(public dialog: MatDialog) { }
+  formatoFecha: string[];
+
+  constructor(public dialog: MatDialog) {
+    this.formatoFecha = ['d', 'm', 'y'];
+  }
 
   /**
 *Devuelve true si el valor es -> undefined o null
@@ -162,7 +166,7 @@ export class FuncionesGenerales {
     return amount_parts.join('.');
   }
 
-  dameFormatoNumero=(valor)=> {
+  dameFormatoNumero = (valor) => {
     // valor = valor.slice(1);
     valor = valor.match(/(\d)+.+/g);
     valor = valor[0];
@@ -255,13 +259,113 @@ export class FuncionesGenerales {
     return valorFormateado;
   }
 
-  formatoPorcentaje(valor){
+  formatoPorcentaje(valor) {
     return String(valor) + '%';
   }
 
-  // mask = (valor)=> {
-  //   // add logic to generate your mask array
-  //   return [ /*your mask array*/ ]
-  // }
+
+  /**
+  *\brief     Convierte una fecha en string con el formato solitado, (por defecto dd/MM/yyyy).
+  *\detail    Llama a la libreria para que se devuelva una fecha en un formato especifico
+  *\author    Ing Alexis Osvaldo Dorantes Ku
+  *\date      25/11/2019
+  *\version	  1.00.00
+  *@param[in] valor -> valor a convertir.
+  *@param[in] tipo -> Valida si el valor proporcionado es fecha (F) o string (S).
+  *@param[in] formato -> puede recibir la sig. Configuración ['d','m','y','h','min','s'].
+*/
+  dameFechaString = (fecha: any, separador: string = '/', formato?: any) => {
+    debugger
+    if (fecha != null && typeof (fecha) != 'undefined' && fecha != '') {
+      formato = typeof (formato) == 'undefined' ? this.formatoFecha : formato;
+
+      let dd: any;
+      let mm: any;
+      let yyyy: any;
+
+      //if (tipo.toUpperCase() == 'F') {
+      if (typeof (fecha) == 'object') {
+        let dia = fecha.getDate();
+        dd = (dia < 10) ? '0' + dia : dia;
+        let diasMes = fecha.getMonth() + 1;
+        mm = (diasMes < 10) ? '0' + diasMes : diasMes;
+        yyyy = fecha.getFullYear();
+      }
+
+      if (typeof (fecha) == 'string') {
+        let fechaSplit = fecha.split('-');
+        if (fechaSplit.length <= 1) {
+          fechaSplit = fecha.split('/');
+        }
+        dd = fechaSplit[0];
+        mm = fechaSplit[1];
+        yyyy = fechaSplit[2];
+      }
+
+      let formDD = formato.indexOf('d');
+      let formMM = formato.indexOf('m');
+      let formYY = formato.indexOf('y');
+
+      let fechaNueva = [];
+      for (let i = 0; i < formato.length; i++) {
+        if (formDD == i) {
+          fechaNueva.push(dd);
+        }
+        if (formMM == i) {
+          fechaNueva.push(mm);
+        }
+        if (formYY == i) {
+          fechaNueva.push(yyyy);
+        }
+      }
+      let result = fechaNueva.join(separador);
+
+      return result;
+    }
+
+
+  }
+
+  fechaFormatoYYMMDDtoDDMMYY(fecha) {
+    if (!this.EsVacioNulo(fecha)) {
+      let separador = '/'
+      let formato = this.formatoFecha;
+
+      let fechaSplit = fecha.split('-');
+      let dd = fechaSplit[2];
+      let mm = fechaSplit[1];
+      let yyyy = fechaSplit[0];
+
+      let formDD = formato.indexOf('d');
+      let formMM = formato.indexOf('m');
+      let formYY = formato.indexOf('y');
+
+      let fechaNueva = [];
+      for (let i = 0; i < formato.length; i++) {
+        if (formDD == i) {
+          fechaNueva.push(dd);
+        }
+        if (formMM == i) {
+          fechaNueva.push(mm);
+        }
+        if (formYY == i) {
+          fechaNueva.push(yyyy);
+        }
+      }
+      let result = fechaNueva.join(separador);
+
+      return result;
+    }else{
+      return '';
+    }
+  }
+
+  pausa(tiempo){
+    return new Promise ((resolve)=>{
+      setTimeout(() => {
+        resolve('');
+      }, tiempo);
+    });
+  }
 }
 

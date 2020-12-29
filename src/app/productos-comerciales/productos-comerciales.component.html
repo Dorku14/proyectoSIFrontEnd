@@ -8,7 +8,7 @@
             [disabled]="!itemSeleccionado">
             <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button  matTooltip="Eliminar"   tabindex="-1" [disabled]="!itemSeleccionado"
+        <button mat-icon-button  matTooltip="Eliminar"   tabindex="-1" [hidden]="ocultarBTNEliminar" [disabled]="!itemSeleccionado"
             (click)="eliminar()">
             <mat-icon>delete</mat-icon>
         </button>
@@ -24,13 +24,18 @@
             </span>
 
     </mat-toolbar>
-    <div >
-        <p-table #dt [columns]="columns" [responsive]="true" [scrollable]="true"  styleClass="p-datatable-gridlines" [value]="dataSource" scrollHeight="70vh" [reorderableColumns]="true"
-            selectionMode="single" [(selection)]="itemSeleccionado" dataKey="NUM" >
+    <div  style="overflow-x: scroll;width: 100% !important;">
+        <p-table #dt [columns]="columns" [responsive]="true" [scrollable]="true"  styleClass="p-datatable-gridlines" [reorderableColumns]="true" [value]="dataSource" width="95%" scrollHeight="70vh" [resizableColumns]="true"
+            selectionMode="single" [(selection)]="itemSeleccionado" dataKey="NUM" [rowHover]="true" >
+            <ng-template pTemplate="colgroup">
+              <colgroup>
+                  <col *ngFor="let col of columns">
+              </colgroup>
+          </ng-template>
             <ng-template pTemplate="header">
                 <tr>
                     <!-- <th pResizableColumn>CODIGO <p-sortIcon field="code"></p-sortIcon></th> -->
-                    <th  *ngFor="let col of columns"   [pSortableColumn]="col.field" pReorderableColumn style="width: 100% !important;">
+                    <th  *ngFor="let col of columns" pReorderableColumn pResizableColumn  [pSortableColumn]="col.field"  style="width: 100% !important;">
 
                         <div class="headerGrid">  <p-sortIcon [field]="col.field"></p-sortIcon>{{col.header}}</div>
                     </th>

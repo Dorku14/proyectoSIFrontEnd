@@ -26,6 +26,7 @@ export class VentasComponent implements OnInit {
   ]
   @ViewChild('dt') table: Table;
   Nombrecatalogo:any;
+  ocultarBTNEliminar:boolean = false;
   constructor(private peticiones: PeticionesWebComponent,
     public ServiciosService: ServiciosService,
     private funcGenerales: FuncionesGenerales,
