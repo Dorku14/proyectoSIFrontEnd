@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { NombreComponente, clasesEstilos } from './../sharedModules/constantes'
-import { MenuItem } from 'primeng/api';
+import { MenuItem, } from 'primeng/api';
 import { MatMenu } from '@angular/material/menu';
 @Component({
   selector: 'app-menu-principal',
@@ -10,7 +10,7 @@ import { MatMenu } from '@angular/material/menu';
 })
 export class MenuPrincipalComponent implements OnInit {
   @ViewChild('drawer', { static: false }) drawer: MatDrawer;
-  @ViewChild('Codigo',{static:false}) Codigomenu: MatMenu;
+  @ViewChild('Codigo', { static: false }) Codigomenu: MatMenu;
   showFiller = false;
   opcionesMenu: { PADRE: number; ID: number, DESCRIPCION: string, ICONO: string, ICONO_DISABLED: string, SELECTED: boolean, TEMPLATE: string }[];
   icono: string;
@@ -18,7 +18,8 @@ export class MenuPrincipalComponent implements OnInit {
   NombresComponetes = NombreComponente;
   itemsMenu: MenuItem[];
   opcionPrincipal: number;
-  opcionesMenuPadre: {ID:number,DESCRIPCION: string}[];
+  opcionesMenuPadre: { ID: number, DESCRIPCION: string }[];
+
   constructor() {
     this.icono = 'menu'
     this.componente = NombreComponente.PRODCOMERCIAL
@@ -46,7 +47,7 @@ export class MenuPrincipalComponent implements OnInit {
     return clase;
   }
 
-  cambiarEstiloscssOpcionPrincipal(item: {ID:number,DESCRIPCION: string}) {
+  cambiarEstiloscssOpcionPrincipal(item: { ID: number, DESCRIPCION: string }) {
     let clase: any;
     if (this.opcionPrincipal === item.ID) {
       clase = clasesEstilos.Activo;
@@ -170,7 +171,7 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO_DISABLED: '',
         SELECTED: false,
         TEMPLATE: NombreComponente.VENTAS
-      },{// cuarto menu
+      }, {// quinto menu
         PADRE: 5,
         ID: 12,
         DESCRIPCION: 'Lista de clientes',
@@ -178,22 +179,34 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO_DISABLED: '',
         SELECTED: false,
         TEMPLATE: NombreComponente.CLIENTES
+      }, {// quinto menu
+        PADRE: 6,
+        ID: 13,
+        DESCRIPCION: 'Lista de proveedores',
+        ICONO: '',
+        ICONO_DISABLED: '',
+        SELECTED: false,
+        TEMPLATE: NombreComponente.PROVEEDORES
       }];
-     this.opcionesMenuPadre = [{
-      ID:1,
-      DESCRIPCION:'Catálogos'
-     },{
-       ID:2,
-       DESCRIPCION: 'Producción'
-     },{
-      ID:3,
+    this.opcionesMenuPadre = [{
+      ID: 1,
+      DESCRIPCION: 'Catálogos'
+    }, {
+      ID: 2,
+      DESCRIPCION: 'Producción'
+    }, {
+      ID: 3,
       DESCRIPCION: 'Impuestos'
-    },{
-      ID:4,
+    }, {
+      ID: 4,
       DESCRIPCION: 'Movimientos'
-    },{
-      ID:5,
+    }, {
+      ID: 5,
       DESCRIPCION: 'Clientes'
+    },
+    {
+      ID: 6,
+      DESCRIPCION: 'Proveedores'
     }]
   }
 
@@ -226,6 +239,4 @@ export class MenuPrincipalComponent implements OnInit {
   cambiarEstiloBtnPrin(vista) {
     this.opcionPrincipal = vista;
   }
-
-
 }

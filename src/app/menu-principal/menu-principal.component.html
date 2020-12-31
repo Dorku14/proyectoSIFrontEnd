@@ -1,3 +1,4 @@
+
 <mat-drawer-container class="Sidenav-container" autosize>
     <mat-drawer #drawer class="sidenav" mode="over">
         <mat-selection-list  [multiple]="false">
@@ -15,14 +16,13 @@
     </mat-drawer>
 
     <div class="sidenav-content">
+
         <mat-toolbar [color]="'primary'">
             <button mat-icon-button (click)="drawer.toggle()" tabindex="-1">
               <mat-icon>{{icono}}</mat-icon>
             </button >
             <span (click)="elegirVista('RE')" class="NombreEmpresa">Para tu negocio</span>
-
           </mat-toolbar>
-
           <div class="container-fluid">
             <app-productos-comerciales *ngIf="componente === NombresComponetes.PRODCOMERCIAL"></app-productos-comerciales>
             <app-servicios *ngIf="componente === NombresComponetes.SERVICIOS"></app-servicios>
@@ -36,6 +36,7 @@
             <app-compras *ngIf="componente === NombresComponetes.COMPRAS"></app-compras>
             <app-ventas *ngIf="componente === NombresComponetes.VENTAS"></app-ventas>
             <app-clientes *ngIf="componente === NombresComponetes.CLIENTES"></app-clientes>
+            <app-proveedores *ngIf="componente === NombresComponetes.PROVEEDORES"></app-proveedores>
           </div>
 
 

@@ -25,8 +25,8 @@ export class ProductosComercialesComponent implements OnInit {
   @ViewChild('dt') table: Table;
   ocultarBTNEliminar:boolean = false;
   Nombrecatalogo:any;
-  constructor(private peticiones: PeticionesWebComponent,
-    private funcGenerales: FuncionesGenerales,
+  constructor(public peticiones: PeticionesWebComponent,
+    public funcGenerales: FuncionesGenerales,
     public dialog: MatDialog) {
     this.isCargando = false;
     this.Nombrecatalogo = 'Productos Comerciales';
@@ -110,7 +110,7 @@ export class ProductosComercialesComponent implements OnInit {
     *\date    23/09/2020
     *\version	1.00.00
   */
-  agregar() {
+   agregar() {
     this.ventanaDetalle(MODO.ALTA);
   }
 

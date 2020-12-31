@@ -1,0 +1,185 @@
+<mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
+  <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
+  <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
+</mat-toolbar>
+<mat-dialog-content class="contenido-ayuda-ventana">
+  <mat-toolbar class="toolbarMatDialog">
+    <button mat-icon-button class="sinborde" tabindex="-1" matTooltip="Guardar" [matTooltipPosition]="'right'"
+      (click)="guardar()">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div class="container-fluid contenido">
+    <p-toast position="top-right" key="arribaDerecha"></p-toast>
+    <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
+
+    <mat-tab-group>
+      <mat-tab label="Datos del contacto">
+        <div class="contenidoTab">
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field [color]="colorCampo">
+              <mat-label class="labelForm">Código</mat-label>
+              <input class="Input" matInput #inputCodigo [(ngModel)]="ProveedorSRV.CODIGO" autocomplete="off"
+                [maxLength]="5" (focus)="ObtenerFoco($event)" name="codigo" [disabled]="modo == 'MODIFICAR'"
+                (keydown)="presionaBoton($event)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+
+            <mat-form-field>
+              <mat-label class="labelForm">Personalidad físca</mat-label>
+              <mat-select class="Input" [(ngModel)]="ProveedorSRV.PERZONALIDAD_FISICA">
+                <mat-option *ngFor="let PF of listaOpcionesFisicas" [value]="PF.ID">
+                  {{PF.Descrip}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label class="labelForm">Razón social</mat-label>
+              <input class="Input" matInput #inputRazon [(ngModel)]="ProveedorSRV.RAZON_SOCIAL" [maxLength]="50"
+                (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('RAZONS')"
+                (keypress)="validarTyping($event,'RAZONS')" (keydown)="presionaBoton($event)">
+            </mat-form-field>
+
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label class="labelForm">RFC</mat-label>
+              <input class="Input" matInput #inputVentAct [(ngModel)]="ProveedorSRV.RFC" [maxLength]="15"
+                (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('RFC')"
+                (keypress)="validarTyping($event,'RFC')" (keydown)="presionaBoton($event)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label class="labelForm">Nombre</mat-label>
+              <input class="Input" matInput #inputPagoEmpleado [(ngModel)]="ProveedorSRV.NOMBRE" [maxLength]="25"
+                (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('NOMBRE')"
+                (keypress)="validarTyping($event,'NOMBRE')" (keydown)="presionaBoton($event)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label class="labelForm">Apellido paterno</mat-label>
+              <input class="Input" matInput #inputPagoEmpleado [(ngModel)]="ProveedorSRV.APELLIDO_P" [maxLength]="25"
+                (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('APELLIDO_P')"
+                (keypress)="validarTyping($event,'APELLIDO_P')" (keydown)="presionaBoton($event)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label class="labelForm">Apellido materno</mat-label>
+              <input class="Input" matInput #inputPagoEmpleado [(ngModel)]="ProveedorSRV.APELLIDO_M" [maxLength]="25"
+                (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('APELLIDO_M')"
+                (keypress)="validarTyping($event,'APELLIDO_M')" (keydown)="presionaBoton($event)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label class="labelForm">Correo electrónico</mat-label>
+              <input class="Input" matInput #inputPagoEmpleado [(ngModel)]="ProveedorSRV.CORREO" [maxLength]="50"
+                (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('CORREO')"
+                (keypress)="validarTyping($event,'CORREO')" (keydown)="presionaBoton($event)">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      </mat-tab>
+      <mat-tab label="Datos del proveedor">
+        <div class="contenidoTab">
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field>
+              <!-- Datos del proveedor -->
+              <mat-label class="labelForm">Calle</mat-label>
+              <input class="Input" matInput #inputPagoEmpleado [(ngModel)]="ProveedorSRV.P_CALLE" [maxLength]="20"
+                (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('P_CALLE')"
+                (keypress)="validarTyping($event,'P_CALLE')" (keydown)="presionaBoton($event)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label class="labelForm">Número</mat-label>
+              <input class="Input" matInput #inputPagoEmpleado [(ngModel)]="ProveedorSRV.P_NUMERO" [maxLength]="20"
+                (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('P_NUMERO')"
+                (keypress)="validarTyping($event,'P_NUMERO')" (keydown)="presionaBoton($event)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label class="labelForm">Colonía</mat-label>
+              <input class="Input" matInput #inputPagoEmpleado [(ngModel)]="ProveedorSRV.P_COLONIA" [maxLength]="25"
+                (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('P_COLONIA')"
+                (keypress)="validarTyping($event,'P_COLONIA')" (keydown)="presionaBoton($event)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label class="labelForm">Correo electrónico</mat-label>
+              <input class="Input" matInput #inputPagoEmpleado [(ngModel)]="ProveedorSRV.P_CORREO" [maxLength]="30"
+                (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('P_CORREO')"
+                (keypress)="validarTyping($event,'P_CORREO')" (keydown)="presionaBoton($event)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label class="labelForm">¿Recibe pedidos electrónicos?</mat-label>
+              <mat-select class="Input" [(ngModel)]="ProveedorSRV.P_RECIBE_PED_ELECTRONICOS">
+                <mat-option *ngFor="let opcion of OpcionesSINO" [value]="opcion.ID">
+                  {{opcion.Descrip}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label class="labelForm">Celular</mat-label>
+              <input class="Input" matInput #inputPagoEmpleado [(ngModel)]="ProveedorSRV.P_CELULAR" [maxLength]="50"
+                (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('P_CELULAR')"
+                (keypress)="validarTyping($event,'P_CELULAR')" (keydown)="presionaBoton($event)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label class="labelForm">Teléfono de oficina</mat-label>
+              <input class="Input" matInput #inputPagoEmpleado [(ngModel)]="ProveedorSRV.P_TEL_OFICINA" [maxLength]="50"
+                (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('P_TEL_OFICINA')"
+                (keypress)="validarTyping($event,'P_TEL_OFICINA')" (keydown)="presionaBoton($event)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label class="labelForm">Estatus</mat-label>
+              <mat-select class="Input" [(ngModel)]="ProveedorSRV.ESTATUS">
+                <mat-option *ngFor="let estatus of listaEstatus" [value]="estatus.ID">
+                  {{estatus.Descrip}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-12">
+            <mat-form-field>
+              <mat-label class="labelForm">Notas</mat-label>
+              <textarea matInput class="Input" [(ngModel)]="ProveedorSRV.NOTAS" [maxLength]="250"
+                (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('NOTAS')"
+                (keypress)="validarTyping($event,'NOTAS')" (keydown)="presionaBoton($event)"></textarea>
+
+            </mat-form-field>
+          </div>
+        </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+
+
+
+  </div>
+
+
+
+
+
+</mat-dialog-content>

@@ -66,6 +66,11 @@ import { CuentasComponent } from './clientes/cuentas/cuentas.component';
 import { DateAdapter, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ProveedoresComponent } from './proveedores/proveedores.component';
+import { DetalleProveedoresComponent } from './proveedores/detalle-proveedores/detalle-proveedores.component';
+import {MessageService, PrimeNGConfig} from 'primeng/api';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,7 +102,9 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
     VentasComponent,
     ClientesComponent,
     DetalleClientesComponent,
-    CuentasComponent
+    CuentasComponent,
+    ProveedoresComponent,
+    DetalleProveedoresComponent
   ],
   imports: [
     BrowserModule,
@@ -132,17 +139,8 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
     MatTabsModule,
     MatDatepickerModule,
     MatNativeDateModule ],
-  providers: [MatDatepickerModule,
-    // { provide: MAT_DATE_LOCALE, useValue: 'es-MX' },
-    // { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] }
-
-      // The locale would typically be provided on the root module of your application. We do it at
-      // the component level here, due to limitations of our example generation script.
+  providers: [MatDatepickerModule,MessageService,
       {provide: MAT_DATE_LOCALE, useValue: 'es-MX'},
-
-      // `MomentDateAdapter` and `MAT_MOMENT_DATE_FORMATS` can be automatically provided by importing
-      // `MatMomentDateModule` in your applications root module. We provide it at the component level
-      // here, due to limitations of our example generation script.
       {
         provide: DateAdapter,
         useClass: MomentDateAdapter,
