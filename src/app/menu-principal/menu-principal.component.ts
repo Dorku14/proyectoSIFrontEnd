@@ -38,7 +38,7 @@ export class MenuPrincipalComponent implements OnInit {
    *\version	1.00.00
  */
   cambiarEstilocss(item) {
-    let clase: any;
+    let clase: string;
     if (this.componente === item.TEMPLATE) {
       clase = clasesEstilos.Activo;
     } else {
@@ -179,7 +179,7 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO_DISABLED: '',
         SELECTED: false,
         TEMPLATE: NombreComponente.CLIENTES
-      }, {// quinto menu
+      }, {// sexto menu
         PADRE: 6,
         ID: 13,
         DESCRIPCION: 'Lista de proveedores',
@@ -187,6 +187,14 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO_DISABLED: '',
         SELECTED: false,
         TEMPLATE: NombreComponente.PROVEEDORES
+      }, {// septimop menu
+        PADRE: 7,
+        ID: 145,
+        DESCRIPCION: 'Cuentas',
+        ICONO: '',
+        ICONO_DISABLED: '',
+        SELECTED: false,
+        TEMPLATE: NombreComponente.CUENTAS
       }];
     this.opcionesMenuPadre = [{
       ID: 1,
@@ -207,6 +215,9 @@ export class MenuPrincipalComponent implements OnInit {
     {
       ID: 6,
       DESCRIPCION: 'Proveedores'
+    },{
+      ID: 7,
+      DESCRIPCION: 'Configuración del sistema'
     }]
   }
 

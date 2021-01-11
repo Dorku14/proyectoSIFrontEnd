@@ -1,10 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuncionesGenerales } from 'src/app/sharedModules/funcionesgenerales';
 import { PeticionesWebComponent } from 'src/app/sharedModules/peticiones-web/peticiones-web.component';
 import { MODO, EXITO, NOEXISTE, mascaraMoneda } from 'src/app/sharedModules/constantes';
 import { ServiciosService } from 'src/app/services/servicios.service';
 import { proveedoresService } from 'src/app/services/proveedores.service';
+import { MatTabGroup } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-detalle-proveedores',
@@ -13,6 +14,7 @@ import { proveedoresService } from 'src/app/services/proveedores.service';
 
 })
 export class DetalleProveedoresComponent implements OnInit {
+  @ViewChild('matTabGrupo', { static: false }) matTabGrupo: MatTabGroup;
   modo: any;
   itemSeleccionado: any;
   TituloVentana: string;
@@ -24,6 +26,7 @@ export class DetalleProveedoresComponent implements OnInit {
   hayError:boolean = false;
   listaEstatus:Array<{ ID, Descrip }>;
   OpcionesSINO:Array<{ ID, Descrip }>;
+  indiceTabsActivo:number = 0;
   constructor(public dialogRef: MatDialogRef<DetalleProveedoresComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     public ProveedorSRV: proveedoresService,
@@ -137,7 +140,7 @@ export class DetalleProveedoresComponent implements OnInit {
           });
           break;
         case MODO.MODIFICAR:
-          this.peticiones.peticionPost(json, 'modificarServicios').then((resultado: any) => {
+          this.peticiones.peticionPost(json, 'modificarProveedores').then((resultado: any) => {
             console.log('resultado then');
             console.log(resultado);
             this.quitarCargando();
@@ -151,7 +154,7 @@ export class DetalleProveedoresComponent implements OnInit {
           break;
         case MODO.REACTIVAR:
           json.ESTATUS = 'A';
-          this.peticiones.peticionPost(json, 'reactivarServicios').then((resultado: any) => {
+          this.peticiones.peticionPost(json, 'reactivarProveedores').then((resultado: any) => {
             console.log('resultado then');
             console.log(resultado);
             this.quitarCargando();
@@ -256,5 +259,9 @@ export class DetalleProveedoresComponent implements OnInit {
     }else{
       this.colorCampo = 'primary';
     }
+  }
+
+  tabsActivos=(indice :number)=>{
+    return this.funcGenerales.tabsActivos(indice, this.indiceTabsActivo);
   }
 }

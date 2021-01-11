@@ -13,8 +13,8 @@
     <p-toast position="top-right" key="arribaDerecha"></p-toast>
     <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
 
-    <mat-tab-group>
-      <mat-tab label="Datos del contacto">
+    <mat-tab-group #matTabGrupo [(selectedIndex)]="indiceTabsActivo">
+      <mat-tab  [aria-label]="tabsActivos(0)"   label="Datos del contacto">
         <div class="contenidoTab">
         <div class="row">
           <div class="col-md-6">
@@ -88,7 +88,7 @@
         </div>
       </div>
       </mat-tab>
-      <mat-tab label="Datos del proveedor">
+      <mat-tab  [aria-label]="tabsActivos(1)"  label="Datos del proveedor">
         <div class="contenidoTab">
         <div class="row">
           <div class="col-md-6">

@@ -438,5 +438,16 @@ cambiarColor(campo: string,color) {
     }
     return valor;
   }
+
+  tabsActivos=(indice :number,indiceTabsActivo:number)=>{
+    let clase: string;
+     if(indiceTabsActivo == indice){
+       clase = 'TabsActivo'
+     }else{
+       clase = 'TabsNoActivo'
+     }
+
+     return clase;
+   }
 }
 

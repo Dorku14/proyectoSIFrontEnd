@@ -1,0 +1,33 @@
+<app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
+<div class="paginaLogin">
+  <!-- <div class="row" style="width: 100% !important;" >
+    <div class="col-md-1" ></div>
+    <div class="col-md-5">
+      <div class="formularioLogin ">
+        <span class="p-input-icon-left formulario"  >
+          <i class="pi pi-user icono"></i>
+          <input type="text" [id]="" class="Input formulario" pInputText placeholder="Usuario" [(ngModel)]="value3" />
+      </span>
+      <span class="p-input-icon-left pass formulario" >
+        <i class="pi pi-key icono "></i>
+        <input type="password" [id]="" class="Input formulario" pInputText placeholder="Contraseña" [(ngModel)]="value3" />
+    </span>
+      </div>
+
+    </div>
+  </div> -->
+  <div class="formularioLogin centrado">
+      <p-toast position="top-right" key="top-right-login"></p-toast>
+
+    <span class="p-input-icon-left formulario"  >
+      <i class="pi pi-user icono"></i>
+      <input type="text" [id]="" class="Input formulario" [maxLength]="15" (keypress)="presionarBoton($event)" name="usuario" pInputText placeholder="Usuario" [(ngModel)]="Usuario" />
+  </span>
+  <span class="p-input-icon-left pass formulario" >
+    <i class="pi pi-key icono "></i>
+    <input type="password" [id]="" class="Input formulario" [maxLength]="10" (keypress)="presionarBoton($event)" name="pass" pPassword [feedback]="false" [promptLabel]="''" [weakLabel]="'Bajo'" [mediumLabel]="'Medio'" [strongLabel]="'Fuerte'" placeholder="Contraseña" [(ngModel)]="Contrasenia" />
+</span>
+<button class="pass centrado Input" mat-raised-button (click)="iniciarSesion()" [color]="'primary'">Iniciar sesión</button>
+
+  </div>
+</div>

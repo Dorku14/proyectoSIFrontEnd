@@ -15,8 +15,8 @@
   </mat-toolbar>
   <div class="container-fluid contenido">
     <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
-    <mat-tab-group #GrupoTabs>
-      <mat-tab label="Datos del cliente">
+    <mat-tab-group  [(selectedIndex)]="indiceTabsActivo"  #GrupoTabs>
+      <mat-tab [aria-label]="tabsActivos(0)"  label="Datos del cliente">
         <!-- tab datos del cliente -->
         <div class="contenidoTab">
           <div class="row">
@@ -170,7 +170,7 @@
 
       </mat-tab>
 
-      <mat-tab #abonosCliente label="Abonos">
+      <mat-tab [aria-label]="tabsActivos(1)" #abonosCliente label="Abonos">
         <div class="contenidoTab">
            <!-- cabecera abonos -->
         <div class="row">
@@ -265,7 +265,7 @@
 
         </div>
       </mat-tab>
-      <mat-tab label="Consulta de movimientos"> Content 3 </mat-tab>
+      <mat-tab [aria-label]="tabsActivos(2)" label="Consulta de movimientos"> Content 3 </mat-tab>
     </mat-tab-group>
   </div>
 </mat-dialog-content>

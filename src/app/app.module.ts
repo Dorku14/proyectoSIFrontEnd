@@ -62,14 +62,18 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
 import { VentasComponent } from './ventas/ventas.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { DetalleClientesComponent } from './clientes/detalle-clientes/detalle-clientes.component';
-import { CuentasComponent } from './clientes/cuentas/cuentas.component';
 import { DateAdapter, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { DetalleProveedoresComponent } from './proveedores/detalle-proveedores/detalle-proveedores.component';
 import {MessageService, PrimeNGConfig} from 'primeng/api';
-
+import { DetalleCuentasComponent } from './cuentas/detalle-cuentas/detalle-cuentas.component';
+import { CuentasComponent } from './cuentas/cuentas.component';
+import { LoginComponent } from './login/login.component';
+import {InputTextModule} from 'primeng/inputtext';
+import {CardModule} from 'primeng/card';
+import {PasswordModule} from 'primeng/password';
 
 @NgModule({
   declarations: [
@@ -104,7 +108,9 @@ import {MessageService, PrimeNGConfig} from 'primeng/api';
     DetalleClientesComponent,
     CuentasComponent,
     ProveedoresComponent,
-    DetalleProveedoresComponent
+    DetalleProveedoresComponent,
+    DetalleCuentasComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -138,7 +144,10 @@ import {MessageService, PrimeNGConfig} from 'primeng/api';
     MatSlideToggleModule,
     MatTabsModule,
     MatDatepickerModule,
-    MatNativeDateModule ],
+    MatNativeDateModule,
+    InputTextModule,
+    CardModule,
+    PasswordModule ],
   providers: [MatDatepickerModule,MessageService,
       {provide: MAT_DATE_LOCALE, useValue: 'es-MX'},
       {

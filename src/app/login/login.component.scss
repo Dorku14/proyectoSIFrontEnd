@@ -1,0 +1,66 @@
+.paginaLogin {
+  // border: rgb(73, 215, 247) solid;
+  // border-radius: 5px;
+  width: 100% !important;
+  height: 100% !important;
+  // background-color: rgba(50, 205, 240, 0.933);
+  background-image: url("https://allegra.flowersetcfresno.com/pic/4926290_full-fondos-de-pantalla-hd-empresa-5-marketing-technology-trends-cmos-need-to-master-for-2018.jpg");
+}
+
+.formularioLogin {
+  // margin-top: 10%;
+  background-color: rgba(255, 255, 255, 0.481);
+  padding: 2%;
+  border-radius: 15px;
+  width: 35%;
+  // opacity: 0.9;
+}
+
+.sizes {
+  .p-inputtext {
+    display: block;
+    margin-bottom: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.p-field * {
+  display: block;
+  width: 100% !important;
+}
+.p-inputtext-lg {
+  width: 100% !important;
+}
+
+
+.centrado{
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.formulario {
+  width: 100% !important;
+  height: 80px !important;
+  background-color: rgba(255, 255, 255, 0.501);
+  border-radius: 15px;
+}
+
+.formulario:active, .formulario:focus{
+  width: 100% !important;
+  background-color: rgba(255, 255, 255, 0.96);
+  border-radius: 15px;
+}
+
+.icono {
+  // background-color: rgba(50, 205, 240, 0.933);
+}
+
+.pass{
+  margin-top: 15px !important;
+}
+.boton{
+  align-items: center;
+}

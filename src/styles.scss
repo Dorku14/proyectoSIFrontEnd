@@ -114,6 +114,19 @@ mat-form-field{
     width: 100% !important;
 }
 
+
+[aria-label=TabsActivo] {
+  color: black !important;
+  background-color: #BCD7F0 !important;
+}
+
+[aria-label=TabsNoActivo] {
+  color:#7A7A7A !important;
+  background-color: white !important;
+}
+
+
+
 th{
     font-size: 100%;
 }

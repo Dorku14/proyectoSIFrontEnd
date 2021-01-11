@@ -42,6 +42,7 @@ export class DetalleClientesComponent implements OnInit {
   deshabilitarSlide: boolean;
   datos = { 'NUM': 0, 'NUMERO_CTA': '', 'BANCO': '' };
   campoMonto:boolean = false;
+  indiceTabsActivo:number = 0;
   public mask = {
     guide: true, showMask: true, pipe: createAutoCorrectedDatePipe('dd/mm/yyyy'), keepCharPositions: true, mask: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
   };
@@ -407,5 +408,9 @@ export class DetalleClientesComponent implements OnInit {
   */
   muestraVentanaFecha(elemFecha) {
     elemFecha.open();
+  }
+
+  tabsActivos=(indice :number)=>{
+    return this.funcGenerales.tabsActivos(indice, this.indiceTabsActivo);
   }
 }
