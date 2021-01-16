@@ -7,14 +7,15 @@ import { MODO } from './../sharedModules/constantes';
 import { Table } from 'primeng/table';
 import { CategoriaService } from '../services/Categoria.service';
 import { DetalleCategoriaComponent } from './detalle-categoria/detalle-categoria.component';
+import { ConsultasBaseComponent } from '../consultas-base/consultas-base.component';
 
 @Component({
   selector: 'app-categoria',
-  templateUrl: './../productos-comerciales/productos-comerciales.component.html',
-  styleUrls: ['./../productos-comerciales/productos-comerciales.component.scss']
+  templateUrl: '../consultas-base/consultas-base.component.html',
+  styleUrls: ['../consultas-base/consultas-base.component.scss']
 })
 
-export class CategoriaComponent implements OnInit {
+export class CategoriaComponent extends ConsultasBaseComponent implements OnInit {
   dataSource: Array<any>;
   isCargando: boolean;
   itemSeleccionado: any;
@@ -23,10 +24,11 @@ export class CategoriaComponent implements OnInit {
   @ViewChild('dt') table: Table;
   Nombrecatalogo:any;
   ocultarBTNEliminar:boolean = false;
-  constructor(private peticiones: PeticionesWebComponent,
+  constructor(public peticiones: PeticionesWebComponent,
     public CatSrv:CategoriaService,
-    private funcGenerales: FuncionesGenerales,
+    public funcGenerales: FuncionesGenerales,
     public dialog: MatDialog) {
+    super(funcGenerales,dialog,peticiones);
     this.isCargando = false;
     this.Nombrecatalogo = 'Categoría';
   }

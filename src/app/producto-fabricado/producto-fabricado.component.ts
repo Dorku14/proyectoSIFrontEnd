@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Table } from 'primeng/table';
+import { ConsultasBaseComponent } from '../consultas-base/consultas-base.component';
 import { MODO,mascaraMoneda } from '../sharedModules/constantes';
 import { FuncionesGenerales } from '../sharedModules/funcionesgenerales';
 import { PeticionesWebComponent } from '../sharedModules/peticiones-web/peticiones-web.component';
@@ -8,10 +9,10 @@ import { DetalleProductoFabricadoComponent } from './detalle-producto-fabricado/
 
 @Component({
   selector: 'app-producto-fabricado',
-  templateUrl: './../productos-comerciales/productos-comerciales.component.html',
-  styleUrls: ['./../productos-comerciales/productos-comerciales.component.scss']
+  templateUrl: '../consultas-base/consultas-base.component.html',
+  styleUrls: ['../consultas-base/consultas-base.component.scss']
 })
-export class ProductoFabricadoComponent implements OnInit {
+export class ProductoFabricadoComponent extends ConsultasBaseComponent implements OnInit {
   dataSource: Array<any>;
   isCargando: boolean;
   itemSeleccionado: any;
@@ -22,9 +23,10 @@ export class ProductoFabricadoComponent implements OnInit {
   ocultarBTNEliminar:boolean = false;
 
   constructor(
-    private peticiones: PeticionesWebComponent,
-    private funcGenerales: FuncionesGenerales,
+    public peticiones: PeticionesWebComponent,
+    public funcGenerales: FuncionesGenerales,
     public dialog: MatDialog) {
+    super(funcGenerales,dialog,peticiones);
       this.isCargando = false;
       this.Nombrecatalogo = 'Productos Fabricados';
 

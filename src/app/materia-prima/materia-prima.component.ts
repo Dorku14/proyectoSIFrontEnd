@@ -7,14 +7,15 @@ import { MODO } from './../sharedModules/constantes';
 import { Table } from 'primeng/table';
 import { DetalleMateriaPrimaComponent } from './detalle-materia-prima/detalle-materia-prima.component';
 import { ServiciosService } from '../services/servicios.service';
+import { ConsultasBaseComponent } from '../consultas-base/consultas-base.component';
 
 @Component({
   selector: 'app-materia-prima',
-  templateUrl: './../productos-comerciales/productos-comerciales.component.html',
-  styleUrls: ['./../productos-comerciales/productos-comerciales.component.scss']
+  templateUrl: '../consultas-base/consultas-base.component.html',
+  styleUrls: ['../consultas-base/consultas-base.component.scss']
 })
 
-export class MateriaPrimaComponent implements OnInit {
+export class MateriaPrimaComponent extends ConsultasBaseComponent implements OnInit {
   dataSource: Array<any>;
   isCargando: boolean;
   itemSeleccionado: any;
@@ -23,10 +24,11 @@ export class MateriaPrimaComponent implements OnInit {
   @ViewChild('dt') table: Table;
   Nombrecatalogo:any;
   ocultarBTNEliminar:boolean = false;
-  constructor(private peticiones: PeticionesWebComponent,
+  constructor(public peticiones: PeticionesWebComponent,
     public ServiciosService: ServiciosService,
-    private funcGenerales: FuncionesGenerales,
+    public funcGenerales: FuncionesGenerales,
     public dialog: MatDialog) {
+    super(funcGenerales,dialog,peticiones);
     this.isCargando = false;
     this.Nombrecatalogo = 'Materias primas';
   }

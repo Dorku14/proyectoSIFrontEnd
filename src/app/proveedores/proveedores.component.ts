@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ConsultasBaseComponent } from '../consultas-base/consultas-base.component';
 import { ProductosComercialesComponent } from '../productos-comerciales/productos-comerciales.component';
 import { MODO } from '../sharedModules/constantes';
+import { ConsultaBaseGeneral } from '../sharedModules/consultaBase';
 import { FuncionesGenerales } from '../sharedModules/funcionesgenerales';
 import { PeticionesWebComponent } from '../sharedModules/peticiones-web/peticiones-web.component';
 import { DetalleProveedoresComponent } from './detalle-proveedores/detalle-proveedores.component';
 
 @Component({
   selector: 'app-proveedores',
-  templateUrl: './../productos-comerciales/productos-comerciales.component.html',
-  styleUrls: ['./../productos-comerciales/productos-comerciales.component.scss']
+  templateUrl: '../consultas-base/consultas-base.component.html',
+  styleUrls: ['../consultas-base/consultas-base.component.scss']
 })
-export class ProveedoresComponent extends ProductosComercialesComponent implements OnInit {
+export class ProveedoresComponent extends ConsultasBaseComponent implements OnInit {
 
   constructor(public peticiones: PeticionesWebComponent, public funcGenerales: FuncionesGenerales, public dialog: MatDialog) {
-    super(peticiones, funcGenerales, dialog);
+    super(funcGenerales, dialog,peticiones);
     this.Nombrecatalogo = 'Proveedores'
   }
 

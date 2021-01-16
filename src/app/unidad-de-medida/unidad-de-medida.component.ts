@@ -7,14 +7,15 @@ import { MODO } from './../sharedModules/constantes';
 import { Table } from 'primeng/table';
 import { CategoriaService } from '../services/Categoria.service';
 import { DetalleUnidadMedidaComponent } from './detalle-unidad-medida/detalle-unidad-medida.component';
+import { ConsultasBaseComponent } from '../consultas-base/consultas-base.component';
 
 @Component({
   selector: 'app-unidad-de-medida',
-  templateUrl: './../productos-comerciales/productos-comerciales.component.html',
-  styleUrls: ['./../productos-comerciales/productos-comerciales.component.scss']
+  templateUrl: '../consultas-base/consultas-base.component.html',
+  styleUrls: ['../consultas-base/consultas-base.component.scss']
 })
 
-export class UnidadDeMedidaComponent implements OnInit {
+export class UnidadDeMedidaComponent extends ConsultasBaseComponent implements OnInit {
   dataSource: Array<any>;
   isCargando: boolean;
   itemSeleccionado: any;
@@ -23,10 +24,11 @@ export class UnidadDeMedidaComponent implements OnInit {
   @ViewChild('dt') table: Table;
   Nombrecatalogo:any;
   ocultarBTNEliminar:boolean = false;
-  constructor(private peticiones: PeticionesWebComponent,
+  constructor(public peticiones: PeticionesWebComponent,
     public CatSrv:CategoriaService,
-    private funcGenerales: FuncionesGenerales,
+    public funcGenerales: FuncionesGenerales,
     public dialog: MatDialog) {
+    super(funcGenerales,dialog,peticiones);
     this.isCargando = false;
     this.Nombrecatalogo = 'Unidad de medida';
   }

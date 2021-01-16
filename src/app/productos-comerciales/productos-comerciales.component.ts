@@ -8,15 +8,16 @@ import { MODO } from './../sharedModules/constantes';
 import { Table } from 'primeng/table';
 import { DetalleProductosComercialesComponent } from './detalle-productos-comerciales/detalle-productos-comerciales.component';
 import { ThemePalette } from '@angular/material/core';
+import { ConsultasBaseComponent } from '../consultas-base/consultas-base.component';
 
 
 @Component({
   selector: 'app-productos-comerciales',
-  templateUrl: './productos-comerciales.component.html',
-  styleUrls: ['./productos-comerciales.component.scss']
+  templateUrl: '../consultas-base/consultas-base.component.html',
+  styleUrls: ['../consultas-base/consultas-base.component.scss']
 })
 
-export class ProductosComercialesComponent implements OnInit {
+export class ProductosComercialesComponent extends ConsultasBaseComponent implements OnInit {
   dataSource: Array<any>;
   isCargando: boolean;
   itemSeleccionado: any;
@@ -28,6 +29,7 @@ export class ProductosComercialesComponent implements OnInit {
   constructor(public peticiones: PeticionesWebComponent,
     public funcGenerales: FuncionesGenerales,
     public dialog: MatDialog) {
+    super( funcGenerales,dialog,peticiones);
     this.isCargando = false;
     this.Nombrecatalogo = 'Productos Comerciales';
   }

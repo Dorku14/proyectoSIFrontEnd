@@ -7,14 +7,15 @@ import { MODO } from './../sharedModules/constantes';
 import { Table } from 'primeng/table';
 import { DetalleServiciosComponent } from './detalle-servicios/detalle-servicios.component';
 import { ServiciosService } from '../services/servicios.service';
+import { ConsultasBaseComponent } from '../consultas-base/consultas-base.component';
 
 @Component({
   selector: 'app-servicios',
-  templateUrl: './../productos-comerciales/productos-comerciales.component.html',
-  styleUrls: ['./../productos-comerciales/productos-comerciales.component.scss']
+  templateUrl: '../consultas-base/consultas-base.component.html',
+  styleUrls: ['../consultas-base/consultas-base.component.scss']
 })
 
-export class ServiciosComponent implements OnInit {
+export class ServiciosComponent extends ConsultasBaseComponent implements OnInit {
   dataSource: Array<any>;
   isCargando: boolean;
   itemSeleccionado: any;
@@ -23,10 +24,11 @@ export class ServiciosComponent implements OnInit {
   @ViewChild('dt') table: Table;
   Nombrecatalogo:any;
   ocultarBTNEliminar:boolean = false;
-  constructor(private peticiones: PeticionesWebComponent,
+  constructor(public peticiones: PeticionesWebComponent,
     public ServiciosService: ServiciosService,
-    private funcGenerales: FuncionesGenerales,
+    public funcGenerales: FuncionesGenerales,
     public dialog: MatDialog) {
+    super(funcGenerales,dialog,peticiones);
     this.isCargando = false;
     this.Nombrecatalogo = 'Servicios';
   }

@@ -7,15 +7,16 @@ import { SortEvent } from 'primeng/api';
 import { MODO } from './../../sharedModules/constantes';
 import { Table } from 'primeng/table';
 import { AsignarMateriasPrimasComponent } from './asignar-materias-primas/asignar-materias-primas.component';
+import { ConsultasBaseComponent } from 'src/app/consultas-base/consultas-base.component';
 
 
 @Component({
   selector: 'app-materias-primas-asignados',
-  templateUrl: './materias-primas-asignados.component.html',
-  styleUrls: ['./materias-primas-asignados.component.scss']
+  templateUrl: '../../consultas-base/consultas-base.component.html',
+  styleUrls: ['../../consultas-base/consultas-base.component.scss']
 })
 
-export class MateriasPrimasAsignadosComponent implements OnInit {
+export class MateriasPrimasAsignadosComponent extends ConsultasBaseComponent implements OnInit {
   dataSource: Array<any>;
   isCargando: boolean;
   itemSeleccionado: any;
@@ -23,9 +24,10 @@ export class MateriasPrimasAsignadosComponent implements OnInit {
   data = { 'NUM': 1, 'CODIGO': '1231', 'PRODUCTO': 'camisa', 'CANTIDAD': 12, 'PRECIOCOMP': 50, 'PRECIOVENT': 80, 'COSTACT': 120 }
   @ViewChild('dt') table: Table;
   Nombrecatalogo:any;
-  constructor(private peticiones: PeticionesWebComponent,
-    private funcGenerales: FuncionesGenerales,
+  constructor(public peticiones: PeticionesWebComponent,
+    public funcGenerales: FuncionesGenerales,
     public dialog: MatDialog) {
+    super(funcGenerales,dialog,peticiones);
     this.isCargando = false;
     this.Nombrecatalogo = 'Materias Primas Asignados';
   }
