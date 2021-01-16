@@ -412,6 +412,20 @@ cambiarColor(campo: string,color) {
         this.messageService.add({ key: key,severity: severity, summary: summary, detail: mensage ,sticky: sticky});
   }
 
+  mensajeConfirmacion(key:string,severity:string, summary: string, mensage:string ,sticky: boolean = false){
+    this.messageService.add({ key: key,severity: severity, summary: summary, detail: mensage ,sticky: sticky});
+  }
+
+  limpiarMensajes(key?: string){
+    if(this.EsVacioNulo(key)){
+      this.messageService.clear();
+    }
+    else{
+      this.messageService.clear(key);
+    }
+    
+  };
+
   dameOpcionesEstatus(){
     let listaE:Array<{ID,Descrip}>;
     listaE = [

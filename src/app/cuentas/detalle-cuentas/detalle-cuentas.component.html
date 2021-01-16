@@ -1,1 +1,58 @@
-<p>detalle-cuentas works!</p>
+<mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
+    <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
+    <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
+  </mat-toolbar>
+  <mat-dialog-content class="contenido-ayuda-ventana">
+    <mat-toolbar class="toolbarMatDialog">
+      <button mat-icon-button class="sinborde" tabindex="-1" matTooltip="Guardar" [matTooltipPosition]="'right'"
+        (click)="guardar()">
+        <mat-icon>save</mat-icon>
+      </button>
+    </mat-toolbar>
+    <div class="container-fluid contenido">
+      <p-toast position="top-right" key="arribaDerecha"></p-toast>
+      <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
+          <div class="contenidoTab">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field [color]="colorCampo">
+                <mat-label class="labelForm">Número de cuenta</mat-label>
+                <input class="Input" matInput #inputCodigo [(ngModel)]="CuentasSRV.NUMERO_CTA" autocomplete="off"
+                  [maxLength]="16" (focus)="ObtenerFoco($event)" name="numero_cta" [disabled]="modo == 'MODIFICAR'"
+                  (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+  
+              <mat-form-field>
+                <mat-label class="labelForm">Propiedad</mat-label>
+                <mat-select (selectionChange)="cambioSeleccion($event)" class="Input" [(ngModel)]="CuentasSRV.PROPIEDAD">
+                  <mat-option *ngFor="let P of listaPropiedad" [value]="P.ID">
+                    {{P.Descrip}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Proveedor</mat-label>
+                <mat-select [disabled]="DesabilitarIDProveedor" class="Input" [(ngModel)]="CuentasSRV.ID_PROVEEDOR">
+                  <mat-option *ngFor="let PR of listaProveedores" [value]="PR.CODIGO">
+                    {{PR.CODIGO}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Nombre de banco</mat-label>
+                <input class="Input" matInput #inputVentAct [(ngModel)]="CuentasSRV.BANCO" [maxLength]="15"
+                  (focus)="ObtenerFoco($event)" autocomplete="off" (blur)="perderFoco('RFC')"
+                  (keypress)="validarTyping($event,'RFC')" (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+    </div>
+  </mat-dialog-content>

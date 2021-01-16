@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ConsultasBaseComponent } from '../consultas-base/consultas-base.component';
 import { ProductosComercialesComponent } from '../productos-comerciales/productos-comerciales.component';
 import { MODO } from '../sharedModules/constantes';
 import { FuncionesGenerales } from '../sharedModules/funcionesgenerales';
@@ -9,17 +10,18 @@ import { DetalleCuentasComponent } from './detalle-cuentas/detalle-cuentas.compo
 
 @Component({
   selector: 'app-cuentas',
-  templateUrl: './../productos-comerciales/productos-comerciales.component.html',
-  styleUrls: ['./../productos-comerciales/productos-comerciales.component.scss']
+  templateUrl: '../consultas-base/consultas-base.component.html',
+  styleUrls: ['../consultas-base/consultas-base.component.scss']
 })
-export class CuentasComponent extends ProductosComercialesComponent implements OnInit {
+export class CuentasComponent extends ConsultasBaseComponent implements OnInit {
 
   constructor(public peticiones: PeticionesWebComponent, public funcGenerales: FuncionesGenerales, public dialog: MatDialog) {
-    super(peticiones, funcGenerales, dialog);
+    super(funcGenerales, dialog, peticiones);
     this.Nombrecatalogo = 'Cuentas'
   }
 
   ngOnInit(): void {
+    
     this.configuraDataGrid();
     setTimeout(() => {
       this.consulta();
@@ -127,12 +129,14 @@ export class CuentasComponent extends ProductosComercialesComponent implements O
     *\version	1.00.00
   */
   eliminar() {
-    this.funcGenerales.popUpAlerta('Confirmación', '¿Seguro que deseas eliminar la cuenta \"' + this.itemSeleccionado.CODIGO + "\" ?'", 'Si', 'No').then((respuesta) => {
+    this.funcGenerales.mensajeConfirmacion('c', 'warn', '¿Estas seguro?', 'Confirmar', true);
+
+    /*this.funcGenerales.popUpAlerta('Confirmación', '¿Seguro que deseas eliminar la cuenta \"' + this.itemSeleccionado.NUMERO_CTA + "\" ?'", 'Si', 'No').then((respuesta) => {
 
       if (respuesta) {
         this.mostrarCargado();
         let json: any = {};
-        json.CODIGO = this.itemSeleccionado.CODIGO;
+        json.CODIGO = this.itemSeleccionado.NUMERO_CTA;
         this.peticiones.peticionPost(json, 'eliminarCuentas').then((resultado: any) => {
           this.consulta();
           this.quitarCargando();
@@ -141,6 +145,6 @@ export class CuentasComponent extends ProductosComercialesComponent implements O
           this.quitarCargando();
         });
       }
-    });
+    });*/
   }
 }
