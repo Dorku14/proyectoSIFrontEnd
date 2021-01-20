@@ -24,7 +24,7 @@ export class DetalleCuentasComponent implements OnInit {
   datosTemporales: any;
   mascaraMoneda: any
   listaPropiedad: Array<{ ID, Descrip }>;
-  listaProveedores: Array<{ ID, CODIGO }>;
+  listaProveedores: Array<{ ID, CODIGO,NOMBRE,APELLIDO_P }>;
   colorCampo:string = 'primary';
   hayError:boolean = false;
   listaEstatus:Array<{ ID, Descrip }>;
@@ -278,7 +278,7 @@ export class DetalleCuentasComponent implements OnInit {
     });
 
   }
-  
+
   desactivar(){
 
   }

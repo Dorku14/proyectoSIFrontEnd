@@ -1,0 +1,49 @@
+<mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
+  <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
+  <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
+</mat-toolbar>
+<mat-dialog-content class="contenido-ayuda-ventana">
+  <mat-toolbar class="toolbarMatDialog">
+    <button mat-icon-button class="sinborde" tabindex="-1" matTooltip="Guardar" [matTooltipPosition]="'right'"
+      (click)="guardar()">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div class="container-fluid contenido">
+    <p-toast position="top-right" key="arribaDerecha"></p-toast>
+    <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
+    <mat-tab-group #matTabGrupo [(selectedIndex)]="indiceTabsActivo">
+      <mat-tab  [aria-label]="tabsActivos(0)"   label="Tienda">
+        <div class="contenidoTab">
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field >
+              <mat-label class="labelForm">Código</mat-label>
+              <input class="Input" matInput #inputCodigo  autocomplete="off"
+                [maxLength]="5"  name="codigo"
+                >
+            </mat-form-field>
+          </div>
+
+        </div>
+      </div>
+      </mat-tab>
+      <mat-tab  [aria-label]="tabsActivos(1)"  label="Caja">
+        <div class="contenidoTab">
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field>
+              <!-- Datos del proveedor -->
+              <mat-label class="labelForm">Calle</mat-label>
+              <input class="Input" matInput #inputPagoEmpleado  [maxLength]="20"
+                autocomplete="off"
+               >
+            </mat-form-field>
+          </div>
+
+        </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</mat-dialog-content>

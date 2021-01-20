@@ -23,7 +23,7 @@
               </mat-form-field>
             </div>
             <div class="col-md-6">
-  
+
               <mat-form-field>
                 <mat-label class="labelForm">Propiedad</mat-label>
                 <mat-select (selectionChange)="cambioSeleccion($event)" class="Input" [(ngModel)]="CuentasSRV.PROPIEDAD">
@@ -38,11 +38,11 @@
                 <mat-label class="labelForm">Proveedor</mat-label>
                 <mat-select [disabled]="DesabilitarIDProveedor" class="Input" [(ngModel)]="CuentasSRV.ID_PROVEEDOR">
                   <mat-option *ngFor="let PR of listaProveedores" [value]="PR.CODIGO">
-                    {{PR.CODIGO}}
+                    {{PR.CODIGO +" - "+ PR.NOMBRE +" "+ PR.APELLIDO_P}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-  
+
             </div>
             <div class="col-md-6">
               <mat-form-field>

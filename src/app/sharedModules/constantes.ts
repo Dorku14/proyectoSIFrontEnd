@@ -17,7 +17,8 @@ export enum NombreComponente{
     VENTAS = 'VENTAS',
     CLIENTES = 'CLIENTES',
     PROVEEDORES = 'PROVEEDORES',
-    CUENTAS = 'CUENTAS'
+    CUENTAS = 'CUENTAS',
+    DATOSTIENDA = 'DATOSTIENDA',
 }
 
 export enum clasesEstilos{

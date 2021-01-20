@@ -75,6 +75,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {CardModule} from 'primeng/card';
 import {PasswordModule} from 'primeng/password';
 import { ConsultasBaseComponent } from './consultas-base/consultas-base.component';
+import { DatosTiendaComponent } from './datos-tienda/datos-tienda.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { ConsultasBaseComponent } from './consultas-base/consultas-base.componen
     DetalleProveedoresComponent,
     DetalleCuentasComponent,
     LoginComponent,
-    ConsultasBaseComponent
+    ConsultasBaseComponent,
+    DatosTiendaComponent
   ],
   imports: [
     BrowserModule,

@@ -35,13 +35,14 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/TuNegocio');
         } else {
           if (this.generalFunc.extraerCodigo(resultado) == NOEXISTE) {
-            this.generalFunc.mostrarMensajeError('top-right-login', 'error', 'Error', 'El usuario o contraseña son incorrectas', true);
+            this.generalFunc.mostrarMensajeError('top-right-login', 'error', 'Error', 'El usuario o contraseña son incorrectas');
             this.generalFunc.otorgaFoco('usuario');
           }
         }
         this.quitarCargando();
       }).catch((error) => {
         console.log(error);
+        this.generalFunc.mensajeConfirmacion('top-right-login',"error", "Ocurrió un error","Hubo un error en el servidor, inténtelo más tarde");
         this.quitarCargando();
       });
 
@@ -51,12 +52,12 @@ export class LoginComponent implements OnInit {
   vallidarCampos() {
     let Error: boolean = false;
     if (this.generalFunc.EsVacioNulo(this.Usuario)) {
-      this.generalFunc.mostrarMensajeError('top-right-login', 'error', 'Campo vacío', 'El campo usuario está vacío', true);
+      this.generalFunc.mostrarMensajeError('top-right-login', 'error', 'Campo vacío', 'El campo usuario está vacío');
       this.generalFunc.otorgaFoco('usuario');
       Error = true;
     } else {
       if (this.generalFunc.EsVacioNulo(this.Contrasenia)) {
-        this.generalFunc.mostrarMensajeError('top-right-login', 'error', 'Campo vacío', 'El campo contraseña está vacío', true);
+        this.generalFunc.mostrarMensajeError('top-right-login', 'error', 'Campo vacío', 'El campo contraseña está vacío');
         this.generalFunc.otorgaFoco('pass');
         Error = true;
       }

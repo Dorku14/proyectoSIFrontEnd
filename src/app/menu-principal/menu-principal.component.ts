@@ -3,6 +3,10 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { NombreComponente, clasesEstilos } from './../sharedModules/constantes'
 import { MenuItem, } from 'primeng/api';
 import { MatMenu } from '@angular/material/menu';
+import { ComponentType } from '@angular/cdk/portal';
+import { DatosTiendaComponent } from '../datos-tienda/datos-tienda.component';
+import { FuncionesGenerales } from '../sharedModules/funcionesgenerales';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-menu-principal',
   templateUrl: './menu-principal.component.html',
@@ -20,7 +24,7 @@ export class MenuPrincipalComponent implements OnInit {
   opcionPrincipal: number;
   opcionesMenuPadre: { ID: number, DESCRIPCION: string }[];
 
-  constructor() {
+  constructor(private funcGenerales:FuncionesGenerales, public dialog: MatDialog) {
     this.icono = 'menu'
     this.componente = NombreComponente.PRODCOMERCIAL
     this.opcionPrincipal = 1;
@@ -69,6 +73,8 @@ export class MenuPrincipalComponent implements OnInit {
     this.componente = Vista;
     let opcion = this.opcionesMenu.find(item => item.TEMPLATE === Vista);
     this.opcionPrincipal = opcion.PADRE;
+    this.configurarVentana(Vista);
+
   }
 
   /**
@@ -195,6 +201,14 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO_DISABLED: '',
         SELECTED: false,
         TEMPLATE: NombreComponente.CUENTAS
+      }, {// septimop menu
+        PADRE: 7,
+        ID: 146,
+        DESCRIPCION: 'Datos de la tienda',
+        ICONO: '',
+        ICONO_DISABLED: '',
+        SELECTED: false,
+        TEMPLATE: NombreComponente.DATOSTIENDA
       }];
     this.opcionesMenuPadre = [{
       ID: 1,
@@ -250,4 +264,40 @@ export class MenuPrincipalComponent implements OnInit {
   cambiarEstiloBtnPrin(vista) {
     this.opcionPrincipal = vista;
   }
+
+  configurarVentana(vista){
+    let configVentana:{componente:any;width:string;height:string,data:any} = {componente:"",width:"",height:"",data:""};
+    switch(vista){
+      case NombreComponente.DATOSTIENDA:
+        configVentana.componente = DatosTiendaComponent;
+        configVentana.width = '90vh';
+        configVentana.height = '75vh';
+      break;
+
+    }
+
+    if(!this.funcGenerales.EsVacioNulo(configVentana.componente) && !this.funcGenerales.EsVacioNulo(configVentana.width) && !this.funcGenerales.EsVacioNulo(configVentana.height)){
+      this.abrirVentana(configVentana);
+    }
+  }
+
+
+  abrirVentana(configuracion:{componente:any;width:string;height:string,data:any}){
+    let datosAenviar = this.funcGenerales.EsVacioNulo(configuracion.data) ? "" : configuracion.data;
+
+    const dialogRef = this.dialog.open(configuracion.componente, {
+      disableClose: true,
+      width: configuracion.width,
+      height: configuracion.height,
+      data: datosAenviar
+    });
+
+    return new Promise(resolve => {
+      dialogRef.afterClosed().subscribe(result => {
+
+
+      });
+    });
+  }
+
 }
