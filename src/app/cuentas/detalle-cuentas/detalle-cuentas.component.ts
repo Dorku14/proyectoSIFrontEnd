@@ -42,6 +42,7 @@ export class DetalleCuentasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    debugger
     this.generarPropiedad();
     this.consultaProveedores();
     this.modo = this.data.Proceso;
