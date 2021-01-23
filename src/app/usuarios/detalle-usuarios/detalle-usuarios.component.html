@@ -1,0 +1,111 @@
+<mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
+  <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
+  <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
+</mat-toolbar>
+<mat-dialog-content class="contenido-ayuda-ventana">
+  <mat-toolbar class="toolbarMatDialog">
+    <button mat-icon-button class="sinborde" tabindex="-1" matTooltip="Guardar" [matTooltipPosition]="'right'"
+      (click)="guardar()">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div class="container-fluid contenido">
+    <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
+    <p-toast position="top-right" key="error"></p-toast>
+    <p-toast position="bottom-center" key="confirm">
+      <ng-template let-message pTemplate="message">
+        <div>
+
+                <div class="text-center align-items-center">
+                  <i class="pi pi-exclamation-triangle" style="font-size: 50px !important"></i>
+                  <h1>{{message.summary}}</h1>
+                  <p>{{message.detail}}</p>
+                </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                  <button mat-raised-button (click)="Confirmar()" color="primary">Confirmar</button>
+
+                    <!-- <button class="" type="button" pButton (  class="p-button-success">Confirmar</button> -->
+                </div>
+                <div class="col-md-6">
+                  <button mat-raised-button (click)="Cancelar()" color="warn">Cancelar</button>
+                    <!-- <button class="buttonMessage" type="button" pButton (click)="Cancelar()"  class="p-button-secondary">Cancelar</button> -->
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    </p-toast>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label class="labelForm">Usuario</mat-label>
+          <input class="Input" [disabled]="modo == 'MODIFICAR'" matInput #inputCodigo [(ngModel)]="UsuarioSrv.USUARIO" (focus)="ObtenerFoco($event)"
+            autocomplete="off" name="usuario" (keydown)="presionaBoton($event)">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label class="labelForm">Nombre</mat-label>
+          <input class="Input" matInput #inputCodigo [(ngModel)]="UsuarioSrv.NOMBRE" (focus)="ObtenerFoco($event)"
+            autocomplete="off" name="nombre"  (keydown)="presionaBoton($event)">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label class="labelForm">Apellido paterno</mat-label>
+          <input class="Input" matInput #inputCodigo [(ngModel)]="UsuarioSrv.APELLIDO_P" (focus)="ObtenerFoco($event)"
+            autocomplete="off" name="apellido_p" (keydown)="presionaBoton($event)">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label class="labelForm">Apellido materno</mat-label>
+          <input class="Input" matInput #inputCodigo [(ngModel)]="UsuarioSrv.APELLIDO_M" (focus)="ObtenerFoco($event)"
+            autocomplete="off" name="apellido_m" (keydown)="presionaBoton($event)">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label class="labelForm">Contraseña</mat-label>
+          <input class="Input" type="password"   matInput #inputCodigo [(ngModel)]="UsuarioSrv.CONTRASENIA" (focus)="ObtenerFoco($event)"
+            autocomplete="off" name="contrasenia" (keydown)="presionaBoton($event)">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label class="labelForm">Confirmar contraseña</mat-label>
+          <input class="Input" type="password" [maxLength]="10" matInput #inputCodigo [(ngModel)]="UsuarioSrv.CONFIRM_CONTRASENIA" (focus)="ObtenerFoco($event)"
+            autocomplete="off" name="Confim_contrasenia" (keydown)="presionaBoton($event)">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label class="labelForm">Estatus</mat-label>
+          <mat-select class="Input" [(ngModel)]="UsuarioSrv.ESTATUS">
+            <mat-option *ngFor="let Estado of listaEstatus" [value]="Estado.ID">
+              {{Estado.DESCRIPCION}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label class="labelForm">Tipo de usuario</mat-label>
+          <mat-select class="Input" name="tipo_usuario" [(ngModel)]="UsuarioSrv.TIPO_USUARIO">
+            <mat-option *ngFor="let TipoUsuario of listaTipoUsuario" [value]="TipoUsuario.ID">
+              {{TipoUsuario.DESCRIPCION}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+</mat-dialog-content>

@@ -274,6 +274,19 @@ cambiarColor(campo: string,color) {
     return valorFormateado;
   }
 
+  formatoTipoUsuario(valor){
+    let valorFormateado: string;
+    switch (valor) {
+      case 'A':
+        valorFormateado = 'Administrador';
+        break;
+      case 'C':
+        valorFormateado = 'Cajero';
+        break;
+    }
+    return valorFormateado;
+  }
+
   formatoPorcentaje(valor) {
     return String(valor) + '%';
   }
@@ -423,7 +436,7 @@ cambiarColor(campo: string,color) {
     else{
       this.messageService.clear(key);
     }
-    
+
   };
 
   dameOpcionesEstatus(){
