@@ -12,38 +12,47 @@
   <div class="container-fluid contenido">
     <p-toast position="top-right" key="arribaDerecha"></p-toast>
     <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
-    <mat-tab-group #matTabGrupo [(selectedIndex)]="indiceTabsActivo">
-      <mat-tab  [aria-label]="tabsActivos(0)"   label="Tienda">
-        <div class="contenidoTab">
-        <div class="row">
-          <div class="col-md-6">
-            <mat-form-field >
-              <mat-label class="labelForm">Código</mat-label>
-              <input class="Input" matInput #inputCodigo  autocomplete="off"
-                [maxLength]="5"  name="codigo"
-                >
-            </mat-form-field>
-          </div>
-
+    <div class="contenidoTab">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field>
+            <!-- Monto minimo -->
+            <mat-label class="labelForm">Monto minimo para imprimir tickets</mat-label>
+            <input class="Input" currencyMask matInput [(ngModel)]="ConfiguracionCajaSRV.MONTO_MINIMO" [options]="mascaraMoneda" [maxLength]="17" autocomplete="off" (keypress)="validarTyping($event,'MONTO_MINIMO')">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <!-- Cantidad para recoleccción -->
+            <mat-label class="labelForm">Cantidad para solicitar recolección</mat-label>
+            <input class="Input" currencyMask matInput [(ngModel)]="ConfiguracionCajaSRV.CANTIDAD_RECOLECCION" [options]="mascaraMoneda" [maxLength]="17" autocomplete="off">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <!-- Posicion ventana de publicidad -->
+            <mat-label class="labelForm">Posicion de videos en venta</mat-label>
+            <mat-select  class="Input" [(ngModel)]="ConfiguracionCajaSRV.POSICION_VIDEOS">
+              <mat-option *ngFor="let P of listaPosicion" [value]="P.ID">
+                {{P.Descrip}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <!-- Ruta del archivo de ayuda -->
+          <button mat-stroked-button color="primary" matTooltip="Selecionar Ruta">
+            Ruta archivo de ayuda
+        </button>
+        </div>
+        <div class="col-md-8">
+          <mat-form-field>
+            <!-- Temporizador para proteger pantalla -->
+            <mat-label class="labelForm">Tiempo de espera para proteger pantalla (minutos)</mat-label>
+            <input class="Input" matInput [(ngModel)]="ConfiguracionCajaSRV.TIEMPO_ESPERA" [maxLength]="20" autocomplete="off" (keypress)="validarTyping($event,'Tiempo')">
+          </mat-form-field>
         </div>
       </div>
-      </mat-tab>
-      <mat-tab  [aria-label]="tabsActivos(1)"  label="Caja">
-        <div class="contenidoTab">
-        <div class="row">
-          <div class="col-md-6">
-            <mat-form-field>
-              <!-- Datos del proveedor -->
-              <mat-label class="labelForm">Calle</mat-label>
-              <input class="Input" matInput #inputPagoEmpleado  [maxLength]="20"
-                autocomplete="off"
-               >
-            </mat-form-field>
-          </div>
-
-        </div>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
+      </div>
   </div>
 </mat-dialog-content>

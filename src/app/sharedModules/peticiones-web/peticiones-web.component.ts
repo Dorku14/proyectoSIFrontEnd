@@ -43,7 +43,7 @@ export class PeticionesWebComponent implements OnInit {
   peticionPost(json,rutaServicio:string) {
     this.isCargando = true;
     return new Promise((resolve,reject)=>{
-      json == !this.funcGeneral.EsVacioNulo(json) ? json : {};
+      json = !this.funcGeneral.EsVacioNulo(json) ? json : {};
       let url = direccionHttp+rutaServicio;//'ingreso/consulta'
       this.http.post(url,json,this.httpOptions).toPromise().then((resultado:any)=>{
       this.isCargando = false;
