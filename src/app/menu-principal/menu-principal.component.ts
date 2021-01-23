@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { NombreComponente, clasesEstilos } from './../sharedModules/constantes'
+import { NombreComponente, clasesEstilos,TIPOUSARIO } from './../sharedModules/constantes'
 import { MenuItem, } from 'primeng/api';
 import { MatMenu } from '@angular/material/menu';
 import { ComponentType } from '@angular/cdk/portal';
@@ -16,18 +16,26 @@ export class MenuPrincipalComponent implements OnInit {
   @ViewChild('drawer', { static: false }) drawer: MatDrawer;
   @ViewChild('Codigo', { static: false }) Codigomenu: MatMenu;
   showFiller = false;
-  opcionesMenu: { PADRE: number; ID: number, DESCRIPCION: string, ICONO: string, ICONO_DISABLED: string, SELECTED: boolean, TEMPLATE: string }[];
+  opcionesMenu: { PADRE: number; ID: number, DESCRIPCION: string, ICONO: string, ICONO_DISABLED: string, SELECTED: boolean, TEMPLATE: string,visible:boolean }[];
   icono: string;
   componente: string;
   NombresComponetes = NombreComponente;
+  TIPOUSUARIOS = TIPOUSARIO;
   itemsMenu: MenuItem[];
   opcionPrincipal: number;
-  opcionesMenuPadre: { ID: number, DESCRIPCION: string }[];
-
+  opcionesMenuPadre: { ID: number, DESCRIPCION: string,visible:boolean }[];
+  NivelUsuario:string;
+  permisoAdmin:boolean;
   constructor(private funcGenerales:FuncionesGenerales, public dialog: MatDialog) {
     this.icono = 'menu'
     this.componente = NombreComponente.PRODCOMERCIAL
     this.opcionPrincipal = 1;
+    this.NivelUsuario = TIPOUSARIO.ADMINISTRADOR;
+    if(this.NivelUsuario === TIPOUSARIO.ADMINISTRADOR){
+      this.permisoAdmin = true;
+    }else{
+      this.permisoAdmin = false;
+    }
   }
 
   ngOnInit(): void {
@@ -93,6 +101,7 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO: '',
         ICONO_DISABLED: '',
         SELECTED: true,
+        visible: true,
         TEMPLATE: NombreComponente.PRODCOMERCIAL
 
       }, {
@@ -102,6 +111,7 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO: '',
         ICONO_DISABLED: '',
         SELECTED: false,
+        visible: true,
         TEMPLATE: NombreComponente.SERVICIOS
       }, {
         PADRE: 1,
@@ -110,6 +120,7 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO: '',
         ICONO_DISABLED: '',
         SELECTED: false,
+        visible: true,
         TEMPLATE: NombreComponente.PRODFABRICADOS
       }, {
         PADRE: 1,
@@ -118,6 +129,7 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO: '',
         ICONO_DISABLED: '',
         SELECTED: false,
+        visible: true,
         TEMPLATE: NombreComponente.MATERIAPRIMA
       }, {
         PADRE: 1,
@@ -126,6 +138,7 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO: '',
         ICONO_DISABLED: '',
         SELECTED: false,
+        visible: true,
         TEMPLATE: NombreComponente.MANOSDOBRA
       }, {
         PADRE: 1,
@@ -134,6 +147,7 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO: '',
         ICONO_DISABLED: '',
         SELECTED: false,
+        visible: true,
         TEMPLATE: NombreComponente.CATEGORIA
       }, {
         PADRE: 1,
@@ -142,6 +156,7 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO: '',
         ICONO_DISABLED: '',
         SELECTED: false,
+        visible: true,
         TEMPLATE: NombreComponente.UNIDADDMEDIDA
       },// segudo menu
       {
@@ -151,6 +166,7 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO: '',
         ICONO_DISABLED: '',
         SELECTED: false,
+        visible: true,
         TEMPLATE: NombreComponente.ASIGNARMATERIASP
       },
       {// tercer menu
@@ -160,6 +176,7 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO: '',
         ICONO_DISABLED: '',
         SELECTED: false,
+        visible: true,
         TEMPLATE: NombreComponente.IMPUESTOS
       }, {// tercer menu
         PADRE: 4,
@@ -168,6 +185,7 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO: '',
         ICONO_DISABLED: '',
         SELECTED: false,
+        visible: true,
         TEMPLATE: NombreComponente.COMPRAS
       }, {// cuarto menu
         PADRE: 4,
@@ -176,6 +194,7 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO: '',
         ICONO_DISABLED: '',
         SELECTED: false,
+        visible: true,
         TEMPLATE: NombreComponente.VENTAS
       }, {// quinto menu
         PADRE: 5,
@@ -184,6 +203,7 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO: '',
         ICONO_DISABLED: '',
         SELECTED: false,
+        visible: true,
         TEMPLATE: NombreComponente.CLIENTES
       }, {// sexto menu
         PADRE: 6,
@@ -192,14 +212,16 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO: '',
         ICONO_DISABLED: '',
         SELECTED: false,
+        visible: true,
         TEMPLATE: NombreComponente.PROVEEDORES
       }, {// septimop menu
         PADRE: 7,
         ID: 145,
-        DESCRIPCION: 'Cuentas',
+        DESCRIPCION: 'Cuentas bancarias',
         ICONO: '',
         ICONO_DISABLED: '',
         SELECTED: false,
+        visible: true,
         TEMPLATE: NombreComponente.CUENTAS
       }, {// septimop menu
         PADRE: 7,
@@ -208,30 +230,47 @@ export class MenuPrincipalComponent implements OnInit {
         ICONO: '',
         ICONO_DISABLED: '',
         SELECTED: false,
+        visible: true,
         TEMPLATE: NombreComponente.DATOSTIENDA
+      },{// septimop menu
+        PADRE: 7,
+        ID: 146,
+        DESCRIPCION: 'Administracion de usuarios',
+        ICONO: '',
+        ICONO_DISABLED: '',
+        SELECTED: false,
+        visible: this.permisoAdmin,
+        TEMPLATE: NombreComponente.ADMINISTRARUSDUARIOS
       }];
     this.opcionesMenuPadre = [{
       ID: 1,
-      DESCRIPCION: 'Catálogos'
+      DESCRIPCION: 'Catálogos',
+      visible : true
     }, {
       ID: 2,
-      DESCRIPCION: 'Producción'
+      DESCRIPCION: 'Producción',
+      visible : true
     }, {
       ID: 3,
-      DESCRIPCION: 'Impuestos'
+      DESCRIPCION: 'Impuestos',
+      visible : true
     }, {
       ID: 4,
-      DESCRIPCION: 'Movimientos'
+      DESCRIPCION: 'Movimientos',
+      visible : true
     }, {
       ID: 5,
-      DESCRIPCION: 'Clientes'
+      DESCRIPCION: 'Clientes',
+      visible : true
     },
     {
       ID: 6,
-      DESCRIPCION: 'Proveedores'
+      DESCRIPCION: 'Proveedores',
+      visible : true
     },{
       ID: 7,
-      DESCRIPCION: 'Configuración del sistema'
+      DESCRIPCION: 'Configuración del sistema',
+      visible : this.permisoAdmin
     }]
   }
 

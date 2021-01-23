@@ -76,6 +76,8 @@ import {CardModule} from 'primeng/card';
 import {PasswordModule} from 'primeng/password';
 import { ConsultasBaseComponent } from './consultas-base/consultas-base.component';
 import { DatosTiendaComponent } from './datos-tienda/datos-tienda.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { DetalleUsuariosComponent } from './usuarios/detalle-usuarios/detalle-usuarios.component';
 
 @NgModule({
   declarations: [
@@ -113,8 +115,10 @@ import { DatosTiendaComponent } from './datos-tienda/datos-tienda.component';
     DetalleProveedoresComponent,
     DetalleCuentasComponent,
     LoginComponent,
-    ConsultasBaseComponent,
-    DatosTiendaComponent
+    DatosTiendaComponent,
+    UsuariosComponent,
+    DetalleUsuariosComponent,
+    ConsultasBaseComponent
   ],
   imports: [
     BrowserModule,

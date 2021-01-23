@@ -5,12 +5,12 @@
             <mat-list-option   #matList *ngFor="let opcion of opcionesMenuPadre" tabindex="-1" [ngClass]="cambiarEstiloscssOpcionPrincipal(opcion)"
                [matMenuTriggerFor]="menu" (click)="cambiarEstiloBtnPrin(opcion.ID)">
               <!-- <mat-icon mat-list-icon>{{opcion.ICONO}}</mat-icon> -->
-              <div mat-line  class="labelForm">{{opcion.DESCRIPCION}}</div>
+              <div mat-line  class="labelForm" *ngIf="opcion.visible">{{opcion.DESCRIPCION}}</div>
             </mat-list-option>
           </mat-selection-list>
           <mat-menu #menu >
             <div *ngFor="let opcion of opcionesMenu">
-              <button mat-menu-item  *ngIf="opcion.PADRE === opcionPrincipal"  tabindex="-1" [ngClass]="cambiarEstilocss(opcion)" tabindex="-1"  (click)="elegirVista(opcion.TEMPLATE)"  class="Input">{{opcion.DESCRIPCION}}</button>
+              <button mat-menu-item  *ngIf="opcion.PADRE === opcionPrincipal && opcion.visible"  tabindex="-1" [ngClass]="cambiarEstilocss(opcion)" tabindex="-1"  (click)="elegirVista(opcion.TEMPLATE)"  class="Input">{{opcion.DESCRIPCION}}</button>
             </div>
           </mat-menu>
     </mat-drawer>
@@ -18,7 +18,7 @@
     <div class="sidenav-content">
 
         <mat-toolbar [color]="'primary'">
-            <button mat-icon-button (click)="drawer.toggle()" tabindex="-1">
+            <button mat-icon-button (click)="drawer.toggle()" tabindex="-1" matTooltip="Desplegar opciones">
               <mat-icon>{{icono}}</mat-icon>
             </button >
             <span (click)="elegirVista('RE')" class="NombreEmpresa">Para tu negocio</span>
@@ -38,7 +38,7 @@
             <app-clientes *ngIf="componente === NombresComponetes.CLIENTES"></app-clientes>
             <app-proveedores *ngIf="componente === NombresComponetes.PROVEEDORES"></app-proveedores>
             <app-cuentas *ngIf="componente === NombresComponetes.CUENTAS"></app-cuentas>
-
+            <app-usuarios *ngIf="componente === NombresComponetes.ADMINISTRARUSDUARIOS && NivelUsuario === TIPOUSUARIOS.ADMINISTRADOR"></app-usuarios>
           </div>
 
 

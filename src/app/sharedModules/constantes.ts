@@ -19,6 +19,7 @@ export enum NombreComponente{
     PROVEEDORES = 'PROVEEDORES',
     CUENTAS = 'CUENTAS',
     DATOSTIENDA = 'DATOSTIENDA',
+    ADMINISTRARUSDUARIOS = 'ADMINUSUARIOS'
 }
 
 export enum clasesEstilos{
@@ -31,6 +32,12 @@ export enum MODO{
     MODIFICAR = 'MODIFICAR',
     DETALLE = 'DETALLE',
     REACTIVAR = 'REACTIVAR',
+}
+
+export enum TIPOUSARIO{
+  ADMINISTRADOR = 'A',
+  CAJERO = "C"
+
 }
 
 export const EXITO = '00';
