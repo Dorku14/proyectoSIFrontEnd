@@ -13,6 +13,12 @@ export class UsuariosService {
     CONFIRM_CONTRASENIA:string;
     TIPO_USUARIO:string;
     ESTATUS:string;
+    AGREGAR_USU:number;
+    AGREGAR_PRODUC:number;
+    REALIZAR_VEN:number;
+    REALIZAR_COM:number;
+    ACCESO_PRODUC:number;
+    VER_REPORTES:number;
 
 
     incicializarVariables() {
@@ -24,6 +30,12 @@ export class UsuariosService {
         this.CONTRASENIA = ''
         this.CONFIRM_CONTRASENIA = ''
         this.ESTATUS = ''
+        this.AGREGAR_USU = 0
+        this.AGREGAR_PRODUC = 0
+        this.REALIZAR_VEN = 0
+        this.REALIZAR_COM = 0
+        this.ACCESO_PRODUC = 0
+        this.VER_REPORTES = 0
 
     }
 
@@ -36,6 +48,13 @@ export class UsuariosService {
       this.CONFIRM_CONTRASENIA = datos.CONFIRM_CONTRASENIA;
       this.TIPO_USUARIO = datos.TIPO_USUARIO
       this.ESTATUS = datos.ESTATUS
+      this.AGREGAR_USU = datos.AGREGAR_USU
+      this.AGREGAR_PRODUC = datos.AGREGAR_PRODUC
+      this.REALIZAR_VEN = datos.REALIZAR_VEN
+      this.REALIZAR_COM = datos.REALIZAR_COM
+      this.ACCESO_PRODUC = datos.ACCESO_PRODUC
+      this.VER_REPORTES = datos.VER_REPORTES
+
     }
 
     dameJsonModifcar(){
@@ -45,7 +64,13 @@ export class UsuariosService {
         APELLIDO_M:this.APELLIDO_M,
         USUARIO: this.USUARIO,
         TIPO_USUARIO:this.TIPO_USUARIO,
-        ESTATUS:this.ESTATUS
+        ESTATUS:this.ESTATUS,
+        AGREGAR_USU:this.AGREGAR_USU,
+        AGREGAR_PRODUC:this.AGREGAR_PRODUC,
+        REALIZAR_VEN:this.REALIZAR_VEN,
+        REALIZAR_COM:this.REALIZAR_COM,
+        ACCESO_PRODUC:this.ACCESO_PRODUC,
+        VER_REPORTES:this.VER_REPORTES
       }
       return json;
     }
@@ -59,7 +84,13 @@ export class UsuariosService {
         CONTRASENIA : this.CONTRASENIA,
         CONFIRM_CONTRASENIA : this.CONFIRM_CONTRASENIA,
         TIPO_USUARIO:this.TIPO_USUARIO,
-        ESTATUS:this.ESTATUS
+        ESTATUS:this.ESTATUS,
+        AGREGAR_USU:this.AGREGAR_USU,
+        AGREGAR_PRODUC:this.AGREGAR_PRODUC,
+        REALIZAR_VEN:this.REALIZAR_VEN,
+        REALIZAR_COM:this.REALIZAR_COM,
+        ACCESO_PRODUC:this.ACCESO_PRODUC,
+        VER_REPORTES:this.VER_REPORTES
       }
       return json;
     }

@@ -131,12 +131,12 @@ export class CuentasComponent extends ConsultasBaseComponent implements OnInit {
   eliminar() {
     this.funcGenerales.mensajeConfirmacion('c', 'warn', '¿Estas seguro?', 'Confirmar', true);
 
-    /*this.funcGenerales.popUpAlerta('Confirmación', '¿Seguro que deseas eliminar la cuenta \"' + this.itemSeleccionado.NUMERO_CTA + "\" ?'", 'Si', 'No').then((respuesta) => {
-
+    this.funcGenerales.popUpAlerta('Confirmación', '¿Seguro que deseas eliminar la cuenta \"' + this.itemSeleccionado.NUMERO_CTA + "\" ?'", 'Si', 'No').then((respuesta) => {
+      debugger
       if (respuesta) {
         this.mostrarCargado();
         let json: any = {};
-        json.CODIGO = this.itemSeleccionado.NUMERO_CTA;
+        json = this.itemSeleccionado;
         this.peticiones.peticionPost(json, 'eliminarCuentas').then((resultado: any) => {
           this.consulta();
           this.quitarCargando();
@@ -145,6 +145,6 @@ export class CuentasComponent extends ConsultasBaseComponent implements OnInit {
           this.quitarCargando();
         });
       }
-    });*/
+    });
   }
 }

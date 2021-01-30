@@ -84,9 +84,9 @@ export class ComprasComponent extends ConsultasBaseComponent implements OnInit {
   */
   configuraDataGrid(): void {
     let configGrid = {
-      columns: 8,
-      header: ['#', 'Folio','Tipo de documento','Forma de pago', 'Proveedor','Tipo de elemento', 'Importe sin IVA', 'Importe con IVA' ,'Total'],
-      field: ['NUM','FOLIO', 'TIPO_DOC', 'FORMA_PAGO','PROVEEDOR', 'TIPO_ELEMENT','IMPORTE_SIN_IVA','IVA','TOTAL'],
+      columns: 9,
+      header: ['#', 'Folio','Tipo de documento','Forma de pago', 'Proveedor','Tipo de elemento', 'Importe sin IVA', 'Importe con IVA' ,'Número de Movimiento'],
+      field: ['NUM','FOLIO', 'TIPO_DOC', 'FORMA_PAGO','PROVEEDOR', 'TIPO_ELEMENT','IMPORTE_SIN_IVA','IVA','NUMERO_MVT'],
 
     };
     this.columns = this.funcGenerales.aplicaConfigGrid(configGrid);

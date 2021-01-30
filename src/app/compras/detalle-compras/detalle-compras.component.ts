@@ -37,8 +37,8 @@ export class DetalleComprasComponent implements OnInit {
   Proveedor: any;
   formaDePago: any;
   listaFormasPago: any;
-  listaDeBanco: Array<any>;
-  listaDeCuentas: Array<any>;
+  listaDeBanco: Array<{ ID, DESCRIPCION }>;
+  listaDeCuentas: Array<{ ID, NUMERO_CTA }>;
   importeSINIVA: any = 0;
   IVA: any = 0;
   Total: any = 0;
@@ -50,6 +50,7 @@ export class DetalleComprasComponent implements OnInit {
   nombreBanco: any;
   NumeroCuenta: any;
   NombreServicios:any ={};
+  listaProveedores: Array<{ ID, CODIGO,NOMBRE,APELLIDO_P }>;
   constructor(private peticiones: PeticionesWebComponent,
     public ServiciosService: ServiciosService,
     public funcGenerales: FuncionesGenerales,
@@ -66,6 +67,9 @@ export class DetalleComprasComponent implements OnInit {
       this.inicializarTipoDocs();
       this.inicializarFormasPago();
       this.consultMateriasPrimas();
+      this.consultaProveedores();
+      this.listaBancos();
+      this.consultaCuentas();
       switch (this.data.Proceso) {
         case MODO.MODIFICAR:
           switch (this.data.TIPO_MOV) {
@@ -115,6 +119,9 @@ export class DetalleComprasComponent implements OnInit {
       this.tipoProd = resultado.datos.TIPO_ELEMENT;
       this.IVA = resultado.datos.IVA;
       this.Total = resultado.datos.TOTAL;
+      this.nombreBanco = resultado.datos.NOMBRE_BNC;
+      this.NumeroCuenta = resultado.datos.NUMERO_CTA;
+      this.NumeroReferencia = resultado.datos.NUMERO_REF;
       this.dataSource = resultado.datos.PARTIDAS;
       let num = 1;
       for (let item of this.dataSource) {
@@ -296,6 +303,9 @@ export class DetalleComprasComponent implements OnInit {
     json.TIPO_MOV = this.data.TIPO_MOV;
     json.IVA = this.IVA;
     json.TOTAL = this.Total;
+    json.NOMBRE_BNC = this.nombreBanco;
+    json.NUMERO_CTA = this.NumeroCuenta;
+    json.NUMERO_REF = this.NumeroReferencia;
     json.PARTIDAS = this.dataSource;
     switch (this.data.Proceso) {
       case MODO.ALTA:
@@ -333,6 +343,7 @@ export class DetalleComprasComponent implements OnInit {
             console.log(resultado);
             if (this.funcGenerales.extraerCodigo(resultado) === NOEXISTE) {
               this.funcGenerales.popUpAlerta('Error', resultado.message, 'Aceptar', '');
+              this.quitarCargando();
             } else {
               this.quitarCargando();
               this.CerrarVentana();
@@ -384,7 +395,7 @@ export class DetalleComprasComponent implements OnInit {
     this.colorSelect = 'primary';
     if (this.formaDePago == 'B') {
       this.listaBancos();
-      this.listaCuentas();
+      this.consultaCuentas();
     }
   }
 
@@ -587,20 +598,32 @@ export class DetalleComprasComponent implements OnInit {
 
   listaBancos() {
     this.listaDeBanco = [
-      { ID: 1, DESCRICPION: 'BBVA' },
-      { ID: 2, DESCRICPION: 'BANORTE' },
-      { ID: 3, DESCRICPION: 'SANTANDER' },
-      { ID: 4, DESCRICPION: 'INBURSA' }
+      { ID: 1, DESCRIPCION: 'BBVA' },
+      { ID: 2, DESCRIPCION: 'BANORTE' },
+      { ID: 3, DESCRIPCION: 'SANTANDER' },
+      { ID: 4, DESCRIPCION: 'INBURSA' }
     ]
 
   }
-  listaCuentas() {
-    this.listaDeCuentas = [
-      { ID: 1, DESCRICPION: '011615616' },
-      { ID: 2, DESCRICPION: '16516512511' },
-      { ID: 3, DESCRICPION: '21615641615' },
-      { ID: 4, DESCRICPION: '415165161' }
-    ]
+  
+  consultaCuentas() {
+    this.peticiones.peticionPost({}, 'consultaCuentas').then((resultado: any) =>{
+      let datos = resultado;
+      this.listaDeCuentas = datos;
+    }).catch((error) =>{
+      console.log(error);
+    })
+  }
+
+  consultaProveedores(){
+    this.peticiones.peticionPost({}, 'consultaProveedores').then((resultado: any) => {
+      console.log(resultado);
+      let datos = resultado;
+      this.listaProveedores = datos;
+    }).catch((error) => {
+      console.log(error);
+      this.quitarCargando();
+    });
   }
 
 }

@@ -21,6 +21,7 @@ export class DetalleUsuariosComponent implements OnInit {
   datosTemporales: any;
   listaEstatus: Array<any>;
   listaTipoUsuario: Array<any>;
+  indiceTabsActivo:number = 0;
   constructor(public dialogRef: MatDialogRef<DetalleUsuariosComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     public UsuarioSrv: UsuariosService,
@@ -277,6 +278,10 @@ export class DetalleUsuariosComponent implements OnInit {
     }
 
     return respuesta;
+  }
+
+  tabsActivos=(indice :number)=>{
+    return this.funcGenerales.tabsActivos(indice, this.indiceTabsActivo);
   }
 }
 

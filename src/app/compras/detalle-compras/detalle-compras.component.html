@@ -58,8 +58,11 @@
         <div class="col-md-4">
           <mat-form-field>
             <mat-label class="labelForm">Proveedor</mat-label>
-            <input class="Input" matInput #inputCodigo [(ngModel)]="Proveedor" (focus)="ObtenerFoco($event)" autocomplete="off"
-              name="codigo" (keydown)="presionaBoton($event)">
+              <mat-select class="Input" [(ngModel)]="Proveedor">
+                <mat-option *ngFor="let PR of listaProveedores" [value]="PR.CODIGO">
+                  {{PR.CODIGO +" - "+ PR.NOMBRE +" "+ PR.APELLIDO_P}}
+                </mat-option>
+              </mat-select>
           </mat-form-field>
         </div>
 
@@ -185,20 +188,29 @@
             <mat-label  class="labelForm">Nombre del banco</mat-label>
             <mat-select  class="Input" (selectionChange)="cambiarColorSelectPF()" [(ngModel)]="nombreBanco" name="ProductoF">
               <mat-option *ngFor="let banco of listaDeBanco" [value]="banco.ID">
-                {{banco.DESCRICPION}}
+                {{banco.DESCRIPCION}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="col-md-4" *ngIf="formaDePago == 'B'">
-          <mat-form-field [color]="colorSelect" appearance="fill">
-            <mat-label  class="labelForm">Número de cuenta</mat-label>
-            <mat-select  class="Input" (selectionChange)="cambiarColorSelectPF()" [(ngModel)]="NumeroCuenta" name="ProductoF">
-              <mat-option *ngFor="let cuenta of listaDeCuentas" [value]="cuenta.ID">
-                {{cuenta.DESCRICPION}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+          <div *ngIf="data.TIPO_MOV == 'C'">
+            <mat-form-field [color]="colorSelect" appearance="fill">
+              <mat-label  class="labelForm">Número de cuenta</mat-label>
+              <mat-select  class="Input" (selectionChange)="cambiarColorSelectPF()" [(ngModel)]="NumeroCuenta" name="ProductoF">
+                <mat-option *ngFor="let cuenta of listaDeCuentas" [value]="cuenta.NUMERO_CTA">
+                  {{cuenta.NUMERO_CTA}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div *ngIf="data.TIPO_MOV == 'V'">
+            <mat-form-field>
+              <mat-label class="labelForm">Número de cuenta</mat-label>
+              <input class="Input" matInput #inputCodigo [(ngModel)]="NumeroCuenta" (focus)="ObtenerFoco($event)" autocomplete="off"
+                name="codigo" (keydown)="presionaBoton($event)">
+            </mat-form-field>
+          </div>
         </div>
         <div class="col-md-4" *ngIf="formaDePago == 'B'">
           <mat-form-field>
