@@ -607,7 +607,7 @@ export class DetalleComprasComponent implements OnInit {
   }
   
   consultaCuentas() {
-    this.peticiones.peticionPost({}, 'consultaCuentas').then((resultado: any) =>{
+    this.peticiones.peticionPost({}, 'consultaCuentasCompletas').then((resultado: any) =>{
       let datos = resultado;
       this.listaDeCuentas = datos;
     }).catch((error) =>{
