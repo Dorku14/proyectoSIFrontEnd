@@ -1,12 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { NombreComponente, clasesEstilos,TIPOUSARIO } from './../sharedModules/constantes'
+import { NombreComponente, clasesEstilos, TIPOUSARIO } from './../sharedModules/constantes'
 import { MenuItem, } from 'primeng/api';
 import { MatMenu } from '@angular/material/menu';
 import { ComponentType } from '@angular/cdk/portal';
 import { DatosTiendaComponent } from '../datos-tienda/datos-tienda.component';
 import { FuncionesGenerales } from '../sharedModules/funcionesgenerales';
 import { MatDialog } from '@angular/material/dialog';
+import { parametrosDeSistema } from '../../app/sharedModules/parametrosDeSistemas';
+import { PeticionesWebComponent } from '../sharedModules/peticiones-web/peticiones-web.component';
+import { CookieService } from 'ngx-cookie';
+
 @Component({
   selector: 'app-menu-principal',
   templateUrl: './menu-principal.component.html',
@@ -15,32 +19,42 @@ import { MatDialog } from '@angular/material/dialog';
 export class MenuPrincipalComponent implements OnInit {
   @ViewChild('drawer', { static: false }) drawer: MatDrawer;
   @ViewChild('Codigo', { static: false }) Codigomenu: MatMenu;
+
   showFiller = false;
-  opcionesMenu: { PADRE: number; ID: number, DESCRIPCION: string, ICONO: string, ICONO_DISABLED: string, SELECTED: boolean, TEMPLATE: string,visible:boolean }[];
+  opcionesMenu: { PADRE: number; ID: number, DESCRIPCION: string, ICONO: string, ICONO_DISABLED: string, SELECTED: boolean, TEMPLATE: string, visible: boolean }[];
   icono: string;
   componente: string;
   NombresComponetes = NombreComponente;
   TIPOUSUARIOS = TIPOUSARIO;
   itemsMenu: MenuItem[];
   opcionPrincipal: number;
-  opcionesMenuPadre: { ID: number, DESCRIPCION: string,visible:boolean }[];
-  NivelUsuario:string;
-  permisoAdmin:boolean;
-  constructor(private funcGenerales:FuncionesGenerales, public dialog: MatDialog) {
+  opcionesMenuPadre: { ID: number, DESCRIPCION: string, visible: boolean }[];
+  NivelUsuario: string;
+  permisoAdmin: boolean;
+  // parametrosSistema:parametrosDeSistema;
+  constructor(private funcGenerales: FuncionesGenerales, public dialog: MatDialog, private peticiones: PeticionesWebComponent, private cookieService: CookieService, private parametrosSistema: parametrosDeSistema) {
     this.icono = 'menu'
     this.componente = NombreComponente.PRODCOMERCIAL
     this.opcionPrincipal = 1;
-    this.NivelUsuario = TIPOUSARIO.ADMINISTRADOR;
-    if(this.NivelUsuario === TIPOUSARIO.ADMINISTRADOR){
-      this.permisoAdmin = true;
-    }else{
-      this.permisoAdmin = false;
-    }
+
+
+
   }
 
   ngOnInit(): void {
-    this.armaOpciones();
-    this.menuPrueba();
+    this.parametrosSistema.consultaltaUsuarios().then(()=>{
+      debugger
+      this.NivelUsuario = this.parametrosSistema.getDatosUsuario();
+      // this.NivelUsuario = TIPOUSARIO.ADMINISTRADOR;
+      if (this.NivelUsuario === TIPOUSARIO.ADMINISTRADOR) {
+        this.permisoAdmin = true;
+      } else {
+        this.permisoAdmin = false;
+      }
+      this.armaOpciones();
+      this.menuPrueba();
+    });
+
   }
 
   /**
@@ -232,7 +246,7 @@ export class MenuPrincipalComponent implements OnInit {
         SELECTED: false,
         visible: true,
         TEMPLATE: NombreComponente.DATOSTIENDA
-      },{// septimop menu
+      }, {// septimop menu
         PADRE: 7,
         ID: 146,
         DESCRIPCION: 'Administracion de usuarios',
@@ -245,32 +259,32 @@ export class MenuPrincipalComponent implements OnInit {
     this.opcionesMenuPadre = [{
       ID: 1,
       DESCRIPCION: 'Catálogos',
-      visible : true
+      visible: true
     }, {
       ID: 2,
       DESCRIPCION: 'Producción',
-      visible : true
+      visible: true
     }, {
       ID: 3,
       DESCRIPCION: 'Impuestos',
-      visible : true
+      visible: true
     }, {
       ID: 4,
       DESCRIPCION: 'Movimientos',
-      visible : true
+      visible: true
     }, {
       ID: 5,
       DESCRIPCION: 'Clientes',
-      visible : true
+      visible: true
     },
     {
       ID: 6,
       DESCRIPCION: 'Proveedores',
-      visible : true
-    },{
+      visible: true
+    }, {
       ID: 7,
       DESCRIPCION: 'Configuración del sistema',
-      visible : this.permisoAdmin
+      visible: this.permisoAdmin
     }]
   }
 
@@ -304,24 +318,24 @@ export class MenuPrincipalComponent implements OnInit {
     this.opcionPrincipal = vista;
   }
 
-  configurarVentana(vista){
-    let configVentana:{componente:any;width:string;height:string,data:any} = {componente:"",width:"",height:"",data:""};
-    switch(vista){
+  configurarVentana(vista) {
+    let configVentana: { componente: any; width: string; height: string, data: any } = { componente: "", width: "", height: "", data: "" };
+    switch (vista) {
       case NombreComponente.DATOSTIENDA:
         configVentana.componente = DatosTiendaComponent;
         configVentana.width = '90vh';
         configVentana.height = '75vh';
-      break;
+        break;
 
     }
 
-    if(!this.funcGenerales.EsVacioNulo(configVentana.componente) && !this.funcGenerales.EsVacioNulo(configVentana.width) && !this.funcGenerales.EsVacioNulo(configVentana.height)){
+    if (!this.funcGenerales.EsVacioNulo(configVentana.componente) && !this.funcGenerales.EsVacioNulo(configVentana.width) && !this.funcGenerales.EsVacioNulo(configVentana.height)) {
       this.abrirVentana(configVentana);
     }
   }
 
 
-  abrirVentana(configuracion:{componente:any;width:string;height:string,data:any}){
+  abrirVentana(configuracion: { componente: any; width: string; height: string, data: any }) {
     let datosAenviar = this.funcGenerales.EsVacioNulo(configuracion.data) ? "" : configuracion.data;
 
     const dialogRef = this.dialog.open(configuracion.componente, {

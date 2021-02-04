@@ -78,7 +78,8 @@ import { ConsultasBaseComponent } from './consultas-base/consultas-base.componen
 import { DatosTiendaComponent } from './datos-tienda/datos-tienda.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { DetalleUsuariosComponent } from './usuarios/detalle-usuarios/detalle-usuarios.component';
-
+import { CookieModule, CookieService } from 'ngx-cookie';
+import { parametrosDeSistema } from './sharedModules/parametrosDeSistemas';
 @NgModule({
   declarations: [
     AppComponent,
@@ -155,8 +156,9 @@ import { DetalleUsuariosComponent } from './usuarios/detalle-usuarios/detalle-us
     MatNativeDateModule,
     InputTextModule,
     CardModule,
-    PasswordModule ],
-  providers: [MatDatepickerModule,MessageService,
+    PasswordModule,
+    CookieModule.forRoot() ],
+  providers: [MatDatepickerModule,MessageService,parametrosDeSistema,
       {provide: MAT_DATE_LOCALE, useValue: 'es-MX'},
       {
         provide: DateAdapter,

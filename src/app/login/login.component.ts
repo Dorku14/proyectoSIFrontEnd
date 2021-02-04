@@ -4,6 +4,7 @@ import { EXITO, NOEXISTE } from '../sharedModules/constantes';
 import { FuncionesGenerales } from '../sharedModules/funcionesgenerales';
 import { PeticionesWebComponent } from '../sharedModules/peticiones-web/peticiones-web.component';
 import { Location } from '@angular/common';
+import { CookieService } from 'ngx-cookie';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   Usuario: string;
   Contrasenia: string;
   isCargando: boolean = false;;
-  constructor(public generalFunc: FuncionesGenerales, private peticiones: PeticionesWebComponent, private route: ActivatedRoute, private router: Router, private location: Location) { }
+  constructor(public generalFunc: FuncionesGenerales, private peticiones: PeticionesWebComponent, private router: Router, private cookieService:CookieService,) { }
 
   ngOnInit(): void {
   }
@@ -31,7 +32,9 @@ export class LoginComponent implements OnInit {
         console.log(resultado);
 
         if (this.generalFunc.extraerCodigo(resultado) == EXITO) {
-          let datos = resultado.datos[0];
+          debugger
+          let datos = resultado.datos.Token;
+          this.cookieService.put("idSession",datos);
           this.router.navigateByUrl('/TuNegocio');
         } else {
           if (this.generalFunc.extraerCodigo(resultado) == NOEXISTE) {
