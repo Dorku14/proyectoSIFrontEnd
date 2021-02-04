@@ -41,105 +41,111 @@
     <mat-tab-group  [(selectedIndex)]="indiceTabsActivo"  #GrupoTabs>
 
       <mat-tab [aria-label]="tabsActivos(0)"  label="Datos del usuario">
-        <div class="row">
-          <div class="col-md-6">
-            <mat-form-field>
-              <mat-label class="labelForm">Usuario</mat-label>
-              <input class="Input" [disabled]="modo == 'MODIFICAR'" matInput #inputCodigo [(ngModel)]="UsuarioSrv.USUARIO" (focus)="ObtenerFoco($event)"
-                autocomplete="off" name="usuario" (keydown)="presionaBoton($event)">
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field>
-              <mat-label class="labelForm">Nombre</mat-label>
-              <input class="Input" matInput #inputCodigo [(ngModel)]="UsuarioSrv.NOMBRE" (focus)="ObtenerFoco($event)"
-                autocomplete="off" name="nombre"  (keydown)="presionaBoton($event)">
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field>
-              <mat-label class="labelForm">Apellido paterno</mat-label>
-              <input class="Input" matInput #inputCodigo [(ngModel)]="UsuarioSrv.APELLIDO_P" (focus)="ObtenerFoco($event)"
-                autocomplete="off" name="apellido_p" (keydown)="presionaBoton($event)">
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field>
-              <mat-label class="labelForm">Apellido materno</mat-label>
-              <input class="Input" matInput #inputCodigo [(ngModel)]="UsuarioSrv.APELLIDO_M" (focus)="ObtenerFoco($event)"
-                autocomplete="off" name="apellido_m" (keydown)="presionaBoton($event)">
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field>
-              <mat-label class="labelForm">Contraseña</mat-label>
-              <input class="Input" type="password"   matInput #inputCodigo [(ngModel)]="UsuarioSrv.CONTRASENIA" (focus)="ObtenerFoco($event)"
-                autocomplete="off" name="contrasenia" (keydown)="presionaBoton($event)">
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field>
-              <mat-label class="labelForm">Confirmar contraseña</mat-label>
-              <input class="Input" type="password" [maxLength]="10" matInput #inputCodigo [(ngModel)]="UsuarioSrv.CONFIRM_CONTRASENIA" (focus)="ObtenerFoco($event)"
-                autocomplete="off" name="Confim_contrasenia" (keydown)="presionaBoton($event)">
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field>
-              <mat-label class="labelForm">Estatus</mat-label>
-              <mat-select class="Input" [(ngModel)]="UsuarioSrv.ESTATUS">
-                <mat-option *ngFor="let Estado of listaEstatus" [value]="Estado.ID">
-                  {{Estado.DESCRIPCION}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field>
-              <mat-label class="labelForm">Tipo de usuario</mat-label>
-              <mat-select class="Input" name="tipo_usuario" [(ngModel)]="UsuarioSrv.TIPO_USUARIO">
-                <mat-option *ngFor="let TipoUsuario of listaTipoUsuario" [value]="TipoUsuario.ID">
-                  {{TipoUsuario.DESCRIPCION}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+        <div class="contenidoTab">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Usuario</mat-label>
+                <input class="Input" [disabled]="modo == 'MODIFICAR'" matInput #inputCodigo [(ngModel)]="UsuarioSrv.USUARIO" (focus)="ObtenerFoco($event)"
+                  autocomplete="off" name="usuario" (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Nombre</mat-label>
+                <input class="Input" matInput #inputCodigo [(ngModel)]="UsuarioSrv.NOMBRE" (focus)="ObtenerFoco($event)"
+                  autocomplete="off" name="nombre"  (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Apellido paterno</mat-label>
+                <input class="Input" matInput #inputCodigo [(ngModel)]="UsuarioSrv.APELLIDO_P" (focus)="ObtenerFoco($event)"
+                  autocomplete="off" name="apellido_p" (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Apellido materno</mat-label>
+                <input class="Input" matInput #inputCodigo [(ngModel)]="UsuarioSrv.APELLIDO_M" (focus)="ObtenerFoco($event)"
+                  autocomplete="off" name="apellido_m" (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Contraseña</mat-label>
+                <input class="Input" type="password"   matInput #inputCodigo [(ngModel)]="UsuarioSrv.CONTRASENIA" (focus)="ObtenerFoco($event)"
+                  autocomplete="off" name="contrasenia" (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Confirmar contraseña</mat-label>
+                <input class="Input" type="password" [maxLength]="10" matInput #inputCodigo [(ngModel)]="UsuarioSrv.CONFIRM_CONTRASENIA" (focus)="ObtenerFoco($event)"
+                  autocomplete="off" name="Confim_contrasenia" (keydown)="presionaBoton($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Estatus</mat-label>
+                <mat-select class="Input" [(ngModel)]="UsuarioSrv.ESTATUS">
+                  <mat-option *ngFor="let Estado of listaEstatus" [value]="Estado.ID">
+                    {{Estado.DESCRIPCION}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label class="labelForm">Tipo de usuario</mat-label>
+                <mat-select class="Input" name="tipo_usuario" [(ngModel)]="UsuarioSrv.TIPO_USUARIO">
+                  <mat-option *ngFor="let TipoUsuario of listaTipoUsuario" [value]="TipoUsuario.ID">
+                    {{TipoUsuario.DESCRIPCION}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
           </div>
         </div>
+
       </mat-tab>
 
       <mat-tab [aria-label]="tabsActivos(1)"  label="Permisos">
-        <div class="row">
-          <div class="col-md-6">
-            <mat-checkbox [(ngModel)]="UsuarioSrv.AGREGAR_USU">
-              <mat-label class="labelForm">Agregar Usuarios</mat-label>
-            </mat-checkbox>
-          </div>
-          <div class="col-md-6">
-            <mat-checkbox [(ngModel)]="UsuarioSrv.AGREGAR_PRODUC">
-              <mat-label class="labelForm">Agregar Productos</mat-label>
-            </mat-checkbox>
-          </div>
-          <div class="col-md-6">
-            <mat-checkbox [(ngModel)]="UsuarioSrv.REALIZAR_VEN">
-              <mat-label class="labelForm">Realizar Ventas</mat-label>
-            </mat-checkbox>
-          </div>
-          <div class="col-md-6">
-            <mat-checkbox [(ngModel)]="UsuarioSrv.REALIZAR_COM">
-              <mat-label class="labelForm">Realizar Compras</mat-label>
-            </mat-checkbox>
-          </div>
-          <div class="col-md-6">
-            <mat-checkbox [(ngModel)]="UsuarioSrv.ACCESO_PRODUC">
-              <mat-label class="labelForm">Acceso a Producción</mat-label>
-            </mat-checkbox>
-          </div>
-          <div class="col-md-6">
-            <mat-checkbox [(ngModel)]="UsuarioSrv.VER_REPORTES">
-              <mat-label class="labelForm">Ver Reportes</mat-label>
-            </mat-checkbox>
+        <div class="contenidoTab">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-checkbox [(ngModel)]="UsuarioSrv.AGREGAR_USU">
+                <mat-label class="labelForm">Agregar Usuarios</mat-label>
+              </mat-checkbox>
+            </div>
+            <div class="col-md-6">
+              <mat-checkbox [(ngModel)]="UsuarioSrv.AGREGAR_PRODUC">
+                <mat-label class="labelForm">Agregar Productos</mat-label>
+              </mat-checkbox>
+            </div>
+            <div class="col-md-6">
+              <mat-checkbox [(ngModel)]="UsuarioSrv.REALIZAR_VEN">
+                <mat-label class="labelForm">Realizar Ventas</mat-label>
+              </mat-checkbox>
+            </div>
+            <div class="col-md-6">
+              <mat-checkbox [(ngModel)]="UsuarioSrv.REALIZAR_COM">
+                <mat-label class="labelForm">Realizar Compras</mat-label>
+              </mat-checkbox>
+            </div>
+            <div class="col-md-6">
+              <mat-checkbox [(ngModel)]="UsuarioSrv.ACCESO_PRODUC">
+                <mat-label class="labelForm">Acceso a Producción</mat-label>
+              </mat-checkbox>
+            </div>
+            <div class="col-md-6">
+              <mat-checkbox [(ngModel)]="UsuarioSrv.VER_REPORTES">
+                <mat-label class="labelForm">Ver Reportes</mat-label>
+              </mat-checkbox>
+            </div>
           </div>
         </div>
+
       </mat-tab>
     </mat-tab-group>
   </div>
