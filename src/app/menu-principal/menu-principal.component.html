@@ -29,6 +29,7 @@
       <span (click)="elegirVista('RE')" class="NombreEmpresa">Para tu negocio</span>
     </mat-toolbar>
     <div class="container-fluid">
+      <app-inicio *ngIf="componente === NombresComponetes.INICIO"></app-inicio>
       <app-productos-comerciales *ngIf="componente === NombresComponetes.PRODCOMERCIAL"></app-productos-comerciales>
       <app-servicios *ngIf="componente === NombresComponetes.SERVICIOS"></app-servicios>
       <app-producto-fabricado *ngIf="componente === NombresComponetes.PRODFABRICADOS"></app-producto-fabricado>
@@ -47,6 +48,11 @@
       <app-usuarios
         *ngIf="componente === NombresComponetes.ADMINISTRARUSDUARIOS && NivelUsuario === TIPOUSUARIOS.ADMINISTRADOR">
       </app-usuarios>
+      <app-bancos *ngIf="componente === NombresComponetes.BANCOS"></app-bancos>
+      <app-caja *ngIf="componente === NombresComponetes.CAJA"></app-caja>
+      <app-nomina-destajo *ngIf="componente === NombresComponetes.NOMINA"></app-nomina-destajo>
+      <app-credito-clientes *ngIf="componente === NombresComponetes.CREDITOCLIENTES"></app-credito-clientes>
+      <app-credito-proveedores *ngIf="componente === NombresComponetes.CREDITOPROVEEDORES"></app-credito-proveedores>
     </div>
 
 

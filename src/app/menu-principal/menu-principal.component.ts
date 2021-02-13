@@ -109,6 +109,16 @@ export class MenuPrincipalComponent implements OnInit {
 
     this.opcionesMenu = [
       {
+        PADRE: 0,
+        ID: 15,
+        DESCRIPCION: 'Inicio',
+        ICONO: '',
+        ICONO_DISABLED: '',
+        SELECTED: false,
+        visible: true,
+        TEMPLATE: NombreComponente.INICIO
+      },
+      {
         PADRE: 1,
         ID: 2,
         DESCRIPCION: 'Producto comercial',
@@ -255,8 +265,58 @@ export class MenuPrincipalComponent implements OnInit {
         SELECTED: false,
         visible: this.permisoAdmin,
         TEMPLATE: NombreComponente.ADMINISTRARUSDUARIOS
+      }, {// EXTRA
+        PADRE: 8,
+        ID: 16,
+        DESCRIPCION: 'Caja',
+        ICONO: '',
+        ICONO_DISABLED: '',
+        SELECTED: false,
+        visible: true,
+        TEMPLATE: NombreComponente.CAJA
+      }, {// EXTRA
+        PADRE: 9,
+        ID: 17,
+        DESCRIPCION: 'Nómina Destajo',
+        ICONO: '',
+        ICONO_DISABLED: '',
+        SELECTED: false,
+        visible: true,
+        TEMPLATE: NombreComponente.NOMINA
+      }, {// EXTRA
+        PADRE: 10,
+        ID: 18,
+        DESCRIPCION: 'CLIENTES',
+        ICONO: '',
+        ICONO_DISABLED: '',
+        SELECTED: false,
+        visible: true,
+        TEMPLATE: NombreComponente.CREDITOCLIENTES
+      }, {// EXTRA
+        PADRE: 10,
+        ID: 19,
+        DESCRIPCION: 'PROVEEDORES',
+        ICONO: '',
+        ICONO_DISABLED: '',
+        SELECTED: false,
+        visible: true,
+        TEMPLATE: NombreComponente.CREDITOPROVEEDORES
+      }, {// EXTRA
+        PADRE: 11,
+        ID: 20,
+        DESCRIPCION: 'BANCOS',
+        ICONO: '',
+        ICONO_DISABLED: '',
+        SELECTED: false,
+        visible: true,
+        TEMPLATE: NombreComponente.BANCOS
       }];
-    this.opcionesMenuPadre = [{
+    this.opcionesMenuPadre = [
+      {
+        ID: 0,
+        DESCRIPCION: 'Inicio',
+        visible : true
+      },{
       ID: 1,
       DESCRIPCION: 'Catálogos',
       visible: true
@@ -285,6 +345,22 @@ export class MenuPrincipalComponent implements OnInit {
       ID: 7,
       DESCRIPCION: 'Configuración del sistema',
       visible: this.permisoAdmin
+    }, {//EXTRA
+      ID: 8,
+      DESCRIPCION: 'Caja',
+      visible: true
+    }, {//EXTRA
+      ID: 9,
+      DESCRIPCION: 'Nómina Destajo',
+      visible: true
+    }, {//EXTRA
+      ID: 10,
+      DESCRIPCION: 'Crédito y Cobranza',
+      visible: true
+    }, {//EXTRA
+      ID: 11,
+      DESCRIPCION: 'Bancos',
+      visible: true
     }]
   }
 

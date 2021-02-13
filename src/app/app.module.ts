@@ -80,6 +80,12 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { DetalleUsuariosComponent } from './usuarios/detalle-usuarios/detalle-usuarios.component';
 import { CookieModule, CookieService } from 'ngx-cookie';
 import { parametrosDeSistema } from './sharedModules/parametrosDeSistemas';
+import { InicioComponent } from './inicio/inicio.component';
+import { CajaComponent } from './caja/caja.component';
+import { NominaDestajoComponent } from './nomina-destajo/nomina-destajo.component';
+import { CreditoClientesComponent } from './credito-clientes/credito-clientes.component';
+import { CreditoProveedoresComponent } from './credito-proveedores/credito-proveedores.component';
+import { BancosComponent } from './bancos/bancos.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -119,7 +125,13 @@ import { parametrosDeSistema } from './sharedModules/parametrosDeSistemas';
     DatosTiendaComponent,
     UsuariosComponent,
     DetalleUsuariosComponent,
-    ConsultasBaseComponent
+    ConsultasBaseComponent,
+    InicioComponent,
+    CajaComponent,
+    NominaDestajoComponent,
+    CreditoClientesComponent,
+    CreditoProveedoresComponent,
+    BancosComponent
   ],
   imports: [
     BrowserModule,

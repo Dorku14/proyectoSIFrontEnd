@@ -61,6 +61,30 @@ export class FuncionesGenerales {
     return columns;
   }
 
+  aplicaConfigGrid2(configGrid2) {
+    let columns2 = new Array();
+    for (let i = 0; i < configGrid2.columns; i++) {
+      columns2.push({
+        header: configGrid2.header[i],
+        field: configGrid2.field[i],
+      });
+    }
+
+    return columns2;
+  }
+
+  aplicaConfigGrid3(configGrid3) {
+    let columns3 = new Array();
+    for (let i = 0; i < configGrid3.columns; i++) {
+      columns3.push({
+        header: configGrid3.header[i],
+        field: configGrid3.field[i],
+      });
+    }
+
+    return columns3;
+  }
+
   /**
   *\brief     muestra una ventana para confirmar
   *\detail    el componente cuenta con dos botones, en caso de darle a boton ok se retorna un true, en cancelar o NO se retorna un dalse
