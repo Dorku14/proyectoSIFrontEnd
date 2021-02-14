@@ -29,10 +29,10 @@ export class LoginComponent implements OnInit {
       this.mostrarCargado();
 
       this.peticiones.peticionPost(json, 'login').then((resultado: any) => {
-        console.log(resultado);
+        (resultado);
 
         if (this.generalFunc.extraerCodigo(resultado) == EXITO) {
-          debugger
+
           let datos = resultado.datos.Token;
           this.cookieService.put("idSession",datos);
           this.router.navigateByUrl('/TuNegocio');
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
         }
         this.quitarCargando();
       }).catch((error) => {
-        console.log(error);
+        (error);
         this.generalFunc.mensajeConfirmacion('top-right-login',"error", "Ocurrió un error","Hubo un error en el servidor, inténtelo más tarde");
         this.quitarCargando();
       });

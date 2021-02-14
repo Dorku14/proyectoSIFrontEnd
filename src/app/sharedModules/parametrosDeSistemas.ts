@@ -24,13 +24,13 @@ export class parametrosDeSistema {
       json.TOKEN = this.cookieService.get('idSession');
       this.mostrarCargado();
       this.peticiones.peticionPost(json, 'UsuarioToken').then((resultado: any) => {
-        console.log(resultado);
+        (resultado);
         this.perfilUsuario = resultado.datos[0];
         this.quitarCargando();
         resolve("");
         // return this.perfilUsuario;
       }).catch((error) => {
-        console.log(error);
+        (error);
         this.isCargando = false;
         this.quitarCargando();
         reject(error);

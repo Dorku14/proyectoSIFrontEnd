@@ -73,11 +73,11 @@ export class DetalleImpuestosComponent implements OnInit {
     let json: any = {};
     json.NOMBRE = item.NOMBRE;;
     this.peticiones.peticionPost(json, 'detalleImpuestos').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       let datos = resultado.datos[0];
       this.llenarCampoDetalle(datos);
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.quitarCargando();
     });
   }
@@ -109,14 +109,14 @@ export class DetalleImpuestosComponent implements OnInit {
           this.validaRegistro().then((resultado) => {
             if (resultado === NOEXISTE) {
               this.peticiones.peticionPost(json, 'altaImpuestos').then((resultado: any) => {
-                console.log('resultado then');
-                console.log(resultado);
+                ('resultado then');
+                (resultado);
                 this.quitarCargando();
                 this.ImpustoSrv.incicializarVariables();
                 this.CerrarVentana();
               }).catch((error) => {
-                console.log('error');
-                console.log(error);
+                ('error');
+                (error);
                 this.quitarCargando();
               });
             }
@@ -124,28 +124,28 @@ export class DetalleImpuestosComponent implements OnInit {
           break;
         case MODO.MODIFICAR:
           this.peticiones.peticionPost(json, 'modificarImpuestos').then((resultado: any) => {
-            console.log('resultado then');
-            console.log(resultado);
+            ('resultado then');
+            (resultado);
             this.quitarCargando();
             this.ImpustoSrv.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
-            console.log('error');
-            console.log(error);
+            ('error');
+            (error);
             this.quitarCargando();
           });
           break;
         case MODO.REACTIVAR:
           json.ESTATUS = 'A';
           this.peticiones.peticionPost(json, 'reactivareImpuestos').then((resultado: any) => {
-            console.log('resultado then');
-            console.log(resultado);
+            ('resultado then');
+            (resultado);
             this.quitarCargando();
             this.ImpustoSrv.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
-            console.log('error');
-            console.log(error);
+            ('error');
+            (error);
             this.quitarCargando();
           });
           break;
@@ -186,7 +186,7 @@ export class DetalleImpuestosComponent implements OnInit {
         resolve(codigoR);
 
       }).catch((error) => {
-        console.log(error);
+        (error);
         this.quitarCargando();
         reject();
       });

@@ -90,11 +90,11 @@ export class DetalleClientesComponent implements OnInit {
     this.mostrarCargado();
     let json: any = {};
     this.peticiones.peticionPost(json, 'dameClaveSigClientes').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       this.clientesSrv.ID = resultado;
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.quitarCargando();
     });
   }
@@ -128,7 +128,7 @@ export class DetalleClientesComponent implements OnInit {
     let json: any = {};
     json.ID = item.ID;
     this.peticiones.peticionPost(json, 'detalleClientes').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       let datos = resultado.datos[0];
       this.llenarCampoDetalle(datos);
       this.activarSlide = datos.ESTATUS == 'A' ? true : false;
@@ -136,7 +136,7 @@ export class DetalleClientesComponent implements OnInit {
       this.clientesSrv.FECHA_NACIMIENTO = this.funcGenerales.fechaFormatoYYMMDDtoDDMMYY(datos.FECHA_NACIMIENTO);
       this.fechaNacimiento.nativeElement.value = this.clientesSrv.FECHA_NACIMIENTO;
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.quitarCargando();
     });
   }
@@ -174,14 +174,14 @@ export class DetalleClientesComponent implements OnInit {
       switch (this.modo) {
         case MODO.ALTA:
           this.peticiones.peticionPost(json, 'altaClientes').then((resultado: any) => {
-            console.log('resultado then');
-            console.log(resultado);
+            ('resultado then');
+            (resultado);
             this.quitarCargando();
             this.clientesSrv.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
-            console.log('error');
-            console.log(error);
+            ('error');
+            (error);
             this.quitarCargando();
           });
 
@@ -189,28 +189,28 @@ export class DetalleClientesComponent implements OnInit {
           break;
         case MODO.MODIFICAR:
           this.peticiones.peticionPost(json, 'modificarClientes').then((resultado: any) => {
-            console.log('resultado then');
-            console.log(resultado);
+            ('resultado then');
+            (resultado);
             this.quitarCargando();
             this.clientesSrv.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
-            console.log('error');
-            console.log(error);
+            ('error');
+            (error);
             this.quitarCargando();
           });
           break;
         case MODO.REACTIVAR:
           json.ESTATUS = 'A';
           this.peticiones.peticionPost(json, 'reactivarServicios').then((resultado: any) => {
-            console.log('resultado then');
-            console.log(resultado);
+            ('resultado then');
+            (resultado);
             this.quitarCargando();
             this.clientesSrv.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
-            console.log('error');
-            console.log(error);
+            ('error');
+            (error);
             this.quitarCargando();
           });
           break;
@@ -251,7 +251,7 @@ export class DetalleClientesComponent implements OnInit {
         resolve(codigoR);
 
       }).catch((error) => {
-        console.log(error);
+        (error);
         this.quitarCargando();
         reject();
       });
@@ -310,7 +310,7 @@ export class DetalleClientesComponent implements OnInit {
       }
 
       if (duplicado) {
-        console.log(this.editableColumns);
+        (this.editableColumns);
         this.funcGenerales.popUpAlerta('Error', 'Ya has capturado esta materia prima para este producto fabricado', 'Aceptar', '').then(() => {
           this.validando = false;
           let columna = this.editableColumns.find(e => e.rowIndex === buscarItem.NUM);
@@ -388,7 +388,7 @@ export class DetalleClientesComponent implements OnInit {
     return this.activarSlide;
   }
   perderFocoDate(picker) {
-    console.log(picker);
+    (picker);
   }
 
   /**

@@ -80,7 +80,7 @@ export class BusquedasComponent implements OnInit {
 
     return new Promise(resolve => {
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result)
+        (result)
         this.consulta(this.data.nombreConsulta);
       });
     });
@@ -113,7 +113,7 @@ export class BusquedasComponent implements OnInit {
       this.dataSource = resultado;
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.isCargando = false;
       this.quitarCargando();
     });

@@ -9,7 +9,7 @@
 
             <div class="col-md-12">
                 <p-table #dt [columns]="columns" [responsive]="true" [scrollable]="true"  styleClass="p-datatable-gridlines" [reorderableColumns]="true" [value]="Caja" width="95%" scrollHeight="70vh" [resizableColumns]="false"
-                selectionMode="single" [(selection)]="itemSeleccionado" dataKey="NUM" [rowHover]="true" >
+                selectionMode="single" [(selection)]="itemSeleccionado" dataKey="IMPORTE" [rowHover]="true" >
                     <ng-template pTemplate="colgroup">
                         <colgroup>
                             <col *ngFor="let col of columns">

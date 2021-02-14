@@ -76,11 +76,11 @@ export class DetalleUsuariosComponent implements OnInit {
     let json: any = {};
     json.USUARIO = item.USUARIO;;
     this.peticiones.peticionPost(json, 'detalleUsuario').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       let datos = resultado.datos[0];
       this.llenarCampoDetalle(datos);
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.quitarCargando();
     });
   }
@@ -108,14 +108,14 @@ export class DetalleUsuariosComponent implements OnInit {
           this.validaRegistro().then((resultado) => {
             if (resultado === NOEXISTE) {
               this.peticiones.peticionPost(json, 'altaUsuario').then((resultado: any) => {
-                console.log('resultado then');
-                console.log(resultado);
+                ('resultado then');
+                (resultado);
                 this.quitarCargando();
                 this.UsuarioSrv.incicializarVariables();
                 this.CerrarVentana();
               }).catch((error) => {
-                console.log('error');
-                console.log(error);
+                ('error');
+                (error);
                 this.quitarCargando();
               });
             }
@@ -126,28 +126,28 @@ export class DetalleUsuariosComponent implements OnInit {
       case MODO.MODIFICAR:
         json = this.UsuarioSrv.dameJsonModifcar();
         this.peticiones.peticionPost(json, 'modificarUsuario').then((resultado: any) => {
-          console.log('resultado then');
-          console.log(resultado);
+          ('resultado then');
+          (resultado);
           this.quitarCargando();
           this.UsuarioSrv.incicializarVariables();
           this.CerrarVentana();
         }).catch((error) => {
-          console.log('error');
-          console.log(error);
+          ('error');
+          (error);
           this.quitarCargando();
         });
         break;
       case MODO.REACTIVAR:
         json.ESTATUS = 'A';
         this.peticiones.peticionPost(json, 'reactivarUsuario').then((resultado: any) => {
-          console.log('resultado then');
-          console.log(resultado);
+          ('resultado then');
+          (resultado);
           this.quitarCargando();
           this.UsuarioSrv.incicializarVariables();
           this.CerrarVentana();
         }).catch((error) => {
-          console.log('error');
-          console.log(error);
+          ('error');
+          (error);
           this.quitarCargando();
         });
         break;
@@ -191,7 +191,7 @@ export class DetalleUsuariosComponent implements OnInit {
         resolve(codigoR);
 
       }).catch((error) => {
-        console.log(error);
+        (error);
         this.quitarCargando();
         reject();
       });

@@ -42,7 +42,7 @@ export class DetalleCuentasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger
+
     this.generarPropiedad();
     this.consultaProveedores();
     this.modo = this.data.Proceso;
@@ -72,11 +72,11 @@ export class DetalleCuentasComponent implements OnInit {
     let json: any = {};
     json.NUMERO_CTA = item.NUMERO_CTA;
     this.peticiones.peticionPost(json, 'detalleCuentas').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       let datos = resultado.datos[0];
       this.llenarCampoDetalle(datos);
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.quitarCargando();
     });
   }
@@ -95,11 +95,11 @@ export class DetalleCuentasComponent implements OnInit {
   consultaProveedores(){
     let json: any = {};
     this.peticiones.peticionPost({}, 'consultaProveedores').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       let datos = resultado;
       this.listaProveedores = datos;
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.quitarCargando();
     });
   }
@@ -195,14 +195,14 @@ export class DetalleCuentasComponent implements OnInit {
           this.validaRegistro().then((resultado) => {
             if (resultado === NOEXISTE) {
               this.peticiones.peticionPost(json, 'altaCuentas').then((resultado: any) => {
-                console.log('resultado then');
-                console.log(resultado);
+                ('resultado then');
+                (resultado);
                 this.quitarCargando();
                 this.CuentasSRV.incicializarVariables();
                 this.CerrarVentana();
               }).catch((error) => {
-                console.log('error');
-                console.log(error);
+                ('error');
+                (error);
                 this.quitarCargando();
               });
             }
@@ -210,28 +210,28 @@ export class DetalleCuentasComponent implements OnInit {
           break;
         case MODO.MODIFICAR:
           this.peticiones.peticionPost(json, 'modificarCuentas').then((resultado: any) => {
-            console.log('resultado then');
-            console.log(resultado);
+            ('resultado then');
+            (resultado);
             this.quitarCargando();
             this.CuentasSRV.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
-            console.log('error');
-            console.log(error);
+            ('error');
+            (error);
             this.quitarCargando();
           });
           break;
         case MODO.REACTIVAR:
           json.ESTATUS = 'A';
           this.peticiones.peticionPost(json, 'reactivarCuentas').then((resultado: any) => {
-            console.log('resultado then');
-            console.log(resultado);
+            ('resultado then');
+            (resultado);
             this.quitarCargando();
             this.CuentasSRV.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
-            console.log('error');
-            console.log(error);
+            ('error');
+            (error);
             this.quitarCargando();
           });
           break;
@@ -272,7 +272,7 @@ export class DetalleCuentasComponent implements OnInit {
         resolve(codigoR);
 
       }).catch((error) => {
-        console.log(error);
+        (error);
         this.quitarCargando();
         reject();
       });
@@ -297,7 +297,7 @@ export class DetalleCuentasComponent implements OnInit {
     else{
       this.DesabilitarIDProveedor = false;
     }
-    console.log(e);
+    (e);
   }
 }
 

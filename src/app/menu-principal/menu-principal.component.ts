@@ -34,7 +34,7 @@ export class MenuPrincipalComponent implements OnInit {
   // parametrosSistema:parametrosDeSistema;
   constructor(private funcGenerales: FuncionesGenerales, public dialog: MatDialog, private peticiones: PeticionesWebComponent, private cookieService: CookieService, private parametrosSistema: parametrosDeSistema) {
     this.icono = 'menu'
-    this.componente = NombreComponente.PRODCOMERCIAL
+    this.componente = NombreComponente.INICIO
     this.opcionPrincipal = 1;
 
 
@@ -43,7 +43,7 @@ export class MenuPrincipalComponent implements OnInit {
 
   ngOnInit(): void {
     this.parametrosSistema.consultaltaUsuarios().then(()=>{
-      debugger
+
       this.NivelUsuario = this.parametrosSistema.getDatosUsuario();
       // this.NivelUsuario = TIPOUSARIO.ADMINISTRADOR;
       if (this.NivelUsuario === TIPOUSARIO.ADMINISTRADOR) {

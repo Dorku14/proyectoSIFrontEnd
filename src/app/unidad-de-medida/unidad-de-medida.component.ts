@@ -49,7 +49,7 @@ export class UnidadDeMedidaComponent extends ConsultasBaseComponent implements O
   consulta() {
     this.mostrarCargado();
     this.peticiones.peticionPost({}, 'consultaUnidadMedida').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       this.dataSource = resultado;
       let num = 0;
       for (let i of this.dataSource) {
@@ -58,7 +58,7 @@ export class UnidadDeMedidaComponent extends ConsultasBaseComponent implements O
       }
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.isCargando = false;
       this.quitarCargando();
     });
@@ -145,7 +145,7 @@ export class UnidadDeMedidaComponent extends ConsultasBaseComponent implements O
 
     return new Promise(resolve => {
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result)
+        (result)
         this.consulta();
       });
     });
@@ -168,7 +168,7 @@ export class UnidadDeMedidaComponent extends ConsultasBaseComponent implements O
           this.consulta();
           this.quitarCargando();
         }).catch((error) => {
-          console.log(error);
+          (error);
           this.quitarCargando();
         });
       }

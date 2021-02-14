@@ -49,7 +49,7 @@ export class ServiciosComponent extends ConsultasBaseComponent implements OnInit
   consulta() {
     this.mostrarCargado();
     this.peticiones.peticionPost({}, 'consultaServicios').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       this.dataSource = resultado;
       let num = 0;
       for (let i of this.dataSource) {
@@ -61,7 +61,7 @@ export class ServiciosComponent extends ConsultasBaseComponent implements OnInit
       }
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.isCargando = false;
       this.quitarCargando();
     });
@@ -148,7 +148,7 @@ export class ServiciosComponent extends ConsultasBaseComponent implements OnInit
 
     return new Promise(resolve => {
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result)
+        (result)
         this.consulta();
       });
     });
@@ -171,7 +171,7 @@ export class ServiciosComponent extends ConsultasBaseComponent implements OnInit
           this.consulta();
           this.quitarCargando();
         }).catch((error) => {
-          console.log(error);
+          (error);
           this.quitarCargando();
         });
       }

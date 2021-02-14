@@ -78,11 +78,11 @@ export class DetalleServiciosComponent implements OnInit {
     let json: any = {};
     json.CODIGO = item.CODIGO;;
     this.peticiones.peticionPost(json, 'detalleServicios').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       let datos = resultado.datos[0];
       this.llenarCampoDetalle(datos);
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.quitarCargando();
     });
   }
@@ -117,14 +117,14 @@ export class DetalleServiciosComponent implements OnInit {
           this.validaRegistro().then((resultado) => {
             if (resultado === NOEXISTE) {
               this.peticiones.peticionPost(json, 'altaServicios').then((resultado: any) => {
-                console.log('resultado then');
-                console.log(resultado);
+                ('resultado then');
+                (resultado);
                 this.quitarCargando();
                 this.ServiciosSrv.incicializarVariables();
                 this.CerrarVentana();
               }).catch((error) => {
-                console.log('error');
-                console.log(error);
+                ('error');
+                (error);
                 this.quitarCargando();
               });
             }
@@ -132,28 +132,28 @@ export class DetalleServiciosComponent implements OnInit {
           break;
         case MODO.MODIFICAR:
           this.peticiones.peticionPost(json, 'modificarServicios').then((resultado: any) => {
-            console.log('resultado then');
-            console.log(resultado);
+            ('resultado then');
+            (resultado);
             this.quitarCargando();
             this.ServiciosSrv.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
-            console.log('error');
-            console.log(error);
+            ('error');
+            (error);
             this.quitarCargando();
           });
           break;
         case MODO.REACTIVAR:
           json.ESTATUS = 'A';
           this.peticiones.peticionPost(json, 'reactivarServicios').then((resultado: any) => {
-            console.log('resultado then');
-            console.log(resultado);
+            ('resultado then');
+            (resultado);
             this.quitarCargando();
             this.ServiciosSrv.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
-            console.log('error');
-            console.log(error);
+            ('error');
+            (error);
             this.quitarCargando();
           });
           break;
@@ -194,7 +194,7 @@ export class DetalleServiciosComponent implements OnInit {
         resolve(codigoR);
 
       }).catch((error) => {
-        console.log(error);
+        (error);
         this.quitarCargando();
         reject();
       });

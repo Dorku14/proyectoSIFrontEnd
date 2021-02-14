@@ -49,7 +49,6 @@ export class ClientesComponent extends ConsultasBaseComponent implements OnInit 
   consulta() {
     this.mostrarCargado();
     this.peticiones.peticionPost({}, 'consultaClientes').then((resultado: any) => {
-      console.log(resultado);
       this.dataSource = resultado;
       let num = 0;
       for (let i of this.dataSource) {
@@ -60,7 +59,6 @@ export class ClientesComponent extends ConsultasBaseComponent implements OnInit 
       }
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
       this.isCargando = false;
       this.quitarCargando();
     });
@@ -147,7 +145,6 @@ export class ClientesComponent extends ConsultasBaseComponent implements OnInit 
 
     return new Promise(resolve => {
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result)
         this.consulta();
       });
     });
@@ -170,7 +167,6 @@ export class ClientesComponent extends ConsultasBaseComponent implements OnInit 
           this.consulta();
           this.quitarCargando();
         }).catch((error) => {
-          console.log(error);
           this.quitarCargando();
         });
       }

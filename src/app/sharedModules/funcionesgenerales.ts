@@ -327,7 +327,7 @@ cambiarColor(campo: string,color) {
   *@param[in] formato -> puede recibir la sig. Configuración ['d','m','y','h','min','s'].
 */
   dameFechaString = (fecha: any, separador: string = '/', formato?: any) => {
-    debugger
+
     if (fecha != null && typeof (fecha) != 'undefined' && fecha != '') {
       formato = typeof (formato) == 'undefined' ? this.formatoFecha : formato;
 

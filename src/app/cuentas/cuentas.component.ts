@@ -21,7 +21,7 @@ export class CuentasComponent extends ConsultasBaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
     this.configuraDataGrid();
     setTimeout(() => {
       this.consulta();
@@ -37,7 +37,7 @@ export class CuentasComponent extends ConsultasBaseComponent implements OnInit {
   consulta() {
     this.mostrarCargado();
     this.peticiones.peticionPost({}, 'consultaCuentas').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       this.dataSource = resultado;
       let num = 0;
       for (let i of this.dataSource) {
@@ -51,7 +51,7 @@ export class CuentasComponent extends ConsultasBaseComponent implements OnInit {
       }
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.isCargando = false;
       this.quitarCargando();
     });
@@ -116,7 +116,7 @@ export class CuentasComponent extends ConsultasBaseComponent implements OnInit {
 
     return new Promise(resolve => {
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result)
+        (result)
         this.consulta();
       });
     });
@@ -132,7 +132,7 @@ export class CuentasComponent extends ConsultasBaseComponent implements OnInit {
     this.funcGenerales.mensajeConfirmacion('c', 'warn', '¿Estas seguro?', 'Confirmar', true);
 
     this.funcGenerales.popUpAlerta('Confirmación', '¿Seguro que deseas eliminar la cuenta \"' + this.itemSeleccionado.NUMERO_CTA + "\" ?'", 'Si', 'No').then((respuesta) => {
-      debugger
+
       if (respuesta) {
         this.mostrarCargado();
         let json: any = {};
@@ -141,7 +141,7 @@ export class CuentasComponent extends ConsultasBaseComponent implements OnInit {
           this.consulta();
           this.quitarCargando();
         }).catch((error) => {
-          console.log(error);
+          (error);
           this.quitarCargando();
         });
       }

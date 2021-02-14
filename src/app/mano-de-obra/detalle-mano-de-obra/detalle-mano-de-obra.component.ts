@@ -78,12 +78,12 @@ export class DetalleManoDeObraComponent implements OnInit {
     this.peticiones
       .peticionPost(json, 'detalleManoDeObra')
       .then((resultado: any) => {
-        console.log(resultado);
+        (resultado);
         let datos = resultado.datos[0];
         this.llenarCampoDetalle(datos);
       })
       .catch((error) => {
-        console.log(error);
+        (error);
         this.quitarCargando();
       });
   }
@@ -118,15 +118,15 @@ export class DetalleManoDeObraComponent implements OnInit {
               this.peticiones
                 .peticionPost(json, 'altaManoDeObra')
                 .then((resultado: any) => {
-                  console.log('resultado then');
-                  console.log(resultado);
+                  ('resultado then');
+                  (resultado);
                   this.quitarCargando();
                   this.ManoSrv.incicializarVariables();
                   this.CerrarVentana();
                 })
                 .catch((error) => {
-                  console.log('error');
-                  console.log(error);
+                  ('error');
+                  (error);
                   this.quitarCargando();
                 });
             }
@@ -136,15 +136,15 @@ export class DetalleManoDeObraComponent implements OnInit {
           this.peticiones
             .peticionPost(json, 'modificarManoDeObra')
             .then((resultado: any) => {
-              console.log('resultado then');
-              console.log(resultado);
+              ('resultado then');
+              (resultado);
               this.quitarCargando();
               this.ManoSrv.incicializarVariables();
               this.CerrarVentana();
             })
             .catch((error) => {
-              console.log('error');
-              console.log(error);
+              ('error');
+              (error);
               this.quitarCargando();
             });
           break;
@@ -153,15 +153,15 @@ export class DetalleManoDeObraComponent implements OnInit {
           this.peticiones
             .peticionPost(json, 'reactivarManoDeObra')
             .then((resultado: any) => {
-              console.log('resultado then');
-              console.log(resultado);
+              ('resultado then');
+              (resultado);
               this.quitarCargando();
               this.ManoSrv.incicializarVariables();
               this.CerrarVentana();
             })
             .catch((error) => {
-              console.log('error');
-              console.log(error);
+              ('error');
+              (error);
               this.quitarCargando();
             });
           break;
@@ -210,7 +210,7 @@ export class DetalleManoDeObraComponent implements OnInit {
           resolve(codigoR);
         })
         .catch((error) => {
-          console.log(error);
+          (error);
           this.quitarCargando();
           reject();
         });
@@ -231,8 +231,8 @@ export class DetalleManoDeObraComponent implements OnInit {
   inicializarUnidades() {
     let json = {};
     this.peticiones.peticionPost(json, 'consultaUnidadMedida').then((resultado: any) => {
-      console.log('resultado then');
-      console.log(resultado);
+      ('resultado then');
+      (resultado);
       this.quitarCargando();
       this.ListaUndidadMedida = resultado;
       for (let item of resultado) {
@@ -243,8 +243,8 @@ export class DetalleManoDeObraComponent implements OnInit {
       }
 
     }).catch((error) => {
-      console.log('error');
-      console.log(error);
+      ('error');
+      (error);
       this.quitarCargando();
     });
   }
@@ -272,7 +272,7 @@ export class DetalleManoDeObraComponent implements OnInit {
 
     return new Promise((resolve) => {
       dialogRef.afterClosed().subscribe((result) => {
-        console.log(result);
+        (result);
         this.inicializarUnidades();
       });
     });

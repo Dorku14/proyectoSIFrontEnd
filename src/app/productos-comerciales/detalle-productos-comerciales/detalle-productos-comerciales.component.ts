@@ -86,12 +86,12 @@ export class DetalleProductosComercialesComponent implements OnInit {
     this.peticiones
       .peticionPost(json, 'detalleProductoC')
       .then((resultado: any) => {
-        console.log(resultado);
+        (resultado);
         let datos = resultado.datos[0];
         this.llenarCampoDetalle(datos);
       })
       .catch((error) => {
-        console.log(error);
+        (error);
         this.quitarCargando();
       });
   }
@@ -128,15 +128,15 @@ export class DetalleProductosComercialesComponent implements OnInit {
               this.peticiones
                 .peticionPost(json, 'altaProductoC')
                 .then((resultado: any) => {
-                  console.log('resultado then');
-                  console.log(resultado);
+                  ('resultado then');
+                  (resultado);
                   this.quitarCargando();
                   this.PRODC.incicializarVariables();
                   this.CerrarVentana();
                 })
                 .catch((error) => {
-                  console.log('error');
-                  console.log(error);
+                  ('error');
+                  (error);
                   this.quitarCargando();
                 });
             }
@@ -146,15 +146,15 @@ export class DetalleProductosComercialesComponent implements OnInit {
           this.peticiones
             .peticionPost(json, 'modificarProductoC')
             .then((resultado: any) => {
-              console.log('resultado then');
-              console.log(resultado);
+              ('resultado then');
+              (resultado);
               this.quitarCargando();
               this.PRODC.incicializarVariables();
               this.CerrarVentana();
             })
             .catch((error) => {
-              console.log('error');
-              console.log(error);
+              ('error');
+              (error);
               this.quitarCargando();
             });
           break;
@@ -163,15 +163,15 @@ export class DetalleProductosComercialesComponent implements OnInit {
           this.peticiones
             .peticionPost(json, 'reactivarProductoC')
             .then((resultado: any) => {
-              console.log('resultado then');
-              console.log(resultado);
+              ('resultado then');
+              (resultado);
               this.quitarCargando();
               this.PRODC.incicializarVariables();
               this.CerrarVentana();
             })
             .catch((error) => {
-              console.log('error');
-              console.log(error);
+              ('error');
+              (error);
               this.quitarCargando();
             });
           break;
@@ -220,7 +220,7 @@ export class DetalleProductosComercialesComponent implements OnInit {
           resolve(codigoR);
         })
         .catch((error) => {
-          console.log(error);
+          (error);
           this.quitarCargando();
           reject();
         });

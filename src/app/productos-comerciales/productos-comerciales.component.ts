@@ -50,7 +50,7 @@ export class ProductosComercialesComponent extends ConsultasBaseComponent implem
   consulta() {
     this.mostrarCargado();
     this.peticiones.peticionPost({}, 'consultaProductoC').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       this.dataSource = resultado;
       let num = 0;
       for (let i of this.dataSource) {
@@ -63,7 +63,7 @@ export class ProductosComercialesComponent extends ConsultasBaseComponent implem
       }
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.isCargando = false;
       this.quitarCargando();
     });
@@ -150,7 +150,7 @@ export class ProductosComercialesComponent extends ConsultasBaseComponent implem
 
     return new Promise(resolve => {
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result)
+        (result)
         this.consulta();
       });
     });
@@ -173,7 +173,7 @@ export class ProductosComercialesComponent extends ConsultasBaseComponent implem
           this.consulta();
           this.quitarCargando();
         }).catch((error) => {
-          console.log(error);
+          (error);
           this.quitarCargando();
         });
       }

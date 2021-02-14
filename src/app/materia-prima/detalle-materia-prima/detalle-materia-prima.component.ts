@@ -53,14 +53,14 @@ export class DetalleMateriaPrimaComponent implements OnInit {
     this.peticiones
       .peticionPost(json, 'consultaUnidadMedida')
       .then((resultado: any) => {
-        console.log('resultado then');
-        console.log(resultado);
+        ('resultado then');
+        (resultado);
         this.quitarCargando();
         this.ListaUndidadMedida = resultado;
       })
       .catch((error) => {
-        console.log('error');
-        console.log(error);
+        ('error');
+        (error);
         this.quitarCargando();
       });
   }
@@ -70,14 +70,14 @@ export class DetalleMateriaPrimaComponent implements OnInit {
     this.peticiones
       .peticionPost(json, 'consultaCategoria')
       .then((resultado: any) => {
-        console.log('resultado then');
-        console.log(resultado);
+        ('resultado then');
+        (resultado);
         this.quitarCargando();
         this.ListaCategorias = resultado;
       })
       .catch((error) => {
-        console.log('error');
-        console.log(error);
+        ('error');
+        (error);
         this.quitarCargando();
       });
   }
@@ -131,12 +131,12 @@ export class DetalleMateriaPrimaComponent implements OnInit {
     this.peticiones
       .peticionPost(json, 'detalleMateriaPrima')
       .then((resultado: any) => {
-        console.log(resultado);
+        (resultado);
         let datos = resultado.datos[0];
         this.llenarCampoDetalle(datos);
       })
       .catch((error) => {
-        console.log(error);
+        (error);
         this.quitarCargando();
       });
   }
@@ -187,15 +187,15 @@ export class DetalleMateriaPrimaComponent implements OnInit {
               this.peticiones
                 .peticionPost(json, 'altaMateriaPrima')
                 .then((resultado: any) => {
-                  console.log('resultado then');
-                  console.log(resultado);
+                  ('resultado then');
+                  (resultado);
                   this.quitarCargando();
                   this.MateriaSrv.incicializarVariables();
                   this.CerrarVentana();
                 })
                 .catch((error) => {
-                  console.log('error');
-                  console.log(error);
+                  ('error');
+                  (error);
                   this.quitarCargando();
                 });
             }
@@ -205,15 +205,15 @@ export class DetalleMateriaPrimaComponent implements OnInit {
           this.peticiones
             .peticionPost(json, 'modificarMateriaPrima')
             .then((resultado: any) => {
-              console.log('resultado then');
-              console.log(resultado);
+              ('resultado then');
+              (resultado);
               this.quitarCargando();
               this.MateriaSrv.incicializarVariables();
               this.CerrarVentana();
             })
             .catch((error) => {
-              console.log('error');
-              console.log(error);
+              ('error');
+              (error);
               this.quitarCargando();
             });
           break;
@@ -222,15 +222,15 @@ export class DetalleMateriaPrimaComponent implements OnInit {
           this.peticiones
             .peticionPost(json, 'reactivarMateriaPrima')
             .then((resultado: any) => {
-              console.log('resultado then');
-              console.log(resultado);
+              ('resultado then');
+              (resultado);
               this.quitarCargando();
               this.MateriaSrv.incicializarVariables();
               this.CerrarVentana();
             })
             .catch((error) => {
-              console.log('error');
-              console.log(error);
+              ('error');
+              (error);
               this.quitarCargando();
             });
           break;
@@ -279,7 +279,7 @@ export class DetalleMateriaPrimaComponent implements OnInit {
           resolve(codigoR);
         })
         .catch((error) => {
-          console.log(error);
+          (error);
           this.quitarCargando();
           reject();
         });
@@ -324,7 +324,7 @@ export class DetalleMateriaPrimaComponent implements OnInit {
 
     return new Promise((resolve) => {
       dialogRef.afterClosed().subscribe((result) => {
-        console.log(result);
+        (result);
         this.inicializarUnidades();
       });
     });
@@ -347,7 +347,7 @@ export class DetalleMateriaPrimaComponent implements OnInit {
 
     return new Promise((resolve) => {
       dialogRef.afterClosed().subscribe((result) => {
-        console.log(result);
+        (result);
         this.inicializarUnidades();
       });
     });

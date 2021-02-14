@@ -180,6 +180,7 @@ import { BancosComponent } from './bancos/bancos.component';
       {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
 
 ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CajaComponent,BancosComponent]
 })
 export class AppModule { }

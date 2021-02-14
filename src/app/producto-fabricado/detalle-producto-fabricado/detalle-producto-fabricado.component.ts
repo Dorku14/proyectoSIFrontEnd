@@ -87,11 +87,11 @@ export class DetalleProductoFabricadoComponent implements OnInit {
     let json: any = {};
     json.CODIGO = item.CODIGO;;
     this.peticiones.peticionPost(json, 'detalleProductosF').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       let datos = resultado.datos[0];
       this.llenarCampoDetalle(datos);
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.quitarCargando();
     });
   }
@@ -124,21 +124,21 @@ export class DetalleProductoFabricadoComponent implements OnInit {
       json.PRECIO_VENT_ACT = this.ProductoFSrv.PRECIO_VENT_ACT;
       // json.INVENTARIO = this.ProductoFSrv.INVENTARIO;
       json.PUNTO_REORDEN = this.ProductoFSrv.PUNTO_REORDEN;
-      console.log(json);
+      (json);
       switch (this.modo) {
         case MODO.ALTA:
           json.ESTATUS = 'A';
           this.validaRegistro().then((resultado) => {
             if (resultado === NOEXISTE) {
               this.peticiones.peticionPost(json, 'altaProductosF').then((resultado: any) => {
-                console.log('resultado then');
-                console.log(resultado);
+                ('resultado then');
+                (resultado);
                 this.quitarCargando();
                 this.ProductoFSrv.incicializarVariables();
                 this.CerrarVentana();
               }).catch((error) => {
-                console.log('error');
-                console.log(error);
+                ('error');
+                (error);
                 this.quitarCargando();
               });
             }
@@ -146,28 +146,28 @@ export class DetalleProductoFabricadoComponent implements OnInit {
           break;
         case MODO.MODIFICAR:
           this.peticiones.peticionPost(json, 'modificarProductoF').then((resultado: any) => {
-            console.log('resultado then');
-            console.log(resultado);
+            ('resultado then');
+            (resultado);
             this.quitarCargando();
             this.ProductoFSrv.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
-            console.log('error');
-            console.log(error);
+            ('error');
+            (error);
             this.quitarCargando();
           });
           break;
         case MODO.REACTIVAR:
           json.ESTATUS = 'A';
           this.peticiones.peticionPost(json, 'reactivarProductoF').then((resultado: any) => {
-            console.log('resultado then');
-            console.log(resultado);
+            ('resultado then');
+            (resultado);
             this.quitarCargando();
             this.ProductoFSrv.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
-            console.log('error');
-            console.log(error);
+            ('error');
+            (error);
             this.quitarCargando();
           });
           break;
@@ -208,7 +208,7 @@ export class DetalleProductoFabricadoComponent implements OnInit {
         resolve(codigoR);
 
       }).catch((error) => {
-        console.log(error);
+        (error);
         this.quitarCargando();
         reject();
       });

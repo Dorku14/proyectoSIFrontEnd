@@ -33,12 +33,12 @@ export class DatosTiendaComponent implements OnInit {
   consulta(){
     this.mostrarCargado();
     this.peticiones.peticionPost({}, 'detalleConfiguracionCaja').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       this.validarModo(resultado);
       this.dataSource = resultado;
       this.quitarCargando();;
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.isCargando = false;
       this.quitarCargando();
     });
@@ -55,7 +55,7 @@ export class DatosTiendaComponent implements OnInit {
     else{
       this.modo = MODO.MODIFICAR;
     }
-    
+
   }
 
   CerrarVentana(){
@@ -67,27 +67,27 @@ export class DatosTiendaComponent implements OnInit {
       switch (this.modo) {
         case MODO.ALTA:
           this.peticiones.peticionPost(json, 'altaConfiguracionCaja').then((resultado: any) => {
-            console.log('resultado then');
-            console.log(resultado);
+            ('resultado then');
+            (resultado);
             this.quitarCargando();
             this.ConfiguracionCajaSRV.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
-            console.log('error');
-            console.log(error);
+            ('error');
+            (error);
             this.quitarCargando();
           });
           break;
         case MODO.MODIFICAR:
           this.peticiones.peticionPost(json, 'modificarConfiguracionCaja').then((resultado: any) => {
-            console.log('resultado then');
-            console.log(resultado);
+            ('resultado then');
+            (resultado);
             this.quitarCargando();
             this.ConfiguracionCajaSRV.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
-            console.log('error');
-            console.log(error);
+            ('error');
+            (error);
             this.quitarCargando();
           });
           break;
@@ -102,7 +102,7 @@ export class DatosTiendaComponent implements OnInit {
       let datos = resultado.datos[0];
       this.ConfiguracionCajaSRV.llenarCampos(datos);
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.quitarCargando();
     });
   }

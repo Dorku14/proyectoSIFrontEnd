@@ -49,7 +49,7 @@ export class MateriaPrimaComponent extends ConsultasBaseComponent implements OnI
   consulta() {
     this.mostrarCargado();
     this.peticiones.peticionPost({}, 'consultaMateriaPrima').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       this.dataSource = resultado;
       let num = 0;
       for (let i of this.dataSource) {
@@ -63,7 +63,7 @@ export class MateriaPrimaComponent extends ConsultasBaseComponent implements OnI
       }
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.isCargando = false;
       this.quitarCargando();
     });
@@ -150,7 +150,7 @@ export class MateriaPrimaComponent extends ConsultasBaseComponent implements OnI
 
     return new Promise(resolve => {
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result)
+        (result)
         this.consulta();
       });
     });
@@ -173,7 +173,7 @@ export class MateriaPrimaComponent extends ConsultasBaseComponent implements OnI
           this.consulta();
           this.quitarCargando();
         }).catch((error) => {
-          console.log(error);
+          (error);
           this.quitarCargando();
         });
       }

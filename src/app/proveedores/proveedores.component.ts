@@ -36,7 +36,7 @@ export class ProveedoresComponent extends ConsultasBaseComponent implements OnIn
   consulta() {
     this.mostrarCargado();
     this.peticiones.peticionPost({}, 'consultaProveedores').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       this.dataSource = resultado;
       let num = 0;
       for (let i of this.dataSource) {
@@ -50,7 +50,7 @@ export class ProveedoresComponent extends ConsultasBaseComponent implements OnIn
       }
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.isCargando = false;
       this.quitarCargando();
     });
@@ -115,7 +115,7 @@ export class ProveedoresComponent extends ConsultasBaseComponent implements OnIn
 
     return new Promise(resolve => {
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result)
+        (result)
         this.consulta();
       });
     });
@@ -138,7 +138,7 @@ export class ProveedoresComponent extends ConsultasBaseComponent implements OnIn
           this.consulta();
           this.quitarCargando();
         }).catch((error) => {
-          console.log(error);
+          (error);
           this.quitarCargando();
         });
       }

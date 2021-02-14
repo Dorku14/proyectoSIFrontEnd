@@ -57,7 +57,7 @@ export class AsignarMateriasPrimasComponent implements OnInit {
     json.CODIGO_PRODUCTOF = this.data.item.CODIGO_PRODUCTOF;
     this.mostrarCargado();
     this.peticiones.peticionPost(json, 'detalleMPasignados').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       this.productoFabricadoSeleccionado = resultado.datos.CODIGO_PRODUCTOF;
       this.dataSource = resultado.datos.REGISTROS;
       let num = 1;
@@ -69,7 +69,7 @@ export class AsignarMateriasPrimasComponent implements OnInit {
 
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.isCargando = false;
       this.quitarCargando();
     });
@@ -80,12 +80,12 @@ export class AsignarMateriasPrimasComponent implements OnInit {
   consultaProductosFabricados() {
     this.mostrarCargado();
     this.peticiones.peticionPost({}, 'consultaProductosF').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       this.listaProductosF = resultado;
 
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.isCargando = false;
       this.quitarCargando();
     });
@@ -94,12 +94,12 @@ export class AsignarMateriasPrimasComponent implements OnInit {
   consultMateriasPrimas() {
     this.mostrarCargado();
     this.peticiones.peticionPost({}, 'consultaMateriaPrima').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       this.listaMaterasP = resultado;
 
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.isCargando = false;
       this.quitarCargando();
     });
@@ -194,7 +194,7 @@ export class AsignarMateriasPrimasComponent implements OnInit {
 
   //   return new Promise(resolve => {
   //     dialogRef.afterClosed().subscribe(result => {
-  //       console.log(result)
+  //       (result)
   //       this.consulta();
   //     });
   //   });
@@ -219,7 +219,7 @@ export class AsignarMateriasPrimasComponent implements OnInit {
     //     this.peticiones.peticionPost(json, 'eliminarMateriPrima').then((resultado: any) => {
     //       this.quitarCargando();
     //     }).catch((error) => {
-    //       console.log(error);
+    //       (error);
     //       this.quitarCargando();
     //     });
     //   }
@@ -248,7 +248,7 @@ export class AsignarMateriasPrimasComponent implements OnInit {
   }
 
   cambioDeOpcionSelect(e) {
-    console.log(e);
+    (e);
     let buscar = this.listaMaterasP.find(item => item.CODIGO === e.value);
     for (let i = 0; i < this.dataSource.length; i++) {
       if (this.dataSource[i].CODIGO === e.value) {
@@ -278,12 +278,12 @@ export class AsignarMateriasPrimasComponent implements OnInit {
           let json: any = {};
           json.CODIGO_PRODUCTOF = this.productoFabricadoSeleccionado;
           json.REGISTROS = this.dataSource;
-          console.log(json)
+          (json)
           this.peticiones
             .peticionPost(json, 'altaMPasignados')
             .then((resultado: any) => {
-              console.log('resultado then');
-              console.log(resultado);
+              ('resultado then');
+              (resultado);
               if (this.funcGenerales.extraerCodigo(resultado) === NOEXISTE) {
                 this.funcGenerales.popUpAlerta('Error', resultado.message, 'Aceptar', '');
               } else {
@@ -293,8 +293,8 @@ export class AsignarMateriasPrimasComponent implements OnInit {
 
             })
             .catch((error) => {
-              console.log('error');
-              console.log(error);
+              ('error');
+              (error);
               this.quitarCargando();
             });
         }
@@ -304,12 +304,12 @@ export class AsignarMateriasPrimasComponent implements OnInit {
         let jsonM: any = {};
         jsonM.CODIGO_PRODUCTOF = this.productoFabricadoSeleccionado;
         jsonM.REGISTROS = this.dataSource;
-        console.log(jsonM)
+        (jsonM)
         this.peticiones
           .peticionPost(jsonM, 'modificarMPasignados')
           .then((resultado: any) => {
-            console.log('resultado then');
-            console.log(resultado);
+            ('resultado then');
+            (resultado);
             if (this.funcGenerales.extraerCodigo(resultado) === NOEXISTE) {
               this.funcGenerales.popUpAlerta('Error', resultado.message, 'Aceptar', '');
             } else {
@@ -319,8 +319,8 @@ export class AsignarMateriasPrimasComponent implements OnInit {
 
           })
           .catch((error) => {
-            console.log('error');
-            console.log(error);
+            ('error');
+            (error);
             this.quitarCargando();
           });
         break;
@@ -342,7 +342,7 @@ export class AsignarMateriasPrimasComponent implements OnInit {
 
   validaAlta(): boolean {
     let respuesta = false;
-    console.log(this.productoFabricadoSeleccionado);
+    (this.productoFabricadoSeleccionado);
 
     if (this.funcGenerales.EsVacioNulo(this.productoFabricadoSeleccionado)) {
       respuesta = true;
@@ -365,8 +365,8 @@ export class AsignarMateriasPrimasComponent implements OnInit {
     let json: any = {};
     json.CODIGO_PRODUCTOF = this.productoFabricadoSeleccionado;
     this.peticiones.peticionPost(json, 'detalleMPasignados').then((resultado: any) => {
-      debugger
-      console.log(resultado);
+
+      (resultado);
       if (this.funcGenerales.extraerCodigo(resultado) === EXITO) {
         this.funcGenerales.popUpAlerta('Error', 'El producto fabricado ya se le ha asignado materías primas', 'Aceptar', '').then(() => {
           this.colorSelect = 'warn';
@@ -377,7 +377,7 @@ export class AsignarMateriasPrimasComponent implements OnInit {
       }
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.isCargando = false;
       this.quitarCargando();
     });
@@ -405,7 +405,7 @@ export class AsignarMateriasPrimasComponent implements OnInit {
       }
 
       if (duplicado) {
-        console.log(this.editableColumns);
+        (this.editableColumns);
         this.funcGenerales.popUpAlerta('Error', 'Ya has capturado esta materia prima para este producto fabricado', 'Aceptar', '').then(() => {
           this.validando = false;
           let columna = this.editableColumns.find(e => e.rowIndex === buscarItem.NUM);
@@ -436,7 +436,7 @@ export class AsignarMateriasPrimasComponent implements OnInit {
       this.abrirVtnBusqueda(resultado, configGrid);
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.quitarCargando();
     });
 

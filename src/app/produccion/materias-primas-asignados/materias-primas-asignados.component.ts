@@ -48,7 +48,7 @@ export class MateriasPrimasAsignadosComponent extends ConsultasBaseComponent imp
   consulta() {
     this.mostrarCargado();
     this.peticiones.peticionPost({}, 'consultaMPasignados').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       this.dataSource = resultado;
       let num = 0;
       for (let i of this.dataSource) {
@@ -57,7 +57,7 @@ export class MateriasPrimasAsignadosComponent extends ConsultasBaseComponent imp
       }
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.isCargando = false;
       this.quitarCargando();
     });
@@ -144,7 +144,7 @@ export class MateriasPrimasAsignadosComponent extends ConsultasBaseComponent imp
 
     return new Promise(resolve => {
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result)
+        (result)
         this.consulta();
       });
     });
@@ -167,7 +167,7 @@ export class MateriasPrimasAsignadosComponent extends ConsultasBaseComponent imp
           this.consulta();
           this.quitarCargando();
         }).catch((error) => {
-          console.log(error);
+          (error);
           this.quitarCargando();
         });
       }

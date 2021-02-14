@@ -48,7 +48,7 @@ export class ProductoFabricadoComponent extends ConsultasBaseComponent implement
   consulta() {
     this.mostrarCargado();
     this.peticiones.peticionPost({}, 'consultaProductosF').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       this.dataSource = resultado;
       let num = 0;
       for (let i of this.dataSource) {
@@ -61,7 +61,7 @@ export class ProductoFabricadoComponent extends ConsultasBaseComponent implement
       }
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.isCargando = false;
       this.quitarCargando();
     });
@@ -147,7 +147,7 @@ export class ProductoFabricadoComponent extends ConsultasBaseComponent implement
 
     return new Promise(resolve => {
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result)
+        (result)
         this.consulta();
       });
     });
@@ -170,7 +170,7 @@ export class ProductoFabricadoComponent extends ConsultasBaseComponent implement
           this.consulta();
           this.quitarCargando();
         }).catch((error) => {
-          console.log(error);
+          (error);
           this.quitarCargando();
         });
       }

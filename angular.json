@@ -24,15 +24,15 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
-              "src/favicon.ico",
+              "src/fav.ico",
               "src/assets"
             ],
             "styles": [
-              "node_modules/primeicons/primeicons.css",
+              "node_modules/primes/primes.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeng/resources/themes/saga-blue/theme.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.scss"              
+              "src/styles.scss"
             ],
             "scripts": [
 
@@ -94,7 +94,7 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
-              "src/favicon.ico",
+              "src/fav.ico",
               "src/assets"
             ],
             "styles": [

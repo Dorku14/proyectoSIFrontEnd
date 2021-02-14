@@ -109,8 +109,8 @@ export class DetalleComprasComponent implements OnInit {
     json.TIPO_MOV = this.data.TIPO_MOV;
     this.mostrarCargado();
     this.peticiones.peticionPost(json, 'detalleCompras').then((resultado: any) => {
-      debugger
-      console.log(resultado);
+
+      (resultado);
       this.Folio = resultado.datos.FOLIO;
       this.formaDePago = resultado.datos.FORMA_PAGO;
       this.importeSINIVA = resultado.datos.IMPORTE_SIN_IVA;
@@ -132,7 +132,7 @@ export class DetalleComprasComponent implements OnInit {
 
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.isCargando = false;
       this.quitarCargando();
       // });
@@ -151,12 +151,12 @@ export class DetalleComprasComponent implements OnInit {
   consultMateriasPrimas() {
     this.mostrarCargado();
     this.peticiones.peticionPost({}, 'consultaMateriaPrima').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       this.listaMaterasP = resultado;
 
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.isCargando = false;
       this.quitarCargando();
     });
@@ -264,7 +264,7 @@ export class DetalleComprasComponent implements OnInit {
   }
 
   cambioDeOpcionSelect(e) {
-    console.log(e);
+    (e);
     let buscar = this.listaMaterasP.find(item => item.CODIGO_PROD === e.value);
     for (let i = 0; i < this.dataSource.length; i++) {
       if (this.dataSource[i].CODIGO_PROD === e.value) {
@@ -292,7 +292,7 @@ export class DetalleComprasComponent implements OnInit {
   }
 
   guardar() {
-    debugger
+
     let json: any = {};
     json.FOLIO = this.Folio;
     json.TIPO_DOC = this.tipoDoc;
@@ -311,13 +311,13 @@ export class DetalleComprasComponent implements OnInit {
       case MODO.ALTA:
         if (!this.validaAlta()) {
           this.mostrarCargado();
-          console.log(json)
+          (json)
 
           this.peticiones
             .peticionPost(json, 'altaCompras')
             .then((resultado: any) => {
-              console.log('resultado then');
-              console.log(resultado);
+              ('resultado then');
+              (resultado);
               if (this.funcGenerales.extraerCodigo(resultado) === NOEXISTE) {
                 this.funcGenerales.popUpAlerta('Error', resultado.message, 'Aceptar', '');
               } else {
@@ -327,8 +327,8 @@ export class DetalleComprasComponent implements OnInit {
 
             })
             .catch((error) => {
-              console.log('error');
-              console.log(error);
+              ('error');
+              (error);
               this.quitarCargando();
             });
         }
@@ -339,8 +339,8 @@ export class DetalleComprasComponent implements OnInit {
         this.peticiones
           .peticionPost(json, 'modificarCompras')
           .then((resultado: any) => {
-            console.log('resultado then');
-            console.log(resultado);
+            ('resultado then');
+            (resultado);
             if (this.funcGenerales.extraerCodigo(resultado) === NOEXISTE) {
               this.funcGenerales.popUpAlerta('Error', resultado.message, 'Aceptar', '');
               this.quitarCargando();
@@ -351,8 +351,8 @@ export class DetalleComprasComponent implements OnInit {
 
           })
           .catch((error) => {
-            console.log('error');
-            console.log(error);
+            ('error');
+            (error);
             this.quitarCargando();
           });
         break;
@@ -419,7 +419,7 @@ export class DetalleComprasComponent implements OnInit {
       }
 
       if (duplicado) {
-        console.log(this.editableColumns);
+        (this.editableColumns);
         this.funcGenerales.popUpAlerta('Error', 'Ya has capturado esta materia prima para este producto fabricado', 'Aceptar', '').then(() => {
           this.validando = false;
           let columna = this.editableColumns.find(e => e.rowIndex === buscarItem.NUM);
@@ -474,7 +474,7 @@ export class DetalleComprasComponent implements OnInit {
       this.abrirVtnBusqueda(resultado, configGrid, index);
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.quitarCargando();
     });
 
@@ -542,7 +542,7 @@ export class DetalleComprasComponent implements OnInit {
       this.abrirVtnImporte(resultado, configGrid, index);
       this.quitarCargando();
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.quitarCargando();
     });
   }
@@ -605,23 +605,23 @@ export class DetalleComprasComponent implements OnInit {
     ]
 
   }
-  
+
   consultaCuentas() {
     this.peticiones.peticionPost({}, 'consultaCuentasCompletas').then((resultado: any) =>{
       let datos = resultado;
       this.listaDeCuentas = datos;
     }).catch((error) =>{
-      console.log(error);
+      (error);
     })
   }
 
   consultaProveedores(){
     this.peticiones.peticionPost({}, 'consultaProveedores').then((resultado: any) => {
-      console.log(resultado);
+      (resultado);
       let datos = resultado;
       this.listaProveedores = datos;
     }).catch((error) => {
-      console.log(error);
+      (error);
       this.quitarCargando();
     });
   }
