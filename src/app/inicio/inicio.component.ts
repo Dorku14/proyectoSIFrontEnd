@@ -226,7 +226,7 @@ export class InicioComponent implements OnInit {
   }
 
   addTab(nombre: string) {
-    if(this.tabs.length < 12 ){
+    if (this.tabs.length < 12) {
       let validaExistencia = this.tabs.find(item => item.name === nombre);
       if (!validaExistencia) {
         let vista = this.Activos.find(item => item.DESCRIPCION == nombre);
@@ -243,9 +243,10 @@ export class InicioComponent implements OnInit {
             case NombreComponente.BANCOS:
               nuevoTab.componente = BancosComponent;
               break;
-
+            default:
+              nuevoTab.componente = ""
+              break
           }
-
           this.tabs.push(nuevoTab);
           this.funcGenerales.pausa(100).then(() => {
             this.tabGroup.selectedIndex = this.tabNodes.length - 1;
@@ -256,8 +257,8 @@ export class InicioComponent implements OnInit {
       } else {
         this.tabGroup.selectedIndex = validaExistencia.tabType
       }
-    }else{
-      this.funcGenerales.mensajeConfirmacion("arribaDerecha","error","","Número máximo de pestañas alcanzada");
+    } else {
+      this.funcGenerales.mensajeConfirmacion("arribaDerecha", "error", "", "Número máximo de pestañas alcanzada");
     }
 
 
@@ -265,7 +266,7 @@ export class InicioComponent implements OnInit {
 
   changeTab(activeTab) {
     this.activeTab = activeTab;
-    if(activeTab !=0){
+    if (activeTab != 0) {
       const factory = this.componentFactoryResolver.resolveComponentFactory(this.tabs[activeTab].componente);
       let buscarComponente = this.componetesAbiertos.find(item => item === factory.componentType);
       if (!buscarComponente) {

@@ -233,6 +233,6 @@ tr{
   .mat-tab-label{
     @include tamanioLetrasGrandes();
   }
-  // .mat-drawer-content{
-  //   overflow: hidden !important;
-  // }
+  .mat-drawer-content{
+    overflow: hidden !important;
+  }
