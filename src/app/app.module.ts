@@ -177,7 +177,7 @@ import { BancosComponent } from './bancos/bancos.component';
         useClass: MomentDateAdapter,
         deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
       },
-      {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+      {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
 
 ],
   bootstrap: [AppComponent],

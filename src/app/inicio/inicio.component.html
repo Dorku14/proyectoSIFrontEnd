@@ -2,7 +2,7 @@
   <p-toast position="top-right" key="arribaDerecha"></p-toast>
   <mat-tab-group #MTG (selectedTabChange)="changeTab(MTG.selectedIndex)">
     <ng-container *ngFor="let tab of tabs; let index = index">
-      <mat-tab *ngIf="closedTabs.indexOf(index) < 0">
+      <mat-tab [aria-label]="tabsActivos(tab.tabType)" *ngIf="closedTabs.indexOf(index) < 0">
         <ng-template mat-tab-label>
           <div class="col" style="margin-left: 20px;">{{tab.name}} </div>
           <button *ngIf="tab.name !== 'Inicio'" tabindex="-1" style="color:black" mat-icon-button

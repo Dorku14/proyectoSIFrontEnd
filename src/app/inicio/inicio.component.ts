@@ -226,9 +226,10 @@ export class InicioComponent implements OnInit {
   }
 
   addTab(nombre: string) {
-    if (this.tabs.length < 12) {
-      let validaExistencia = this.tabs.find(item => item.name === nombre);
-      if (!validaExistencia) {
+
+    let validaExistencia = this.tabs.find(item => item.name === nombre);
+    if (!validaExistencia) {
+      if (this.tabs.length < 11) {
         let vista = this.Activos.find(item => item.DESCRIPCION == nombre);
         if (vista) {
           let nuevoIndex = this.tabs.length;
@@ -253,13 +254,13 @@ export class InicioComponent implements OnInit {
           });
 
         }
-
       } else {
-        this.tabGroup.selectedIndex = validaExistencia.tabType
+        this.funcGenerales.mensajeConfirmacion("arribaDerecha", "error", "", "Número máximo de pestañas alcanzada");
       }
     } else {
-      this.funcGenerales.mensajeConfirmacion("arribaDerecha", "error", "", "Número máximo de pestañas alcanzada");
+      this.tabGroup.selectedIndex = validaExistencia.tabType
     }
+
 
 
   }
@@ -329,5 +330,7 @@ export class InicioComponent implements OnInit {
     }
 
   }
-
+  tabsActivos=(indice :number)=>{
+    return this.funcGenerales.tabsActivos(indice, this.activeTab);
+  }
 }
