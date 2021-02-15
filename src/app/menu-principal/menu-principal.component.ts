@@ -35,7 +35,7 @@ export class MenuPrincipalComponent implements OnInit {
   constructor(private funcGenerales: FuncionesGenerales, public dialog: MatDialog, private peticiones: PeticionesWebComponent, private cookieService: CookieService, private parametrosSistema: parametrosDeSistema) {
     this.icono = 'menu'
     this.componente = NombreComponente.INICIO
-    this.opcionPrincipal = 1;
+    this.opcionPrincipal = 0;
 
 
 

@@ -43,7 +43,7 @@ export class CuentasComponent extends ConsultasBaseComponent implements OnInit {
       for (let i of this.dataSource) {
         num += 1;
         i.NUM = num;
-        i.PROPIEDAD =  i.PROPIEDAD == 'P' ? 'Proveedor' :'Mio';
+        i.PROPIEDAD = i.PROPIEDAD == 'P' ? 'Proveedor' : 'Mio';
         i.ESTATUS = this.funcGenerales.formateaEstatus(i.ESTATUS);
         // i.PRECIOVENT = this.funcGenerales.dameFormatoMoneda(i.PRECIOVENT, 2);
         // i.COSTACT = this.funcGenerales.dameFormatoMoneda(i.COSTACT, 2);
@@ -122,29 +122,39 @@ export class CuentasComponent extends ConsultasBaseComponent implements OnInit {
     });
   }
 
+
   /**
-    *\brief   Función para eliminar un registro
-    *\author  Alexis Osvaldo Dorantes Ku
-    *\date    23/09/2020
-    *\version	1.00.00
-  */
+ *\brief   Función para eliminar un registro
+ *\author  Alexis Osvaldo Dorantes Ku
+ *\date    23/09/2020
+ *\version	1.00.00
+*/
   eliminar() {
-    this.funcGenerales.mensajeConfirmacion('c', 'warn', '¿Estas seguro?', 'Confirmar', true);
+    this.funcGenerales.limpiarMensajes();
+    this.funcGenerales.mensajeConfirmacion('confirm', 'warn', 'Confirmación', '¿Seguro que deseas eliminar el registro \"' + this.itemSeleccionado.NUMERO_CTA + "\"?", true);
+  }
 
-    this.funcGenerales.popUpAlerta('Confirmación', '¿Seguro que deseas eliminar la cuenta \"' + this.itemSeleccionado.NUMERO_CTA + "\" ?'", 'Si', 'No').then((respuesta) => {
-
-      if (respuesta) {
-        this.mostrarCargado();
-        let json: any = {};
-        json = this.itemSeleccionado;
-        this.peticiones.peticionPost(json, 'eliminarCuentas').then((resultado: any) => {
-          this.consulta();
-          this.quitarCargando();
-        }).catch((error) => {
-          (error);
-          this.quitarCargando();
-        });
+  Confirmar() {
+    this.funcGenerales.limpiarMensajes();
+    this.mostrarCargado();
+    let json: any = {};
+    json.NOMBRE = this.itemSeleccionado.NOMBRE;
+    this.peticiones.peticionPost(json, 'eliminarCuentas').then((resultado: any) => {
+      if(this.funcGenerales.extraerCodigo(resultado) == 11){
+        this.mensajeError(resultado.message);
+      }else{
+        this.mensajeEliminarExitoso();
+        this.consulta();
       }
+      this.quitarCargando();
+
+    }).catch((error) => {
+      this.mensajeErrorHttp(error);
+      this.quitarCargando();
     });
+  }
+
+  Cancelar() {
+    this.funcGenerales.limpiarMensajes();
   }
 }

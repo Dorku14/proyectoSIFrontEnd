@@ -9,6 +9,7 @@ import { Table } from 'primeng/table';
 import { DetalleProductosComercialesComponent } from './detalle-productos-comerciales/detalle-productos-comerciales.component';
 import { ThemePalette } from '@angular/material/core';
 import { ConsultasBaseComponent } from '../consultas-base/consultas-base.component';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -163,20 +164,32 @@ export class ProductosComercialesComponent extends ConsultasBaseComponent implem
     *\version	1.00.00
   */
   eliminar() {
-    this.funcGenerales.popUpAlerta('Confirmación', '¿Seguro que deseas eliminar el registro \"' + this.itemSeleccionado.CODIGO + "\" ?'", 'Si', 'No').then((respuesta) => {
+    this.funcGenerales.limpiarMensajes();
+    this.funcGenerales.mensajeConfirmacion('confirm','warn','Confirmación','¿Seguro que deseas eliminar el registro \"' + this.itemSeleccionado.CODIGO + "\"?",true);
+  }
 
-      if (respuesta) {
-        this.mostrarCargado();
-        let json: any = {};
-        json.CODIGO = this.itemSeleccionado.CODIGO;
-        this.peticiones.peticionPost(json, 'eliminarrProductoC').then((resultado: any) => {
-          this.consulta();
-          this.quitarCargando();
-        }).catch((error) => {
-          (error);
-          this.quitarCargando();
-        });
+  Confirmar(){
+    this.funcGenerales.limpiarMensajes();
+    this.mostrarCargado();
+    let json: any = {};
+    json.CODIGO = this.itemSeleccionado.CODIGO;
+    this.peticiones.peticionPost(json, 'eliminarrProductoC').then((resultado: any) => {
+      if(this.funcGenerales.extraerCodigo(resultado) == 11){
+        this.mensajeError(resultado.message);
+      }else{
+        this.mensajeEliminarExitoso();
+        this.consulta();
       }
+      this.quitarCargando();
+
+    }).catch((error) => {
+      this.mensajeErrorHttp(error);
+      this.quitarCargando();
     });
   }
+
+  Cancelar(){
+    this.funcGenerales.limpiarMensajes();
+  }
+
 }
