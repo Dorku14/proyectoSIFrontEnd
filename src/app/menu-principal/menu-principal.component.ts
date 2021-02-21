@@ -275,33 +275,6 @@ export class MenuPrincipalComponent implements OnInit {
         visible: true,
         TEMPLATE: NombreComponente.CAJA
       }, {// EXTRA
-        PADRE: 9,
-        ID: 17,
-        DESCRIPCION: 'Nómina Destajo',
-        ICONO: '',
-        ICONO_DISABLED: '',
-        SELECTED: false,
-        visible: true,
-        TEMPLATE: NombreComponente.NOMINA
-      }, {// EXTRA
-        PADRE: 10,
-        ID: 18,
-        DESCRIPCION: 'CLIENTES',
-        ICONO: '',
-        ICONO_DISABLED: '',
-        SELECTED: false,
-        visible: true,
-        TEMPLATE: NombreComponente.CREDITOCLIENTES
-      }, {// EXTRA
-        PADRE: 10,
-        ID: 19,
-        DESCRIPCION: 'PROVEEDORES',
-        ICONO: '',
-        ICONO_DISABLED: '',
-        SELECTED: false,
-        visible: true,
-        TEMPLATE: NombreComponente.CREDITOPROVEEDORES
-      }, {// EXTRA
         PADRE: 11,
         ID: 20,
         DESCRIPCION: 'BANCOS',
@@ -310,6 +283,15 @@ export class MenuPrincipalComponent implements OnInit {
         SELECTED: false,
         visible: true,
         TEMPLATE: NombreComponente.BANCOS
+      }, {// EXTRA
+        PADRE: 121,
+        ID: 211,
+        DESCRIPCION: 'Balance Inicial',
+        ICONO: '',
+        ICONO_DISABLED: '',
+        SELECTED: false,
+        visible: true,
+        TEMPLATE: NombreComponente.BALANCEINICIAL
       }];
     this.opcionesMenuPadre = [
       {
@@ -350,16 +332,12 @@ export class MenuPrincipalComponent implements OnInit {
       DESCRIPCION: 'Caja',
       visible: true
     }, {//EXTRA
-      ID: 9,
-      DESCRIPCION: 'Nómina Destajo',
-      visible: true
-    }, {//EXTRA
-      ID: 10,
-      DESCRIPCION: 'Crédito y Cobranza',
-      visible: true
-    }, {//EXTRA
       ID: 11,
       DESCRIPCION: 'Bancos',
+      visible: true
+    },  {//EXTRA
+      ID: 121,
+      DESCRIPCION: 'Balance Inicial',
       visible: true
     }]
   }
