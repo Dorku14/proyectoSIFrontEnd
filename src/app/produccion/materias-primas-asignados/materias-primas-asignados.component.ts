@@ -23,11 +23,11 @@ export class MateriasPrimasAsignadosComponent extends ConsultasBaseComponent imp
   columns: any;
   data = { 'NUM': 1, 'CODIGO': '1231', 'PRODUCTO': 'camisa', 'CANTIDAD': 12, 'PRECIOCOMP': 50, 'PRECIOVENT': 80, 'COSTACT': 120 }
   @ViewChild('dt') table: Table;
-  Nombrecatalogo:any;
+  Nombrecatalogo: any;
   constructor(public peticiones: PeticionesWebComponent,
     public funcGenerales: FuncionesGenerales,
     public dialog: MatDialog) {
-    super(funcGenerales,dialog,peticiones);
+    super(funcGenerales, dialog, peticiones);
     this.isCargando = false;
     this.Nombrecatalogo = 'Materias Primas Asignados';
   }
@@ -80,12 +80,12 @@ export class MateriasPrimasAsignadosComponent extends ConsultasBaseComponent imp
   }
 
 
- /**
-     *\brief   Función que activa el componente cargando
-     *\author  Alexis Osvaldo Dorantes Ku
-     *\date    23/09/2020
-     *\version	1.00.00
- */
+  /**
+      *\brief   Función que activa el componente cargando
+      *\author  Alexis Osvaldo Dorantes Ku
+      *\date    23/09/2020
+      *\version	1.00.00
+  */
   mostrarCargado() {
     this.isCargando = this.funcGenerales.onCargando();
   }
@@ -100,12 +100,12 @@ export class MateriasPrimasAsignadosComponent extends ConsultasBaseComponent imp
     this.isCargando = this.funcGenerales.offCargando();
   }
 
-   /**
-    *\brief   Función que invoca el componente detalle y ponerlo en modo alta
-    *\author  Alexis Osvaldo Dorantes Ku
-    *\date    23/09/2020
-    *\version	1.00.00
-  */
+  /**
+   *\brief   Función que invoca el componente detalle y ponerlo en modo alta
+   *\author  Alexis Osvaldo Dorantes Ku
+   *\date    23/09/2020
+   *\version	1.00.00
+ */
   agregar() {
     this.asignarMateriasPrimas(MODO.ALTA);
   }
@@ -121,13 +121,13 @@ export class MateriasPrimasAsignadosComponent extends ConsultasBaseComponent imp
 
   }
 
-   /**
-    *\brief   Función que invoca la ventana del detalle
-    *\author  Alexis Osvaldo Dorantes Ku
-    *\date    23/09/2020
-    *\version	1.00.00
-    @param[in] -> el modo en el que se comportará la ventana
-  */
+  /**
+   *\brief   Función que invoca la ventana del detalle
+   *\author  Alexis Osvaldo Dorantes Ku
+   *\date    23/09/2020
+   *\version	1.00.00
+   @param[in] -> el modo en el que se comportará la ventana
+ */
   asignarMateriasPrimas(Modo) {
     var width = '80vh';
     var height = '75vh';
@@ -150,27 +150,38 @@ export class MateriasPrimasAsignadosComponent extends ConsultasBaseComponent imp
     });
   }
 
- /**
-    *\brief   Función para eliminar un registro
-    *\author  Alexis Osvaldo Dorantes Ku
-    *\date    23/09/2020
-    *\version	1.00.00
-  */
+  /**
+   *\brief   Función para eliminar un registro
+   *\author  Alexis Osvaldo Dorantes Ku
+   *\date    23/09/2020
+   *\version	1.00.00
+ */
   eliminar() {
-    this.funcGenerales.popUpAlerta('Confirmación', '¿Seguro que deseas eliminar el registro \"' + this.itemSeleccionado.CODIGO_PRODUCTOF + "\" ?'", 'Si', 'No').then((respuesta) => {
+    this.funcGenerales.limpiarMensajes();
+    this.funcGenerales.mensajeConfirmacion('confirm', 'warn', 'Confirmación', '¿Seguro que deseas eliminar el registro \"' + this.itemSeleccionado.CODIGO_PRODUCTOF + "\"?", true);
+  }
 
-      if (respuesta) {
-        this.mostrarCargado();
-        let json: any = {};
-        json.CODIGO_PRODUCTOF = this.itemSeleccionado.CODIGO_PRODUCTOF;
-        this.peticiones.peticionPost(json, 'eliminarMPasignados').then((resultado: any) => {
-          this.consulta();
-          this.quitarCargando();
-        }).catch((error) => {
-          (error);
-          this.quitarCargando();
-        });
+  Confirmar() {
+    this.funcGenerales.limpiarMensajes();
+    this.mostrarCargado();
+    let json: any = {};
+    json.CODIGO_PRODUCTOF = this.itemSeleccionado.CODIGO_PRODUCTOF;
+    this.peticiones.peticionPost(json, 'eliminarMPasignados').then((resultado: any) => {
+      if (this.funcGenerales.extraerCodigo(resultado) == 11 || this.funcGenerales.extraerCodigo(resultado) == "01") {
+        this.mensajeError(resultado.message);
+      } else {
+        this.mensajeEliminarExitoso();
+        this.consulta();
       }
+      this.quitarCargando();
+
+    }).catch((error) => {
+      this.mensajeErrorHttp(error);
+      this.quitarCargando();
     });
+  }
+
+  Cancelar() {
+    this.funcGenerales.limpiarMensajes();
   }
 }

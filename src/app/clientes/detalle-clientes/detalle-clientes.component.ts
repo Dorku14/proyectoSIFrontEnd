@@ -136,8 +136,7 @@ export class DetalleClientesComponent implements OnInit {
       this.clientesSrv.FECHA_NACIMIENTO = this.funcGenerales.fechaFormatoYYMMDDtoDDMMYY(datos.FECHA_NACIMIENTO);
       this.fechaNacimiento.nativeElement.value = this.clientesSrv.FECHA_NACIMIENTO;
     }).catch((error) => {
-      (error);
-      this.quitarCargando();
+      this.errorHttp(error);
     });
   }
 
@@ -156,7 +155,9 @@ export class DetalleClientesComponent implements OnInit {
   }
   guardar() {
     if (this.funcGenerales.EsVacioNulo(this.clientesSrv.NOMBRES) && this.funcGenerales.EsVacioNulo(this.clientesSrv.APELLIDO_M) && this.funcGenerales.EsVacioNulo(this.clientesSrv.APELLIDO_P)) {
-      alert('El campo Nombre no debe estar vacío');
+      this.funcGenerales.limpiarMensajes("esquinaSupDerDET");
+      this.funcGenerales.mensajeConfirmacion("esquinaSupDerDET","error","","El campo Nombre no debe estar vacío");
+      this.funcGenerales.otorgaFoco("nombres");
     } else {
 
       let json: any = {};
@@ -174,44 +175,37 @@ export class DetalleClientesComponent implements OnInit {
       switch (this.modo) {
         case MODO.ALTA:
           this.peticiones.peticionPost(json, 'altaClientes').then((resultado: any) => {
-            ('resultado then');
-            (resultado);
             this.quitarCargando();
             this.clientesSrv.incicializarVariables();
+            this.funcGenerales.limpiarMensajes("esquinaSupDerDET");
+            this.funcGenerales.mensajeInsertarExitoso('esquinaSupDer');
             this.CerrarVentana();
           }).catch((error) => {
-            ('error');
-            (error);
-            this.quitarCargando();
+            this.errorHttp(error);
+
           });
 
 
           break;
         case MODO.MODIFICAR:
           this.peticiones.peticionPost(json, 'modificarClientes').then((resultado: any) => {
-            ('resultado then');
-            (resultado);
             this.quitarCargando();
             this.clientesSrv.incicializarVariables();
+            this.funcGenerales.mensajeModificarExitoso('esquinaSupDerDET');
             this.CerrarVentana();
           }).catch((error) => {
-            ('error');
-            (error);
-            this.quitarCargando();
+            this.errorHttp(error);
+
           });
           break;
         case MODO.REACTIVAR:
           json.ESTATUS = 'A';
           this.peticiones.peticionPost(json, 'reactivarServicios').then((resultado: any) => {
-            ('resultado then');
-            (resultado);
             this.quitarCargando();
             this.clientesSrv.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
-            ('error');
-            (error);
-            this.quitarCargando();
+           this.errorHttp(error);
           });
           break;
       }
@@ -251,8 +245,7 @@ export class DetalleClientesComponent implements OnInit {
         resolve(codigoR);
 
       }).catch((error) => {
-        (error);
-        this.quitarCargando();
+        this.errorHttp(error);
         reject();
       });
     });
@@ -412,5 +405,10 @@ export class DetalleClientesComponent implements OnInit {
 
   tabsActivos=(indice :number)=>{
     return this.funcGenerales.tabsActivos(indice, this.indiceTabsActivo);
+  }
+
+  errorHttp(error){
+    this.funcGenerales.mensajeErrorHttp("esquinaSupDerDET",error);
+    this.quitarCargando();
   }
 }

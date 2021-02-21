@@ -114,6 +114,10 @@ export class ConsultasBaseComponent extends ConsultaBaseGeneral implements OnIni
   mensajeEliminarExitoso() {
     this.funcGenerales.mensajeConfirmacion("esquinaSupDer", "success", "", "Se ha eliminado un elemento exitosamente");
   }
+
+  mensajeBajaExitoso() {
+    this.funcGenerales.mensajeConfirmacion("esquinaSupDer", "success", "", "Se ha dado de baja un elemento exitosamente");
+  }
   mensajeErrorHttp(Mensaje: HttpErrorResponse) {
     let msg: string;
     switch (Mensaje.status) {
@@ -124,10 +128,37 @@ export class ConsultasBaseComponent extends ConsultaBaseGeneral implements OnIni
         msg = Mensaje.message;
         break;
     }
-    this.funcGenerales.mensajeConfirmacion("esquinaSupDer", "error","", msg);
+    this.funcGenerales.mensajeConfirmacion("esquinaSupDer", "error", "", msg);
   }
 
   mensajeError(Mensaje: string) {
-    this.funcGenerales.mensajeConfirmacion("esquinaSupDer", "error","", Mensaje);
+    this.funcGenerales.mensajeConfirmacion("esquinaSupDer", "error", "", Mensaje);
+  }
+
+  mensajeConsultaExitoso() {
+    this.funcGenerales.mensajeConfirmacion("esquinaSupDer", "success", "", "Recarga exitoso");
+  }
+
+  mensajeConsultaError() {
+    this.funcGenerales.mensajeConfirmacion("esquinaSupDer", "error", "", "Ocurrió un error");
+  }
+
+  mensajeInsertarExitoso() {
+    this.funcGenerales.mensajeConfirmacion("esquinaSupDer", "success", "", "Se ha agregado un registro exitosamente");
+  }
+
+  mensajeModificarExitoso() {
+    this.funcGenerales.mensajeConfirmacion("esquinaSupDer", "success", "", "Se ha modificado un registro exitosamente");
+  }
+
+  mensajeDetalle(modo) {
+    switch (modo) {
+      case MODO.ALTA:
+        this.mensajeInsertarExitoso();
+        break;
+      case MODO.MODIFICAR:
+        this.mensajeModificarExitoso();
+        break;
+    }
   }
 }

@@ -138,9 +138,9 @@ export class CuentasComponent extends ConsultasBaseComponent implements OnInit {
     this.funcGenerales.limpiarMensajes();
     this.mostrarCargado();
     let json: any = {};
-    json.NOMBRE = this.itemSeleccionado.NOMBRE;
+    json.NUMERO_CTA = this.itemSeleccionado.NUMERO_CTA;
     this.peticiones.peticionPost(json, 'eliminarCuentas').then((resultado: any) => {
-      if(this.funcGenerales.extraerCodigo(resultado) == 11){
+      if(this.funcGenerales.extraerCodigo(resultado) == 11 || this.funcGenerales.extraerCodigo(resultado) == "01"){
         this.mensajeError(resultado.message);
       }else{
         this.mensajeEliminarExitoso();

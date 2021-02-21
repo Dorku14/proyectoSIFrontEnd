@@ -1,10 +1,12 @@
 
 import { DecimalPipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { decimalDigest } from '@angular/compiler/src/i18n/digest';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageService,PrimeNGConfig } from 'primeng/api';
 import { ConfirmacionPopUpComponent } from './confirmacion-pop-up/confirmacion-pop-up.component';
+import { MODO } from './constantes';
 
 @Injectable({
   providedIn: 'root'
@@ -500,5 +502,42 @@ cambiarColor(campo: string,color) {
 
      return clase;
    }
+
+
+   mensajeInsertarExitoso(key:string) {
+    this.mensajeConfirmacion(key, "success", "", "Se ha agregado un registro exitosamente");
+  }
+
+  mensajeModificarExitoso(key:string) {
+    this.mensajeConfirmacion(key, "success", "", "Se ha modificado un registro exitosamente");
+  }
+
+  mensajeDetalle(modo,key) {
+    switch (modo) {
+      case MODO.ALTA:
+        this.mensajeInsertarExitoso(key);
+        break;
+      case MODO.MODIFICAR:
+        this.mensajeModificarExitoso(key);
+        break;
+    }
+  }
+
+  mensajeErrorHttp(key:string,Mensaje: HttpErrorResponse) {
+    let msg: string;
+    switch (Mensaje.status) {
+      case 500:
+        msg = "Error en el servidor";
+        break;
+      default:
+        msg = Mensaje.message;
+        break;
+    }
+    this.mensajeConfirmacion(key, "error", "", msg);
+  }
+
+  mensajeError(key:string,Mensaje: string) {
+    this.mensajeConfirmacion("esquinaSupDer", "error", "", Mensaje);
+  }
 }
 

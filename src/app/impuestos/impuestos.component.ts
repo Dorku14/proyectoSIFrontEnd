@@ -152,27 +152,39 @@ export class ImpuestosComponent extends ConsultasBaseComponent implements OnInit
     });
   }
 
- /**
-    *\brief   Función para eliminar un registro
-    *\author  Alexis Osvaldo Dorantes Ku
-    *\date    23/09/2020
-    *\version	1.00.00
-  */
-  eliminar() {
-    this.funcGenerales.popUpAlerta('Confirmación', '¿Seguro que deseas eliminar el registro \"' + this.itemSeleccionado.NOMBRE + "\" ?'", 'Si', 'No').then((respuesta) => {
 
-      if (respuesta) {
-        this.mostrarCargado();
-        let json: any = {};
-        json.CODIGO = this.itemSeleccionado.CODIGO;
-        this.peticiones.peticionPost(json, 'eliminareImpuestos').then((resultado: any) => {
-          this.consulta();
-          this.quitarCargando();
-        }).catch((error) => {
-          (error);
-          this.quitarCargando();
-        });
-      }
-    });
-  }
+   /**
+*\brief   Función para eliminar un registro
+*\author  Alexis Osvaldo Dorantes Ku
+*\date    23/09/2020
+*\version	1.00.00
+*/
+eliminar() {
+  this.funcGenerales.limpiarMensajes();
+  this.funcGenerales.mensajeConfirmacion('confirm', 'warn', 'Confirmación', '¿Seguro que deseas eliminar el registro \"' + this.itemSeleccionado.NOMBRE + "\"?", true);
+}
+
+Confirmar() {
+  this.funcGenerales.limpiarMensajes();
+  this.mostrarCargado();
+  let json: any = {};
+  json.NOMBRE = this.itemSeleccionado.NOMBRE;
+  this.peticiones.peticionPost(json, 'eliminareImpuestos').then((resultado: any) => {
+    if (this.funcGenerales.extraerCodigo(resultado) == 11 || this.funcGenerales.extraerCodigo(resultado) == "01") {
+      this.mensajeError(resultado.message);
+    } else {
+      this.mensajeEliminarExitoso();
+      this.consulta();
+    }
+    this.quitarCargando();
+
+  }).catch((error) => {
+    this.mensajeErrorHttp(error);
+    this.quitarCargando();
+  });
+}
+
+Cancelar() {
+  this.funcGenerales.limpiarMensajes();
+}
 }

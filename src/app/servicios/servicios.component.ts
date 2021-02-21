@@ -22,13 +22,13 @@ export class ServiciosComponent extends ConsultasBaseComponent implements OnInit
   columns: any;
   data = { 'NUM': 1, 'CODIGO': '1231', 'ACTIVIDAD': 'camisa', 'PRECIO_VENT': 12, 'PRECIO_VENT_ACT': 80, 'PAGO_EMPLEADO': 120 }
   @ViewChild('dt') table: Table;
-  Nombrecatalogo:any;
-  ocultarBTNEliminar:boolean = false;
+  Nombrecatalogo: any;
+  ocultarBTNEliminar: boolean = false;
   constructor(public peticiones: PeticionesWebComponent,
     public ServiciosService: ServiciosService,
     public funcGenerales: FuncionesGenerales,
     public dialog: MatDialog) {
-    super(funcGenerales,dialog,peticiones);
+    super(funcGenerales, dialog, peticiones);
     this.isCargando = false;
     this.Nombrecatalogo = 'Servicios';
   }
@@ -55,9 +55,9 @@ export class ServiciosComponent extends ConsultasBaseComponent implements OnInit
       for (let i of this.dataSource) {
         num += 1;
         i.NUM = num;
-        i.PRECIO_VENT = this.funcGenerales.dameFormatoMoneda(i.PRECIO_VENT,2);
-        i.PRECIO_VENT_ACT = this.funcGenerales.dameFormatoMoneda(i.PRECIO_VENT_ACT,2);
-        i.PAGO_EMPLEADO = this.funcGenerales.dameFormatoMoneda(i.PAGO_EMPLEADO,2);
+        i.PRECIO_VENT = this.funcGenerales.dameFormatoMoneda(i.PRECIO_VENT, 2);
+        i.PRECIO_VENT_ACT = this.funcGenerales.dameFormatoMoneda(i.PRECIO_VENT_ACT, 2);
+        i.PAGO_EMPLEADO = this.funcGenerales.dameFormatoMoneda(i.PAGO_EMPLEADO, 2);
       }
       this.quitarCargando();
     }).catch((error) => {
@@ -94,44 +94,44 @@ export class ServiciosComponent extends ConsultasBaseComponent implements OnInit
     this.isCargando = this.funcGenerales.onCargando();
   }
 
-   /**
-    *\brief   Función que desactiva el componente cargando
-    *\author  Alexis Osvaldo Dorantes Ku
-    *\date    23/09/2020
-    *\version	1.00.00
-  */
+  /**
+   *\brief   Función que desactiva el componente cargando
+   *\author  Alexis Osvaldo Dorantes Ku
+   *\date    23/09/2020
+   *\version	1.00.00
+ */
   quitarCargando() {
     this.isCargando = this.funcGenerales.offCargando();
   }
 
-   /**
-    *\brief   Función que invoca el componente detalle y ponerlo en modo alta
-    *\author  Alexis Osvaldo Dorantes Ku
-    *\date    23/09/2020
-    *\version	1.00.00
-  */
+  /**
+   *\brief   Función que invoca el componente detalle y ponerlo en modo alta
+   *\author  Alexis Osvaldo Dorantes Ku
+   *\date    23/09/2020
+   *\version	1.00.00
+ */
   agregar() {
     this.ventanaDetalle(MODO.ALTA);
   }
 
-   /**
-    *\brief   Funciónque invoca el detalle y ponerlo en modo modificar
-    *\author  Alexis Osvaldo Dorantes Ku
-    *\date    23/09/2020
-    *\version	1.00.00
-  */
+  /**
+   *\brief   Funciónque invoca el detalle y ponerlo en modo modificar
+   *\author  Alexis Osvaldo Dorantes Ku
+   *\date    23/09/2020
+   *\version	1.00.00
+ */
   modificar() {
     this.ventanaDetalle(MODO.MODIFICAR);
 
   }
 
-   /**
-    *\brief   Función que invoca la ventana del detalle
-    *\author  Alexis Osvaldo Dorantes Ku
-    *\date    23/09/2020
-    *\version	1.00.00
-    @param[in] -> el modo en el que se comportará la ventana
-  */
+  /**
+   *\brief   Función que invoca la ventana del detalle
+   *\author  Alexis Osvaldo Dorantes Ku
+   *\date    23/09/2020
+   *\version	1.00.00
+   @param[in] -> el modo en el que se comportará la ventana
+ */
   ventanaDetalle(Modo) {
     var width = '40%';
     var height = '40%';
@@ -154,27 +154,38 @@ export class ServiciosComponent extends ConsultasBaseComponent implements OnInit
     });
   }
 
- /**
-    *\brief   Función para eliminar un registro
-    *\author  Alexis Osvaldo Dorantes Ku
-    *\date    23/09/2020
-    *\version	1.00.00
-  */
+  /**
+*\brief   Función para eliminar un registro
+*\author  Alexis Osvaldo Dorantes Ku
+*\date    23/09/2020
+*\version	1.00.00
+*/
   eliminar() {
-    this.funcGenerales.popUpAlerta('Confirmación', '¿Seguro que deseas eliminar el registro \"' + this.itemSeleccionado.CODIGO + "\" ?'", 'Si', 'No').then((respuesta) => {
+    this.funcGenerales.limpiarMensajes();
+    this.funcGenerales.mensajeConfirmacion('confirm', 'warn', 'Confirmación', '¿Seguro que deseas eliminar el registro \"' + this.itemSeleccionado.CODIGO + "\"?", true);
+  }
 
-      if (respuesta) {
-        this.mostrarCargado();
-        let json: any = {};
-        json.CODIGO = this.itemSeleccionado.CODIGO;
-        this.peticiones.peticionPost(json, 'eliminarServicios').then((resultado: any) => {
-          this.consulta();
-          this.quitarCargando();
-        }).catch((error) => {
-          (error);
-          this.quitarCargando();
-        });
+  Confirmar() {
+    this.funcGenerales.limpiarMensajes();
+    this.mostrarCargado();
+    let json: any = {};
+    json.CODIGO = this.itemSeleccionado.CODIGO;
+    this.peticiones.peticionPost(json, 'eliminarServicios').then((resultado: any) => {
+      if (this.funcGenerales.extraerCodigo(resultado) == 11 || this.funcGenerales.extraerCodigo(resultado) == "01") {
+        this.mensajeError(resultado.message);
+      } else {
+        this.mensajeEliminarExitoso();
+        this.consulta();
       }
+      this.quitarCargando();
+
+    }).catch((error) => {
+      this.mensajeErrorHttp(error);
+      this.quitarCargando();
     });
+  }
+
+  Cancelar() {
+    this.funcGenerales.limpiarMensajes();
   }
 }

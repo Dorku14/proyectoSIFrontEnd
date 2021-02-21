@@ -174,7 +174,7 @@ export class ProductosComercialesComponent extends ConsultasBaseComponent implem
     let json: any = {};
     json.CODIGO = this.itemSeleccionado.CODIGO;
     this.peticiones.peticionPost(json, 'eliminarrProductoC').then((resultado: any) => {
-      if(this.funcGenerales.extraerCodigo(resultado) == 11){
+      if(this.funcGenerales.extraerCodigo(resultado) == 11 || this.funcGenerales.extraerCodigo(resultado) == "01"){
         this.mensajeError(resultado.message);
       }else{
         this.mensajeEliminarExitoso();

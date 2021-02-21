@@ -12,6 +12,8 @@
         <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
         <div class="row">
             <div class="col-md-12">
+              <p-toast position="top-right" key="esquinaSupDerDET"></p-toast>
+
                 <mat-form-field  >
                     <mat-label class="labelForm">Nombre de la categoría</mat-label>
                     <input   class="Input" matInput #inputCodigo [(ngModel)]="CatSrv.NOMBRE" (focus)="ObtenerFoco($event)" autocomplete="off" name="codigo" [disabled]="modo == 'MODIFICAR'"  (keydown)="presionaBoton($event)">

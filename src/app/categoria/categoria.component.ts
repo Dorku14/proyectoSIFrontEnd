@@ -8,6 +8,7 @@ import { Table } from 'primeng/table';
 import { CategoriaService } from '../services/Categoria.service';
 import { DetalleCategoriaComponent } from './detalle-categoria/detalle-categoria.component';
 import { ConsultasBaseComponent } from '../consultas-base/consultas-base.component';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-categoria',
@@ -165,7 +166,7 @@ export class CategoriaComponent extends ConsultasBaseComponent implements OnInit
     let json: any = {};
     json.NOMBRE = this.itemSeleccionado.NOMBRE;
     this.peticiones.peticionPost(json, 'eliminarCategoria').then((resultado: any) => {
-      if(this.funcGenerales.extraerCodigo(resultado) == 11){
+      if(this.funcGenerales.extraerCodigo(resultado) == 11 || this.funcGenerales.extraerCodigo(resultado) == "01"){
         this.mensajeError(resultado.message);
       }else{
         this.mensajeEliminarExitoso();

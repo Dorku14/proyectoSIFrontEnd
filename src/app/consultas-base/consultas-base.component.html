@@ -50,7 +50,7 @@
 </ng-template>
 </p-toast>
 <div  style="overflow-x: scroll;width: 100% !important;">
-    <p-table #dt [columns]="columns" [responsive]="true" [scrollable]="true"  styleClass="p-datatable-gridlines" [reorderableColumns]="true" [value]="dataSource" width="95%" scrollHeight="70vh" [resizableColumns]="false"
+    <p-table #dt [columns]="columns" [responsive]="true" [scrollable]="true"  styleClass="p-datatable-gridlines" [reorderableColumns]="true" [value]="dataSource" width="95%" scrollHeight="70vh" [resizableColumns]="true"
         selectionMode="single" [(selection)]="itemSeleccionado" dataKey="NUM" [rowHover]="true" >
         <ng-template pTemplate="colgroup">
           <colgroup>

@@ -348,7 +348,7 @@ export class DetalleMateriaPrimaComponent implements OnInit {
     return new Promise((resolve) => {
       dialogRef.afterClosed().subscribe((result) => {
         (result);
-        this.inicializarUnidades();
+        this.inicializaCategorias();
       });
     });
   }

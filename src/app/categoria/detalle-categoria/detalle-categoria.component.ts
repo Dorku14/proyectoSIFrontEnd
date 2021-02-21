@@ -75,7 +75,7 @@ export class DetalleCategoriaComponent implements OnInit {
       let datos = resultado.datos[0];
       this.llenarCampoDetalle(datos);
     }).catch((error) => {
-      this.quitarCargando();
+      this.errorHttp(error);
     });
   }
 
@@ -92,9 +92,16 @@ export class DetalleCategoriaComponent implements OnInit {
   quitarCargando() {
     this.isCargando = this.funcGenerales.offCargando();
   }
+
+  confirmacion() {
+
+  }
+
   guardar() {
     if (this.funcGenerales.EsVacioNulo(this.CatSrv.NOMBRE)) {
-      alert('El campo código no debe estar vacío');
+      this.funcGenerales.limpiarMensajes("esquinaSupDerDET");
+      this.funcGenerales.mensajeConfirmacion("esquinaSupDerDET", "error", "", "El campo nombre no debe estar vacío");
+      this.funcGenerales.otorgaFoco("codigo");
     } else {
 
       let json: any = {};
@@ -106,10 +113,11 @@ export class DetalleCategoriaComponent implements OnInit {
             if (resultado === NOEXISTE) {
               this.peticiones.peticionPost(json, 'altaCategoria').then((resultado: any) => {
                 this.quitarCargando();
+                this.funcGenerales.mensajeInsertarExitoso("esquinaSupDer");
                 this.CatSrv.incicializarVariables();
                 this.CerrarVentana();
               }).catch((error) => {
-                this.quitarCargando();
+                this.errorHttp(error);
               });
             }
           });
@@ -134,7 +142,7 @@ export class DetalleCategoriaComponent implements OnInit {
             this.CatSrv.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
-            this.quitarCargando();
+            this.errorHttp(error);
           });
           break;
       }
@@ -174,7 +182,7 @@ export class DetalleCategoriaComponent implements OnInit {
         resolve(codigoR);
 
       }).catch((error) => {
-        this.quitarCargando();
+        this.errorHttp(error);
         reject();
       });
     });
@@ -193,7 +201,13 @@ export class DetalleCategoriaComponent implements OnInit {
     }
   }
 
-  ObtenerFoco(e){
+  ObtenerFoco(e) {
     e.target.select()
   }
+
+  errorHttp(error) {
+    this.quitarCargando();
+    this.funcGenerales.mensajeErrorHttp("esquinaSupDerDET", error);
+  }
+
 }
