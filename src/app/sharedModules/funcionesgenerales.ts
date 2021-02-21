@@ -87,6 +87,18 @@ export class FuncionesGenerales {
     return columns3;
   }
 
+  aplicaConfigGrid4(configGrid4) {
+    let columns4 = new Array();
+    for (let i = 0; i < configGrid4.columns; i++) {
+      columns4.push({
+        header: configGrid4.header[i],
+        field: configGrid4.field[i],
+      });
+    }
+
+    return columns4;
+  }
+
   /**
   *\brief     muestra una ventana para confirmar
   *\detail    el componente cuenta con dos botones, en caso de darle a boton ok se retorna un true, en cancelar o NO se retorna un dalse

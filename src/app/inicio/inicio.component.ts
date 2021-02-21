@@ -8,6 +8,15 @@ import { CajaComponent } from '../caja/caja.component';
 import { ProductosComercialesComponent } from '../productos-comerciales/productos-comerciales.component';
 import { NombreComponente } from '../sharedModules/constantes';
 import { FuncionesGenerales } from '../sharedModules/funcionesgenerales';
+import { CreditoClientesComponent } from '../credito-clientes/credito-clientes.component';
+import { IvaAcreditableComponent } from '../iva-acreditable/iva-acreditable.component';
+import { PrestamoOtorgadoComponent } from '../prestamo-otorgado/prestamo-otorgado.component';
+import { ActivosFijosComponent } from '../activos-fijos/activos-fijos.component';
+import { CreditoProveedoresComponent } from '../credito-proveedores/credito-proveedores.component';
+import { AcreedoresDiversosComponent} from '../acreedores-diversos/acreedores-diversos.component';
+import { PrestamoRecibidoComponent } from '../prestamo-recibido/prestamo-recibido.component';
+import { NominaDestajoComponent } from '../nomina-destajo/nomina-destajo.component';
+import { IvaPorPagarComponent } from '../iva-por-pagar/iva-por-pagar.component';
 
 
 @Component({
@@ -24,13 +33,15 @@ export class InicioComponent implements OnInit {
   columns: any;
   columns2: any;
   columns3: any;
+  columns4: any;
   Activos: Array<{ DESCRIPCION, CANTIDAD, PORCENTAJE, CONSTANTE }>;
-  Pasivos: Array<{ DESCRIPCION, CANTIDAD, PORCENTAJE }>;
+  Pasivos: Array<{ DESCRIPCION, CANTIDAD, PORCENTAJE, CONSTANTE }>;
   ActivosDetalle: Array<{ DESCRIPCION, CANTIDAD }>;
   PasivosDetalle: Array<{ DESCRIPCION, CANTIDAD }>;
   ActivosFijos: Array<{ DESCRIPCION, CANTIDAD }>;
   Capital: Array<{ DESCRIPCION, CANTIDAD }>;
   EstadoResultado: Array<{ DESCRIPCION, MOVIMIENTO, ACUMULADO }>;
+  VentasAcumuladas: Array<{ PORVENTA, DESCRIPCION, VENACU, UNIDADES, UTBRUTA, PORUTBRUTA}>;
   componenteAabrir: any;
   componetesAbiertos: Array<ComponentType<any>> = [];
   @ViewChild(MatTabGroup, { read: MatTabGroup })
@@ -62,6 +73,7 @@ export class InicioComponent implements OnInit {
     this.configuraDataGrid();
     this.configuraDataGrid2();
     this.configuraDataGrid3();
+    this.configuraDataGrid4();
     this.activos();
     this.pasivos();
     this.activosDetalle();
@@ -69,6 +81,7 @@ export class InicioComponent implements OnInit {
     this.activosFijos();
     this.capital();
     this.estadoResultado();
+    this.ventasAcumuladas();
   }
 
   formatoDatosTabla(columna) {
@@ -112,17 +125,28 @@ export class InicioComponent implements OnInit {
     this.columns3 = this.funcGenerales.aplicaConfigGrid3(configGrid3);
   }
 
+  configuraDataGrid4(): void {
+    let configGrid4 = {
+      columns: 6,
+      header: ['% Venta', 'Descripción', 'Ventas Acumuladas', 'Unidades', 'Ut. Bruta', '% Ut. Bruta'],
+      field: ['PORVENTA', 'DESCRIPCION', 'VENACU', 'UNIDADES', 'UTBRUTA', 'PORUTBRUTA'],
+
+    };
+
+    this.columns4 = this.funcGenerales.aplicaConfigGrid4(configGrid4);
+  }
+
   activos() {
     this.Activos = [
       { DESCRIPCION: 'CAJA', CANTIDAD: 1973.43, PORCENTAJE: '6%', CONSTANTE: NombreComponente.CAJA },
       { DESCRIPCION: 'BANCOS', CANTIDAD: 7885.51, PORCENTAJE: '23%', CONSTANTE: NombreComponente.BANCOS },
-      { DESCRIPCION: 'CRÉDITO CLIENTES', CANTIDAD: 1000.00, PORCENTAJE: '3%', CONSTANTE: "" },
+      { DESCRIPCION: 'CRÉDITO CLIENTES', CANTIDAD: 1000.00, PORCENTAJE: '3%', CONSTANTE: NombreComponente.CREDITOCLIENTES },
       { DESCRIPCION: '* Provisión IVA pend.x Cobrar', CANTIDAD: 160.00, PORCENTAJE: '0%', CONSTANTE: "" },
       { DESCRIPCION: 'ALMACÉN', CANTIDAD: 21417.26, PORCENTAJE: '61%', CONSTANTE: "" },
       { DESCRIPCION: 'TOTAL CIRCULANTE', CANTIDAD: 32436.20, PORCENTAJE: '93%', CONSTANTE: "" },
-      { DESCRIPCION: 'IVA ACREDITABLE', CANTIDAD: 2058.84, PORCENTAJE: '6%', CONSTANTE: "" },
-      { DESCRIPCION: 'DEUDORES DIVERSOS', CANTIDAD: 500.00, PORCENTAJE: '1%', CONSTANTE: "" },
-      { DESCRIPCION: 'ACTIVOS FIJOS', CANTIDAD: '-', PORCENTAJE: '', CONSTANTE: "" },
+      { DESCRIPCION: 'IVA ACREDITABLE', CANTIDAD: 2058.84, PORCENTAJE: '6%', CONSTANTE: NombreComponente.IVAACREDITABLE },
+      { DESCRIPCION: 'DEUDORES DIVERSOS', CANTIDAD: 500.00, PORCENTAJE: '1%', CONSTANTE: NombreComponente.PRESTAMOOTORGADO },
+      { DESCRIPCION: 'ACTIVOS FIJOS', CANTIDAD: '-', PORCENTAJE: '', CONSTANTE: NombreComponente.ACTIVOSFIJOS },
       { DESCRIPCION: 'DEPRECIACIÓN', CANTIDAD: '-', PORCENTAJE: '', CONSTANTE: "" },
       { DESCRIPCION: 'TOTAL FIJOS', CANTIDAD: '-', PORCENTAJE: '0%', CONSTANTE: "" },
       { DESCRIPCION: 'TOTAL ACTIVOS', CANTIDAD: 34995.04, PORCENTAJE: '100%', CONSTANTE: "" }
@@ -131,22 +155,22 @@ export class InicioComponent implements OnInit {
 
   pasivos() {
     this.Pasivos = [
-      { DESCRIPCION: 'CRÉDITO DE PROVEED', CANTIDAD: 1200.00, PORCENTAJE: '3%' },
-      { DESCRIPCION: '* Provisión IVA pend.x Pagar', CANTIDAD: 192.00, PORCENTAJE: '1%' },
-      { DESCRIPCION: 'ACREEDORES DIVERSOS', CANTIDAD: 1200.00, PORCENTAJE: '3%' },
-      { DESCRIPCION: 'DEUDA POR CRÉDITOS (CP)', CANTIDAD: 1000.00, PORCENTAJE: '3%' },
-      { DESCRIPCION: 'NOMINA DESTAJO', CANTIDAD: 399.50, PORCENTAJE: '1%' },
-      { DESCRIPCION: 'NOMINA INDIRECTA', CANTIDAD: 500.00, PORCENTAJE: '1%' },
-      { DESCRIPCION: 'GASTO IND. FAB.', CANTIDAD: 2000.00, PORCENTAJE: '6%' },
-      { DESCRIPCION: 'PASIVO CORTO PLAZO', CANTIDAD: 6491.50, PORCENTAJE: '19%' },
-      { DESCRIPCION: 'IVA POR PAGAR', CANTIDAD: 531.25, PORCENTAJE: '2%' },
-      { DESCRIPCION: 'DEUDA POR CREDITOS (LP)', CANTIDAD: 1000.00, PORCENTAJE: '3%' },
-      { DESCRIPCION: 'TOTLAL PÁTRIMONIO', CANTIDAD: 26972.02, PORCENTAJE: '77%' },
-      { DESCRIPCION: 'CAPITAL INICIAL', CANTIDAD: 27370.50, PORCENTAJE: '78%' },
-      { DESCRIPCION: 'PERDIDA AL 28 AGOSTO', CANTIDAD: 398.48, PORCENTAJE: '-1%' },
-      { DESCRIPCION: 'UTILIDAD REINVERTIDA', CANTIDAD: '-', PORCENTAJE: '' },
-      { DESCRIPCION: 'INCREMENTO CAPITAL', CANTIDAD: '-', PORCENTAJE: '' },
-      { DESCRIPCION: 'TOTAL PASIVO + PATRIMONIO', CANTIDAD: 34995.04, PORCENTAJE: '100%' }
+      { DESCRIPCION: 'CRÉDITO DE PROVEED', CANTIDAD: 1200.00, PORCENTAJE: '3%', CONSTANTE: NombreComponente.CREDITOPROVEEDORES},
+      { DESCRIPCION: '* Provisión IVA pend.x Pagar', CANTIDAD: 192.00, PORCENTAJE: '1%', CONSTANTE:''},
+      { DESCRIPCION: 'ACREEDORES DIVERSOS', CANTIDAD: 1200.00, PORCENTAJE: '3%', CONSTANTE: NombreComponente.ACREEDORES},
+      { DESCRIPCION: 'DEUDA POR CRÉDITOS (CP)', CANTIDAD: 1000.00, PORCENTAJE: '3%', CONSTANTE: NombreComponente.PRESTAMORECIBIDO},
+      { DESCRIPCION: 'NOMINA DESTAJO', CANTIDAD: 399.50, PORCENTAJE: '1%', CONSTANTE: NombreComponente.NOMINA},
+      { DESCRIPCION: 'NOMINA INDIRECTA', CANTIDAD: 500.00, PORCENTAJE: '1%', CONSTANTE: ''},
+      { DESCRIPCION: 'GASTO IND. FAB.', CANTIDAD: 2000.00, PORCENTAJE: '6%', CONSTANTE: ''},
+      { DESCRIPCION: 'PASIVO CORTO PLAZO', CANTIDAD: 6491.50, PORCENTAJE: '19%', CONSTANTE: ''},
+      { DESCRIPCION: 'IVA POR PAGAR', CANTIDAD: 531.25, PORCENTAJE: '2%', CONSTANTE: NombreComponente.IVAPORPAGAR},
+      { DESCRIPCION: 'DEUDA POR CREDITOS (LP)', CANTIDAD: 1000.00, PORCENTAJE: '3%', CONSTANTE: ''},
+      { DESCRIPCION: 'TOTLAL PÁTRIMONIO', CANTIDAD: 26972.02, PORCENTAJE: '77%', CONSTANTE: ''},
+      { DESCRIPCION: 'CAPITAL INICIAL', CANTIDAD: 27370.50, PORCENTAJE: '78%', CONSTANTE: ''},
+      { DESCRIPCION: 'PERDIDA AL 28 AGOSTO', CANTIDAD: 398.48, PORCENTAJE: '-1%', CONSTANTE:''},
+      { DESCRIPCION: 'UTILIDAD REINVERTIDA', CANTIDAD: '-', PORCENTAJE: '', CONSTANTE: ''},
+      { DESCRIPCION: 'INCREMENTO CAPITAL', CANTIDAD: '-', PORCENTAJE: '', CONSTANTE: ''},
+      { DESCRIPCION: 'TOTAL PASIVO + PATRIMONIO', CANTIDAD: 34995.04, PORCENTAJE: '100%', CONSTANTE: ''}
     ]
   }
 
@@ -218,6 +242,16 @@ export class InicioComponent implements OnInit {
     ]
   }
 
+  ventasAcumuladas(){
+    this.VentasAcumuladas = [
+      {PORVENTA:'30%', DESCRIPCION:'CAMISA 1', VENACU:'$1,000.00', UNIDADES:'5', UTBRUTA:'$500.00', PORUTBRUTA:'50%'},
+      {PORVENTA:'38%', DESCRIPCION:'GUAYABERA', VENACU:'$1,272.00', UNIDADES:'2', UTBRUTA:'-$228.48', PORUTBRUTA:'-18%'},
+      {PORVENTA:'24%', DESCRIPCION:'PANTALÓN', VENACU:'$800.00', UNIDADES:'4', UTBRUTA:'$400.00', PORUTBRUTA:'50%'},
+      {PORVENTA:'8%', DESCRIPCION:'PRODUCTO 2', VENACU:'$250.00', UNIDADES:'1', UTBRUTA:'$130.00', PORUTBRUTA:'52%'},
+      {PORVENTA:'', DESCRIPCION:'', VENACU:'$3,322.00', UNIDADES:'', UTBRUTA:'$801.52', PORUTBRUTA:'24%'}
+    ]
+  }
+
   closeTab(index: number) {
     let indexComponentesAbiertos = this.componetesAbiertos.findIndex(item => item === this.tabs[index].componente);
     this.componetesAbiertos.splice(indexComponentesAbiertos, 1);
@@ -231,6 +265,9 @@ export class InicioComponent implements OnInit {
     if (!validaExistencia) {
       if (this.tabs.length < 11) {
         let vista = this.Activos.find(item => item.DESCRIPCION == nombre);
+        if (vista == null) {
+          vista = this.Pasivos.find(item => item.DESCRIPCION == nombre);
+        }
         if (vista) {
           let nuevoIndex = this.tabs.length;
           let nuevoTab: { tabType: number, name: string, componente } = { tabType: 0, name: "", componente: "" };
@@ -244,14 +281,40 @@ export class InicioComponent implements OnInit {
             case NombreComponente.BANCOS:
               nuevoTab.componente = BancosComponent;
               break;
-            default:
-              nuevoTab.componente = ""
-              break
+            case NombreComponente.CREDITOCLIENTES:
+              nuevoTab.componente = CreditoClientesComponent;
+              break;
+            case NombreComponente.IVAACREDITABLE:
+              nuevoTab.componente = IvaAcreditableComponent;
+              break;
+            case NombreComponente.PRESTAMOOTORGADO:
+              nuevoTab.componente = PrestamoOtorgadoComponent;
+              break;
+            case NombreComponente.ACTIVOSFIJOS:
+              nuevoTab.componente = ActivosFijosComponent;
+              break;
+            case NombreComponente.CREDITOPROVEEDORES:
+              nuevoTab.componente = CreditoProveedoresComponent;
+              break;
+            case NombreComponente.ACREEDORES:
+              nuevoTab.componente = AcreedoresDiversosComponent;
+              break;
+            case NombreComponente.PRESTAMORECIBIDO:
+              nuevoTab.componente = PrestamoRecibidoComponent;
+              break;
+            case NombreComponente.NOMINA:
+              nuevoTab.componente = NominaDestajoComponent;
+              break;
+            case NombreComponente.IVAPORPAGAR:
+              nuevoTab.componente = IvaPorPagarComponent;
+              break;
           }
-          this.tabs.push(nuevoTab);
-          this.funcGenerales.pausa(100).then(() => {
-            this.tabGroup.selectedIndex = this.tabNodes.length - 1;
-          });
+          if (nuevoTab.componente != "") {
+              this.tabs.push(nuevoTab);
+              this.funcGenerales.pausa(100).then(() => {
+              this.tabGroup.selectedIndex = this.tabNodes.length - 1;
+            });
+          }
 
         }
       } else {
@@ -330,7 +393,7 @@ export class InicioComponent implements OnInit {
     }
 
   }
-  tabsActivos=(indice :number)=>{
+  tabsActivos = (indice: number) => {
     return this.funcGenerales.tabsActivos(indice, this.activeTab);
   }
 }

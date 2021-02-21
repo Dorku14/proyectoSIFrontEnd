@@ -1,0 +1,109 @@
+<mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
+    <!-- <span class="titulo-Ayuda-Ventana labelForm">Acreedores Diversos</span> -->
+</mat-toolbar>
+
+<mat-dialog-content class="contenido-ayuda-ventana">
+    <div class="container-fluid">
+        <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
+        <mat-toolbar class="toolbarMatDialog">
+          <button mat-icon-button class="sinborde" tabindex="-1" matTooltip="Guardar" (click)="guardar()">
+            <mat-icon>save</mat-icon>
+          </button>
+          <button mat-icon-button (click)="agregar()" tabindex="-1" matTooltip="Agregar">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Eliminar" tabindex="-1" [disabled]="!itemSeleccionado" (click)="eliminar()">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-toolbar>
+
+        <div>
+          <p-table #dt [responsive]="true" [columns]="columns" [scrollable]="true" styleClass="p-datatable-gridlines"
+            [value]="dataSource" scrollHeight="55vh" selectionMode="single" [(selection)]="itemSeleccionado" dataKey="NUM">
+            <ng-template pTemplate="header">
+              <tr>
+                <th [pSortableColumn]="'NUM'"> <div class="headerGrid">#</div> <p-sortIcon class="iconoOrdenamiento" field="NUM"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'FECHA'"> <div class="headerGrid">Fecha = Día Mes</div> <p-sortIcon class="iconoOrdenamiento" field="FECHA"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'PROVEEDOR'"> <div class="headerGrid">Proveedor</div> <p-sortIcon class="iconoOrdenamiento" field="PROVEEDOR"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'FACTURA'"> <div class="headerGrid">Factura o Remisión</div><p-sortIcon class="iconoOrdenamiento" field="FACTURA"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'IMPORTE'"> <div class="headerGrid">Importe</div><p-sortIcon class="iconoOrdenamiento" field="IMPORTE"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'IVA'"> <div class="headerGrid">IVA</div><p-sortIcon class="iconoOrdenamiento" field="IVA"></p-sortIcon>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pEditableColumn pTemplate="body" let-rowData>
+              <tr [pSelectableRow]="rowData">
+                    <!-- NUM -->
+                    <td>{{rowData.NUM}}</td>
+                    <!-- Fecha -->
+                    <td pEditableColumn [pEditableColumnField]="'FECHA'" [pEditableColumnRowIndex]="rowData.FECHA">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input matInput class="textBoxEditC" [maxLength]="50" pInputText type="text"
+                                [(ngModel)]="rowData.FECHA">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.FECHA}} 
+                            </ng-template>
+                        </p-cellEditor>
+                     </td>
+                    <!-- PROVEEDOR -->
+                    <td pEditableColumn [pEditableColumnField]="'PROVEEDOR'" [pEditableColumnRowIndex]="rowData.PROVEEDOR">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input matInput class="textBoxEditC" [maxLength]="50" pInputText type="text"
+                                [(ngModel)]="rowData.PROVEEDOR">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.PROVEEDOR}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <!-- FACTURA -->
+                    <td pEditableColumn [pEditableColumnField]="'FACTURA'" [pEditableColumnRowIndex]="rowData.FACTURA">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input matInput class="textBoxEditC" [maxLength]="50" pInputText type="text"
+                                [(ngModel)]="rowData.FACTURA">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.FACTURA}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <!-- IMPORTE -->
+                    <td pEditableColumn [pEditableColumnField]="'IMPORTE'" [pEditableColumnRowIndex]="rowData.IMPORTE">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input class="textBoxEdit"  [maxLength]="10" pInputText
+                                type="text" [(ngModel)]="rowData.IMPORTE">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{dameFormatoMoneda(rowData.IMPORTE)}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <!-- IVA -->
+                    <td pEditableColumn [pEditableColumnField]="'IVA'" [pEditableColumnRowIndex]="rowData.IVA">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input class="textBoxEdit"  [maxLength]="10" pInputText
+                                type="text" [(ngModel)]="rowData.IVA">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{dameFormatoMoneda(rowData.IVA)}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                </tr>
+            </ng-template>
+          </p-table>
+
+        </div>
+      </div>
+</mat-dialog-content>

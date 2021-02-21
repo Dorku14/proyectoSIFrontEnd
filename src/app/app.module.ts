@@ -86,6 +86,20 @@ import { NominaDestajoComponent } from './nomina-destajo/nomina-destajo.componen
 import { CreditoClientesComponent } from './credito-clientes/credito-clientes.component';
 import { CreditoProveedoresComponent } from './credito-proveedores/credito-proveedores.component';
 import { BancosComponent } from './bancos/bancos.component';
+import { BalanceInicialComponent } from './balance-inicial/balance-inicial.component';
+import { BalanceInicialBancosComponent } from './balance-inicial/balance-inicial-bancos/balance-inicial-bancos.component';
+import { BalanceInicialCreditoClientesComponent } from './balance-inicial/balance-inicial-credito-clientes/balance-inicial-credito-clientes.component';
+import { BalanceInicialCreditoProveedoresComponent } from './balance-inicial/balance-inicial-credito-proveedores/balance-inicial-credito-proveedores.component';
+import { BalanceInicialDeudoresDiversosComponent } from './balance-inicial/balance-inicial-deudores-diversos/balance-inicial-deudores-diversos.component';
+import { BalanceInicialAcreedoresDiversosComponent } from './balance-inicial/balance-inicial-acreedores-diversos/balance-inicial-acreedores-diversos.component';
+import { BalanceInicialDeudaCreditosComponent } from './balance-inicial/balance-inicial-deuda-creditos/balance-inicial-deuda-creditos.component';
+import { ActivosFijosComponent } from './activos-fijos/activos-fijos.component';
+import { PrestamoRecibidoComponent } from './prestamo-recibido/prestamo-recibido.component';
+import { IvaPorPagarComponent } from './iva-por-pagar/iva-por-pagar.component';
+import { IvaAcreditableComponent } from './iva-acreditable/iva-acreditable.component';
+import { ImpuestosDiversosComponent } from './impuestos-diversos/impuestos-diversos.component';
+import { AcreedoresDiversosComponent } from './acreedores-diversos/acreedores-diversos.component';
+import { PrestamoOtorgadoComponent } from './prestamo-otorgado/prestamo-otorgado.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -131,7 +145,21 @@ import { BancosComponent } from './bancos/bancos.component';
     NominaDestajoComponent,
     CreditoClientesComponent,
     CreditoProveedoresComponent,
-    BancosComponent
+    BancosComponent,
+    BalanceInicialComponent,
+    BalanceInicialBancosComponent,
+    BalanceInicialCreditoClientesComponent,
+    BalanceInicialCreditoProveedoresComponent,
+    BalanceInicialDeudoresDiversosComponent,
+    BalanceInicialAcreedoresDiversosComponent,
+    BalanceInicialDeudaCreditosComponent,
+    ActivosFijosComponent,
+    PrestamoRecibidoComponent,
+    IvaPorPagarComponent,
+    IvaAcreditableComponent,
+    ImpuestosDiversosComponent,
+    AcreedoresDiversosComponent,
+    PrestamoOtorgadoComponent
   ],
   imports: [
     BrowserModule,

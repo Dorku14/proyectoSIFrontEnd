@@ -9,9 +9,6 @@
             (click)="closeTab(index)">
             <mat-icon>close</mat-icon>
           </button>
-          <!-- <button  style="color:black" tabindex="-1" mat-icon-button (click)="closeTab(index)">
-            <mat-icon>close</mat-icon>
-          </button> -->
         </ng-template>
 
 
@@ -94,7 +91,8 @@
                             </ng-template>
                             <ng-template pTemplate="body" let-rowData>
                               <tr [pSelectableRow]="rowData">
-                                <td *ngFor="let col of columns" [ngClass]="formatoDatosTabla(col.field)">
+                                <td *ngFor="let col of columns" (click)="addTab(rowData[col.field])"
+                                [ngClass]="formatoDatosTabla(col.field)">
                                   {{rowData[col.field]}}
                                 </td>
                               </tr>
@@ -319,6 +317,47 @@
 
                       <div class="col-md-2">
                         <!--Divisor-->
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Ventas Acumuladas">
+                  <div class="container-fluid contenidoTabInicio">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <mat-toolbar class="toolBarCat" [color]="'primary'">
+                          <span>Ventas acumuladas</span>
+                        </mat-toolbar>
+
+                        <div class="col-md-12">
+                          <p-table #dt [columns]="columns4" [responsive]="true" [scrollable]="true"
+                            styleClass="p-datatable-gridlines" [reorderableColumns]="true" [value]="VentasAcumuladas"
+                            width="95%" scrollHeight="70vh" [resizableColumns]="false" selectionMode="single"
+                            [(selection)]="itemSeleccionado" dataKey="DESCRIPCION" [rowHover]="true">
+                            <ng-template pTemplate="colgroup">
+                              <colgroup>
+                                <col *ngFor="let col of columns4">
+                              </colgroup>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                              <tr>
+                                <th *ngFor="let col of columns4" class="columnaNum" pReorderableColumn pResizableColumn
+                                  [pSortableColumn]="col.field" style="width: 100% !important;">
+                                  <div class="headerGrid">
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>{{col.header}}
+                                  </div>
+                                </th>
+                              </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData>
+                              <tr [pSelectableRow]="rowData">
+                                <td *ngFor="let col of columns4" [ngClass]="formatoDatosTabla(col.field)">
+                                  {{rowData[col.field]}}
+                                </td>
+                              </tr>
+                            </ng-template>
+                          </p-table>
+                        </div>
                       </div>
                     </div>
                   </div>

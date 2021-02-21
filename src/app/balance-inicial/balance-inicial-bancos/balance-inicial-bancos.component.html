@@ -1,0 +1,81 @@
+<mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
+    <!-- <span class="titulo-Ayuda-Ventana labelForm">CANTIDADes Diversos</span> -->
+</mat-toolbar>
+
+<mat-dialog-content class="contenido-ayuda-ventana">
+    <div class="container-fluid">
+        <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
+        <mat-toolbar class="toolbarMatDialog">
+          <button mat-icon-button class="sinborde" tabindex="-1" matTooltip="Guardar" (click)="guardar()">
+            <mat-icon>save</mat-icon>
+          </button>
+          <button mat-icon-button (click)="agregar()" tabindex="-1" matTooltip="Agregar">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Eliminar" tabindex="-1" [disabled]="!itemSeleccionado" (click)="eliminar()">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-toolbar>
+
+        <div>
+          <p-table #dt [responsive]="true" [columns]="columns" [scrollable]="true" styleClass="p-datatable-gridlines"
+            [value]="dataSource" scrollHeight="55vh" selectionMode="single" [(selection)]="itemSeleccionado" dataKey="NUM">
+            <ng-template pTemplate="header">
+              <tr>
+                <th [pSortableColumn]="'NUM'"> <div class="headerGrid">#</div> <p-sortIcon class="iconoOrdenamiento" field="NUM"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'BANCO'"> <div class="headerGrid">Banco</div> <p-sortIcon class="iconoOrdenamiento" field="BANCO"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'CANTIDAD'"> <div class="headerGrid">Cantidad</div> <p-sortIcon class="iconoOrdenamiento" field="CANTIDAD"></p-sortIcon>
+                </th>
+                <th [pSortableColumn]="'CUENTA'"> <div class="headerGrid">Cuenta</div><p-sortIcon class="iconoOrdenamiento" field="CUENTA"></p-sortIcon>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pEditableColumn pTemplate="body" let-rowData>
+              <tr [pSelectableRow]="rowData">
+                    <!-- NUM -->
+                    <td>{{rowData.NUM}}</td>
+                    <!-- BANCO -->
+                    <td pEditableColumn [pEditableColumnField]="'BANCO'" [pEditableColumnRowIndex]="rowData.BANCO">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input matInput class="textBoxEditC" [maxLength]="50" pInputText type="text"
+                                [(ngModel)]="rowData.BANCO">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.BANCO}} 
+                            </ng-template>
+                        </p-cellEditor>
+                     </td>
+                    <!-- CANTIDAD -->
+                    <td pEditableColumn [pEditableColumnField]="'CANTIDAD'" [pEditableColumnRowIndex]="rowData.CANTIDAD">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input class="textBoxEdit"  [maxLength]="10" pInputText
+                                type="text" [(ngModel)]="rowData.CANTIDAD">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{dameFormatoMoneda(rowData.CANTIDAD)}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <!-- CUENTA -->
+                    <td pEditableColumn [pEditableColumnField]="'CUENTA'" [pEditableColumnRowIndex]="rowData.CUENTA">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input matInput class="textBoxEditC" [maxLength]="50" pInputText type="text"
+                                [(ngModel)]="rowData.CUENTA">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.CUENTA}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                </tr>
+            </ng-template>
+          </p-table>
+
+        </div>
+      </div>
+</mat-dialog-content>

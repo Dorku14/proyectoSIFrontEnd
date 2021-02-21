@@ -1,0 +1,186 @@
+<div class="container-fluid">
+  <p-toast position="top-right" key="arribaDerecha"></p-toast>
+  <mat-tab-group #MTG (selectedTabChange)="changeTab(MTG.selectedIndex)">
+    <ng-container *ngFor="let tab of tabs; let index = index">
+      <mat-tab
+        [aria-label]="tabsActivos(tab.tabType)"
+        *ngIf="closedTabs.indexOf(index) < 1"
+      >
+        <ng-template mat-tab-label>
+          <div class="col" style="margin-left: 20px">{{ tab.name }}</div>
+          <button
+            *ngIf="tab.name !== 'Balance Inicial'"
+            tabindex="0"
+            style="color: black"
+            mat-icon-button
+            (click)="closeTab(index)"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </ng-template>
+        <span [ngSwitch]="tab.tabType">
+          <div *ngSwitchCase="0">
+            <div [hidden]="tab.tabType !== 0">
+              <div class="container-fluid" style="overflow-y: auto !important">
+                <div class="row">
+
+                  <div class="col-md-12">
+                    <span
+                      >Solo se hace una vez. En el mes de instalacion del
+                      programa.app-bancos.</span
+                    >
+                    <br />
+                    <span
+                      >*Escribir los importes con los saldos iniciales en cada
+                      una de las cuentas*</span
+                    >
+                    <br />
+                    <span
+                      >NOTA: En algunas cuentas debes dar Click para que te
+                      lleve al lugar adecuado para escribir.</span
+                    >
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-5">
+                        <div
+                          style="
+                            overflow-y: auto !important;
+                            height: 45% !important;
+                          "
+                        >
+                          <div class="col-md-12">
+                            <mat-toolbar><span>ACTIVOS</span></mat-toolbar>
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%" *ngFor="let Act of Activos">
+                            <mat-form-field (click)="addTab(Act.NOMBRE)">
+                              <mat-label class="labelForm">{{Act.NOMBRE}}</mat-label>
+                              <input
+                                class="Input"
+                                matInput
+                                #inputCodigo
+                                autocomplete="off"
+                                name="{{Act.NAME}}"
+                                disabled="{{Act.ACTIVO}}"
+                              />
+                            </mat-form-field>
+                          </div>
+
+                          
+
+                          <div class="col-md-12">
+                            <mat-toolbar
+                              ><span>ACTIVOS FIJOS</span></mat-toolbar
+                            >
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%" *ngFor="let ActF of ActivosFijos">
+                            <mat-form-field (click)="addTab(ActF.NOMBRE)">
+                              <mat-label class="labelForm">{{ActF.NOMBRE}}</mat-label>
+                              <input
+                                class="Input"
+                                matInput
+                                #inputCodigo
+                                autocomplete="off"
+                                name="{{ActF.NAME}}"
+                                disabled="{{ActF.ACTIVO}}"
+                              />
+                            </mat-form-field>
+                          </div>
+
+                        </div>
+                      </div>
+
+                      <div class="col-md-2"><!--Separación--></div>
+
+                      <div class="col-md-5">
+                        <div
+                          style="
+                            overflow-y: auto !important;
+                            height: 45% !important;
+                          "
+                        >
+                          <div class="col-md-12">
+                            <mat-toolbar
+                              ><span>PASIVO A CORTO PLAZO</span></mat-toolbar
+                            >
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%" *ngFor="let Pas of Pasivos">
+                            <mat-form-field (click)="addTab(Pas.NOMBRE)">
+                              <mat-label class="labelForm">{{Pas.NOMBRE}}</mat-label>
+                              <input
+                                class="Input"
+                                matInput
+                                #inputCodigo
+                                autocomplete="off"
+                                name="{{Pas.NAME}}"
+                                disabled="{{Pas.ACTIVO}}"
+                              />
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-12">
+                            <mat-toolbar
+                              ><span>Capital (Patrimonio)</span></mat-toolbar
+                            >
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%" *ngFor="let Cap of Capital">
+                            <mat-form-field (click)="addTab(Cap.NOMBRE)">
+                              <mat-label class="labelForm">{{Cap.NOMBRE}}</mat-label>
+                              <input
+                                class="Input"
+                                matInput
+                                #inputCodigo
+                                autocomplete="off"
+                                name="{{Cap.NAME}}"
+                                disabled="{{Cap.ACTIVO}}"
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngSwitchCase="1">
+            <div #figureContainer></div>
+          </div>
+          <div *ngSwitchCase="2">
+            <div #figureContainer2></div>
+          </div>
+          <div *ngSwitchCase="3">
+            <div #figureContainer3></div>
+          </div>
+          <div *ngSwitchCase="4">
+            <div #figureContainer4></div>
+          </div>
+          <div *ngSwitchCase="5">
+            <div #figureContainer5></div>
+          </div>
+          <div *ngSwitchCase="6">
+            <div #figureContainer6></div>
+          </div>
+          <div *ngSwitchCase="7">
+            <div #figureContainer7></div>
+          </div>
+          <div *ngSwitchCase="8">
+            <div #figureContainer8></div>
+          </div>
+          <div *ngSwitchCase="9">
+            <div #figureContainer9></div>
+          </div>
+          <div *ngSwitchCase="10">
+            <div #figureContainer10></div>
+          </div>
+        </span>
+      </mat-tab>
+    </ng-container>
+  </mat-tab-group>
+</div>
