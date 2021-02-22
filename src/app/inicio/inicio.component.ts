@@ -51,6 +51,7 @@ export class InicioComponent implements OnInit {
   public closedTabs = [];
   public tabs: Array<{ tabType: number, name: string, componente }> = [];
   activeTab: any = 0;
+  indexAgregadoRec :number; // indice agregado recientemente
   @ViewChild('figureContainer', { read: ViewContainerRef }) figureContainer;
   @ViewChild('figureContainer1', { read: ViewContainerRef }) figureContainer1;
   @ViewChild('figureContainer2', { read: ViewContainerRef }) figureContainer2;
@@ -269,7 +270,7 @@ export class InicioComponent implements OnInit {
           vista = this.Pasivos.find(item => item.DESCRIPCION == nombre);
         }
         if (vista) {
-          let nuevoIndex = this.tabs.length;
+          let nuevoIndex = this.getNuevoIndex();
           let nuevoTab: { tabType: number, name: string, componente } = { tabType: 0, name: "", componente: "" };
           nuevoTab.name = nombre;
           nuevoTab.tabType = nuevoIndex;
@@ -311,6 +312,7 @@ export class InicioComponent implements OnInit {
           }
           if (nuevoTab.componente != "") {
               this.tabs.push(nuevoTab);
+              this.indexAgregadoRec = nuevoTab.tabType;
               this.funcGenerales.pausa(100).then(() => {
               this.tabGroup.selectedIndex = this.tabNodes.length - 1;
             });
@@ -327,6 +329,18 @@ export class InicioComponent implements OnInit {
 
 
   }
+  getNuevoIndex() {
+    if(this.tabs.length > 1){
+      for(let i = 1; i <= this.tabs.length; i++){
+          let buscarTabVacio = this.tabs.find(item => item.tabType === i);
+          if(!buscarTabVacio){
+            return i;
+          }
+      }
+    }else{
+      return 1;
+    }
+  }
 
   changeTab(activeTab) {
     this.activeTab = activeTab;
@@ -335,7 +349,7 @@ export class InicioComponent implements OnInit {
       let buscarComponente = this.componetesAbiertos.find(item => item === factory.componentType);
       if (!buscarComponente) {
         this.componetesAbiertos.push(factory.componentType);
-        switch (activeTab) {
+        switch (this.indexAgregadoRec) {
           case 1:
             // this.figureContainer.clear();
             this.figureContainer.createComponent(factory);
