@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <p-table #dt [columns]="columns" [responsive]="true" [scrollable]="true"
                   styleClass="p-datatable-gridlines" [reorderableColumns]="true" [value]="Otorgado" width="95%"
-                  scrollHeight="70vh" [resizableColumns]="false" selectionMode="single"
+                  scrollHeight="70vh" [resizableColumns]="true" selectionMode="single"
                   [(selection)]="itemSeleccionadoOtorgado" dataKey="DESCRIPCION" [rowHover]="true">
                   <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -20,7 +20,7 @@
                   <ng-template pTemplate="header">
                     <tr>
                       <th *ngFor="let col of columns" class="columnaNum" pReorderableColumn pResizableColumn
-                        [pSortableColumn]="col.field" style="width: 100% !important;">
+                        [pSortableColumn]="col.field" style="width: 100% !important;" [title]="col.header">
                         <div class="headerGrid">
                           <p-sortIcon [field]="col.field"></p-sortIcon>{{col.header}}
                         </div>
@@ -30,7 +30,7 @@
                   <ng-template pTemplate="body" let-rowData>
                     <tr [pSelectableRow]="rowData">
                       <td *ngFor="let col of columns"
-                        [ngClass]="formatoDatosTabla(col.field)">
+                        [ngClass]="formatoDatosTabla(col.field)"  [title]="rowData[col.field]">
                         {{rowData[col.field]}}
                       </td>
                     </tr>
@@ -49,7 +49,7 @@
             <div class="col-md-12">
                 <p-table #dt [columns]="columns2" [responsive]="true" [scrollable]="true"
                   styleClass="p-datatable-gridlines" [reorderableColumns]="true" [value]="Cobrado" width="95%"
-                  scrollHeight="70vh" [resizableColumns]="false" selectionMode="single"
+                  scrollHeight="70vh" [resizableColumns]="true" selectionMode="single"
                   [(selection)]="itemSeleccionadoCobrado" dataKey="DESCRIPCION" [rowHover]="true">
                   <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -59,7 +59,7 @@
                   <ng-template pTemplate="header">
                     <tr>
                       <th *ngFor="let col of columns2" class="columnaNum" pReorderableColumn pResizableColumn
-                        [pSortableColumn]="col.field" style="width: 100% !important;">
+                        [pSortableColumn]="col.field" style="width: 100% !important;" [title]="col.header">
                         <div class="headerGrid">
                           <p-sortIcon [field]="col.field"></p-sortIcon>{{col.header}}
                         </div>
@@ -69,7 +69,7 @@
                   <ng-template pTemplate="body" let-rowData>
                     <tr [pSelectableRow]="rowData">
                       <td *ngFor="let col of columns2"
-                        [ngClass]="formatoDatosTabla(col.field)">
+                        [ngClass]="formatoDatosTabla(col.field)"  [title]="rowData[col.field]">
                         {{rowData[col.field]}}
                       </td>
                     </tr>
