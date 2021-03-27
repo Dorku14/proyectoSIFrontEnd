@@ -138,6 +138,7 @@ export class DetalleCategoriaComponent implements OnInit {
         case MODO.REACTIVAR:
           json.ESTATUS = 'A';
           this.peticiones.peticionPost(json, 'reactivarCategoria').then((resultado: any) => {
+            this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','El elemento se ha reactivado correctamente',false);
             this.quitarCargando();
             this.CatSrv.incicializarVariables();
             this.CerrarVentana();

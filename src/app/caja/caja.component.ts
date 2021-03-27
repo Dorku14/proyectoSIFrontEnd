@@ -12,16 +12,26 @@ export class CajaComponent implements OnInit {
   itemSeleccionado: any;
   columns: any;
   columns2: any;
+  columns3: any;
+  columns4: any;
   Caja: Array<{DIA, CONCEPTO, FOLIO, ASIGNACION, DESCRIPCION, IMPORTE, CREDITO}>;
   Saldo: Array<{ENTRADA, SALIDA, SALDO}>;
+  Entradas: Array<{CONCEPTO, TOTAL}>;
+  Salidas: Array<{CONCEPTO, TOTAL}>;
+  Detalle = true
+  Valor = ''
 
   constructor(public funcGenerales: FuncionesGenerales) { }
 
   ngOnInit(): void {
     this.configuraDataGrid();
     this.configuraDataGrid2();
+    this.configuraDataGrid3();
+    this.configuraDataGrid4();
     this.caja();
     this.saldo();
+    this.entradas();
+    this.salidas();
   }
 
   formatoDatosTabla(columna){
@@ -54,6 +64,43 @@ export class CajaComponent implements OnInit {
     this.columns2 = this.funcGenerales.aplicaConfigGrid2(configGrid2);
   }
 
+  configuraDataGrid3(): void {
+    let configGrid3 = {
+      columns: 2,
+      header: ['CONCEPTO', 'IMPORTE TOTAL'],
+      field: ['CONCEPTO', 'TOTAL'],
+
+    };
+
+    this.columns3 = this.funcGenerales.aplicaConfigGrid3(configGrid3);
+  }
+
+  configuraDataGrid4(): void {
+    let configGrid4 = {
+      columns: 2,
+      header: ['CONCEPTO', 'IMPORTE TOTAL'],
+      field: ['CONCEPTO', 'TOTAL'],
+
+    };
+
+    this.columns4 = this.funcGenerales.aplicaConfigGrid4(configGrid4);
+  }
+
+  entradas(){
+    this.Entradas = [
+      {CONCEPTO: 'IVA ACREDITABLE', TOTAL: 1417.60},
+      {CONCEPTO: 'VENTAS', TOTAL: 1908.00}
+    ]
+  }
+
+  salidas(){
+    this.Salidas = [
+      {CONCEPTO: 'COMPRAS', TOTAL: 8860.00},
+      {CONCEPTO: 'IVA POR PAGAR', TOTAL: 305.28},
+      {CONCEPTO: 'DEVOLUCIONES', TOTAL: 297.42}
+    ]
+  }
+
   caja(){
     this.Caja = [
       {DIA: 11, CONCEPTO: 'COMPRAS', FOLIO: 'F-25', ASIGNACION: 'MAYORISTA', DESCRIPCION: '', IMPORTE: 8860.00, CREDITO: '-'},
@@ -82,6 +129,17 @@ export class CajaComponent implements OnInit {
       {ENTRADA: 1000.00, SALIDA: '', SALDO: 3453.19},
       {ENTRADA: 160.00, SALIDA: '', SALDO: 3613.19}
     ]
+  }
+
+  cambiar(val: string){
+    if(this.Valor != val) {
+      this.Detalle = false
+      this.Valor = val
+    }
+    else if(this.Valor = val){
+      this.Detalle = true
+      this.Valor = ''
+    }
   }
 
 }

@@ -120,6 +120,7 @@ export class DetalleManoDeObraComponent implements OnInit {
                 .then((resultado: any) => {
                   ('resultado then');
                   (resultado);
+                  this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','Elemento agredado correctamente',false);
                   this.quitarCargando();
                   this.ManoSrv.incicializarVariables();
                   this.CerrarVentana();
@@ -127,6 +128,7 @@ export class DetalleManoDeObraComponent implements OnInit {
                 .catch((error) => {
                   ('error');
                   (error);
+                  this.funcGenerales.mostrarMensajeError('esquinaSupDer','error','Error',error,false);
                   this.quitarCargando();
                 });
             }
@@ -138,6 +140,7 @@ export class DetalleManoDeObraComponent implements OnInit {
             .then((resultado: any) => {
               ('resultado then');
               (resultado);
+              this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','El elemento se ha editado correctamente',false);
               this.quitarCargando();
               this.ManoSrv.incicializarVariables();
               this.CerrarVentana();
@@ -145,6 +148,7 @@ export class DetalleManoDeObraComponent implements OnInit {
             .catch((error) => {
               ('error');
               (error);
+              this.funcGenerales.mostrarMensajeError('esquinaSupDer','error','Error',error,false);
               this.quitarCargando();
             });
           break;
@@ -155,6 +159,7 @@ export class DetalleManoDeObraComponent implements OnInit {
             .then((resultado: any) => {
               ('resultado then');
               (resultado);
+              this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','El elemento se ha reactivado correctamente',false);
               this.quitarCargando();
               this.ManoSrv.incicializarVariables();
               this.CerrarVentana();
@@ -162,6 +167,7 @@ export class DetalleManoDeObraComponent implements OnInit {
             .catch((error) => {
               ('error');
               (error);
+              this.funcGenerales.mostrarMensajeError('esquinaSupDer','error','Error',error,false);
               this.quitarCargando();
             });
           break;

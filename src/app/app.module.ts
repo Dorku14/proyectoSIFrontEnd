@@ -100,6 +100,30 @@ import { IvaAcreditableComponent } from './iva-acreditable/iva-acreditable.compo
 import { ImpuestosDiversosComponent } from './impuestos-diversos/impuestos-diversos.component';
 import { AcreedoresDiversosComponent } from './acreedores-diversos/acreedores-diversos.component';
 import { PrestamoOtorgadoComponent } from './prestamo-otorgado/prestamo-otorgado.component';
+import { DetalleCajaComponent } from './caja/detalle-caja/detalle-caja.component';
+import { DetalleBancosComponent } from './bancos/detalle-bancos/detalle-bancos.component';
+import { CapturaComponent } from './captura/captura.component';
+import { CapturaEfectivoBancoComponent } from './captura/captura-efectivo-banco/captura-efectivo-banco.component';
+import { CapturaBancoEfectivoComponent } from './captura/captura-banco-efectivo/captura-banco-efectivo.component';
+import { CapturaBancoBancoComponent } from './captura/captura-banco-banco/captura-banco-banco.component';
+import { CapturaCobroClientesComponent } from './captura/captura-cobro-clientes/captura-cobro-clientes.component';
+import { CapturaPagoCreditoProveedoresComponent } from './captura/captura-pago-credito-proveedores/captura-pago-credito-proveedores.component';
+import { CapturaGastoComponent } from './captura/captura-gasto/captura-gasto.component';
+import { CapturaPagoDeudaAcreedoresComponent } from './captura/captura-pago-deuda-acreedores/captura-pago-deuda-acreedores.component';
+import { CapturaNominaPrestacionesComponent } from './captura/captura-nomina-prestaciones/captura-nomina-prestaciones.component';
+import { CapturaComisionesComponent } from './captura/captura-comisiones/captura-comisiones.component';
+import { CapturaPagoIvaComponent } from './captura/captura-pago-iva/captura-pago-iva.component';
+import { CapturaCompraActivoFijoComponent } from './captura/captura-compra-activo-fijo/captura-compra-activo-fijo.component';
+import { CapturaVentaActivoFijoComponent } from './captura/captura-venta-activo-fijo/captura-venta-activo-fijo.component';
+import { CapturaPrestamoRecibidoComponent } from './captura/captura-prestamo-recibido/captura-prestamo-recibido.component';
+import { CapturaPagoPrestamoComponent } from './captura/captura-pago-prestamo/captura-pago-prestamo.component';
+import { CapturaInteresPagadoComponent } from './captura/captura-interes-pagado/captura-interes-pagado.component';
+import { CapturaPrestamoOtorgadoComponent } from './captura/captura-prestamo-otorgado/captura-prestamo-otorgado.component';
+import { CapturaCobroPrestamoComponent } from './captura/captura-cobro-prestamo/captura-cobro-prestamo.component';
+import { CapturaInteresCobradoComponent } from './captura/captura-interes-cobrado/captura-interes-cobrado.component';
+import { CapturaDepreciacionComponent } from './captura/captura-depreciacion/captura-depreciacion.component';
+import { CapturaImpuestosComponent } from './captura/captura-impuestos/captura-impuestos.component';
+import { CapturaIsrComponent } from './captura/captura-isr/captura-isr.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -159,7 +183,31 @@ import { PrestamoOtorgadoComponent } from './prestamo-otorgado/prestamo-otorgado
     IvaAcreditableComponent,
     ImpuestosDiversosComponent,
     AcreedoresDiversosComponent,
-    PrestamoOtorgadoComponent
+    PrestamoOtorgadoComponent,
+    DetalleCajaComponent,
+    DetalleBancosComponent,
+    CapturaComponent,
+    CapturaEfectivoBancoComponent,
+    CapturaBancoEfectivoComponent,
+    CapturaBancoBancoComponent,
+    CapturaCobroClientesComponent,
+    CapturaPagoCreditoProveedoresComponent,
+    CapturaGastoComponent,
+    CapturaPagoDeudaAcreedoresComponent,
+    CapturaNominaPrestacionesComponent,
+    CapturaComisionesComponent,
+    CapturaPagoIvaComponent,
+    CapturaCompraActivoFijoComponent,
+    CapturaVentaActivoFijoComponent,
+    CapturaPrestamoRecibidoComponent,
+    CapturaPagoPrestamoComponent,
+    CapturaInteresPagadoComponent,
+    CapturaPrestamoOtorgadoComponent,
+    CapturaCobroPrestamoComponent,
+    CapturaInteresCobradoComponent,
+    CapturaDepreciacionComponent,
+    CapturaImpuestosComponent,
+    CapturaIsrComponent
   ],
   imports: [
     BrowserModule,

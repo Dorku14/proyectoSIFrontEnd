@@ -321,6 +321,7 @@ export class DetalleComprasComponent implements OnInit {
               if (this.funcGenerales.extraerCodigo(resultado) === NOEXISTE) {
                 this.funcGenerales.popUpAlerta('Error', resultado.message, 'Aceptar', '');
               } else {
+                this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','Elemento agredado correctamente',false);
                 this.quitarCargando();
                 this.CerrarVentana();
               }
@@ -329,6 +330,7 @@ export class DetalleComprasComponent implements OnInit {
             .catch((error) => {
               ('error');
               (error);
+              this.funcGenerales.mostrarMensajeError('esquinaSupDer','error','Error',error,false);
               this.quitarCargando();
             });
         }
@@ -343,6 +345,7 @@ export class DetalleComprasComponent implements OnInit {
             (resultado);
             if (this.funcGenerales.extraerCodigo(resultado) === NOEXISTE) {
               this.funcGenerales.popUpAlerta('Error', resultado.message, 'Aceptar', '');
+              this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','El elemento se ha editado correctamente',false);
               this.quitarCargando();
             } else {
               this.quitarCargando();
@@ -353,6 +356,7 @@ export class DetalleComprasComponent implements OnInit {
           .catch((error) => {
             ('error');
             (error);
+            this.funcGenerales.mostrarMensajeError('esquinaSupDer','error','Error',error,false);
             this.quitarCargando();
           });
         break;

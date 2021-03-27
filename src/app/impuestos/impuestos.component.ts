@@ -160,6 +160,7 @@ export class ImpuestosComponent extends ConsultasBaseComponent implements OnInit
 *\version	1.00.00
 */
 eliminar() {
+  
   this.funcGenerales.limpiarMensajes();
   this.funcGenerales.mensajeConfirmacion('confirm', 'warn', 'Confirmación', '¿Seguro que deseas eliminar el registro \"' + this.itemSeleccionado.NOMBRE + "\"?", true);
 }

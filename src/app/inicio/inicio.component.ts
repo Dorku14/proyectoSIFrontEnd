@@ -325,10 +325,8 @@ export class InicioComponent implements OnInit {
     } else {
       this.tabGroup.selectedIndex = validaExistencia.tabType
     }
-
-
-
   }
+  
   getNuevoIndex() {
     if(this.tabs.length > 1){
       for(let i = 1; i <= this.tabs.length; i++){

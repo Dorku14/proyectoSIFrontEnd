@@ -128,12 +128,14 @@ export class DetalleProveedoresComponent implements OnInit {
               this.peticiones.peticionPost(json, 'altaProveedores').then((resultado: any) => {
                 ('resultado then');
                 (resultado);
+                this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','Elemento agredado correctamente',false);
                 this.quitarCargando();
                 this.ProveedorSRV.incicializarVariables();
                 this.CerrarVentana();
               }).catch((error) => {
                 ('error');
                 (error);
+                this.funcGenerales.mostrarMensajeError('esquinaSupDer','error','Error',error,false);
                 this.quitarCargando();
               });
             }
@@ -143,12 +145,14 @@ export class DetalleProveedoresComponent implements OnInit {
           this.peticiones.peticionPost(json, 'modificarProveedores').then((resultado: any) => {
             ('resultado then');
             (resultado);
+            this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','El elemento se ha modificado correctamente',false);
             this.quitarCargando();
             this.ProveedorSRV.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
             ('error');
             (error);
+            this.funcGenerales.mostrarMensajeError('esquinaSupDer','error','Error',error,false);
             this.quitarCargando();
           });
           break;
@@ -157,12 +161,14 @@ export class DetalleProveedoresComponent implements OnInit {
           this.peticiones.peticionPost(json, 'reactivarProveedores').then((resultado: any) => {
             ('resultado then');
             (resultado);
+            this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','El elemento se ha reactivado correctamente',false);
             this.quitarCargando();
             this.ProveedorSRV.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
             ('error');
             (error);
+            this.funcGenerales.mostrarMensajeError('esquinaSupDer','error','Error',error,false);
             this.quitarCargando();
           });
           break;

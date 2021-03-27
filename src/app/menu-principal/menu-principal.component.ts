@@ -119,6 +119,16 @@ export class MenuPrincipalComponent implements OnInit {
         TEMPLATE: NombreComponente.INICIO
       },
       {
+        PADRE: 0,
+        ID: 151,
+        DESCRIPCION: 'Captura',
+        ICONO: '',
+        ICONO_DISABLED: '',
+        SELECTED: false,
+        visible: true,
+        TEMPLATE: NombreComponente.CAPTURA
+      },
+      {
         PADRE: 1,
         ID: 2,
         DESCRIPCION: 'Producto comercial',

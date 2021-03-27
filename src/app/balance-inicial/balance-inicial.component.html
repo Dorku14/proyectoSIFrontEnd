@@ -3,14 +3,14 @@
   <mat-tab-group #MTG (selectedTabChange)="changeTab(MTG.selectedIndex)">
     <ng-container *ngFor="let tab of tabs; let index = index">
       <mat-tab
-        [aria-label]="tabsActivos(tab.tabType)"
-        *ngIf="closedTabs.indexOf(index) < 1"
+        [aria-label]="tabsActivos(index)"
+        *ngIf="closedTabs.indexOf(index) < 0"
       >
         <ng-template mat-tab-label>
           <div class="col" style="margin-left: 20px">{{ tab.name }}</div>
           <button
             *ngIf="tab.name !== 'Balance Inicial'"
-            tabindex="0"
+            tabindex="-1"
             style="color: black"
             mat-icon-button
             (click)="closeTab(index)"
@@ -27,7 +27,7 @@
                   <div class="col-md-12">
                     <span
                       >Solo se hace una vez. En el mes de instalacion del
-                      programa.app-bancos.</span
+                      programa</span
                     >
                     <br />
                     <span

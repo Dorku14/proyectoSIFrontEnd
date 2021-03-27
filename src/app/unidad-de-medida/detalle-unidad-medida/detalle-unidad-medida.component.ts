@@ -111,12 +111,14 @@ export class DetalleUnidadMedidaComponent implements OnInit {
               this.peticiones.peticionPost(json, 'altaUnidadMedida').then((resultado: any) => {
                 ('resultado then');
                 (resultado);
+                this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','Elemento agredado correctamente',false);
                 this.quitarCargando();
                 this.UniSrv.incicializarVariables();
                 this.CerrarVentana();
               }).catch((error) => {
                 ('error');
                 (error);
+                this.funcGenerales.mostrarMensajeError('esquinaSupDer','error','Error',error,false);
                 this.quitarCargando();
               });
             }
@@ -126,12 +128,14 @@ export class DetalleUnidadMedidaComponent implements OnInit {
           this.peticiones.peticionPost(json, 'modificarUnidadMedida').then((resultado: any) => {
             ('resultado then');
             (resultado);
+            this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','El elemento se ha editado correctamente',false);
             this.quitarCargando();
             this.UniSrv.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
             ('error');
             (error);
+            this.funcGenerales.mostrarMensajeError('esquinaSupDer','error','Error',error,false);
             this.quitarCargando();
           });
           break;
@@ -140,12 +144,14 @@ export class DetalleUnidadMedidaComponent implements OnInit {
           this.peticiones.peticionPost(json, 'reactivarUnidadMedida').then((resultado: any) => {
             ('resultado then');
             (resultado);
+            this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','El elemento se ha reactivado correctamente',false);
             this.quitarCargando();
             this.UniSrv.incicializarVariables();
             this.CerrarVentana();
           }).catch((error) => {
             ('error');
             (error);
+            this.funcGenerales.mostrarMensajeError('esquinaSupDer','error','Error',error,false);
             this.quitarCargando();
           });
           break;

@@ -77,7 +77,7 @@ export class CreditoClientesComponent implements OnInit {
 
   cobradas(){
     this.Cobradas = [
-      {CLIENTE: '', FOLIO: '', COBRANZA: '', IMPORTE: '', IVA: ''}
+      {CLIENTE: '-', FOLIO: '-', COBRANZA: '-', IMPORTE: '-', IVA: '-'}
     ]
   }
 

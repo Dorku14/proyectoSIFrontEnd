@@ -1,9 +1,67 @@
 <div class="container-fluid">
     <div class="row">
+        <div class="col-md-12">
+            <mat-toolbar class="toolBarCat" [color]="'primary'" >
+                <span>Caja</span>
+            </mat-toolbar>
+        </div>
+
+        <div class="col-md-6">
+            <p-table #dt [columns]="columns3" [responsive]="true" [scrollable]="true"  styleClass="p-datatable-gridlines" [reorderableColumns]="true" [value]="Entradas" width="95%" scrollHeight="70vh" [resizableColumns]="false"
+                selectionMode="single" [(selection)]="itemSeleccionado" dataKey="CONCEPTO" [rowHover]="true" >
+                <ng-template pTemplate="colgroup">
+                    <colgroup>
+                        <col *ngFor="let col of columns3">
+                    </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th *ngFor="let col of columns3" class="columnaNum" pReorderableColumn pResizableColumn  [pSortableColumn]="col.field"  style="width: 100% !important;">
+                            <div class="headerGrid">  <p-sortIcon [field]="col.field"></p-sortIcon>{{col.header}}</div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                    <tr [pSelectableRow]="rowData">
+                        <td  *ngFor="let col of columns3" (click)="cambiar(rowData[col.field])" [ngClass]="formatoDatosTabla(col.field)">
+                                {{rowData[col.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <div class="col-md-6">
+            <p-table #dt [columns]="columns4" [responsive]="true" [scrollable]="true"  styleClass="p-datatable-gridlines" [reorderableColumns]="true" [value]="Salidas" width="95%" scrollHeight="70vh" [resizableColumns]="false"
+                selectionMode="single" [(selection)]="itemSeleccionado" dataKey="CONCEPTO" [rowHover]="true" >
+                <ng-template pTemplate="colgroup">
+                    <colgroup>
+                        <col *ngFor="let col of columns4">
+                    </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th  *ngFor="let col of columns4" class="columnaNum" pReorderableColumn pResizableColumn  [pSortableColumn]="col.field"  style="width: 100% !important;">
+                            <div class="headerGrid">  <p-sortIcon [field]="col.field"></p-sortIcon>{{col.header}}</div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                    <tr [pSelectableRow]="rowData">
+                        <td  *ngFor="let col of columns4" (click)="cambiar(rowData[col.field])" [ngClass]="formatoDatosTabla(col.field)">
+                                {{rowData[col.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <div style="height: 50px;"></div>
+    <div class="row" id="Detalle" [hidden]="Detalle">
         <div class="col-md-9">
             <div class="col-md-12">
                 <mat-toolbar class="toolBarCat" [color]="'primary'" >
-                    <span>CAJA</span>
+                    <span>DETALLE {{Valor}}</span>
                 </mat-toolbar>
             </div>
 

@@ -463,8 +463,19 @@ cambiarColor(campo: string,color) {
         this.messageService.add({ key: key,severity: severity, summary: summary, detail: mensage ,sticky: sticky});
   }
 
-  mensajeConfirmacion(key:string,severity:string, summary: string, mensage:string ,sticky: boolean = false){
-    this.messageService.add({ key: key,severity: severity, summary: summary, detail: mensage ,sticky: sticky});
+  /**
+  *\brief     Muestra un mensaje toast
+  *\detail    cuando se invoca muestra un mensaje toast al elemento con etiqueta p-toast y con el key que se defina.
+  *\author    Ing Alexis Osvaldo Dorantes Ku
+  *\date     30/12/2020
+  *\version	  1.00.00
+  *@param key -> llave del elemento p-toast al que se le hace refencia
+  *@param severity -> tipo de mensaje 'success', 'info','warn', 'error' moreIfo: https://www.primefaces.org/primeng/showcase/#/toast
+  *@param summary -> Titulo del error
+  *@param sticky -> modo permantente = true o temporal = false. false por defecto
+*/
+  mensajeConfirmacion(key:string,tipoMensaje:string, TituloMensaje: string, mensage:string ,sticky: boolean = false){
+    this.messageService.add({ key: key,severity: tipoMensaje, summary: TituloMensaje, detail: mensage ,sticky: sticky});
   }
 
   limpiarMensajes(key?: string){

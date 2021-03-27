@@ -287,6 +287,7 @@ export class AsignarMateriasPrimasComponent implements OnInit {
               if (this.funcGenerales.extraerCodigo(resultado) === NOEXISTE) {
                 this.funcGenerales.popUpAlerta('Error', resultado.message, 'Aceptar', '');
               } else {
+                this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','El elemento se ha agregado correctamente',false);
                 this.quitarCargando();
                 this.CerrarVentana();
               }
@@ -295,6 +296,7 @@ export class AsignarMateriasPrimasComponent implements OnInit {
             .catch((error) => {
               ('error');
               (error);
+              this.funcGenerales.mostrarMensajeError('esquinaSupDer','error','Error',error,false);
               this.quitarCargando();
             });
         }
@@ -313,6 +315,7 @@ export class AsignarMateriasPrimasComponent implements OnInit {
             if (this.funcGenerales.extraerCodigo(resultado) === NOEXISTE) {
               this.funcGenerales.popUpAlerta('Error', resultado.message, 'Aceptar', '');
             } else {
+              this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','El elemento se ha modificado correctamente',false);
               this.quitarCargando();
               this.CerrarVentana();
             }
@@ -321,6 +324,7 @@ export class AsignarMateriasPrimasComponent implements OnInit {
           .catch((error) => {
             ('error');
             (error);
+            this.funcGenerales.mostrarMensajeError('esquinaSupDer','error','Error',error,false);
             this.quitarCargando();
           });
         break;

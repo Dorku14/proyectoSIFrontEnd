@@ -12,16 +12,25 @@ export class BancosComponent implements OnInit {
   itemSeleccionado: any;
   columns: any;
   columns2: any;
+  columns3: any;
+  columns4: any;
   Bancos: Array<{DIA, CONCEPTO, FOLIO, ASIGNACION, BANCO, IMPORTE, CREDITO}>;
   Especifico: Array<{BANCO, CUENTA, SALDO}>;
+  Entradas: Array<{CONCEPTO, TOTAL}>;
+  Salidas: Array<{CONCEPTO, TOTAL}>;
+  Detalle = true
+  Valor = ''
 
   constructor(public funcGenerales: FuncionesGenerales) { }
 
   ngOnInit(): void {
     this.configuraDataGrid();
     this.configuraDataGrid2();
+    this.configuraDataGrid3();
     this.bancos();
     this.especifico();
+    this.entradas();
+    this.salidas();
   }
 
   formatoDatosTabla(columna){
@@ -54,6 +63,33 @@ export class BancosComponent implements OnInit {
     this.columns2 = this.funcGenerales.aplicaConfigGrid2(configGrid2);
   }
 
+  configuraDataGrid3(): void {
+    let configGrid3 = {
+      columns: 2,
+      header: ['CONCEPTO GENERAL', 'IMPORTE TOTAL'],
+      field: ['CONCEPTO', 'TOTAL'],
+  
+    };
+  
+    this.columns3 = this.funcGenerales.aplicaConfigGrid3(configGrid3);
+  }
+
+  entradas(){
+    this.Entradas = [
+      {CONCEPTO: 'DEVOLUCIONES',      TOTAL: '$446.13'},
+      {CONCEPTO: 'IVA ACREDITABLE',   TOTAL: '$71.38'},
+      {CONCEPTO: 'PRÉSTAMO RECIBIDO', TOTAL: '$1,000.00'}
+    ]
+  }
+
+  salidas(){
+    this.Salidas = [
+      {CONCEPTO: 'COMPRAS',           TOTAL: '$1,500.00'},
+      {CONCEPTO: 'GASTOS INDIRECTOS', TOTAL: '$1,000.00'},
+      {CONCEPTO: 'NÓMINA INDIRECTA',  TOTAL: '$500.00'}
+    ]
+  }
+
   bancos(){
     this.Bancos = [
       {DIA: 19, CONCEPTO: 'DEVOLUCIONES', FOLIO: 'F-25', ASIGNACION: 'MAYORISTA', BANCO: 'BANAMEX', IMPORTE: '$446.13', CREDITO: ''},
@@ -75,4 +111,14 @@ export class BancosComponent implements OnInit {
     ]
   }
 
+  cambiar(val: string){
+    if(this.Valor != val) {
+      this.Detalle = false
+      this.Valor = val
+    }
+    else if(this.Valor = val){
+      this.Detalle = true
+      this.Valor = ''
+    }
+  }
 }
