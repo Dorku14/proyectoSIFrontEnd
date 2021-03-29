@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { NombreComponente, clasesEstilos, TIPOUSARIO } from './../sharedModules/constantes'
 import { MenuItem, } from 'primeng/api';
@@ -10,6 +10,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { parametrosDeSistema } from '../../app/sharedModules/parametrosDeSistemas';
 import { PeticionesWebComponent } from '../sharedModules/peticiones-web/peticiones-web.component';
 import { CookieService } from 'ngx-cookie';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu-principal',
@@ -31,11 +34,14 @@ export class MenuPrincipalComponent implements OnInit {
   opcionesMenuPadre: { ID: number, DESCRIPCION: string, visible: boolean }[];
   NivelUsuario: string;
   permisoAdmin: boolean;
+  verApp = false;
+  expirar:any;
   // parametrosSistema:parametrosDeSistema;
-  constructor(private funcGenerales: FuncionesGenerales, public dialog: MatDialog, private peticiones: PeticionesWebComponent, private cookieService: CookieService, private parametrosSistema: parametrosDeSistema) {
+  constructor(private funcGenerales: FuncionesGenerales, public dialog: MatDialog, private peticiones: PeticionesWebComponent, private cookieService: CookieService, private parametrosSistema: parametrosDeSistema,private router: Router) {
     this.icono = 'menu'
     this.componente = NombreComponente.INICIO
     this.opcionPrincipal = 0;
+    this.tiempoExpiracion();
 
 
 
@@ -53,6 +59,7 @@ export class MenuPrincipalComponent implements OnInit {
       }
       this.armaOpciones();
       this.menuPrueba();
+      this.verApp = true;
     });
 
   }
@@ -417,4 +424,32 @@ export class MenuPrincipalComponent implements OnInit {
     });
   }
 
+  pruebaConexion(){
+    let t = {t:this.cookieService.get("idSession")};
+    this.peticiones.peticionPost(t,'EstadoSesion',false).then((resultado:any)=>{
+      console.log(resultado);
+      if(resultado.code === '050'){
+        this.router.navigateByUrl('');
+      }
+    }).catch(((error:HttpErrorResponse)=>{
+      this.funcGenerales.mensajeErrorHttp("errorArribaDerecha",error);
+    }));
+  }
+
+
+  tiempoExpiracion(){
+    this.expirar = setTimeout(() => {
+      this.router.navigateByUrl('');
+    }, 36000000);
+  }
+
+  @HostListener('window:mousemove') refreshUserState() {
+    clearTimeout(this.expirar);
+    this.tiempoExpiracion();
+  }
+
+  @HostListener('window:keydown') refreshUserState1(){
+  clearTimeout(this.expirar);
+    this.tiempoExpiracion();
+  }
 }

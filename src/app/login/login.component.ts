@@ -4,7 +4,7 @@ import { EXITO, NOEXISTE } from '../sharedModules/constantes';
 import { FuncionesGenerales } from '../sharedModules/funcionesgenerales';
 import { PeticionesWebComponent } from '../sharedModules/peticiones-web/peticiones-web.component';
 import { Location } from '@angular/common';
-import { CookieService } from 'ngx-cookie';
+import { CookieOptions, CookieService } from 'ngx-cookie';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,10 +17,15 @@ export class LoginComponent implements OnInit {
   constructor(public generalFunc: FuncionesGenerales, private peticiones: PeticionesWebComponent, private router: Router, private cookieService:CookieService,) { }
 
   ngOnInit(): void {
+    this.validasesion();
   }
 
   iniciarSesion() {
     if (!this.vallidarCampos()) {
+      let optionsCookie : CookieOptions = {};
+      optionsCookie.httpOnly = true;
+      optionsCookie.sameSite = true;
+      optionsCookie.secure = true;
       let json: any = {};
 
       json.USUARIO = this.Usuario;
@@ -28,7 +33,7 @@ export class LoginComponent implements OnInit {
 
       this.mostrarCargado();
 
-      this.peticiones.peticionPost(json, 'login').then((resultado: any) => {
+      this.peticiones.peticionPost(json, 'login',false).then((resultado: any) => {
         (resultado);
 
         if (this.generalFunc.extraerCodigo(resultado) == EXITO) {
@@ -91,6 +96,18 @@ export class LoginComponent implements OnInit {
   presionarBoton(e){
     if(e.key === 'Enter'){
       this.iniciarSesion();
+    }
+  }
+  validasesion(){
+    debugger
+    if(this.cookieService.get("idSession")){
+      let t = {t:this.cookieService.get("idSession")};
+      this.peticiones.peticionPost(t,'EstadoSesion',false).then((resultado:any)=>{
+        console.log(resultado);
+        if(resultado.code === '00'){
+          this.router.navigateByUrl('/TuNegocio');
+        }
+      });
     }
   }
 }

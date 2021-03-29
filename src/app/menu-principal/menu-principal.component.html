@@ -1,4 +1,4 @@
-<mat-drawer-container class="Sidenav-container" autosize  style="overflow: hidden !important;">
+<mat-drawer-container class="Sidenav-container" autosize  style="overflow: hidden !important;" *ngIf="verApp">
   <mat-drawer #drawer class="sidenav" mode="over">
     <mat-selection-list [multiple]="false">
       <div *ngFor="let opcion of opcionesMenuPadre">
@@ -27,6 +27,9 @@
         <mat-icon>{{icono}}</mat-icon>
       </button>
       <span (click)="elegirVista(NombresComponetes.INICIO)" class="NombreEmpresa">Para tu negocio</span>
+      <button mat-icon-button (click)="pruebaConexion()">
+        <mat-icon>manage_accounts</mat-icon>
+      </button>
     </mat-toolbar>
     <div class="container-fluid">
       <app-inicio *ngIf="componente === NombresComponetes.INICIO"></app-inicio>
