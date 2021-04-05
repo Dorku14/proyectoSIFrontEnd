@@ -1,1 +1,102 @@
-<p>captura-venta-activo-fijo works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="Info">
+                <div>
+                    <span>
+                        Si la Venta es con FACTURA escribe el  importe del IVA (donde señale la flecha).
+                        <br>
+                        El IVA de Ventas es por un importe es por un importe que se tiene que pagar al SAT (IVA Por Pagar).
+                        <br>
+                        La Forma de Cobro al Cliente puede ser:
+                        <br>
+                        1) Efectivo
+                        <br>
+                        2) Banco (El Cliente paga con cheque, transferencia o tarjeta de crédito)
+                        <br>
+                        3) Crédito (Se le da un plazo al Cliente para que pague)
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        El Crédito otorgado al Cliente puede ser:
+                        <br>
+                        1) Por el Total de la Ventas
+                        <br>
+                        2) Por una parte del importe Total, debido a que el Cliente paga el saldo con Efectivo o Banco
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label class="labelForm"># de Remisión o Factura</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">Cliente</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">Clasificación Activo</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">Importe de Venta Activo Fijo (Sin IVA)</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">IVA</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">FORMA DE PAGO</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                    <div>
+                        <mat-form-field>
+                            <mat-label class="labelForm">Importe del Crédito (Sin IVA)</mat-label>
+                            <input class="Input" matInput>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label class="labelForm">IVA del Crédito</mat-label>
+                            <input class="Input" matInput>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-toolbar class="toolBarCat">
+                            <span>Datos del Banco</span>
+                        </mat-toolbar>
+    
+                        <mat-form-field>
+                            <mat-label class="labelForm">Nombre del Banco</mat-label>
+                            <input class="Input" matInput>
+                        </mat-form-field>
+    
+                        <mat-form-field>
+                            <mat-label class="labelForm">Número de Cuenta</mat-label>
+                            <input class="Input" matInput>
+                        </mat-form-field>
+    
+                        <mat-form-field>
+                            <mat-label class="labelForm"># de Referencia</mat-label>
+                            <input class="Input" matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

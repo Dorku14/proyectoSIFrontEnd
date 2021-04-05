@@ -1,1 +1,81 @@
-<p>captura-compra-activo-fijo works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="Info">
+                <span>
+                    Aqui se registran las compras de Activos Fijos
+                </span>
+                <br>
+                <span>
+                    Clasificacion = Mobiliario, Equipo Tecnológico, Maquinaria, Transportes, Inmuebles
+                </span>
+                <br>
+                <span>
+                    La FORMA DE PAGO al Proveedor puede ser:
+                    <br>
+                    1) Efectivo
+                    <br>
+                    2) Banco (Pago con cheque, transferencia o tarjeta de débito)
+                    <br>
+                    3) Crédito (El Proveedor otorga un plazo para pagarle)
+                    <br>
+                    4) Tarjeta (El pago es con tarjeta de crédito)
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label class="labelForm"># de Remisión o Factura</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">Proveedor</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">Importe de Compra Activo Fijo (Sin IVA)</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">IVA</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">FORMA DE PAGO</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                    <div>
+                        <mat-toolbar class="toolBarCat">
+                            <span>Datos del Banco</span>
+                        </mat-toolbar>
+    
+                        <mat-form-field>
+                            <mat-label class="labelForm">Nombre del Banco</mat-label>
+                            <input class="Input" matInput>
+                        </mat-form-field>
+    
+                        <mat-form-field>
+                            <mat-label class="labelForm">Número de Cuenta</mat-label>
+                            <input class="Input" matInput>
+                        </mat-form-field>
+    
+                        <mat-form-field>
+                            <mat-label class="labelForm"># de Referencia</mat-label>
+                            <input class="Input" matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

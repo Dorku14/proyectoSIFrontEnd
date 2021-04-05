@@ -2,8 +2,28 @@ import { Component, ComponentFactoryResolver, OnInit, QueryList, ViewChild, View
 import { ComponentType } from '@angular/cdk/portal';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
-import { NombreComponente } from '../sharedModules/constantes';
 import { FuncionesGenerales } from '../sharedModules/funcionesgenerales';
+import { CapturaEfectivoBancoComponent } from '../captura/captura-efectivo-banco/captura-efectivo-banco.component';
+import { CapturaBancoEfectivoComponent } from '../captura/captura-banco-efectivo/captura-banco-efectivo.component';
+import { CapturaBancoBancoComponent } from '../captura/captura-banco-banco/captura-banco-banco.component';
+import { CapturaCobroClientesComponent } from '../captura/captura-cobro-clientes/captura-cobro-clientes.component';
+import { CapturaPagoCreditoProveedoresComponent } from '../captura/captura-pago-credito-proveedores/captura-pago-credito-proveedores.component';
+import { CapturaGastoComponent } from '../captura/captura-gasto/captura-gasto.component';
+import { CapturaPagoDeudaAcreedoresComponent } from '../captura/captura-pago-deuda-acreedores/captura-pago-deuda-acreedores.component';
+import { CapturaNominaPrestacionesComponent } from '../captura/captura-nomina-prestaciones/captura-nomina-prestaciones.component';
+import { CapturaComisionesComponent } from '../captura/captura-comisiones/captura-comisiones.component';
+import { CapturaPagoIvaComponent } from '../captura/captura-pago-iva/captura-pago-iva.component';
+import { CapturaCompraActivoFijoComponent } from '../captura/captura-compra-activo-fijo/captura-compra-activo-fijo.component';
+import { CapturaVentaActivoFijoComponent } from '../captura/captura-venta-activo-fijo/captura-venta-activo-fijo.component';
+import { CapturaPrestamoRecibidoComponent } from '../captura/captura-prestamo-recibido/captura-prestamo-recibido.component';
+import { CapturaPagoPrestamoComponent } from '../captura/captura-pago-prestamo/captura-pago-prestamo.component';
+import { CapturaInteresPagadoComponent } from '../captura/captura-interes-pagado/captura-interes-pagado.component';
+import { CapturaPrestamoOtorgadoComponent } from '../captura/captura-prestamo-otorgado/captura-prestamo-otorgado.component';
+import { CapturaCobroPrestamoComponent } from '../captura/captura-cobro-prestamo/captura-cobro-prestamo.component';
+import { CapturaInteresCobradoComponent } from '../captura/captura-interes-cobrado/captura-interes-cobrado.component';
+import { CapturaDepreciacionComponent } from '../captura/captura-depreciacion/captura-depreciacion.component';
+import { CapturaImpuestosComponent } from '../captura/captura-impuestos/captura-impuestos.component';
+import { CapturaIsrComponent } from '../captura/captura-isr/captura-isr.component';
 
 @Component({
   selector: 'app-captura',
@@ -26,28 +46,6 @@ export class CapturaComponent implements OnInit {
   @ViewChild('figureContainer1', { read: ViewContainerRef }) figureContainer1;
   @ViewChild('figureContainer2', { read: ViewContainerRef }) figureContainer2;
   @ViewChild('figureContainer3', { read: ViewContainerRef }) figureContainer3;
-  Inicio = false
-  Uno = true
-  Dos = true
-  Tres = true
-  Cuatro = true
-  Cinco = true
-  Seis = true
-  Siete = true
-  Ocho = true
-  Nueve = true
-  Diez = true
-  Once = true
-  Doce = true
-  Trece = true
-  Catorce = true
-  Quince = true
-  Dieciseis = true
-  Diecisiete = true
-  Dieciocho = true
-  Diecinueve = true
-  Veinte = true
-  Veintiuno = true
 
   constructor(public funcGenerales: FuncionesGenerales, public dialog: MatDialog, private componentFactoryResolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef) { this.tabs.push({ tabType: 0, name: "Inicio", componente: ""}) }
@@ -57,47 +55,79 @@ export class CapturaComponent implements OnInit {
   }
 
   addTab(e) {
-
-    let validaExistencia = this.tabs.find(e.value);
+    console.log(e.value);
+    let validaExistencia = this.tabs.find(item => item.name === e.value.DESCRIP);
     if (!validaExistencia) {
       if (this.tabs.length < 4) {
-        if (e.value) {
+        let vista = this.Listado.find(item => item.ID == e.value.ID);
+        if (vista) {
           let nuevoIndex = this.getNuevoIndex();
           let nuevoTab: { tabType: number, name: string, componente } = { tabType: 0, name: "", componente: "" };
-          nuevoTab.name = e.value;
+          nuevoTab.name = vista.DESCRIP;
           nuevoTab.tabType = nuevoIndex;
-          switch (e.CONSTANTE) {
-            case NombreComponente.CAJA:
-              nuevoTab.componente = '';
-            case NombreComponente.BANCOS:
-              nuevoTab.componente = '';
+          switch (vista.ID) {
+            case 1:
+              nuevoTab.componente = CapturaEfectivoBancoComponent;
               break;
-            case NombreComponente.CREDITOCLIENTES:
-              nuevoTab.componente = '';
+            case 2:
+              nuevoTab.componente = CapturaBancoEfectivoComponent;
               break;
-            case NombreComponente.IVAACREDITABLE:
-              nuevoTab.componente = '';
+            case 3:
+              nuevoTab.componente = CapturaBancoBancoComponent;
               break;
-            case NombreComponente.PRESTAMOOTORGADO:
-              nuevoTab.componente = '';
+            case 4:
+              nuevoTab.componente = CapturaCobroClientesComponent;
               break;
-            case NombreComponente.ACTIVOSFIJOS:
-              nuevoTab.componente = '';
+            case 5:
+              nuevoTab.componente = CapturaPagoCreditoProveedoresComponent;
               break;
-            case NombreComponente.CREDITOPROVEEDORES:
-              nuevoTab.componente = '';
+            case 6:
+              nuevoTab.componente = CapturaGastoComponent;
               break;
-            case NombreComponente.ACREEDORES:
-              nuevoTab.componente = '';
+            case 7:
+              nuevoTab.componente = CapturaPagoDeudaAcreedoresComponent;
               break;
-            case NombreComponente.PRESTAMORECIBIDO:
-              nuevoTab.componente = '';
+            case 8:
+              nuevoTab.componente = CapturaNominaPrestacionesComponent;
               break;
-            case NombreComponente.NOMINA:
-              nuevoTab.componente = '';
+            case 9:
+              nuevoTab.componente = CapturaComisionesComponent;
               break;
-            case NombreComponente.IVAPORPAGAR:
-              nuevoTab.componente = ''
+            case 10:
+              nuevoTab.componente = CapturaPagoIvaComponent;
+              break;
+            case 11:
+              nuevoTab.componente = CapturaCompraActivoFijoComponent;
+              break;
+            case 12:
+              nuevoTab.componente = CapturaVentaActivoFijoComponent;
+              break;
+            case 13:
+              nuevoTab.componente = CapturaPrestamoRecibidoComponent;
+              break;
+            case 14:
+              nuevoTab.componente = CapturaPagoPrestamoComponent;
+              break;
+            case 15:
+              nuevoTab.componente = CapturaInteresPagadoComponent;
+              break;
+            case 16:
+              nuevoTab.componente = CapturaPrestamoOtorgadoComponent;
+              break;
+            case 17:
+              nuevoTab.componente = CapturaCobroPrestamoComponent;
+              break;
+            case 18:
+              nuevoTab.componente = CapturaInteresCobradoComponent;
+              break;
+            case 19:
+              nuevoTab.componente = CapturaDepreciacionComponent;
+              break;
+            case 20:
+              nuevoTab.componente = CapturaImpuestosComponent;
+              break;
+            case 21:
+              nuevoTab.componente = CapturaIsrComponent;
               break;
           }
           if (nuevoTab.componente != "") {
@@ -107,7 +137,6 @@ export class CapturaComponent implements OnInit {
               this.tabGroup.selectedIndex = this.tabNodes.length - 1;
             });
           }
-
         }
       } else {
         this.funcGenerales.mensajeConfirmacion("arribaDerecha", "error", "", "Número máximo de pestañas alcanzada");
@@ -139,26 +168,19 @@ export class CapturaComponent implements OnInit {
         this.componetesAbiertos.push(factory.componentType);
         switch (this.indexAgregadoRec) {
           case 1:
-            // this.figureContainer.clear();
             this.figureContainer.createComponent(factory);
-            // this.figureContainer.detach().detectChanges()
             break;
           case 2:
-            // this.figureContainer.clear();
             this.figureContainer2.createComponent(factory);
-            // this.figureContainer.detach().detectChanges()
             break;
           case 3:
-            // this.figureContainer.clear();
             this.figureContainer3.createComponent(factory);
-            // this.figureContainer.detach().detectChanges()
             break;
         }
-
       }
     }
-
   }
+
   tabsActivos = (indice: number) => {
     return this.funcGenerales.tabsActivos(indice, this.activeTab);
   }
@@ -193,99 +215,7 @@ export class CapturaComponent implements OnInit {
       {ID:19, DESCRIP:'DEPRECIACIÓN'},
       {ID:20, DESCRIP:'IMPUESTOS'},
       {ID:21, DESCRIP:'ISR'},
-      {ID:0, DESCRIP:''},
     ]
-  }
-
-  ocultar(e){
-    this.Inicio = false
-    this.Uno = true
-    this.Dos = true
-    this.Tres = true
-    this.Cuatro = true
-    this.Cinco = true
-    this.Seis = true
-    this.Siete = true
-    this.Ocho = true
-    this.Nueve = true
-    this.Diez = true
-    this.Once = true
-    this.Doce = true
-    this.Trece = true
-    this.Catorce = true
-    this.Quince = true
-    this.Dieciseis = true
-    this.Diecisiete = true
-    this.Dieciocho = true
-    this.Diecinueve = true
-    this.Veinte = true
-    this.Veintiuno = true
-    if(e.value > 0){
-      this.Inicio = true
-    }
-    switch(e.value){
-      case 1:
-        this.Uno = false
-      break;
-      case 2:
-        this.Dos = false
-      break;
-      case 3:
-        this.Tres = false
-      break;
-      case 4:
-        this.Cuatro = false
-      break;
-      case 5:
-        this.Cinco = false
-      break;
-      case 6:
-        this.Seis = false
-      break;
-      case 7:
-        this.Siete = false
-      break;
-      case 8:
-        this.Ocho = false
-      break;
-      case 9:
-        this.Nueve = false
-      break;
-      case 10:
-        this.Diez = false
-      break;
-      case 11:
-        this.Once = false
-      break;
-      case 12:
-        this.Doce = false
-      case 13:
-        this.Trece = false
-      case 14:
-        this.Catorce = false
-      break;
-      case 15:
-        this.Quince = false
-      break;
-      case 16:
-        this.Dieciseis = false
-      case 17:
-        this.Diecisiete = false
-      break;
-      case 18:
-        this.Dieciocho = false
-      break;
-      case 19:
-        this.Diecinueve = false
-      break;
-      case 20:
-        this.Veinte = false
-      break;
-      case 21:
-        this.Veintiuno = false
-      break;
-
-    }
   }
 
 }

@@ -1,1 +1,77 @@
-<p>captura-pago-credito-proveedores works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="Info">
+                <span>
+                    Si la COMPRA fue con FACTURA escribe el importe del IVA que se está cobrando (donde señala la flecha).
+                    <br>
+                    El importe del IVA servirá para deducir ante el SAT (IVA Acreditable).
+                </span>
+                <br>
+                <span>
+                    La "FORMA DE PAGO" al Proveedor puede ser:
+                    <br>
+                    1) Efectivo
+                    <br>
+                    2) Banco (El pago al Proveedor es con chueque o transferencia)
+                </span>
+                <br>
+                <span>PAGO CREEDITO A PROVEEDORES</span>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label class="labelForm"># de Remisión o Factura</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label class="labelForm">PROVEEDOR</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label class="labelForm">Importe de PAGO CREDITO PROVEEDORES (Sin IVA)</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label class="labelForm">IVA ==></mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label class="labelForm">Forma de Pago</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                    <div>
+                        <mat-toolbar class="toolBarCat">
+                            <span>Datos del Banco</span>
+                        </mat-toolbar>
+
+                        <mat-form-field>
+                            <mat-label class="labelForm">Nombre del Banco</mat-label>
+                            <input class="Input" matInput>
+                        </mat-form-field>
+    
+                        <mat-form-field>
+                            <mat-label class="labelForm">Número de Cuenta</mat-label>
+                            <input class="Input" matInput>
+                        </mat-form-field>
+    
+                        <mat-form-field>
+                            <mat-label class="labelForm"># de Referencia</mat-label>
+                            <input class="Input" matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

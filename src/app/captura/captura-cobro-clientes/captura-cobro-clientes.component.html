@@ -1,1 +1,77 @@
-<p>captura-cobro-clientes works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="Info">
+                <span>
+                    Si la VENTA AL CLIENTE fue con FACTURA escribe el importe del IVA que se está cobrando (donde señala la flecha).
+                    <br>
+                    El IVA de "Cobro de Crédito a Clientes" es un importe que se tiene que pagar al SAT (IVA POR PAGAR).
+                </span>
+                <br>
+                <span>
+                    La "FORMA DE COBRO" al Cliente puede ser:
+                    <br>
+                    1) Efectivo
+                    <br>
+                    2) Banco (Depositamos lo que el cliente paga con cheque, transferencia o tarjeta de credito)
+                </span>
+                <br>
+                <span>COBRO a CLIENTES por CRÉDITO OTORGADO</span>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label class="labelForm"># de Remisión o Factura</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label class="labelForm">Cliente</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label class="labelForm">Importe de COBRO A CLIENTES (Sin IVA)</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label class="labelForm">IVA ==></mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label class="labelForm">Forma de Cobro</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                    <div>
+                        <mat-toolbar class="toolBarCat">
+                            <span>Datos del Banco</span>
+                        </mat-toolbar>
+
+                        <mat-form-field>
+                            <mat-label class="labelForm">Nombre del Banco</mat-label>
+                            <input class="Input" matInput>
+                        </mat-form-field>
+    
+                        <mat-form-field>
+                            <mat-label class="labelForm">Número de Cuenta</mat-label>
+                            <input class="Input" matInput>
+                        </mat-form-field>
+    
+                        <mat-form-field>
+                            <mat-label class="labelForm"># de Referencia</mat-label>
+                            <input class="Input" matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

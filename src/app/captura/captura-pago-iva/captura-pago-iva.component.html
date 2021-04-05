@@ -1,1 +1,64 @@
-<p>captura-pago-iva works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="Info">
+                <span>
+                    El pago del IVA, puede ser:
+                    <br>
+                    1) En Efectivo
+                    <br>
+                    2) En Banco (Cheque o transferencia)
+                    <br>
+                    3) Ajuste del IVA (No hay salida de dinero, simplemente se utiliza el IVA ACREDITABLE para "Disminuir" el IVA POR PAGAR)
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label class="labelForm"># de Referencia</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">Período</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">Importe</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">FORMA DE PAGO</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                    <mat-toolbar class="toolBarCat">
+                        <span>Datos del Banco</span>
+                    </mat-toolbar>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">Nombre del Banco</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">Número de Cuenta</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm"># de Referencia</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

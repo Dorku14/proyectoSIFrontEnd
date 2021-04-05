@@ -1,1 +1,84 @@
-<p>captura-pago-deuda-acreedores works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="Info">
+                <span> Es el PAGO del CRÉDITO que otorgo el PROVEEDOR de SERVICIO o PRODUCTO OPERATIVO (Gasto Operativo).</span>
+                <br>
+                <span>
+                    Si el PAGO proviene de una Factura, escribe el importe del IVA (donde señale la flecha).
+                    El IVA del gasto servira para deducir ante el SAT (IVA Accreditable).
+                </span>
+                <br>
+                <span>
+                    La FORMA DE PAGO al Proveeedor (Acreedor) puede ser:
+                    <br>
+                    1) EFECTIVO
+                    <br>
+                    2) BANCO (Cheque, transferencia o tarjeta de débito)
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label class="labelForm">Folio o # de referencia</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">Proveedor (ACREEDOR)</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">Concepto</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label class="labelForm">Asignación</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label class="labelForm">Importe de Pago Deuda a Acreedores (Sin IVA)</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label class="labelForm">IVA ==></mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label class="labelForm">Forma de pago</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                    <mat-toolbar class="toolBarCat">
+                        <span>Datos del Banco</span>
+                    </mat-toolbar>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">Nombre del Banco</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm">Número de Cuenta</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label class="labelForm"># de Referencia</mat-label>
+                        <input class="Input" matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
