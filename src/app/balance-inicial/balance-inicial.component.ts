@@ -10,6 +10,9 @@ import { BalanceInicialDeudoresDiversosComponent} from '../balance-inicial/balan
 import { BalanceInicialCreditoProveedoresComponent} from '../balance-inicial/balance-inicial-credito-proveedores/balance-inicial-credito-proveedores.component';
 import { BalanceInicialAcreedoresDiversosComponent} from '../balance-inicial/balance-inicial-acreedores-diversos/balance-inicial-acreedores-diversos.component';
 import { BalanceInicialDeudaCreditosComponent} from '../balance-inicial/balance-inicial-deuda-creditos/balance-inicial-deuda-creditos.component';
+import { BalanceInicialMateriaPrimaComponent } from '../balance-inicial/balance-inicial-materia-prima/balance-inicial-materia-prima.component';
+import { BalanceInicialProductoComercialComponent } from '../balance-inicial/balance-inicial-producto-comercial/balance-inicial-producto-comercial.component';
+import { BalanceInicialProductoFabricadoComponent } from '../balance-inicial/balance-inicial-producto-fabricado/balance-inicial-producto-fabricado.component';
 
 @Component({
   selector: 'app-balance-inicial',
@@ -62,9 +65,9 @@ export class BalanceInicialComponent implements OnInit {
       {NOMBRE: 'Crédito Clientes',            ACTIVO: 'true',  NAME: 'CreCli',          CONSTANTE: NombreComponente.BALANCEINICIAL_CREDITOCLIENTES},
       {NOMBRE: 'Provisión IVA Pend.x Cobrar', ACTIVO: 'true',  NAME: 'IVAxCob',         CONSTANTE: ''},
       {NOMBRE: 'Almacen',                     ACTIVO: 'true',  NAME: 'Almacen',         CONSTANTE: ''},
-      {NOMBRE: 'Producto Comercial',          ACTIVO: 'true',  NAME: 'ProCom',          CONSTANTE: ''},
-      {NOMBRE: 'Producto Fabricado',          ACTIVO: 'true',  NAME: 'ProFab',          CONSTANTE: ''},
-      {NOMBRE: 'Materia Prima',               ACTIVO: 'true',  NAME: 'MatPri',          CONSTANTE: ''},
+      {NOMBRE: 'Producto Comercial',          ACTIVO: 'true',  NAME: 'ProCom',          CONSTANTE: NombreComponente.BALANCEINICIAL_PRODUCTOCOMERCIAL},
+      {NOMBRE: 'Producto Fabricado',          ACTIVO: 'true',  NAME: 'ProFab',          CONSTANTE: NombreComponente.BALANCEINICIAL_PRODUCTOFABRICADO},
+      {NOMBRE: 'Materia Prima',               ACTIVO: 'true',  NAME: 'MatPri',          CONSTANTE: NombreComponente.BALANCEINICIAL_MATERIAPRIMA},
       {NOMBRE: 'IVA Acreditable',             ACTIVO: 'false', NAME: 'IVAAcre',         CONSTANTE: ''},
       {NOMBRE: 'Deudores Diversos',           ACTIVO: 'true',  NAME: 'Deudores',        CONSTANTE: NombreComponente.BALANCEINICIAL_DEUDORESDIVERSOS},
       {NOMBRE: 'Total Circulante',            ACTIVO: 'false', NAME: 'SubTotalActivos', CONSTANTE: ''}
@@ -87,7 +90,7 @@ export class BalanceInicialComponent implements OnInit {
   pasivos(){
     this.Pasivos = [
       {NOMBRE: 'Crédito Proveedores',        ACTIVO: 'true',  NAME: 'CrePro',          CONSTANTE: NombreComponente.BALANCEINICIAL_CREDITOPROVEEDORES},
-      {NOMBRE: 'Provisión IVA Pend.x Pagar', ACTIVO: 'false', NAME: 'IVAxPag',         CONSTANTE: ''},
+      {NOMBRE: 'Provisión IVA Pend.x Pagar', ACTIVO: 'true',  NAME: 'IVAxPag',         CONSTANTE: ''},
       {NOMBRE: 'Acreedores Diversos',        ACTIVO: 'true',  NAME: 'Acree',           CONSTANTE: NombreComponente.BALANCEINICIAL_ACREEDORESDIVERSOS},
       {NOMBRE: 'Nomina Destajo',             ACTIVO: 'false', NAME: 'NomDes',          CONSTANTE: ''},
       {NOMBRE: 'Nomina Indirecta',           ACTIVO: 'false', NAME: 'NomInd',          CONSTANTE: ''},
@@ -142,6 +145,15 @@ export class BalanceInicialComponent implements OnInit {
               break;
             case NombreComponente.BALANCEINICIAL_DEUDACREDITOS:
               nuevoTab.componente = BalanceInicialDeudaCreditosComponent;
+              break;
+            case NombreComponente.BALANCEINICIAL_MATERIAPRIMA:
+              nuevoTab.componente = BalanceInicialMateriaPrimaComponent;
+              break;
+            case NombreComponente.BALANCEINICIAL_PRODUCTOCOMERCIAL:
+              nuevoTab.componente = BalanceInicialProductoComercialComponent;
+              break;
+            case NombreComponente.BALANCEINICIAL_PRODUCTOFABRICADO:
+              nuevoTab.componente = BalanceInicialProductoFabricadoComponent;
               break;
           }
           if (nuevoTab.componente != "") {

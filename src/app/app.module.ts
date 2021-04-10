@@ -124,6 +124,9 @@ import { CapturaInteresCobradoComponent } from './captura/captura-interes-cobrad
 import { CapturaDepreciacionComponent } from './captura/captura-depreciacion/captura-depreciacion.component';
 import { CapturaImpuestosComponent } from './captura/captura-impuestos/captura-impuestos.component';
 import { CapturaIsrComponent } from './captura/captura-isr/captura-isr.component';
+import { BalanceInicialProductoComercialComponent } from './balance-inicial/balance-inicial-producto-comercial/balance-inicial-producto-comercial.component';
+import { BalanceInicialProductoFabricadoComponent } from './balance-inicial/balance-inicial-producto-fabricado/balance-inicial-producto-fabricado.component';
+import { BalanceInicialMateriaPrimaComponent } from './balance-inicial/balance-inicial-materia-prima/balance-inicial-materia-prima.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -207,7 +210,10 @@ import { CapturaIsrComponent } from './captura/captura-isr/captura-isr.component
     CapturaInteresCobradoComponent,
     CapturaDepreciacionComponent,
     CapturaImpuestosComponent,
-    CapturaIsrComponent
+    CapturaIsrComponent,
+    BalanceInicialProductoComercialComponent,
+    BalanceInicialProductoFabricadoComponent,
+    BalanceInicialMateriaPrimaComponent
   ],
   imports: [
     BrowserModule,
