@@ -1,0 +1,72 @@
+<mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
+    <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
+    <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
+</mat-toolbar>
+<mat-dialog-content class="contenido-ayuda-ventana">
+    <mat-toolbar class="toolbarMatDialog">
+        <button mat-icon-button class="sinborde" tabindex="-1"  matTooltip="Guardar"[matTooltipPosition]="'right'" (click)="guardar()">
+            <mat-icon>save</mat-icon>
+        </button>
+    </mat-toolbar>
+    <p-toast position="top-right" key="esquinaSupDer"></p-toast>
+    <div class="container-fluid contenido">
+        <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field  >
+                    <!-- codigo -->
+                    <mat-label class="labelForm">Código</mat-label>
+                    <input class="Input" matInput #inputNombre  [(ngModel)]="PRODC.CODIGO" [maxLength]="25" autocomplete="off" name="codigo" [disabled]="modo == 'MODIFICAR'" (keydown)="presionaBoton($event)" (focus)="ObtenerFoco($event)" >
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- producto -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Producto</mat-label>
+                    <input class="Input" matInput #inputMonto [(ngModel)]="PRODC.PRODUCTO" [maxLength]="25" autocomplete="off" (focus)="ObtenerFoco($event)" >
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- cantidad -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Cantidad</mat-label>
+                    <input class="Input" matInput #inputMonto [(ngModel)]="PRODC.CANTIDAD" [maxLength]="10" autocomplete="off" (keypress)="validarTyping($event,'CANTIDAD')" (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+
+            </div>
+            <div class="col-md-6">
+                <!-- precio de compra -->
+                <mat-form-field >
+                    <mat-label class="labelForm">Precio de compra</mat-label>
+                    <input class="Input" currencyMask matInput #inputDias [(ngModel)]="PRODC.COSTO_COMPRA" [options]="mascaraMoneda"  [maxLength]="16" autocomplete="off" (blur)="perderFoco('COSTO_COMPRA')" (keypress)="validarTyping($event,'COSTO_COMPRA')" (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- precio de venta -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Precio de venta</mat-label>
+                    <input class="Input" currencyMask matInput #inputDias [(ngModel)]="PRODC.PRECIOVENT" [options]="mascaraMoneda"  [maxLength]="16" (blur)="perderFoco('PRECIOVENT')" autocomplete="off" (keypress)="validarTyping($event,'PRECIOVENT')" (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- costo actualizado -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Costo actualizado</mat-label>
+                    <input class="Input" currencyMask matInput #inputDias [(ngModel)]="PRODC.COSTACT" [options]="mascaraMoneda"  [maxLength]="16" (blur)="perderFoco('COSTACT')" autocomplete="off" (keypress)="validarTyping($event,'COSTACT')" (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <!-- costo actualizado -->
+              <mat-form-field  >
+                  <mat-label class="labelForm">Precio venta actualizado</mat-label>
+                  <input class="Input" currencyMask matInput #inputDias [(ngModel)]="PRODC.PRECIO_VENTA_ACT" [options]="mascaraMoneda"  [maxLength]="16" (blur)="perderFoco('PRECIO_VENTA_ACT')" autocomplete="off" (keypress)="validarTyping($event,'PRECIO_VENTA_ACT')" (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+              </mat-form-field>
+          </div>
+        </div>
+    </div>
+
+
+
+
+
+</mat-dialog-content>

@@ -127,6 +127,9 @@ import { CapturaIsrComponent } from './captura/captura-isr/captura-isr.component
 import { BalanceInicialProductoComercialComponent } from './balance-inicial/balance-inicial-producto-comercial/balance-inicial-producto-comercial.component';
 import { BalanceInicialProductoFabricadoComponent } from './balance-inicial/balance-inicial-producto-fabricado/balance-inicial-producto-fabricado.component';
 import { BalanceInicialMateriaPrimaComponent } from './balance-inicial/balance-inicial-materia-prima/balance-inicial-materia-prima.component';
+import { BalanceInicialDetalleProductoComercialComponent } from './balance-inicial/balance-inicial-producto-comercial/balance-inicial-detalle-producto-comercial/balance-inicial-detalle-producto-comercial.component';
+import { BalanceInicialDetalleCreditoClientesComponent } from './balance-inicial/balance-inicial-credito-clientes/balance-inicial-detalle-credito-clientes/balance-inicial-detalle-credito-clientes.component';
+import { BalanceInicialDetalleMateriaPrimaComponent } from './balance-inicial/balance-inicial-materia-prima/balance-inicial-detalle-materia-prima/balance-inicial-detalle-materia-prima.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -213,7 +216,10 @@ import { BalanceInicialMateriaPrimaComponent } from './balance-inicial/balance-i
     CapturaIsrComponent,
     BalanceInicialProductoComercialComponent,
     BalanceInicialProductoFabricadoComponent,
-    BalanceInicialMateriaPrimaComponent
+    BalanceInicialMateriaPrimaComponent,
+    BalanceInicialDetalleProductoComercialComponent,
+    BalanceInicialDetalleCreditoClientesComponent,
+    BalanceInicialDetalleMateriaPrimaComponent
   ],
   imports: [
     BrowserModule,
