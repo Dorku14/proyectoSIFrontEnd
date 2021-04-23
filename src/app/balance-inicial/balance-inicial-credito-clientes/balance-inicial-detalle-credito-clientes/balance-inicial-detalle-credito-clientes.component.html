@@ -27,10 +27,10 @@
                 </mat-form-field>
             </div>
             <div class="col-md-6">
-                <!-- F o R -->
+                <!-- Folio -->
                 <mat-form-field  >
-                    <mat-label class="labelForm">Factura o Remisión</mat-label>
-                    <input class="Input" matInput #inputNombre [(ngModel)]="CreCli.F_O_R" [maxLength]="10" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Folio</mat-label>
+                    <input class="Input" matInput #inputNombre [(ngModel)]="CreCli.FOLIO" [maxLength]="10" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
                 </mat-form-field>
 
             </div>
@@ -46,6 +46,17 @@
                 <mat-form-field  >
                     <mat-label class="labelForm">IVA</mat-label>
                     <input class="Input" currencyMask matInput #inputDias [(ngModel)]="CreCli.IVA" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'IVA')" (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- Factura o remisión -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Factura o Remision</mat-label>
+                    <mat-select class="Input" [(ngModel)]="CreCli.F_O_R">
+                        <mat-option *ngFor="let Tipo of F_O_R" [value]="Tipo.ID">
+                          {{Tipo.DESC}}
+                        </mat-option>
+                      </mat-select>
                 </mat-form-field>
             </div>
         </div>

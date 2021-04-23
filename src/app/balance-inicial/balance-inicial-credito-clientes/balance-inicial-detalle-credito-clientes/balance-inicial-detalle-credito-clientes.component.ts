@@ -17,6 +17,7 @@ export class BalanceInicialDetalleCreditoClientesComponent implements OnInit {
   isCargando: boolean;
   datosTemporales: any;
   mascaraMoneda: any;
+  F_O_R: Array<{ID, DESC}>;
 
   constructor(
     public dialogRef: MatDialogRef<BalanceInicialDetalleCreditoClientesComponent>,
@@ -31,6 +32,7 @@ export class BalanceInicialDetalleCreditoClientesComponent implements OnInit {
     this.itemSeleccionado = this.data.item;
     this.definirModo();
     this.CreCli.incicializarVariables();
+    this.f_o_r();
   }
 
   definirModo() {
@@ -109,10 +111,11 @@ export class BalanceInicialDetalleCreditoClientesComponent implements OnInit {
     let json: any = {};
       json.FECHA = this.CreCli.FECHA;
       json.CLIENTE = this.CreCli.CLIENTE;
+      json.FOLIO = this.CreCli.FOLIO;
       json.F_O_R = this.CreCli.F_O_R;
       json.IMPORTE = this.CreCli.IMPORTE;
       json.IVA = this.CreCli.IVA;
-      json.TIPO_MOV = this.CreCli.TIPO_MOV;
+      json.TIPO_MOV = 'E';
       json.BANDERA = 'I';
       switch (this.modo) {
         case MODO.ALTA:
@@ -208,6 +211,13 @@ export class BalanceInicialDetalleCreditoClientesComponent implements OnInit {
 
   ObtenerFoco(e) {
     e.target.select()
+  }
+
+  f_o_r(){
+    this.F_O_R = [
+      {ID: 1, DESC: 'Factura'},
+      {ID: 0, DESC: 'Remisión'}
+    ]
   }
 
 }

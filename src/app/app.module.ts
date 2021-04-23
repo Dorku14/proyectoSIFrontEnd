@@ -130,6 +130,7 @@ import { BalanceInicialMateriaPrimaComponent } from './balance-inicial/balance-i
 import { BalanceInicialDetalleProductoComercialComponent } from './balance-inicial/balance-inicial-producto-comercial/balance-inicial-detalle-producto-comercial/balance-inicial-detalle-producto-comercial.component';
 import { BalanceInicialDetalleCreditoClientesComponent } from './balance-inicial/balance-inicial-credito-clientes/balance-inicial-detalle-credito-clientes/balance-inicial-detalle-credito-clientes.component';
 import { BalanceInicialDetalleMateriaPrimaComponent } from './balance-inicial/balance-inicial-materia-prima/balance-inicial-detalle-materia-prima/balance-inicial-detalle-materia-prima.component';
+import {DatePipe} from "@angular/common";
 @NgModule({
   declarations: [
     AppComponent,
@@ -258,7 +259,7 @@ import { BalanceInicialDetalleMateriaPrimaComponent } from './balance-inicial/ba
     CardModule,
     PasswordModule,
     CookieModule.forRoot() ],
-  providers: [MatDatepickerModule,MessageService,parametrosDeSistema,
+  providers: [MatDatepickerModule,MessageService,parametrosDeSistema,DatePipe,
       {provide: MAT_DATE_LOCALE, useValue: 'es-MX'},
       {
         provide: DateAdapter,

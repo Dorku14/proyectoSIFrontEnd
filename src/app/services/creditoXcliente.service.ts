@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -7,6 +8,7 @@ import { Injectable } from '@angular/core';
 export class creditoXclienteService {
     FECHA: string;
     CLIENTE: string;
+    FOLIO: String;
     F_O_R: string;
     IMPORTE: number;
     IVA: Number;
@@ -18,6 +20,7 @@ export class creditoXclienteService {
     incicializarVariables() {
         this.FECHA = '';
         this.CLIENTE = '';
+        this.FOLIO = '';
         this.F_O_R = '';
         this.IMPORTE = 0;
         this.IVA = 0;
@@ -30,6 +33,7 @@ export class creditoXclienteService {
     llenarCampos(datos:creditoXclienteService){
         this.FECHA = datos.FECHA;
         this.CLIENTE = datos.CLIENTE;
+        this.FOLIO = datos.FOLIO;
         this.F_O_R = datos.F_O_R;
         this.IMPORTE = datos.IMPORTE;
         this.IVA = datos.IVA;

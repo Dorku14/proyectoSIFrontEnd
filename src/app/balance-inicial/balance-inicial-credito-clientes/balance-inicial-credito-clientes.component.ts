@@ -6,6 +6,7 @@ import { MODO } from './../../sharedModules/constantes';
 import { Table } from 'primeng/table';
 import { BalanceInicialDetalleCreditoClientesComponent } from '../balance-inicial-credito-clientes/balance-inicial-detalle-credito-clientes/balance-inicial-detalle-credito-clientes.component';
 import { ConsultasBaseComponent } from '../../consultas-base/consultas-base.component';
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: 'app-balance-inicial-credito-clientes',
@@ -23,7 +24,8 @@ export class BalanceInicialCreditoClientesComponent extends ConsultasBaseCompone
 
   constructor(public peticiones: PeticionesWebComponent,
     public funcGenerales: FuncionesGenerales,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private datePipe: DatePipe) {
       
       super( funcGenerales,dialog,peticiones);
       this.isCargando = false;
@@ -54,6 +56,8 @@ export class BalanceInicialCreditoClientesComponent extends ConsultasBaseCompone
         i.NUM = num;
         i.IMPORTE = this.funcGenerales.dameFormatoMoneda(i.IMPORTE,2);
         i.IVA = this.funcGenerales.dameFormatoMoneda(i.IVA,2);
+        i.FECHA = this.datePipe.transform(i.FECHA, "dd/MM/yyyy");
+        i.F_O_R = i.F_O_R == 1 ? 'Factura' : 'Remisión';
       }
       this.quitarCargando();
     }).catch((error) => {
@@ -71,9 +75,9 @@ export class BalanceInicialCreditoClientesComponent extends ConsultasBaseCompone
   */
   configuraDataGrid(): void {
     let configGrid = {
-      columns: 6,
-      header: ['#', 'Fecha','Cliente','Factura o Remisión', 'Importe', 'IVA'],
-      field: ['NUM', 'FECHA', 'CLIENTE', 'F_O_R', 'IMPORTE', 'IVA'],
+      columns: 7,
+      header: ['#', 'Fecha','Cliente','Folio', 'Importe', 'IVA', 'Factura o Remisión'],
+      field: ['NUM', 'FECHA', 'CLIENTE', 'FOLIO', 'IMPORTE', 'IVA', 'F_O_R'],
 
     };
     this.columns = this.funcGenerales.aplicaConfigGrid(configGrid);
