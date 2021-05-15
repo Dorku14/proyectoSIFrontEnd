@@ -16,14 +16,18 @@
                 <mat-form-field  >
                     <!-- Fecha -->
                     <mat-label class="labelForm">Fecha</mat-label>
-                    <input type="date" matInput #inputNombre  [(ngModel)]="CreCli.FECHA" [maxLength]="25" autocomplete="off"  (keydown)="presionaBoton($event)" (focus)="ObtenerFoco($event)" >
+                    <input type="date" matInput #inputNombre  [(ngModel)]="movCreCli.FECHA" [maxLength]="25" autocomplete="off"  (keydown)="presionaBoton($event)" (focus)="ObtenerFoco($event)" >
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <!-- Cliente -->
                 <mat-form-field  >
                     <mat-label class="labelForm">Cliente</mat-label>
-                    <input class="Input" matInput #inputNombre [(ngModel)]="CreCli.CLIENTE" [maxLength]="25" autocomplete="off" (focus)="ObtenerFoco($event)" >
+                    <mat-select class="Input" [(ngModel)]="CreCli.ID_CLIENTE">
+                        <mat-option *ngFor="let C of listaClientes" [value]="C.ID">
+                          {{C.NOMBRES + ' ' + C.APELLIDO_P}}
+                        </mat-option>
+                      </mat-select>
                 </mat-form-field>
             </div>
             <div class="col-md-6">

@@ -6,40 +6,31 @@ import { Injectable } from '@angular/core';
 })
 
 export class creditoXclienteService {
-    FECHA: string;
-    CLIENTE: string;
+    ID: Number;
+    ID_CLIENTE: Number;
     FOLIO: String;
     F_O_R: string;
     IMPORTE: number;
     IVA: Number;
-    FORMA_COBRO :string;
-    TIPO_MOV: String;
-    ESTATUS: String;
-    BANDERA: String;
+    ESTATUS :string;
 
     incicializarVariables() {
-        this.FECHA = '';
-        this.CLIENTE = '';
+        this.ID = 0;
+        this.ID_CLIENTE = 0;
         this.FOLIO = '';
         this.F_O_R = '';
         this.IMPORTE = 0;
         this.IVA = 0;
-        this.FORMA_COBRO = '';
-        this.TIPO_MOV = '';
         this.ESTATUS = '';
-        this.BANDERA = '';
     }
 
     llenarCampos(datos:creditoXclienteService){
-        this.FECHA = datos.FECHA;
-        this.CLIENTE = datos.CLIENTE;
+        this.ID = datos.ID;
+        this.ID_CLIENTE = datos.ID_CLIENTE;
         this.FOLIO = datos.FOLIO;
         this.F_O_R = datos.F_O_R;
         this.IMPORTE = datos.IMPORTE;
         this.IVA = datos.IVA;
-        this.FORMA_COBRO = datos.FORMA_COBRO;
-        this.TIPO_MOV = datos.TIPO_MOV;
         this.ESTATUS = datos.ESTATUS;
-        this.BANDERA = datos.BANDERA;
     }
 }

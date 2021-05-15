@@ -1,8 +1,10 @@
 import { Component, ComponentFactoryResolver, OnInit, QueryList, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
 import { FuncionesGenerales } from '../sharedModules/funcionesgenerales';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/portal';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
+import { MODO, mascaraMoneda } from 'src/app/sharedModules/constantes';
+import { PeticionesWebComponent } from 'src/app/sharedModules/peticiones-web/peticiones-web.component';
 import { NombreComponente } from '../sharedModules/constantes';
 import { BalanceInicialBancosComponent} from '../balance-inicial/balance-inicial-bancos/balance-inicial-bancos.component';
 import { BalanceInicialCreditoClientesComponent} from '../balance-inicial/balance-inicial-credito-clientes/balance-inicial-credito-clientes.component';
@@ -13,6 +15,8 @@ import { BalanceInicialDeudaCreditosComponent} from '../balance-inicial/balance-
 import { BalanceInicialMateriaPrimaComponent } from '../balance-inicial/balance-inicial-materia-prima/balance-inicial-materia-prima.component';
 import { BalanceInicialProductoComercialComponent } from '../balance-inicial/balance-inicial-producto-comercial/balance-inicial-producto-comercial.component';
 import { BalanceInicialProductoFabricadoComponent } from '../balance-inicial/balance-inicial-producto-fabricado/balance-inicial-producto-fabricado.component';
+import { BalanceInicialActivosFijosComponent } from '../balance-inicial/balance-inicial-activos-fijos/balance-inicial-activos-fijos.component';
+import { balanceinicialService } from 'src/app/services/balanceInicial.service';
 
 @Component({
   selector: 'app-balance-inicial',
@@ -21,11 +25,14 @@ import { BalanceInicialProductoFabricadoComponent } from '../balance-inicial/bal
 })
 export class BalanceInicialComponent implements OnInit {
 
-  Activos: Array<{NOMBRE, ACTIVO, NAME, CONSTANTE}>;
-  ActivosFijos: Array<{NOMBRE, ACTIVO, NAME, CONSTANTE}>;
-  Pasivos: Array<{NOMBRE, ACTIVO, NAME, CONSTANTE}>;
-  Capital: Array<{NOMBRE, ACTIVO, NAME, CONSTANTE}>;
+  Activos: any;
+  ActivosFijos: any;
+  Pasivos: any;
+  Capital: any;
   componenteAabrir: any;
+  mascaraMoneda: any;
+  modo: any;
+  isCargando: boolean;
   componetesAbiertos: Array<ComponentType<any>> = [];
   @ViewChild(MatTabGroup, { read: MatTabGroup })
   public tabGroup: MatTabGroup;
@@ -47,8 +54,14 @@ export class BalanceInicialComponent implements OnInit {
   @ViewChild('figureContainer9', { read: ViewContainerRef }) figureContainer9;
   @ViewChild('figureContainer10', { read: ViewContainerRef }) figureContainer10;
 
-  constructor(public funcGenerales: FuncionesGenerales, public dialog: MatDialog, private componentFactoryResolver: ComponentFactoryResolver) {
-    this.tabs.push({ tabType: 0, name: "Balance Inicial", componente: "" })
+  constructor(
+    public funcGenerales: FuncionesGenerales,
+    public dialog: MatDialog,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    public BI:balanceinicialService,
+    private peticiones: PeticionesWebComponent,
+    ) {
+    this.mascaraMoneda = mascaraMoneda; this.tabs.push({ tabType: 0, name: "Balance Inicial", componente: "" })
   }
 
   ngOnInit(): void {
@@ -56,48 +69,39 @@ export class BalanceInicialComponent implements OnInit {
     this.activosFijos();
     this.pasivos();
     this.capital();
+    // this.BI.incicializarVariables();
+    this.consulta();
   }
 
   activos(){
     this.Activos = [
-      {NOMBRE: 'Caja',                        ACTIVO: 'false', NAME: 'Caja',            CONSTANTE:''},
-      {NOMBRE: 'Bancos',                      ACTIVO: 'true',  NAME: 'Bancos',          CONSTANTE: NombreComponente.BALANCEINICIAL_BANCOS},
-      {NOMBRE: 'Crédito Clientes',            ACTIVO: 'true',  NAME: 'CreCli',          CONSTANTE: NombreComponente.BALANCEINICIAL_CREDITOCLIENTES},
-      {NOMBRE: 'Provisión IVA Pend.x Cobrar', ACTIVO: 'true',  NAME: 'IVAxCob',         CONSTANTE: ''},
-      {NOMBRE: 'Almacen',                     ACTIVO: 'true',  NAME: 'Almacen',         CONSTANTE: ''},
-      {NOMBRE: 'Producto Comercial',          ACTIVO: 'true',  NAME: 'ProCom',          CONSTANTE: NombreComponente.BALANCEINICIAL_PRODUCTOCOMERCIAL},
-      {NOMBRE: 'Producto Fabricado',          ACTIVO: 'true',  NAME: 'ProFab',          CONSTANTE: NombreComponente.BALANCEINICIAL_PRODUCTOFABRICADO},
-      {NOMBRE: 'Materia Prima',               ACTIVO: 'true',  NAME: 'MatPri',          CONSTANTE: NombreComponente.BALANCEINICIAL_MATERIAPRIMA},
-      {NOMBRE: 'IVA Acreditable',             ACTIVO: 'false', NAME: 'IVAAcre',         CONSTANTE: ''},
-      {NOMBRE: 'Deudores Diversos',           ACTIVO: 'true',  NAME: 'Deudores',        CONSTANTE: NombreComponente.BALANCEINICIAL_DEUDORESDIVERSOS},
-      {NOMBRE: 'Total Circulante',            ACTIVO: 'false', NAME: 'SubTotalActivos', CONSTANTE: ''}
+      {NOMBRE: 'Bancos',                      CONSTANTE: NombreComponente.BALANCEINICIAL_BANCOS},
+      {NOMBRE: 'Crédito Clientes',            CONSTANTE: NombreComponente.BALANCEINICIAL_CREDITOCLIENTES},
+      {NOMBRE: 'Almacen',                     CONSTANTE: ''},
+      {NOMBRE: 'Producto Comercial',          CONSTANTE: NombreComponente.BALANCEINICIAL_PRODUCTOCOMERCIAL},
+      {NOMBRE: 'Producto Fabricado',          CONSTANTE: NombreComponente.BALANCEINICIAL_PRODUCTOFABRICADO},
+      {NOMBRE: 'Materia Prima',               CONSTANTE: NombreComponente.BALANCEINICIAL_MATERIAPRIMA},
+      {NOMBRE: 'Deudores Diversos',           CONSTANTE: NombreComponente.BALANCEINICIAL_DEUDORESDIVERSOS},
     ]
   };
 
   activosFijos(){
   this.ActivosFijos = [
-      {NOMBRE: 'Mobiliario',               ACTIVO: 'false', NAME: 'Mobiliario',       CONSTANTE: ''},
-      {NOMBRE: 'Equipo Tecnológico',       ACTIVO: 'false', NAME: 'EquipoTec',        CONSTANTE: ''},
-      {NOMBRE: 'Maquinaria',               ACTIVO: 'false', NAME: 'Maquinaria',       CONSTANTE: ''},
-      {NOMBRE: 'Equipo De Transporte',     ACTIVO: 'false', NAME: 'EquipoTrans',      CONSTANTE: ''},
-      {NOMBRE: 'Inmuebles',                ACTIVO: 'false', NAME: 'Inmuebles',        CONSTANTE: ''},
-      {NOMBRE: 'Depreciación',             ACTIVO: 'false', NAME: 'Depreciacion',     CONSTANTE: ''},
-      {NOMBRE: 'Depreciación (Acomulada)', ACTIVO: 'false', NAME: 'DepreciacionAcum', CONSTANTE: ''},
-      {NOMBRE: 'Total Fijos',              ACTIVO: 'false', NAME: 'TotalFijos',       CONSTANTE: ''}
+      {NOMBRE: 'Activos Fijos', CONSTANTE: NombreComponente.BALANCEINICIAL_ACTIVOSFIJOS},
     ]
   };
 
   pasivos(){
     this.Pasivos = [
-      {NOMBRE: 'Crédito Proveedores',        ACTIVO: 'true',  NAME: 'CrePro',          CONSTANTE: NombreComponente.BALANCEINICIAL_CREDITOPROVEEDORES},
-      {NOMBRE: 'Provisión IVA Pend.x Pagar', ACTIVO: 'true',  NAME: 'IVAxPag',         CONSTANTE: ''},
-      {NOMBRE: 'Acreedores Diversos',        ACTIVO: 'true',  NAME: 'Acree',           CONSTANTE: NombreComponente.BALANCEINICIAL_ACREEDORESDIVERSOS},
-      {NOMBRE: 'Nomina Destajo',             ACTIVO: 'false', NAME: 'NomDes',          CONSTANTE: ''},
-      {NOMBRE: 'Nomina Indirecta',           ACTIVO: 'false', NAME: 'NomInd',          CONSTANTE: ''},
-      {NOMBRE: 'Deuda Por Créditos',         ACTIVO: 'true',  NAME: 'Deuda',           CONSTANTE: NombreComponente.BALANCEINICIAL_DEUDACREDITOS},
-      {NOMBRE: 'IVA Por Pagar',              ACTIVO: 'false', NAME: 'IVAPag',          CONSTANTE: ''},
-      {NOMBRE: 'Total Corto Plazo',          ACTIVO: 'false', NAME: 'SubTotalPasivos', CONSTANTE: ''},
-      {NOMBRE: 'Total Pasivos',              ACTIVO: 'false', NAME: 'TotalPasivos',    CONSTANTE: ''}
+      {NOMBRE: 'Crédito Proveedores',        ACTIVO: 'true',  NAME: 'CrePro',           CONSTANTE: NombreComponente.BALANCEINICIAL_CREDITOPROVEEDORES},
+      {NOMBRE: 'Provisión IVA Pend.x Pagar', ACTIVO: 'true',  NAME: 'IVAxPag',          CONSTANTE: ''},
+      {NOMBRE: 'Acreedores Diversos',        ACTIVO: 'true',  NAME: 'Acree',            CONSTANTE: NombreComponente.BALANCEINICIAL_ACREEDORESDIVERSOS},
+      {NOMBRE: 'Nomina Destajo',             ACTIVO: 'false', NAME: 'NomDes',           CONSTANTE: ''},
+      {NOMBRE: 'Nomina Indirecta',           ACTIVO: 'false', NAME: 'NomInd',           CONSTANTE: ''},
+      {NOMBRE: 'Deuda Por Créditos',         ACTIVO: 'true',  NAME: 'Deuda',            CONSTANTE: NombreComponente.BALANCEINICIAL_DEUDACREDITOS},
+      {NOMBRE: 'IVA Por Pagar',              ACTIVO: 'false', NAME: 'IVAPag',           CONSTANTE: ''},
+      {NOMBRE: 'Total Corto Plazo',          ACTIVO: 'false', NAME: 'SubTotalPasivos',  CONSTANTE: ''},
+      {NOMBRE: 'Total Pasivos',              ACTIVO: 'false', NAME: 'TotalPasivos',     CONSTANTE: ''}
     ]
   };
 
@@ -115,11 +119,12 @@ export class BalanceInicialComponent implements OnInit {
   addTab(nombre: string) {
 
     let validaExistencia = this.tabs.find(item => item.name === nombre);
+    console.log(validaExistencia);
     if (!validaExistencia) {
       if (this.tabs.length < 11) {
         let vista = this.Activos.find(item => item.NOMBRE == nombre);
         if (vista == null) {
-          vista = this.Pasivos.find(item => item.NOMBRE == nombre);
+          vista = this.ActivosFijos.find(item => item.NOMBRE == nombre);
         }
         
         if (vista) {
@@ -154,6 +159,9 @@ export class BalanceInicialComponent implements OnInit {
               break;
             case NombreComponente.BALANCEINICIAL_PRODUCTOFABRICADO:
               nuevoTab.componente = BalanceInicialProductoFabricadoComponent;
+              break;
+            case NombreComponente.BALANCEINICIAL_ACTIVOSFIJOS:
+              nuevoTab.componente = BalanceInicialActivosFijosComponent;
               break;
           }
           if (nuevoTab.componente != "") {
@@ -243,4 +251,82 @@ export class BalanceInicialComponent implements OnInit {
     this.tabGroup.selectedIndex = index;
   }
 
+  guardar() {
+    let json: any = {};
+      json.CAJA = this.BI.CAJA;
+      json.ALMACEN = this.BI.ALMACEN;
+      json.PRODUC_FABRI = this.BI.PRODUC_FABRI;
+      json.MATERIA_PRIMA = this.BI.MATERIA_PRIMA;
+      json.IVA_ACREDITABLE = this.BI.IVA_ACREDITABLE;
+      json.DEUDORES_DIV = this.BI.DEUDORES_DIV;
+      json.TOTAL_CIRCULANTE = this.BI.TOTAL_CIRCULANTE;
+      console.log(json);
+      this.peticiones
+            .peticionPost(json, 'altaBalanceInicial')
+            .then((resultado: any) => {
+              ('resultado then');
+              (resultado);
+              this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','Elemento agredado correctamente',false);
+              this.quitarCargando();
+              this.BI.incicializarVariables();
+            })
+            .catch((error) => {
+              ('error');
+              (error);
+              this.funcGenerales.mostrarMensajeError('esquinaSupDer','error','Error',error,false);
+              this.quitarCargando();
+            });
+    this.consulta();
+  }
+
+  mostrarCargado() {
+    this.isCargando = this.funcGenerales.onCargando();
+  }
+
+  quitarCargando() {
+    this.isCargando = this.funcGenerales.offCargando();
+  }
+
+  ObtenerFoco(e) {
+    e.target.select()
+  }
+
+  validarTyping(e, campo) {
+    let respuesta: boolean = true;
+    let valor = Number(e.key);
+    let valorS = e.key;
+    switch (campo) {
+      case 'CANTIDAD':
+        if (isNaN(valor)) {
+          respuesta = false;
+        }
+        break;
+      case 'CAJA':
+        respuesta = this.funcGenerales.permiteNumerico(this.BI.CAJA, valorS);
+        break;
+    }
+    // if (isNaN(valor)) {
+    //   respuesta = false;
+    // }
+    return respuesta;
+  }
+
+  consulta() {
+    this.mostrarCargado();
+    let json: any = {};
+    this.peticiones.peticionPost({}, 'ConsultaBalanceInicial').then((resultado: any) => {
+      (resultado);
+      this.llenarCampos(resultado);
+      console.log(resultado);
+    }).catch((error) => {
+      (error);
+      this.quitarCargando();
+    });
+  }
+
+  llenarCampos(datos: any) {
+    console.log(datos);
+    this.BI.llenarCampos(datos);
+    this.quitarCargando();
+  }
 }

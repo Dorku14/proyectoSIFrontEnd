@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FuncionesGenerales } from '../sharedModules/funcionesgenerales'
 import { PeticionesWebComponent } from '../sharedModules/peticiones-web/peticiones-web.component';
-import { SortEvent } from 'primeng/api';
 import { MODO } from './../sharedModules/constantes';
 import { Table } from 'primeng/table';
 import { DetalleMateriaPrimaComponent } from './detalle-materia-prima/detalle-materia-prima.component';
