@@ -1,63 +1,44 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { creditoXclienteService } from 'src/app/services/creditoXcliente.service';
-import { mov_CreditoClientesService } from "src/app/services/mov_CreditoClientes.service";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuncionesGenerales } from 'src/app/sharedModules/funcionesgenerales';
 import { PeticionesWebComponent } from 'src/app/sharedModules/peticiones-web/peticiones-web.component';
-import { MODO, EXITO, NOEXISTE, mascaraMoneda } from 'src/app/sharedModules/constantes';
+import { MODO } from 'src/app/sharedModules/constantes';
+import { CatActFijosService } from 'src/app/services/cat_act_fijos.service';
 
 @Component({
-  selector: 'app-balance-inicial-detalle-credito-clientes',
-  templateUrl: './balance-inicial-detalle-credito-clientes.component.html',
-  styleUrls: ['./balance-inicial-detalle-credito-clientes.component.scss']
+  selector: 'app-categoria-activos-fijos',
+  templateUrl: './categoria-activos-fijos.component.html',
+  styleUrls: ['./categoria-activos-fijos.component.scss']
 })
-export class BalanceInicialDetalleCreditoClientesComponent implements OnInit {
+export class CategoriaActivosFijosComponent implements OnInit {
   modo: any;
   itemSeleccionado: any;
   TituloVentana: string;
   isCargando: boolean;
   datosTemporales: any;
-  mascaraMoneda: any;
-  F_O_R: Array<{ID, DESC}>;
-  listaClientes: Array<{ID, NOMBRES, APELLIDO_P}>;
 
-  constructor(
-    public dialogRef: MatDialogRef<BalanceInicialDetalleCreditoClientesComponent>,
+
+  constructor(public dialogRef: MatDialogRef<CategoriaActivosFijosComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-    public CreCli: creditoXclienteService,
-    public movCreCli: mov_CreditoClientesService,
     private peticiones: PeticionesWebComponent,
-    private funcGenerales: FuncionesGenerales
-  ) { this.mascaraMoneda = mascaraMoneda; }
+    public Categoria: CatActFijosService,
+    public dialog: MatDialog,
+    private funcGenerales: FuncionesGenerales) { }
 
   ngOnInit(): void {
     this.modo = this.data.Proceso;
     this.itemSeleccionado = this.data.item;
+    this.Categoria.incicializarVariables();
     this.definirModo();
-    this.CreCli.incicializarVariables();
-    this.movCreCli.incicializarVariables();
-    this.f_o_r();
-    this.consultaClientes();
-  }
-
-  consultaClientes(){
-    this.peticiones.peticionPost({}, 'consultaClientes').then((resultado: any) => {
-      (resultado);
-      let datos = resultado;
-      this.listaClientes = datos;
-    }).catch((error) => {
-      (error);
-      this.quitarCargando();
-    });
   }
 
   definirModo() {
     switch (this.modo) {
       case MODO.ALTA:
-        this.TituloVentana = 'Alta de Creditos a Clientes';
+        this.TituloVentana = 'Alta Categoria Activo Fijo';
         break;
       case MODO.MODIFICAR:
-        this.TituloVentana = 'Detalle del Credito a Cliente';
+        this.TituloVentana = 'Detalle Categoria Activo Fijo';
         if (!this.funcGenerales.EsVacioNulo(this.itemSeleccionado)) {
           this.consultaDetalle(this.itemSeleccionado);
         }
@@ -67,29 +48,6 @@ export class BalanceInicialDetalleCreditoClientesComponent implements OnInit {
 
   CerrarVentana() {
     this.dialogRef.close();
-  }
-
-  validarTyping(e, campo) {
-    let respuesta: boolean = true;
-    let valor = Number(e.key);
-    let valorS = e.key;
-    switch (campo) {
-      case 'CANTIDAD':
-        if (isNaN(valor)) {
-          respuesta = false;
-        }
-        break;
-      case 'IMPORTE':
-        respuesta = this.funcGenerales.permiteNumerico(this.CreCli.IMPORTE, valorS);
-        break;
-      case 'IVA':
-        respuesta = this.funcGenerales.permiteNumerico(this.CreCli.IVA, valorS);
-        break;
-    }
-    // if (isNaN(valor)) {
-    //   respuesta = false;
-    // }
-    return respuesta;
   }
 
   consultaDetalle(item) {
@@ -111,7 +69,7 @@ export class BalanceInicialDetalleCreditoClientesComponent implements OnInit {
   }
 
   llenarCampoDetalle(datos: any) {
-    this.CreCli.llenarCampos(datos);
+    this.Categoria.llenarCampos(datos);
     this.quitarCargando();
   }
 
@@ -125,25 +83,17 @@ export class BalanceInicialDetalleCreditoClientesComponent implements OnInit {
 
   guardar() {
     let json: any = {};
-      json.FECHA = this.movCreCli.FECHA;
-      json.ID_CLIENTE = this.CreCli.ID_CLIENTE;
-      json.FOLIO = this.CreCli.FOLIO;
-      json.F_O_R = this.CreCli.F_O_R;
-      json.IMPORTE = this.CreCli.IMPORTE;
-      json.IVA = this.CreCli.IVA;
-      json.TIPO_MOV = 'I';
-      json.ID_CC = this.CreCli.ID;
+      json.NOM_CAT = this.Categoria.NOM_CAT;
       switch (this.modo) {
         case MODO.ALTA:
-          json.ESTATUS = 'A';
           this.peticiones
-            .peticionPost(json, 'altaCreditoClientesIni')
+            .peticionPost(json, 'altaMovBanco')
             .then((resultado: any) => {
               ('resultado then');
               (resultado);
               this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','Elemento agredado correctamente',false);
               this.quitarCargando();
-              this.CreCli.incicializarVariables();
+              this.Categoria.incicializarVariables();
               this.CerrarVentana();
             })
             .catch((error) => {
@@ -161,7 +111,7 @@ export class BalanceInicialDetalleCreditoClientesComponent implements OnInit {
               (resultado);
               this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','El elemento se ha editado correctamente',false);
               this.quitarCargando();
-              this.CreCli.incicializarVariables();
+              this.Categoria.incicializarVariables();
               this.CerrarVentana();
             })
             .catch((error) => {
@@ -180,7 +130,7 @@ export class BalanceInicialDetalleCreditoClientesComponent implements OnInit {
               (resultado);
               this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','El elemento se ha reactivado correctamente',false);
               this.quitarCargando();
-              this.CreCli.incicializarVariables();
+              this.Categoria.incicializarVariables();
               this.CerrarVentana();
             })
             .catch((error) => {
@@ -206,13 +156,6 @@ export class BalanceInicialDetalleCreditoClientesComponent implements OnInit {
 
   ObtenerFoco(e) {
     e.target.select()
-  }
-
-  f_o_r(){
-    this.F_O_R = [
-      {ID: 1, DESC: 'Factura'},
-      {ID: 0, DESC: 'Remisión'}
-    ]
   }
 
 }

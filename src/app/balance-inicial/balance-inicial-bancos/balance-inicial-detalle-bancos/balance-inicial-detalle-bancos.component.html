@@ -1,0 +1,35 @@
+<mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
+    <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
+    <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
+</mat-toolbar>
+<mat-dialog-content class="contenido-ayuda-ventana">
+    <mat-toolbar class="toolbarMatDialog">
+        <button mat-icon-button class="sinborde" tabindex="-1"  matTooltip="Guardar"[matTooltipPosition]="'right'" (click)="guardar()">
+            <mat-icon>save</mat-icon>
+        </button>
+    </mat-toolbar>
+    <p-toast position="top-right" key="esquinaSupDer"></p-toast>
+    <div class="container-fluid contenido">
+        <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Banco -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Banco</mat-label>
+                    <mat-select class="Input" [(ngModel)]="Cuentas.ID">
+                        <mat-option *ngFor="let B of listaCuentas" [value]="B.ID">
+                          {{B.BANCO}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- Importe -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Importe</mat-label>
+                    <input class="Input" currencyMask matInput #inputDias [(ngModel)]="MovBan.IMPORTE" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'IVA')" (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

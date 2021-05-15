@@ -6,8 +6,7 @@ import {
 } from '@angular/material/dialog';
 import { FuncionesGenerales } from 'src/app/sharedModules/funcionesgenerales';
 import { PeticionesWebComponent } from 'src/app/sharedModules/peticiones-web/peticiones-web.component';
-import { MODO, EXITO, NOEXISTE } from 'src/app/sharedModules/constantes';
-import { ServiciosService } from 'src/app/services/servicios.service';
+import { MODO, NOEXISTE } from 'src/app/sharedModules/constantes';
 import { MateriasPrimasService } from 'src/app/services/MateriPrima.service';
 import { DetalleUnidadMedidaComponent } from 'src/app/unidad-de-medida/detalle-unidad-medida/detalle-unidad-medida.component';
 import { DetalleCategoriaComponent } from 'src/app/categoria/detalle-categoria/detalle-categoria.component';
@@ -42,10 +41,6 @@ export class DetalleMateriaPrimaComponent implements OnInit {
     this.MateriaSrv.incicializarVariables();
     this.inicializarUnidades();
     this.inicializaCategorias();
-    this.MateriaSrv.PRECIO_VENTA = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.PRECIO_VENTA, 2);
-    this.MateriaSrv.COSTO_COMPRA = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.COSTO_COMPRA, 2);
-    this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE, 2);
-    this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO, 2);
   }
 
   inicializarUnidades() {
@@ -102,23 +97,7 @@ export class DetalleMateriaPrimaComponent implements OnInit {
     let valor = Number(e.key);
     let valorS = e.key;
     switch (campo) {
-      case 'PRECIO_VENTA':
-        respuesta = this.funcGenerales.permiteNumerico(this.MateriaSrv.PRECIO_VENTA,valorS);
-        break;
-      case 'PRECIO_VENTA_ACTUALIZADO':
-        respuesta = this.funcGenerales.permiteNumerico(this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO,valorS);
-        break;
-      case 'COSTO_COMPRA':
-        respuesta = this.funcGenerales.permiteNumerico(this.MateriaSrv.COSTO_COMPRA,valorS);
-        break;
-      case 'COSTEO_PROMEDIO_RECIENTE':
-        respuesta = this.funcGenerales.permiteNumerico(this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE,valorS);
-        break;
-      default:
-        if (isNaN(valor)) {
-          respuesta = false;
-        }
-        break;
+
     }
     return respuesta;
   }
@@ -147,12 +126,6 @@ export class DetalleMateriaPrimaComponent implements OnInit {
     this.MateriaSrv.MATERIA_PRIMA = datos.MATERIA_PRIMA;
     this.MateriaSrv.UNIDAD_MEDIDA = datos.UNIDAD_MEDIDA;
     // this.MateriaSrv.CANTIDAD = this.funcGenerales.dameFormatoCantidad(datos.CANTIDAD,2);
-    this.MateriaSrv.PRECIO_VENTA = this.funcGenerales.dameFormatoMoneda(datos.PRECIO_VENTA, 2);
-    this.MateriaSrv.COSTO_COMPRA = this.funcGenerales.dameFormatoMoneda(datos.COSTO_COMPRA, 2);
-    this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE = this.funcGenerales.dameFormatoMoneda(datos.COSTEO_PROMEDIO_RECIENTE, 2);
-    this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO = this.funcGenerales.dameFormatoMoneda(datos.PRECIO_VENTA_ACTUALIZADO, 2);
-    this.MateriaSrv.INVENTARIO = datos.INVENTARIO;
-    this.MateriaSrv.PUNTO_REORDEN = datos.PUNTO_REORDEN;
     this.quitarCargando();
   }
 
@@ -172,13 +145,6 @@ export class DetalleMateriaPrimaComponent implements OnInit {
       json.CATEGORIA = this.MateriaSrv.CATEGORIA;
       json.MATERIA_PRIMA = this.MateriaSrv.MATERIA_PRIMA;
       json.UNIDAD_MEDIDA = this.MateriaSrv.UNIDAD_MEDIDA;
-      json.CANTIDAD = this.MateriaSrv.CANTIDAD;
-      json.PRECIO_VENTA = this.funcGenerales.dameFormatoNumero( this.MateriaSrv.PRECIO_VENTA);
-      json.COSTO_COMPRA = this.funcGenerales.dameFormatoNumero(this.MateriaSrv.COSTO_COMPRA);
-      json.COSTEO_PROMEDIO_RECIENTE = this.funcGenerales.dameFormatoNumero(this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE);
-      json.PRECIO_VENTA_ACTUALIZADO = this.funcGenerales.dameFormatoNumero(this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO);
-      json.INVENTARIO = this.MateriaSrv.INVENTARIO;
-      json.PUNTO_REORDEN = this.MateriaSrv.PUNTO_REORDEN;
       switch (this.modo) {
         case MODO.ALTA:
           json.ESTATUS = 'A';
@@ -360,18 +326,6 @@ export class DetalleMateriaPrimaComponent implements OnInit {
   }
   perderFoco(campo) {
     switch (campo) {
-      case 'PRECIO_VENTA':
-        this.MateriaSrv.PRECIO_VENTA = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.PRECIO_VENTA, 2);
-        break;
-      case 'PRECIO_VENTA_ACTUALIZADO':
-        this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.PRECIO_VENTA_ACTUALIZADO, 2);
-        break;
-      case 'COSTO_COMPRA':
-        this.MateriaSrv.COSTO_COMPRA = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.COSTO_COMPRA, 2);
-        break;
-      case 'COSTEO_PROMEDIO_RECIENTE':
-        this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE = this.funcGenerales.dameFormatoMoneda(this.MateriaSrv.COSTEO_PROMEDIO_RECIENTE, 2);
-        break;
     }
   }
   ObtenerFoco(e){

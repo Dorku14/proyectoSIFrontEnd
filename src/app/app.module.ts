@@ -131,6 +131,10 @@ import { BalanceInicialDetalleProductoComercialComponent } from './balance-inici
 import { BalanceInicialDetalleCreditoClientesComponent } from './balance-inicial/balance-inicial-credito-clientes/balance-inicial-detalle-credito-clientes/balance-inicial-detalle-credito-clientes.component';
 import { BalanceInicialDetalleMateriaPrimaComponent } from './balance-inicial/balance-inicial-materia-prima/balance-inicial-detalle-materia-prima/balance-inicial-detalle-materia-prima.component';
 import {DatePipe} from "@angular/common";
+import { BalanceInicialDetalleBancosComponent } from './balance-inicial/balance-inicial-bancos/balance-inicial-detalle-bancos/balance-inicial-detalle-bancos.component';
+import { BalanceInicialActivosFijosComponent } from './balance-inicial/balance-inicial-activos-fijos/balance-inicial-activos-fijos.component';
+import { BalanceInicialDetalleActivosFijosComponent } from './balance-inicial/balance-inicial-activos-fijos/balance-inicial-detalle-activos-fijos/balance-inicial-detalle-activos-fijos.component';
+import { CategoriaActivosFijosComponent } from './categoria-activos-fijos/categoria-activos-fijos.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -220,7 +224,11 @@ import {DatePipe} from "@angular/common";
     BalanceInicialMateriaPrimaComponent,
     BalanceInicialDetalleProductoComercialComponent,
     BalanceInicialDetalleCreditoClientesComponent,
-    BalanceInicialDetalleMateriaPrimaComponent
+    BalanceInicialDetalleMateriaPrimaComponent,
+    BalanceInicialDetalleBancosComponent,
+    BalanceInicialActivosFijosComponent,
+    BalanceInicialDetalleActivosFijosComponent,
+    CategoriaActivosFijosComponent
   ],
   imports: [
     BrowserModule,

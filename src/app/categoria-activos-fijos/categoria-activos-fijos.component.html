@@ -1,0 +1,24 @@
+<mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
+    <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
+    <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
+</mat-toolbar>
+<mat-dialog-content class="contenido-ayuda-ventana">
+    <mat-toolbar class="toolbarMatDialog">
+        <button mat-icon-button class="sinborde" tabindex="-1"  matTooltip="Guardar"[matTooltipPosition]="'right'" (click)="guardar()">
+            <mat-icon>save</mat-icon>
+        </button>
+    </mat-toolbar>
+    <p-toast position="top-right" key="esquinaSupDer"></p-toast>
+    <div class="container-fluid contenido">
+        <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Nombre de la Categoria -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Nombre de la Categoria</mat-label>
+                    <input class="Input" matInput #inputNombre [(ngModel)]="Categoria.NOM_CAT" [maxLength]="10" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
