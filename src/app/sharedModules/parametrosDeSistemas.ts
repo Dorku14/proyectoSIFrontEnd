@@ -11,10 +11,28 @@ export class parametrosDeSistema {
   formatoFecha: string[];
   isCargando: boolean = false;
   perfilUsuario:any;
+  perfiles:any;
+  perfil:any
   constructor(public dialog: MatDialog,
      private peticiones: PeticionesWebComponent,
      private funcGenerales: FuncionesGenerales,private cookieService:CookieService) {
-
+      this.perfiles = [{
+        "Empresa": "Botanas alexis",
+        "Fecha_Proximo_Pago": "2/05/2021",
+        "Ultimo_fecha_pago": "2/04/2021",
+        "Email": "Lorem.ipsum.dolor@bibendumullamcorperDuis.net",
+        "Telefono": "1-835-454-0165",
+        "Tipo_Membresia": 1
+      },
+      {
+        "Empresa": "Purus Ac Tellus Institute",
+        "Fecha_Proximo_Pago": "03/05/2021",
+        "Ultimo_fecha_pago": "03/02/2021",
+        "Email": "interdum.feugiat@acurna.edu",
+        "Telefono": "1-619-272-8274",
+        "Tipo_Membresia": 3
+      }]
+      this.perfil = this.perfiles[0];
   }
 
 

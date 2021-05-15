@@ -4,7 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { decimalDigest } from '@angular/compiler/src/i18n/digest';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MessageService,PrimeNGConfig } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { ConfirmacionPopUpComponent } from './confirmacion-pop-up/confirmacion-pop-up.component';
 import { MODO } from './constantes';
 
@@ -14,7 +14,7 @@ import { MODO } from './constantes';
 export class FuncionesGenerales {
   formatoFecha: string[];
 
-  constructor(public dialog: MatDialog,private messageService: MessageService,private PrimeNGConfig:PrimeNGConfig) {
+  constructor(public dialog: MatDialog, private messageService: MessageService, private PrimeNGConfig: PrimeNGConfig) {
     this.formatoFecha = ['d', 'm', 'y'];
     this.PrimeNGConfig.ripple = true;
   }
@@ -147,18 +147,18 @@ export class FuncionesGenerales {
     child.focus();
   }
 
-    /**
-  *\brief     ortorgaFoco.
-  *\detail    Otorga el foco (focus) al elemento que tenga el nombre que es enviado como parametro, en la vista actual.
-  *\author    Ing. Alexis Osvaldo Dorantes Ku
-  *@param[in] campo -> Nombre (name) del elemento html.
-  @param tipo -> color que se colocará red,green etc
+  /**
+*\brief     ortorgaFoco.
+*\detail    Otorga el foco (focus) al elemento que tenga el nombre que es enviado como parametro, en la vista actual.
+*\author    Ing. Alexis Osvaldo Dorantes Ku
+*@param[in] campo -> Nombre (name) del elemento html.
+@param tipo -> color que se colocará red,green etc
 */
-cambiarColor(campo: string,color) {
-  let elmento = document.getElementsByName(campo);
-  let child = elmento[0];
-  child.setAttribute('style','color:'+color+'');
-}
+  cambiarColor(campo: string, color) {
+    let elmento = document.getElementsByName(campo);
+    let child = elmento[0];
+    child.setAttribute('style', 'color:' + color + '');
+  }
 
   /**
 *\brief     retorna una cadena con ceros despues del punto decimal
@@ -312,7 +312,7 @@ cambiarColor(campo: string,color) {
     return valorFormateado;
   }
 
-  formatoTipoUsuario(valor){
+  formatoTipoUsuario(valor) {
     let valorFormateado: string;
     switch (valor) {
       case 'A':
@@ -448,19 +448,19 @@ cambiarColor(campo: string,color) {
   }
 
 
-   /**
-  *\brief     Muestra un mensaje toast
-  *\detail    cuando se invoca muestra un mensaje toast al elemento con etiqueta p-toast y con el key que se defina.
-  *\author    Ing Alexis Osvaldo Dorantes Ku
-  *\date     30/12/2020
-  *\version	  1.00.00
-  *@param key -> llave del elemento p-toast al que se le hace refencia
-  *@param severity -> tipo de mensaje 'success', 'info','warn', 'error' moreIfo: https://www.primefaces.org/primeng/showcase/#/toast
-  *@param summary -> Titulo del error
-  *@param sticky -> modo permantente = true o temporal = false. false por defecto
+  /**
+ *\brief     Muestra un mensaje toast
+ *\detail    cuando se invoca muestra un mensaje toast al elemento con etiqueta p-toast y con el key que se defina.
+ *\author    Ing Alexis Osvaldo Dorantes Ku
+ *\date     30/12/2020
+ *\version	  1.00.00
+ *@param key -> llave del elemento p-toast al que se le hace refencia
+ *@param severity -> tipo de mensaje 'success', 'info','warn', 'error' moreIfo: https://www.primefaces.org/primeng/showcase/#/toast
+ *@param summary -> Titulo del error
+ *@param sticky -> modo permantente = true o temporal = false. false por defecto
 */
-  mostrarMensajeError(key:string,severity:string, summary: string, mensage:string ,sticky: boolean = false){
-        this.messageService.add({ key: key,severity: severity, summary: summary, detail: mensage ,sticky: sticky});
+  mostrarMensajeError(key: string, severity: string, summary: string, mensage: string, sticky: boolean = false) {
+    this.messageService.add({ key: key, severity: severity, summary: summary, detail: mensage, sticky: sticky });
   }
 
   /**
@@ -474,68 +474,68 @@ cambiarColor(campo: string,color) {
   *@param summary -> Titulo del error
   *@param sticky -> modo permantente = true o temporal = false. false por defecto
 */
-  mensajeConfirmacion(key:string,tipoMensaje:string, TituloMensaje: string, mensage:string ,sticky: boolean = false){
-    this.messageService.add({ key: key,severity: tipoMensaje, summary: TituloMensaje, detail: mensage ,sticky: sticky});
+  mensajeConfirmacion(key: string, tipoMensaje: string, TituloMensaje: string, mensage: string, sticky: boolean = false) {
+    this.messageService.add({ key: key, severity: tipoMensaje, summary: TituloMensaje, detail: mensage, sticky: sticky });
   }
 
-  limpiarMensajes(key?: string){
-    if(this.EsVacioNulo(key)){
+  limpiarMensajes(key?: string) {
+    if (this.EsVacioNulo(key)) {
       this.messageService.clear();
     }
-    else{
+    else {
       this.messageService.clear(key);
     }
 
   };
 
-  dameOpcionesEstatus(){
-    let listaE:Array<{ID,Descrip}>;
+  dameOpcionesEstatus() {
+    let listaE: Array<{ ID, Descrip }>;
     listaE = [
-      {ID:'A',Descrip:'Activo'},
-      {ID:'B',Descrip:'Baja'}]
+      { ID: 'A', Descrip: 'Activo' },
+      { ID: 'B', Descrip: 'Baja' }]
 
-      return listaE;
+    return listaE;
   }
 
-  dameOpcionesBoleanos(){
-    let listaB:Array<{ID,Descrip}>;
+  dameOpcionesBoleanos() {
+    let listaB: Array<{ ID, Descrip }>;
     listaB = [
-      {ID:'S',Descrip:'Si'},
-      {ID:'N',Descrip:'No'}]
+      { ID: 'S', Descrip: 'Si' },
+      { ID: 'N', Descrip: 'No' }]
 
-      return listaB;
+    return listaB;
   }
 
-  formateaEstatus(valor:string){
-    if(valor == 'A'){
+  formateaEstatus(valor: string) {
+    if (valor == 'A') {
       valor = 'Activo';
-    }else{
+    } else {
       valor = 'Baja';
     }
     return valor;
   }
 
-  tabsActivos=(indice :number,indiceTabsActivo:number)=>{
+  tabsActivos = (indice: number, indiceTabsActivo: number) => {
     let clase: string;
-     if(indiceTabsActivo == indice){
-       clase = 'TabsActivo'
-     }else{
-       clase = 'TabsNoActivo'
-     }
+    if (indiceTabsActivo == indice) {
+      clase = 'TabsActivo'
+    } else {
+      clase = 'TabsNoActivo'
+    }
 
-     return clase;
-   }
+    return clase;
+  }
 
 
-   mensajeInsertarExitoso(key:string) {
+  mensajeInsertarExitoso(key: string) {
     this.mensajeConfirmacion(key, "success", "", "Se ha agregado un registro exitosamente");
   }
 
-  mensajeModificarExitoso(key:string) {
+  mensajeModificarExitoso(key: string) {
     this.mensajeConfirmacion(key, "success", "", "Se ha modificado un registro exitosamente");
   }
 
-  mensajeDetalle(modo,key) {
+  mensajeDetalle(modo, key) {
     switch (modo) {
       case MODO.ALTA:
         this.mensajeInsertarExitoso(key);
@@ -546,7 +546,7 @@ cambiarColor(campo: string,color) {
     }
   }
 
-  mensajeErrorHttp(key:string,Mensaje: HttpErrorResponse) {
+  mensajeErrorHttp(key: string, Mensaje: HttpErrorResponse) {
     let msg: string;
     switch (Mensaje.status) {
       case 500:
@@ -559,8 +559,68 @@ cambiarColor(campo: string,color) {
     this.mensajeConfirmacion(key, "error", "", msg);
   }
 
-  mensajeError(key:string,Mensaje: string) {
+  mensajeError(key: string, Mensaje: string) {
     this.mensajeConfirmacion("esquinaSupDer", "error", "", Mensaje);
+  }
+
+  /**
+*\brief     retorna dos arreglos para mostrar en las vista de tipo comporación
+*\author    Ing Alexis Osvaldo Dorantes Ku
+*\date     22/04/2021
+*\version	  1.00.00
+*@param listaIzquierda -> array de objetos que tendría la tabla izquierda
+*@param listaDerecha -> array de objetos que tendría la tabla derecha
+*/
+  generaComparacionDTabla(listaIzquierda: Array<any>, listaDerecha: Array<any>) {
+    let nuevaListaIzq = [];
+    let nuevaListaDer = [];
+    let propiedadesIzq = Object.getOwnPropertyNames(listaIzquierda[0]);
+    let propiedadesDer = Object.getOwnPropertyNames(listaDerecha[0])
+    let objetoIzVacio = {}
+    let objetoDEVacio = {}
+
+    for (let item of propiedadesIzq) {
+      objetoIzVacio[item] = "-"
+    }
+
+    for (let item of propiedadesDer) {
+      objetoDEVacio[item] = "-"
+    }
+
+    let limitante = listaIzquierda.length + listaDerecha.length
+
+    let iteracion = 0;
+    for (let i = 1; i <= limitante; i++) {
+      if ((i % 2) != 0) {
+        nuevaListaIzq.push(listaIzquierda[iteracion])
+        iteracion++
+      } else {
+        nuevaListaIzq.push(objetoIzVacio)
+      }
+    }
+    iteracion = 0;
+    for (let i = 1; i <= limitante; i++) {
+      if ((i % 2) == 0) {
+        nuevaListaDer.push(listaDerecha[iteracion])
+        iteracion++
+      } else {
+        nuevaListaDer.push(objetoDEVacio)
+      }
+    }
+    console.log(nuevaListaIzq);
+    console.log(nuevaListaDer);
+  }
+
+   /**
+*\brief     retorna un numero aleatorio definiendo un minimo y un maximo
+*\author    Ing Alexis Osvaldo Dorantes Ku
+*\date     22/04/2021
+*\version	  1.00.00
+*@param max -> numéro que define el maximo
+*@param min -> numéro que define el minimo
+*/
+  getRandomArbitrary(min:number, max:number) {
+    return Math.random() * (max - min) + min;
   }
 }
 

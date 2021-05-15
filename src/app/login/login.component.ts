@@ -99,7 +99,6 @@ export class LoginComponent implements OnInit {
     }
   }
   validasesion(){
-    debugger
     if(this.cookieService.get("idSession")){
       let t = {t:this.cookieService.get("idSession")};
       this.peticiones.peticionPost(t,'EstadoSesion',false).then((resultado:any)=>{
