@@ -3,16 +3,14 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { NombreComponente, clasesEstilos, TIPOUSARIO } from './../sharedModules/constantes'
 import { MenuItem, } from 'primeng/api';
 import { MatMenu } from '@angular/material/menu';
-import { ComponentType } from '@angular/cdk/portal';
 import { DatosTiendaComponent } from '../datos-tienda/datos-tienda.component';
 import { FuncionesGenerales } from '../sharedModules/funcionesgenerales';
 import { MatDialog } from '@angular/material/dialog';
 import { parametrosDeSistema } from '../../app/sharedModules/parametrosDeSistemas';
 import { PeticionesWebComponent } from '../sharedModules/peticiones-web/peticiones-web.component';
 import { CookieService } from 'ngx-cookie';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { timeout } from 'rxjs/operators';
+import { VentanaPagoComponent } from '../ventana-pago/ventana-pago.component';
 
 @Component({
   selector: 'app-menu-principal',
@@ -35,9 +33,12 @@ export class MenuPrincipalComponent implements OnInit {
   NivelUsuario: string;
   permisoAdmin: boolean;
   verApp = false;
-  expirar:any;
+  expirar: any;
   // parametrosSistema:parametrosDeSistema;
-  constructor(private funcGenerales: FuncionesGenerales, public dialog: MatDialog, private peticiones: PeticionesWebComponent, private cookieService: CookieService, private parametrosSistema: parametrosDeSistema,private router: Router) {
+  constructor(private funcGenerales: FuncionesGenerales, 
+    public dialog: MatDialog, private peticiones: PeticionesWebComponent, 
+    private cookieService: CookieService, private parametrosSistema: parametrosDeSistema, 
+    private router: Router) {
     this.icono = 'menu'
     this.componente = NombreComponente.INICIO
     this.opcionPrincipal = 0;
@@ -48,7 +49,7 @@ export class MenuPrincipalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.parametrosSistema.consultaltaUsuarios().then(()=>{
+    this.parametrosSistema.consultaltaUsuarios().then(() => {
 
       this.NivelUsuario = this.parametrosSistema.getDatosUsuario();
       // this.NivelUsuario = TIPOUSARIO.ADMINISTRADOR;
@@ -60,7 +61,36 @@ export class MenuPrincipalComponent implements OnInit {
       this.armaOpciones();
       this.menuPrueba();
       this.verApp = true;
-    });
+      let fecha = this.parametrosSistema.perfil.Fecha_Proximo_Pago;
+      var dateParts = fecha.split("/");
+
+      // month is 0-based, that's why we need dataParts[1] - 1
+      var dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+      var fechaValidad = {
+        dia: dateObject.getDay(),
+        mes: dateObject.getMonth(),
+        anio: dateObject.getFullYear()
+      }
+
+      let hoyDate = {
+        dia: new Date().getDay(),
+        mes: new Date().getMonth(),
+        anio: new Date().getFullYear()
+      };
+      setTimeout(() => {
+        if(fechaValidad.anio === hoyDate.anio){
+          if(fechaValidad.mes === hoyDate.mes){
+            if(fechaValidad.dia === hoyDate.dia){
+              this.funcGenerales.mensajeConfirmacion('pagar_membresia',"warn",
+              "Cuenta pronto a expirar","Por favor realice su pago antes que pierda los beneficios",true);
+            }
+          }
+        }
+      }, 1000);
+
+
+    }
+    );
 
   }
 
@@ -309,54 +339,67 @@ export class MenuPrincipalComponent implements OnInit {
         SELECTED: false,
         visible: true,
         TEMPLATE: NombreComponente.BALANCEINICIAL
+      }, {
+        PADRE: 12,
+        ID: 69,
+        DESCRIPCION: 'Administración de la app',
+        ICONO: '',
+        ICONO_DISABLED: '',
+        SELECTED: false,
+        visible: true,
+        TEMPLATE: NombreComponente.ADMINISTRACIONAPP
       }];
     this.opcionesMenuPadre = [
       {
         ID: 0,
         DESCRIPCION: 'Inicio',
-        visible : true
-      },{
-      ID: 1,
-      DESCRIPCION: 'Catálogos',
-      visible: true
-    }, {
-      ID: 2,
-      DESCRIPCION: 'Producción',
-      visible: true
-    }, {
-      ID: 3,
-      DESCRIPCION: 'Impuestos',
-      visible: true
-    }, {
-      ID: 4,
-      DESCRIPCION: 'Movimientos',
-      visible: true
-    }, {
-      ID: 5,
-      DESCRIPCION: 'Clientes',
-      visible: true
-    },
-    {
-      ID: 6,
-      DESCRIPCION: 'Proveedores',
-      visible: true
-    }, {
-      ID: 7,
-      DESCRIPCION: 'Configuración del sistema',
-      visible: this.permisoAdmin
-    }, {//EXTRA
-      ID: 8,
-      DESCRIPCION: 'Caja',
-      visible: true
-    }, {//EXTRA
-      ID: 11,
-      DESCRIPCION: 'Bancos',
-      visible: true
-    },  {//EXTRA
-      ID: 121,
-      DESCRIPCION: 'Balance Inicial',
-      visible: true
-    }]
+        visible: true
+      }, {
+        ID: 1,
+        DESCRIPCION: 'Catálogos',
+        visible: true
+      }, {
+        ID: 2,
+        DESCRIPCION: 'Producción',
+        visible: true
+      }, {
+        ID: 3,
+        DESCRIPCION: 'Impuestos',
+        visible: true
+      }, {
+        ID: 4,
+        DESCRIPCION: 'Movimientos',
+        visible: true
+      }, {
+        ID: 5,
+        DESCRIPCION: 'Clientes',
+        visible: true
+      },
+      {
+        ID: 6,
+        DESCRIPCION: 'Proveedores',
+        visible: true
+      }, {
+        ID: 7,
+        DESCRIPCION: 'Configuración del sistema',
+        visible: this.permisoAdmin
+      }, {//EXTRA
+        ID: 8,
+        DESCRIPCION: 'Caja',
+        visible: true
+      }, {//EXTRA
+        ID: 11,
+        DESCRIPCION: 'Bancos',
+        visible: true
+      }, {//EXTRA
+        ID: 121,
+        DESCRIPCION: 'Balance Inicial',
+        visible: true
+      }, {
+        ID: 12,
+        DESCRIPCION: 'Administración de la aplicación',
+        visible: this.permisoAdmin
+      }]
   }
 
   menuPrueba() {
@@ -424,20 +467,76 @@ export class MenuPrincipalComponent implements OnInit {
     });
   }
 
-  pruebaConexion(){
-    let t = {t:this.cookieService.get("idSession")};
-    this.peticiones.peticionPost(t,'EstadoSesion',false).then((resultado:any)=>{
-      console.log(resultado);
-      if(resultado.code === '050'){
-        this.router.navigateByUrl('');
-      }
-    }).catch(((error:HttpErrorResponse)=>{
-      this.funcGenerales.mensajeErrorHttp("errorArribaDerecha",error);
-    }));
+  pruebaConexion() {
+    // let t = {t:this.cookieService.get("idSession")};
+    // this.peticiones.peticionPost(t,'EstadoSesion',false).then((resultado:any)=>{
+    //   console.log(resultado);
+    //   if(resultado.code === '050'){
+    //     this.router.navigateByUrl('');
+    //   }
+    // }).catch(((error:HttpErrorResponse)=>{
+    //   this.funcGenerales.mensajeErrorHttp("errorArribaDerecha",error);
+    // }));
+
+    let arrayCuentasXCobrar = [{
+      cliente: "alexis",
+      folio: "123213",
+      importeVentaSinIva: 120,
+      iva: 16
+    }, {
+      cliente: "juan",
+      folio: "323231",
+      importeVentaSinIva: 100,
+      iva: 16
+    },
+    {
+      cliente: "pedro",
+      folio: "22222",
+      importeVentaSinIva: 12,
+      iva: 16
+    }, {
+      cliente: "aaron",
+      folio: "44444",
+      importeVentaSinIva: 1111,
+      iva: 16
+    }, {
+      cliente: "jorge",
+      folio: "55555",
+      importeVentaSinIva: 198,
+      iva: 16
+    }]
+
+    let arrayCuentasCobradas = [{
+      cliente: "diana",
+      folio: "",
+      importeVentaSinIva: 1000,
+      FormaDeCobranza: "banco",
+      iva: 16,
+    }, {
+      cliente: "",
+      folio: "",
+      importeVentaSinIva: 80,
+      FormaDeCobranza: "laura",
+      iva: 16,
+    }, {
+      cliente: "alejandro",
+      folio: "",
+      importeVentaSinIva: 70,
+      FormaDeCobranza: "banco",
+      iva: 16,
+    }, {
+      cliente: "jose",
+      folio: "",
+      importeVentaSinIva: 980,
+      FormaDeCobranza: "efectivo",
+      iva: 16,
+    }];
+
   }
 
 
-  tiempoExpiracion(){
+
+  tiempoExpiracion() {
     this.expirar = setTimeout(() => {
       this.router.navigateByUrl('');
     }, 36000000);
@@ -448,8 +547,48 @@ export class MenuPrincipalComponent implements OnInit {
     this.tiempoExpiracion();
   }
 
-  @HostListener('window:keydown') refreshUserState1(){
-  clearTimeout(this.expirar);
+  @HostListener('window:keydown') refreshUserState1() {
+    clearTimeout(this.expirar);
     this.tiempoExpiracion();
   }
+
+  Pagar() {
+    this.ventanaPago();
+    
+  }
+  Cancelar() {
+    this.funcGenerales.limpiarMensajes();
+  }
+
+   /**
+    *\brief   Función que invoca la ventana del pago
+    *\author  Alexis Osvaldo Dorantes Ku
+    *\date    23/09/2020
+    *\version	1.00.00
+    @param[in] -> el modo en el que se comportará la ventana
+  */
+    ventanaPago() {
+      var width = '70vh';
+      var height = '45vh';
+  
+      const dialogRef = this.dialog.open(VentanaPagoComponent, {
+        disableClose: true,
+        width: width,
+        height: height,
+        data: {},
+      });
+  
+      return new Promise(resolve => {
+        dialogRef.afterClosed().subscribe(result => {
+          this.funcGenerales.mostrarMensajeError('esquinaSupDerMenu','success','Exitoso','Gracias por su preferencia',true)
+          debugger
+          var d = new Date();
+          d.setMonth(d.getMonth() + 1);
+          this.parametrosSistema.perfiles[0].Fecha_Proximo_Pago = this.funcGenerales.dameFechaString(d)
+          this.parametrosSistema.perfiles[0].Ultimo_fecha_pago = this.funcGenerales.dameFechaString(new Date())
+          this.funcGenerales.limpiarMensajes('pagar_membresia');
+        });
+      });
+    }
+
 }

@@ -21,7 +21,32 @@
   </mat-drawer>
 
   <div class="sidenav-content">
-
+    <p-toast position="top-right" key="esquinaSupDerMenu"></p-toast>
+    <p-toast position="bottom-center" key="pagar_membresia">
+      <ng-template let-message pTemplate="message">
+        <div>
+    
+                <div class="text-center align-items-center">
+                  <i class="pi pi-exclamation-triangle" style="font-size: 50px !important"></i>
+                  <h1>{{message.summary}}</h1>
+                  <p>{{message.detail}}</p>
+                </div>
+    
+    
+            <div class="row">
+                <div class="col-md-6">
+                  <button mat-raised-button (click)="Pagar()" color="primary">Pagar</button>
+    
+                    <!-- <button class="" type="button" pButton (  class="p-button-success">Confirmar</button> -->
+                </div>
+                <div class="col-md-6">
+                  <button mat-raised-button (click)="Cancelar()" color="warn">Cancelar</button>
+                    <!-- <button class="buttonMessage" type="button" pButton (click)="Cancelar()"  class="p-button-secondary">Cancelar</button> -->
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    </p-toast>
     <mat-toolbar [color]="'primary'">
       <button mat-icon-button (click)="drawer.toggle()" tabindex="-1" matTooltip="Desplegar opciones">
         <mat-icon>{{icono}}</mat-icon>
@@ -55,6 +80,7 @@
       <app-caja *ngIf="componente === NombresComponetes.CAJA"></app-caja>
       <app-balance-inicial *ngIf="componente === NombresComponetes.BALANCEINICIAL"></app-balance-inicial>
       <app-captura *ngIf="componente === NombresComponetes.CAPTURA"></app-captura>
+      <app-administrador-app *ngIf="componente === NombresComponetes.ADMINISTRACIONAPP"></app-administrador-app>
     </div>
 
 

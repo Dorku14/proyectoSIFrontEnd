@@ -74,3 +74,12 @@ body {
   @include tamanioLetrasGrandes();
 }
 
+.iconoSuccess{
+  color: white;
+  background-color: green;
+}
+.iconoCancel{
+  color: white;
+  background-color: red    ;
+}
+

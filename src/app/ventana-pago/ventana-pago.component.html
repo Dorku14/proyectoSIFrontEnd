@@ -1,0 +1,74 @@
+<mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
+    <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
+    <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
+</mat-toolbar>
+<mat-dialog-content class="contenido-ayuda-ventana">
+    <mat-toolbar class="toolbarMatDialog">
+        <button mat-icon-button class="sinborde" tabindex="-1"  matTooltip="Guardar"[matTooltipPosition]="'right'" (click)="guardar()">
+            <mat-icon>save</mat-icon>
+        </button>
+        <!-- <button mat-icon-button class="sinborde" tabindex="-1">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button class="sinborde" tabindex="-1">
+            <mat-icon>delete</mat-icon>
+        </button> -->
+    </mat-toolbar>
+    <p-toast position="top-right" key="esquinaSupDer"></p-toast>
+    <div class="container-fluid contenido">
+        <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
+        <div class="row">
+            <div class="col-md-3">
+                    <mat-form-field >
+                        <mat-label class="labelForm">Tipo de membresia</mat-label>
+                        <mat-select class="Input" [(ngModel)]="Tipo_membresia">
+                          <mat-option *ngFor="let membresia of listaMembresias" [value]="membresia.value">
+                            {{membresia.Nombre}}
+                          </mat-option>
+                        </mat-select>
+                        <!-- <input matInput #inputDias [(ngModel)]="MateriaSrv.UNIDAD_MEDIDA" autocomplete="off" (keypress)="validarTyping($event,'PRECIOCOMP')" (keydown)="presionaBoton($event)"> -->
+                    </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field  >
+                    <mat-label class="labelForm">Costo</mat-label>
+                    <input class="Input" [readonly]="true" matInput #inputMonto [value]="'$'+listaMembresias[Tipo_membresia].costo" [maxLength]="50" autocomplete="off"  >
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- producto -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Nombre de la tarjeta</mat-label>
+                    <input class="Input" matInput #inputMonto [(ngModel)]="Nombre_tarjeta" [maxLength]="50" autocomplete="off"  >
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- cantidad -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Fecha de vencimiento</mat-label>
+                    <input class="Input" matInput #inputMonto [(ngModel)]="Fecha_vencimiento" placeholder="MM/YY" [maxLength]="5" autocomplete="off">
+                </mat-form-field>
+
+            </div>
+            <div class="col-md-6">
+                <!-- precio de compra -->
+                <mat-form-field >
+                    <mat-label class="labelForm">CCV</mat-label>
+                    <input class="Input" type="password"    matInput #inputDias [(ngModel)]="CCV"   [maxLength]="3" autocomplete="off" >
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- precio de venta -->
+                <button mat-raised-button class="sinborde" tabindex="-1" [color]="'primary'"  matTooltip="Guardar" [matTooltipPosition]="'right'" (click)="guardar()">
+                    Pagar
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</mat-dialog-content>
+

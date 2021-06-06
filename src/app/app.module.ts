@@ -131,6 +131,9 @@ import { BalanceInicialDetalleProductoComercialComponent } from './balance-inici
 import { BalanceInicialDetalleCreditoClientesComponent } from './balance-inicial/balance-inicial-credito-clientes/balance-inicial-detalle-credito-clientes/balance-inicial-detalle-credito-clientes.component';
 import { BalanceInicialDetalleMateriaPrimaComponent } from './balance-inicial/balance-inicial-materia-prima/balance-inicial-detalle-materia-prima/balance-inicial-detalle-materia-prima.component';
 import {DatePipe} from "@angular/common";
+import { AdministradorAppComponent } from './administrador-app/administrador-app.component';
+import { DetalleAdminEmpresaComponent } from './administrador-app/detalle-admin-empresa/detalle-admin-empresa.component';
+import { VentanaPagoComponent } from './ventana-pago/ventana-pago.component';
 import { BalanceInicialDetalleBancosComponent } from './balance-inicial/balance-inicial-bancos/balance-inicial-detalle-bancos/balance-inicial-detalle-bancos.component';
 import { BalanceInicialActivosFijosComponent } from './balance-inicial/balance-inicial-activos-fijos/balance-inicial-activos-fijos.component';
 import { BalanceInicialDetalleActivosFijosComponent } from './balance-inicial/balance-inicial-activos-fijos/balance-inicial-detalle-activos-fijos/balance-inicial-detalle-activos-fijos.component';
@@ -231,6 +234,9 @@ import { BalanceInicialDetalleProductoEnProcesoComponent } from './balance-inici
     BalanceInicialDetalleProductoComercialComponent,
     BalanceInicialDetalleCreditoClientesComponent,
     BalanceInicialDetalleMateriaPrimaComponent,
+    AdministradorAppComponent,
+    DetalleAdminEmpresaComponent,
+    VentanaPagoComponent,
     BalanceInicialDetalleBancosComponent,
     BalanceInicialActivosFijosComponent,
     BalanceInicialDetalleActivosFijosComponent,
