@@ -4,7 +4,7 @@ import { creditoXclienteService } from 'src/app/services/creditoXcliente.service
 import { mov_CreditoClientesService } from "src/app/services/mov_CreditoClientes.service";
 import { FuncionesGenerales } from 'src/app/sharedModules/funcionesgenerales';
 import { PeticionesWebComponent } from 'src/app/sharedModules/peticiones-web/peticiones-web.component';
-import { MODO, EXITO, NOEXISTE, mascaraMoneda } from 'src/app/sharedModules/constantes';
+import { MODO, mascaraMoneda } from 'src/app/sharedModules/constantes';
 
 @Component({
   selector: 'app-balance-inicial-detalle-credito-clientes',

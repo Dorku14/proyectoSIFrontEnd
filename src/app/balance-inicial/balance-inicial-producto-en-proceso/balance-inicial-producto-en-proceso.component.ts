@@ -4,21 +4,20 @@ import { FuncionesGenerales } from '../../sharedModules/funcionesgenerales'
 import { PeticionesWebComponent } from '../../sharedModules/peticiones-web/peticiones-web.component';
 import { MODO } from './../../sharedModules/constantes';
 import { Table } from 'primeng/table';
-import { BalanceInicialDetalleCreditoClientesComponent } from '../balance-inicial-credito-clientes/balance-inicial-detalle-credito-clientes/balance-inicial-detalle-credito-clientes.component';
+import { BalanceInicialDetalleProductoEnProcesoComponent } from '../balance-inicial-producto-en-proceso/balance-inicial-detalle-producto-en-proceso/balance-inicial-detalle-producto-en-proceso.component'
 import { ConsultasBaseComponent } from '../../consultas-base/consultas-base.component';
 import { DatePipe } from "@angular/common";
-import { ClientesService } from '../../services/clientes.service';
+
 
 @Component({
-  selector: 'app-balance-inicial-credito-clientes',
+  selector: 'app-balance-inicial-producto-en-proceso',
   templateUrl: '../../consultas-base/consultas-base.component.html',
   styleUrls: ['../../consultas-base/consultas-base.component.scss']
 })
-export class BalanceInicialCreditoClientesComponent extends ConsultasBaseComponent implements OnInit {
+export class BalanceInicialProductoEnProcesoComponent extends ConsultasBaseComponent implements OnInit {
   dataSource: Array<any>;
   isCargando: boolean;
   itemSeleccionado: any;
-  Clientes: Array<{ID, NOMBRES, APELLIDO_P}>;
   columns: any;
   @ViewChild('dt') table: Table;
   ocultarBTNEliminar:boolean = false;
@@ -27,12 +26,11 @@ export class BalanceInicialCreditoClientesComponent extends ConsultasBaseCompone
   constructor(public peticiones: PeticionesWebComponent,
     public funcGenerales: FuncionesGenerales,
     public dialog: MatDialog,
-    public ClientesSRV: ClientesService,
     private datePipe: DatePipe) {
       
       super( funcGenerales,dialog,peticiones);
       this.isCargando = false;
-      this.Nombrecatalogo = 'Credito a Clientes'
+      this.Nombrecatalogo = 'Producto En Proceso'
      }
 
   ngOnInit(): void {
@@ -42,6 +40,7 @@ export class BalanceInicialCreditoClientesComponent extends ConsultasBaseCompone
     }, 1000);
   }
 
+  
   /**
    *\brief   Función para realiza la consulta al servidor y agrega los datos al datasource de la tabla
    *\author  Alexis Osvaldo Dorantes Ku
@@ -50,7 +49,7 @@ export class BalanceInicialCreditoClientesComponent extends ConsultasBaseCompone
  */
    consulta() {
     this.mostrarCargado();
-    this.peticiones.peticionPost({}, 'consultaMovCreditoClientesIni').then((resultado: any) => {
+    this.peticiones.peticionPost({}, 'consultaMovPPIni').then((resultado: any) => {
       (resultado);
       this.dataSource = resultado;
       console.log(this.dataSource)
@@ -58,11 +57,8 @@ export class BalanceInicialCreditoClientesComponent extends ConsultasBaseCompone
       for (let i of this.dataSource) {
         num += 1;
         i.NUM = num;
-        i.IMPORTE = this.funcGenerales.dameFormatoMoneda(i.IMPORTE,2);
-        i.IVA = this.funcGenerales.dameFormatoMoneda(i.IVA,2);
-        i.FECHA = this.datePipe.transform(i.FECHA, "dd/MM/yyyy");
-        i.F_O_R = i.F_O_R == 1 ? 'Factura' : 'Remisión';
-        i.NOMBRES = i.NOMBRES + ' ' + i.APELLIDO_P;
+        i.VALOR_PRODUCCION = this.funcGenerales.dameFormatoMoneda(i.VALOR_PRODUCCION,2);
+        i.ESTATUS = i.ESTATUS == 'P' ? 'En Proceso' : 'Semi Terminadas';
       }
       this.quitarCargando();
     }).catch((error) => {
@@ -80,9 +76,9 @@ export class BalanceInicialCreditoClientesComponent extends ConsultasBaseCompone
   */
   configuraDataGrid(): void {
     let configGrid = {
-      columns: 7,
-      header: ['#', 'Fecha','Cliente','Folio', 'Importe', 'IVA', 'Factura o Remisión'],
-      field: ['NUM', 'FECHA', 'NOMBRES', 'FOLIO', 'IMPORTE', 'IVA', 'F_O_R'],
+      columns: 6,
+      header: ['#', 'Codigo','Producto','Unidades', 'Valor Producción', 'Estatus'],
+      field: ['NUM', 'CODIGO', 'NOMBRE', 'UNIDADES', 'VALOR_PRODUCCION', 'ESTATUS'],
 
     };
     this.columns = this.funcGenerales.aplicaConfigGrid(configGrid);
@@ -141,7 +137,7 @@ export class BalanceInicialCreditoClientesComponent extends ConsultasBaseCompone
     var width = '70vh';
     var height = '45vh';
 
-    const dialogRef = this.dialog.open(BalanceInicialDetalleCreditoClientesComponent
+    const dialogRef = this.dialog.open(BalanceInicialDetalleProductoEnProcesoComponent
       , {
       disableClose: true,
       width: width,

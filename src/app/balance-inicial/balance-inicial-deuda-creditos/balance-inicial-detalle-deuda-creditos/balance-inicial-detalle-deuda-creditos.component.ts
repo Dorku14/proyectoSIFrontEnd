@@ -1,52 +1,60 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DeudaCreditos } from 'src/app/services/DeudaCreditos.service';
+import { mov_DeudaCreditos } from "src/app/services/mov_DeudaCreditos.service";
 import { FuncionesGenerales } from 'src/app/sharedModules/funcionesgenerales';
 import { PeticionesWebComponent } from 'src/app/sharedModules/peticiones-web/peticiones-web.component';
 import { MODO, mascaraMoneda } from 'src/app/sharedModules/constantes';
-import { CatActFijosService } from 'src/app/services/cat_act_fijos.service';
-import { mov_ActivosFijosService } from 'src/app/services/mov_ActivosFijos.service';
-import { CategoriaActivosFijosComponent } from 'src/app/categoria-activos-fijos/categoria-activos-fijos.component';
-import { activosfijosService } from 'src/app/services/activos_fijos.service';
+
 
 @Component({
-  selector: 'app-balance-inicial-detalle-activos-fijos',
-  templateUrl: './balance-inicial-detalle-activos-fijos.component.html',
-  styleUrls: ['./balance-inicial-detalle-activos-fijos.component.scss']
+  selector: 'app-balance-inicial-detalle-deuda-creditos',
+  templateUrl: './balance-inicial-detalle-deuda-creditos.component.html',
+  styleUrls: ['./balance-inicial-detalle-deuda-creditos.component.scss']
 })
-export class BalanceInicialDetalleActivosFijosComponent implements OnInit {
+export class BalanceInicialDetalleDeudaCreditosComponent implements OnInit {
   modo: any;
   itemSeleccionado: any;
   TituloVentana: string;
   isCargando: boolean;
   datosTemporales: any;
   mascaraMoneda: any;
-  ListaCategorias: any = {};
+  listaCreditos: Array<{ID, NOM_CREDITO, PLAZO}>;
 
-  constructor(public dialogRef: MatDialogRef<BalanceInicialDetalleActivosFijosComponent>,
+  constructor(
+    public dialogRef: MatDialogRef<BalanceInicialDetalleDeudaCreditosComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-    public CategoriasAF: CatActFijosService, 
-    public MovAF: mov_ActivosFijosService,
-    public Activos: activosfijosService,
+    public DeudaCreditos: DeudaCreditos,
+    public movDC: mov_DeudaCreditos,
     private peticiones: PeticionesWebComponent,
-    public dialog: MatDialog,
-    private funcGenerales: FuncionesGenerales) { this.mascaraMoneda = mascaraMoneda; }
+    private funcGenerales: FuncionesGenerales
+  ) { this.mascaraMoneda = mascaraMoneda; }
 
   ngOnInit(): void {
     this.modo = this.data.Proceso;
     this.itemSeleccionado = this.data.item;
     this.definirModo();
-    this.CategoriasAF.incicializarVariables();
-    this.MovAF.incicializarVariables();
-    this.consultaCategorias();
+    this.consultaCreditos();
+  }
+
+  consultaCreditos(){
+    this.peticiones.peticionPost({}, 'consultaCreditos').then((resultado: any) => {
+      (resultado);
+      let datos = resultado;
+      this.listaCreditos = datos;
+    }).catch((error) => {
+      (error);
+      this.quitarCargando();
+    });
   }
 
   definirModo() {
     switch (this.modo) {
       case MODO.ALTA:
-        this.TituloVentana = 'Activos Fijos';
+        this.TituloVentana = 'Alta de Deuda Credito';
         break;
       case MODO.MODIFICAR:
-        this.TituloVentana = 'Detalle Activos Fijos';
+        this.TituloVentana = 'Detalle de Deuda Credito';
         if (!this.funcGenerales.EsVacioNulo(this.itemSeleccionado)) {
           this.consultaDetalle(this.itemSeleccionado);
         }
@@ -69,7 +77,7 @@ export class BalanceInicialDetalleActivosFijosComponent implements OnInit {
         }
         break;
       case 'IMPORTE':
-        respuesta = this.funcGenerales.permiteNumerico(this.MovAF.IMPORTE, valorS);
+        respuesta = this.funcGenerales.permiteNumerico(this.DeudaCreditos.IMPORTE, valorS);
         break;
     }
     // if (isNaN(valor)) {
@@ -84,7 +92,7 @@ export class BalanceInicialDetalleActivosFijosComponent implements OnInit {
     let json: any = {};
     json.CODIGO = item.CODIGO;
     this.peticiones
-      .peticionPost(json, 'consultaMovAF')
+      .peticionPost(json, 'Pendiente')
       .then((resultado: any) => {
         (resultado);
         let datos = resultado.datos[0];
@@ -97,7 +105,7 @@ export class BalanceInicialDetalleActivosFijosComponent implements OnInit {
   }
 
   llenarCampoDetalle(datos: any) {
-    this.MovAF.llenarCampos(datos);
+    this.DeudaCreditos.llenarCampos(datos);
     this.quitarCargando();
   }
 
@@ -111,24 +119,25 @@ export class BalanceInicialDetalleActivosFijosComponent implements OnInit {
 
   guardar() {
     let json: any = {};
-      json.ID_CAT_AF = this.CategoriasAF.ID;
-      json.NOMBRE_AF = this.Activos.NOMBRE_AF;
-      json.UNIDADES = this.Activos.UNIDADES;
-      json.ESTATUS = 'A';
-      json.FECHA  = this.MovAF.FECHA;
-      json.IMPORTE = this.MovAF.IMPORTE;
-      json.FOLIO = this.Activos.FOLIO;
+      json.FOLIO = this.DeudaCreditos.FOLIO;
+      json.ID_C = this.DeudaCreditos.ID_C;
+      json.IMPORTE = this.DeudaCreditos.IMPORTE;
+      json.FECHA = this.DeudaCreditos.FECHA;
+      json.RECIBIDO_EN = this.DeudaCreditos.RECIBIDO_EN;
+      json.PROVEEDOR = this.DeudaCreditos.PROVEEDOR;
+      json.DESCRIPCION = this.DeudaCreditos.DESCRIPCION;
       json.TIPO_MOV = 'I';
       switch (this.modo) {
         case MODO.ALTA:
+          json.ESTATUS = 'A';
           this.peticiones
-            .peticionPost(json, 'altaMovAF')
+            .peticionPost(json, 'altaDCMovIni')
             .then((resultado: any) => {
               ('resultado then');
               (resultado);
               this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','Elemento agredado correctamente',false);
               this.quitarCargando();
-              this.MovAF.incicializarVariables();
+              this.DeudaCreditos.incicializarVariables();
               this.CerrarVentana();
             })
             .catch((error) => {
@@ -140,13 +149,13 @@ export class BalanceInicialDetalleActivosFijosComponent implements OnInit {
           break;
         case MODO.MODIFICAR:
           this.peticiones
-            .peticionPost(json, 'modificarProductoC')
+            .peticionPost(json, 'Pendiente')
             .then((resultado: any) => {
               ('resultado then');
               (resultado);
               this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','El elemento se ha editado correctamente',false);
               this.quitarCargando();
-              this.MovAF.incicializarVariables();
+              this.DeudaCreditos.incicializarVariables();
               this.CerrarVentana();
             })
             .catch((error) => {
@@ -159,13 +168,13 @@ export class BalanceInicialDetalleActivosFijosComponent implements OnInit {
         case MODO.REACTIVAR:
           json.ESTATUS = 'A';
           this.peticiones
-            .peticionPost(json, 'reactivarProductoC')
+            .peticionPost(json, 'Pendiente')
             .then((resultado: any) => {
               ('resultado then');
               (resultado);
               this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','El elemento se ha reactivado correctamente',false);
               this.quitarCargando();
-              this.MovAF.incicializarVariables();
+              this.DeudaCreditos.incicializarVariables();
               this.CerrarVentana();
             })
             .catch((error) => {
@@ -181,40 +190,6 @@ export class BalanceInicialDetalleActivosFijosComponent implements OnInit {
   reactivar() {
     this.modo = MODO.REACTIVAR;
     this.llenarCampoDetalle(this.datosTemporales);
-  }
-
-  ventanaDetalle(Modo) {
-    var width = '45vh';
-    var height = '25vh';
-
-    const dialogRef = this.dialog.open(CategoriaActivosFijosComponent, {
-      disableClose: true,
-      width: width,
-      height: height,
-      data: {
-        Proceso: Modo,
-        item: this.itemSeleccionado,
-      },
-    });
-
-    return new Promise((resolve) => {
-      dialogRef.afterClosed().subscribe((result) => {
-        (result);
-        this.consultaCategorias();
-      });
-    });
-  }
-
-  consultaCategorias(){
-    this.peticiones.peticionPost({}, 'consultaCatAF').then((resultado: any) => {
-      (resultado);
-      let datos = resultado;
-      this.ListaCategorias = datos;
-      console.log(this.ListaCategorias)
-    }).catch((error) => {
-      (error);
-      this.quitarCargando();
-    });
   }
 
   presionaBoton(e: KeyboardEvent) {

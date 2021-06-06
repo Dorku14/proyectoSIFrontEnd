@@ -87,7 +87,7 @@ export class CategoriaActivosFijosComponent implements OnInit {
       switch (this.modo) {
         case MODO.ALTA:
           this.peticiones
-            .peticionPost(json, 'altaMovBanco')
+            .peticionPost(json, 'altaCatAF')
             .then((resultado: any) => {
               ('resultado then');
               (resultado);

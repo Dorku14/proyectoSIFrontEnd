@@ -16,14 +16,14 @@
                 <mat-form-field  >
                     <!-- Fecha -->
                     <mat-label class="labelForm">Fecha</mat-label>
-                    <input type="date" matInput #inputNombre  [(ngModel)]="MovBan.IMPORTE" [maxLength]="25" autocomplete="off"  (keydown)="presionaBoton($event)" (focus)="ObtenerFoco($event)" >
+                    <input type="date" matInput #inputNombre  [(ngModel)]="MovAF.FECHA" [maxLength]="25" autocomplete="off"  (keydown)="presionaBoton($event)" (focus)="ObtenerFoco($event)" >
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <!-- Folio -->
                 <mat-form-field  >
                     <mat-label class="labelForm">Folio</mat-label>
-                    <input class="Input" matInput #inputNombre [(ngModel)]="MovBan.IMPORTE" [maxLength]="10" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                    <input class="Input" matInput #inputNombre [(ngModel)]="Activos.FOLIO" [maxLength]="10" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
                 </mat-form-field>
 
             </div>
@@ -31,7 +31,7 @@
                 <!-- Nombre -->
                 <mat-form-field  >
                     <mat-label class="labelForm">Nombre</mat-label>
-                    <input class="Input" matInput #inputNombre [(ngModel)]="MovBan.IMPORTE" [maxLength]="10" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                    <input class="Input" matInput #inputNombre [(ngModel)]="Activos.NOMBRE_AF" [maxLength]="10" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
                 </mat-form-field>
 
             </div>
@@ -55,14 +55,14 @@
                 <!-- Unidades -->
                 <mat-form-field  >
                     <mat-label class="labelForm">Unidades</mat-label>
-                    <input class="Input" currencyMask matInput #inputDias [(ngModel)]="MovBan.IMPORTE" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'IVA')" (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                    <input class="Input" matInput #inputDias [(ngModel)]="Activos.UNIDADES"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'IVA')" (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
             <div class="col-md-6">
                 <!-- Costo Unidad -->
                 <mat-form-field  >
-                    <mat-label class="labelForm">Costo Unidad</mat-label>
-                    <input class="Input" currencyMask matInput #inputDias [(ngModel)]="MovBan.IMPORTE" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'IVA')" (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Importe</mat-label>
+                    <input class="Input" currencyMask matInput #inputDias [(ngModel)]="MovAF.IMPORTE" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'IVA')" (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
                 </mat-form-field>
             </div>
         </div>

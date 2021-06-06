@@ -19,6 +19,15 @@ export class balanceinicialService {
     DEUDORES_DIV: Number;
     TOTAL_CIRCULANTE: Number;
     TOTAL_AF: Number;
+    TOTAL_ACTIVOS: Number;
+    CREDITO_PROV: Number;
+    PROV_IVAxPAGAR: Number;
+    ACREEDORES_DIV: Number;
+    NOMINA_DESTAJO: Number;
+    NOMINA_INDIRECTA: Number;
+    DEUDA_CRE: Number;
+    IVAxPAGAR: Number;
+    TOTAL_PASIVOS: Number;
 
     incicializarVariables() {
         this.ID = 0;
@@ -35,6 +44,15 @@ export class balanceinicialService {
         this.DEUDORES_DIV = 0;
         this.TOTAL_CIRCULANTE = 0;
         this.TOTAL_AF = 0;
+        this.TOTAL_ACTIVOS = 0;
+        this.CREDITO_PROV = 0;
+        this.PROV_IVAxPAGAR = 0;
+        this.ACREEDORES_DIV = 0;
+        this.NOMINA_DESTAJO = 0;
+        this.NOMINA_INDIRECTA = 0;
+        this.DEUDA_CRE = 0;
+        this.IVAxPAGAR = 0;
+        this.TOTAL_PASIVOS = 0;
     }
 
     llenarCampos(datos: balanceinicialService) {
@@ -52,6 +70,15 @@ export class balanceinicialService {
         this.DEUDORES_DIV = datos.DEUDORES_DIV;
         this.TOTAL_CIRCULANTE = datos.TOTAL_CIRCULANTE;
         this.TOTAL_AF = datos.TOTAL_AF;
+        this.TOTAL_ACTIVOS = datos.TOTAL_ACTIVOS;
+        this.CREDITO_PROV = datos.CREDITO_PROV;
+        this.PROV_IVAxPAGAR = datos.PROV_IVAxPAGAR;
+        this.ACREEDORES_DIV = datos.ACREEDORES_DIV;
+        this.NOMINA_DESTAJO = datos.NOMINA_DESTAJO;
+        this.NOMINA_INDIRECTA = datos.NOMINA_INDIRECTA;
+        this.DEUDA_CRE = datos.DEUDA_CRE;
+        this.IVAxPAGAR = datos.IVAxPAGAR;
+        this.TOTAL_PASIVOS = datos.TOTAL_PASIVOS;
     }
 
 }

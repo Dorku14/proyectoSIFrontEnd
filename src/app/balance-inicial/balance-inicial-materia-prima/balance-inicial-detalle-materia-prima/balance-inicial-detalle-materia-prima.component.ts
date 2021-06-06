@@ -4,6 +4,7 @@ import { FuncionesGenerales } from 'src/app/sharedModules/funcionesgenerales';
 import { PeticionesWebComponent } from 'src/app/sharedModules/peticiones-web/peticiones-web.component';
 import { MODO, NOEXISTE } from 'src/app/sharedModules/constantes';
 import { MateriasPrimasService } from 'src/app/services/MateriPrima.service';
+import { mov_MateriasPrimasService } from 'src/app/services/mov_MateriasPrimas.service'
 import { DetalleUnidadMedidaComponent } from 'src/app/unidad-de-medida/detalle-unidad-medida/detalle-unidad-medida.component';
 import { DetalleCategoriaComponent } from 'src/app/categoria/detalle-categoria/detalle-categoria.component';
 
@@ -26,6 +27,7 @@ export class BalanceInicialDetalleMateriaPrimaComponent implements OnInit {
     public dialogRef: MatDialogRef<BalanceInicialDetalleMateriaPrimaComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     public MateriaSrv: MateriasPrimasService,
+    public MovMP: mov_MateriasPrimasService,
     private peticiones: PeticionesWebComponent,
     private funcGenerales: FuncionesGenerales,
     public dialog: MatDialog) { }
@@ -34,7 +36,6 @@ export class BalanceInicialDetalleMateriaPrimaComponent implements OnInit {
     this.modo = this.data.Proceso;
     this.itemSeleccionado = this.data.item;
     this.definirModo();
-    this.MateriaSrv.incicializarVariables();
     this.inicializarUnidades();
     this.inicializaCategorias();
 
@@ -122,7 +123,6 @@ export class BalanceInicialDetalleMateriaPrimaComponent implements OnInit {
     this.MateriaSrv.CATEGORIA = datos.CATEGORIA;
     this.MateriaSrv.MATERIA_PRIMA = datos.MATERIA_PRIMA;
     this.MateriaSrv.UNIDAD_MEDIDA = datos.UNIDAD_MEDIDA;
-    // this.MateriaSrv.CANTIDAD = this.funcGenerales.dameFormatoCantidad(datos.CANTIDAD,2);
     this.quitarCargando();
   }
 
@@ -139,9 +139,16 @@ export class BalanceInicialDetalleMateriaPrimaComponent implements OnInit {
     } else {
       let json: any = {};
       json.CODIGO = this.MateriaSrv.CODIGO;
+      json.FOLIO = this.MovMP.FOLIO;
       json.CATEGORIA = this.MateriaSrv.CATEGORIA;
       json.MATERIA_PRIMA = this.MateriaSrv.MATERIA_PRIMA;
       json.UNIDAD_MEDIDA = this.MateriaSrv.UNIDAD_MEDIDA;
+      json.UNIDADES = this.MateriaSrv.UNIDADES;
+      json.IMPORTE = this.MovMP.IMPORTE;
+      json.FECHA = this.MovMP.FECHA;
+      json.PROVEEDOR = this.MovMP.PROVEEDOR;
+      json.ASIGNACION = 'Balance Inicial';
+      json.TIPO_MOV = 'I';
       switch (this.modo) {
         case MODO.ALTA:
           json.ESTATUS = 'A';

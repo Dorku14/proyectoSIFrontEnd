@@ -15,8 +15,10 @@ import { BalanceInicialDeudaCreditosComponent} from '../balance-inicial/balance-
 import { BalanceInicialMateriaPrimaComponent } from '../balance-inicial/balance-inicial-materia-prima/balance-inicial-materia-prima.component';
 import { BalanceInicialProductoComercialComponent } from '../balance-inicial/balance-inicial-producto-comercial/balance-inicial-producto-comercial.component';
 import { BalanceInicialProductoFabricadoComponent } from '../balance-inicial/balance-inicial-producto-fabricado/balance-inicial-producto-fabricado.component';
+import { BalanceInicialProductoEnProcesoComponent } from '../balance-inicial/balance-inicial-producto-en-proceso/balance-inicial-producto-en-proceso.component';
 import { BalanceInicialActivosFijosComponent } from '../balance-inicial/balance-inicial-activos-fijos/balance-inicial-activos-fijos.component';
 import { balanceinicialService } from 'src/app/services/balanceInicial.service';
+import { CatActFijosService } from '../services/cat_act_fijos.service';
 
 @Component({
   selector: 'app-balance-inicial',
@@ -29,6 +31,7 @@ export class BalanceInicialComponent implements OnInit {
   ActivosFijos: any;
   Pasivos: any;
   Capital: any;
+  Fijos: any;
   componenteAabrir: any;
   mascaraMoneda: any;
   modo: any;
@@ -37,6 +40,7 @@ export class BalanceInicialComponent implements OnInit {
   @ViewChild(MatTabGroup, { read: MatTabGroup })
   public tabGroup: MatTabGroup;
   @ViewChildren(MatTab, { read: MatTab })
+  public CatAF: CatActFijosService;
   public tabNodes: QueryList<MatTab>;
   public closedTabs = [];
   public tabs: Array<{ tabType: number, name: string, componente }> = [];
@@ -65,12 +69,13 @@ export class BalanceInicialComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.consultaCategorias();
     this.activos();
-    this.activosFijos();
     this.pasivos();
     this.capital();
-    // this.BI.incicializarVariables();
+    this.BI.incicializarVariables();
     this.consulta();
+    this.activosFijos();
   }
 
   activos(){
@@ -80,28 +85,35 @@ export class BalanceInicialComponent implements OnInit {
       {NOMBRE: 'Almacen',                     CONSTANTE: ''},
       {NOMBRE: 'Producto Comercial',          CONSTANTE: NombreComponente.BALANCEINICIAL_PRODUCTOCOMERCIAL},
       {NOMBRE: 'Producto Fabricado',          CONSTANTE: NombreComponente.BALANCEINICIAL_PRODUCTOFABRICADO},
+      {NOMBRE: 'Producto Proceso',            CONSTANTE: NombreComponente.BALANCEINICIAL_PRODUCTOPROCESO},
       {NOMBRE: 'Materia Prima',               CONSTANTE: NombreComponente.BALANCEINICIAL_MATERIAPRIMA},
       {NOMBRE: 'Deudores Diversos',           CONSTANTE: NombreComponente.BALANCEINICIAL_DEUDORESDIVERSOS},
     ]
   };
 
+  consultaCategorias(){
+    this.peticiones.peticionPost({}, 'consultaCatAF').then((resultado: any) => {
+      (resultado);
+      let datos = resultado;
+      this.ActivosFijos = datos;
+      console.log(this.ActivosFijos)
+    }).catch((error) => {
+      (error);
+      this.quitarCargando();
+    });
+  }
+
   activosFijos(){
-  this.ActivosFijos = [
-      {NOMBRE: 'Activos Fijos', CONSTANTE: NombreComponente.BALANCEINICIAL_ACTIVOSFIJOS},
-    ]
-  };
+    this.Fijos = [
+        {NOMBRE: 'Activos Fijos', CONSTANTE: NombreComponente.BALANCEINICIAL_ACTIVOSFIJOS},
+      ]
+    };
 
   pasivos(){
     this.Pasivos = [
-      {NOMBRE: 'Crédito Proveedores',        ACTIVO: 'true',  NAME: 'CrePro',           CONSTANTE: NombreComponente.BALANCEINICIAL_CREDITOPROVEEDORES},
-      {NOMBRE: 'Provisión IVA Pend.x Pagar', ACTIVO: 'true',  NAME: 'IVAxPag',          CONSTANTE: ''},
-      {NOMBRE: 'Acreedores Diversos',        ACTIVO: 'true',  NAME: 'Acree',            CONSTANTE: NombreComponente.BALANCEINICIAL_ACREEDORESDIVERSOS},
-      {NOMBRE: 'Nomina Destajo',             ACTIVO: 'false', NAME: 'NomDes',           CONSTANTE: ''},
-      {NOMBRE: 'Nomina Indirecta',           ACTIVO: 'false', NAME: 'NomInd',           CONSTANTE: ''},
-      {NOMBRE: 'Deuda Por Créditos',         ACTIVO: 'true',  NAME: 'Deuda',            CONSTANTE: NombreComponente.BALANCEINICIAL_DEUDACREDITOS},
-      {NOMBRE: 'IVA Por Pagar',              ACTIVO: 'false', NAME: 'IVAPag',           CONSTANTE: ''},
-      {NOMBRE: 'Total Corto Plazo',          ACTIVO: 'false', NAME: 'SubTotalPasivos',  CONSTANTE: ''},
-      {NOMBRE: 'Total Pasivos',              ACTIVO: 'false', NAME: 'TotalPasivos',     CONSTANTE: ''}
+      {NOMBRE: 'Crédito Proveedores', CONSTANTE: NombreComponente.BALANCEINICIAL_CREDITOPROVEEDORES},
+      {NOMBRE: 'Acreedores Diversos', CONSTANTE: NombreComponente.BALANCEINICIAL_ACREEDORESDIVERSOS},
+      {NOMBRE: 'Deuda Por Créditos',  CONSTANTE: NombreComponente.BALANCEINICIAL_DEUDACREDITOS}
     ]
   };
 
@@ -124,9 +136,11 @@ export class BalanceInicialComponent implements OnInit {
       if (this.tabs.length < 11) {
         let vista = this.Activos.find(item => item.NOMBRE == nombre);
         if (vista == null) {
-          vista = this.ActivosFijos.find(item => item.NOMBRE == nombre);
+          vista = this.Fijos.find(item => item.NOMBRE == nombre);
+          if(vista == null){
+            vista = this.Pasivos.find(item => item.NOMBRE == nombre);
+          }
         }
-        
         if (vista) {
           let nuevoIndex = this.getNuevoIndex();
           let nuevoTab: { tabType: number, name: string, componente } = { tabType: 0, name: "", componente: "" };
@@ -159,6 +173,9 @@ export class BalanceInicialComponent implements OnInit {
               break;
             case NombreComponente.BALANCEINICIAL_PRODUCTOFABRICADO:
               nuevoTab.componente = BalanceInicialProductoFabricadoComponent;
+              break;
+            case NombreComponente.BALANCEINICIAL_PRODUCTOPROCESO:
+              nuevoTab.componente = BalanceInicialProductoEnProcesoComponent;
               break;
             case NombreComponente.BALANCEINICIAL_ACTIVOSFIJOS:
               nuevoTab.componente = BalanceInicialActivosFijosComponent;
@@ -260,6 +277,10 @@ export class BalanceInicialComponent implements OnInit {
       json.IVA_ACREDITABLE = this.BI.IVA_ACREDITABLE;
       json.DEUDORES_DIV = this.BI.DEUDORES_DIV;
       json.TOTAL_CIRCULANTE = this.BI.TOTAL_CIRCULANTE;
+      json.NOMINA_DESTAJO = this.BI.NOMINA_DESTAJO;
+      json.NOMINA_INDIRECTA = this.BI.NOMINA_INDIRECTA;
+      json.IVAxPAGAR = this.BI.IVAxPAGAR;
+
       console.log(json);
       this.peticiones
             .peticionPost(json, 'altaBalanceInicial')
@@ -313,6 +334,7 @@ export class BalanceInicialComponent implements OnInit {
 
   consulta() {
     this.mostrarCargado();
+    this.activosFijos();
     let json: any = {};
     this.peticiones.peticionPost({}, 'ConsultaBalanceInicial').then((resultado: any) => {
       (resultado);

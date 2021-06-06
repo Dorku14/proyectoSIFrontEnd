@@ -53,11 +53,8 @@ export class BalanceInicialMateriaPrimaComponent extends ConsultasBaseComponent 
       for (let i of this.dataSource) {
         num += 1;
         i.NUM = num;
-        // i.CANTIDAD = this.funcGenerales.dameFormatoCantidad(i.CANTIDAD,2);
-        i.PRECIO_VENTA = this.funcGenerales.dameFormatoMoneda(i.PRECIO_VENTA, 2);
-        i.PRECIO_VENTA_ACTUALIZADO = this.funcGenerales.dameFormatoMoneda(i.PRECIO_VENTA_ACTUALIZADO, 2);
-        i.COSTO_COMPRA = this.funcGenerales.dameFormatoMoneda(i.COSTO_COMPRA, 2);
-        i.COSTEO_PROMEDIO_RECIENTE = this.funcGenerales.dameFormatoMoneda(i.COSTEO_PROMEDIO_RECIENTE, 2);
+        i.COSTO_PROMEDIO = this.funcGenerales.dameFormatoMoneda(i.COSTO_PROMEDIO, 2);
+        i.SALDO = this.funcGenerales.dameFormatoMoneda(i.SALDO, 2);
       }
       this.quitarCargando();
     }).catch((error) => {
@@ -75,9 +72,9 @@ export class BalanceInicialMateriaPrimaComponent extends ConsultasBaseComponent 
   */
   configuraDataGrid(): void {
     let configGrid = {
-      columns: 12,
-      header: ['#', 'Código', 'Categoría', 'Materia prima', 'Unidad de medida', 'Cantidad (Balance inicial)', 'P. venta (Sin IVA)', 'Precio de compra (Sin IVA)', 'Costeo promedio reciente', 'Precio de venta actualizado', 'Inventario', 'Punto de reorden'],
-      field: ['NUM', 'CODIGO', 'CATEGORIA', 'MATERIA_PRIMA', 'UNIDAD_MEDIDA', 'CANTIDAD', 'PRECIO_VENTA', 'COSTO_COMPRA', 'COSTEO_PROMEDIO_RECIENTE', 'PRECIO_VENTA_ACTUALIZADO', 'INVENTARIO', 'PUNTO_REORDEN'],
+      columns: 8,
+      header: ['#', 'Código', 'Categoría', 'Producto', 'Costo Unitario', 'Medida', 'Unidades', 'Saldo'],
+      field: ['NUM', 'CODIGO', 'CATEGORIA', 'MATERIA_PRIMA', 'COSTO_PROMEDIO', 'UNIDAD_MEDIDA', 'UNIDADES', 'SALDO'],
 
     };
     this.columns = this.funcGenerales.aplicaConfigGrid(configGrid);
@@ -170,7 +167,7 @@ export class BalanceInicialMateriaPrimaComponent extends ConsultasBaseComponent 
     this.mostrarCargado();
     let json: any = {};
     json.CODIGO = this.itemSeleccionado.CODIGO;
-    this.peticiones.peticionPost(json, 'eliminarMateriPrima').then((resultado: any) => {
+    this.peticiones.peticionPost(json, 'PENDIENTE').then((resultado: any) => {
       if (this.funcGenerales.extraerCodigo(resultado) == 11 || this.funcGenerales.extraerCodigo(resultado) == "01") {
         this.mensajeError(resultado.message);
       } else {

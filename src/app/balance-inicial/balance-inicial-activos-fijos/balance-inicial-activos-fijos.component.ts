@@ -46,14 +46,14 @@ export class BalanceInicialActivosFijosComponent extends ConsultasBaseComponent 
  */
    consulta() {
     this.mostrarCargado();
-    this.peticiones.peticionPost({}, 'consultaMovBancoIni').then((resultado: any) => {
+    this.peticiones.peticionPost({}, 'consultaMovAF').then((resultado: any) => {
       (resultado);
       this.dataSource = resultado;
       let num = 0;
       for (let i of this.dataSource) {
         num += 1;
         i.NUM = num;
-        i.IMPORTE = this.funcGenerales.dameFormatoMoneda(i.IMPORTE,2);
+        i.COSTO_UNIDAD = this.funcGenerales.dameFormatoMoneda(i.COSTO_UNIDAD,2);
       }
       this.quitarCargando();
     }).catch((error) => {
@@ -73,7 +73,7 @@ export class BalanceInicialActivosFijosComponent extends ConsultasBaseComponent 
     let configGrid = {
       columns: 5,
       header: ['#','Categoria', 'Nombre del Activo', 'Unidades', 'Costo Unidad'],
-      field: ['NUM', 'ID_CAT_AF', 'NOMBRE_AF', 'UNIDADES', 'COSTO_UNIDAD'],
+      field: ['NUM', 'NOM_CAT', 'NOMBRE_AF', 'UNIDADES', 'COSTO_UNIDAD'],
 
     };
     this.columns = this.funcGenerales.aplicaConfigGrid(configGrid);

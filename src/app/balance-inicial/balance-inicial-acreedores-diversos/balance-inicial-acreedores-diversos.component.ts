@@ -1,76 +1,197 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, } from '@angular/material/dialog';
 import { FuncionesGenerales } from '../../sharedModules/funcionesgenerales'
+import { PeticionesWebComponent } from '../../sharedModules/peticiones-web/peticiones-web.component';
+import { MODO } from './../../sharedModules/constantes';
+import { Table } from 'primeng/table';
+import { BalanceInicialDetalleAcreedoresDiversosComponent } from '../balance-inicial-acreedores-diversos/balance-inicial-detalle-acreedores-diversos/balance-inicial-detalle-acreedores-diversos.component';
+import { ConsultasBaseComponent } from '../../consultas-base/consultas-base.component';
+import { DatePipe } from "@angular/common";
+
 
 @Component({
   selector: 'app-balance-inicial-acreedores-diversos',
-  templateUrl: './balance-inicial-acreedores-diversos.component.html',
-  styleUrls: ['./balance-inicial-acreedores-diversos.component.scss']
+  templateUrl: '../../consultas-base/consultas-base.component.html',
+  styleUrls: ['../../consultas-base/consultas-base.component.scss']
 })
-export class BalanceInicialAcreedoresDiversosComponent implements OnInit {
-
-  constructor(public funcGenerales: FuncionesGenerales) { }
-
+export class BalanceInicialAcreedoresDiversosComponent extends ConsultasBaseComponent implements OnInit {
+  dataSource: Array<any>;
   isCargando: boolean;
   itemSeleccionado: any;
-  colorSelect = 'primary';
-  dataSource: Array<any> = [];
   columns: any;
-  NumDecimales: number = 2;
-  datos = { 'NUM': 0, 'FECHA': '', 'ACREEDOR': '', 'FOLIO': '', 'IMPORTE': 0 };
+  @ViewChild('dt') table: Table;
+  ocultarBTNEliminar:boolean = false;
+  Nombrecatalogo:any;
+
+  constructor(public peticiones: PeticionesWebComponent,
+    public funcGenerales: FuncionesGenerales,
+    public dialog: MatDialog,
+    private datePipe: DatePipe) {
+      super( funcGenerales,dialog,peticiones);
+      this.isCargando = false;
+      this.Nombrecatalogo = 'Acreedores Diversos' 
+     }
 
   ngOnInit(): void {
+    this.configuraDataGrid();
+    setTimeout(() => {
+      this.consulta();
+    }, 1000);
   }
 
-  guardar() {
+ 
+  /**
+   *\brief   Función para realiza la consulta al servidor y agrega los datos al datasource de la tabla
+   *\author  Alexis Osvaldo Dorantes Ku
+   *\date    23/09/2020
+   *\version	1.00.00
+ */
+   consulta() {
+    this.mostrarCargado();
+    this.peticiones.peticionPost({}, 'consultaADMovIni').then((resultado: any) => {
+      (resultado);
+      this.dataSource = resultado;
+      console.log(this.dataSource)
+      let num = 0;
+      for (let i of this.dataSource) {
+        num += 1;
+        i.NUM = num;
+        i.IMPORTE = this.funcGenerales.dameFormatoMoneda(i.IMPORTE,2);
+        i.IVA = this.funcGenerales.dameFormatoMoneda(i.IVA,2);
+        i.TOTAL = this.funcGenerales.dameFormatoMoneda(i.TOTAL,2);
+        i.FECHA = this.datePipe.transform(i.FECHA, "dd/MM/yyyy");
+        i.F_O_R = i.F_O_R == 1 ? 'Factura' : 'Remisión';
+        i.NOMBRE = i.NOMBRE + ' ' + i.APELLIDO_P;
+      }
+      this.quitarCargando();
+    }).catch((error) => {
+      (error);
+      this.isCargando = false;
+      this.quitarCargando();
+    });
   }
 
-  agregar() {
-    let siguienteIndice = this.dataSource.length + 1;
-    if (!this.validaCamposVacios()) {
-      this.datos.NUM = siguienteIndice = this.dataSource.length + 1;
-      this.dataSource.push(this.datos);
-      this.dataSource = [...this.dataSource];
-      this.datos = { 'NUM': 0, 'FECHA': '', 'ACREEDOR': '', 'FOLIO': '', 'IMPORTE': 0 }
-    }
+  /**
+    *\brief   Función para configurar el grid
+    *\author  Alexis Osvaldo Dorantes Ku
+    *\date    23/09/2020
+    *\version	1.00.00
+  */
+  configuraDataGrid(): void {
+    let configGrid = {
+      columns: 7,
+      header: ['#', 'Fecha','Acreedor','Folio', 'Importe', 'IVA', 'Total'],
+      field: ['NUM', 'FECHA', 'CLIENTE', 'FOLIO', 'IMPORTE', 'IVA', 'TOTAL'],
+
+    };
+    this.columns = this.funcGenerales.aplicaConfigGrid(configGrid);
   }
 
-  eliminar() {
-    let index = this.itemSeleccionado.NUM - 1;
-    this.dataSource.splice(index, 1);
-    this.itemSeleccionado = '';
+
+ /**
+     *\brief   Función que activa el componente cargando
+     *\author  Alexis Osvaldo Dorantes Ku
+     *\date    23/09/2020
+     *\version	1.00.00
+ */
+  mostrarCargado() {
+    this.isCargando = this.funcGenerales.onCargando();
   }
 
-  calculaTotalFila(cantidad, costo, asignado, key) {
-    let indice = key - 1;
-    let Cant = Number(cantidad);
-    let Cost = Number(costo);
-    let PorcAsig = Number(asignado);
-    let ResultMult = Cant * Cost;
-    let total = PorcAsig > 0 ? (PorcAsig * ResultMult / 100) + ResultMult : ResultMult;
-    this.dataSource[indice].TOTAL = total;
-    return total;
+  /**
+    *\brief   Función que desactiva el componente cargando
+    *\author  Alexis Osvaldo Dorantes Ku
+    *\date    23/09/2020
+    *\version	1.00.00
+  */
+  quitarCargando() {
+    this.isCargando = this.funcGenerales.offCargando();
   }
 
-  validaCamposVacios(): boolean {
-    let campoVacio = false;
-    let buscar = this.dataSource.find(item => item.FOLIO === '');
-    if (buscar) {
-      campoVacio = true;
-      let indice = this.dataSource.findIndex(item => item.FOLIO === '');
-      this.itemSeleccionado = this.dataSource[indice];
-      this.funcGenerales.popUpAlerta('Error', 'No se ha terminado de capturar información en la fila ' + buscar.NUM, 'ACEPTAR', '').then(() => {
+   /**
+    *\brief   Función que invoca el componente detalle y ponerlo en modo alta
+    *\author  Alexis Osvaldo Dorantes Ku
+    *\date    23/09/2020
+    *\version	1.00.00
+  */
+   agregar() {
+    this.ventanaDetalle(MODO.ALTA);
+  }
+
+  /**
+    *\brief   Funciónque invoca el detalle y ponerlo en modo modificar
+    *\author  Alexis Osvaldo Dorantes Ku
+    *\date    23/09/2020
+    *\version	1.00.00
+  */
+  modificar() {
+    this.ventanaDetalle(MODO.MODIFICAR);
+
+  }
+
+   /**
+    *\brief   Función que invoca la ventana del detalle
+    *\author  Alexis Osvaldo Dorantes Ku
+    *\date    23/09/2020
+    *\version	1.00.00
+    @param[in] -> el modo en el que se comportará la ventana
+  */
+  ventanaDetalle(Modo) {
+    var width = '70vh';
+    var height = '45vh';
+
+    const dialogRef = this.dialog.open(BalanceInicialDetalleAcreedoresDiversosComponent
+      , {
+      disableClose: true,
+      width: width,
+      height: height,
+      data: {
+        Proceso: Modo,
+        item: this.itemSeleccionado
+      }
+    });
+
+    return new Promise(resolve => {
+      dialogRef.afterClosed().subscribe(result => {
+        (result)
+        this.consulta();
       });
-    }
-    return campoVacio;
+    });
   }
 
-
-  dameFormatoMoneda(valor) {
-    return this.funcGenerales.dameFormatoMoneda(valor, this.NumDecimales);
+ /**
+    *\brief   Función para eliminar un registro
+    *\author  Alexis Osvaldo Dorantes Ku
+    *\date    23/09/2020
+    *\version	1.00.00
+  */
+  eliminar() {
+    this.funcGenerales.limpiarMensajes();
+    this.funcGenerales.mensajeConfirmacion('confirm','warn','Confirmación','¿Seguro que deseas eliminar el registro \"' + this.itemSeleccionado.CODIGO + "\"?",true);
   }
 
-  dameFormatoCantidad(valor) {
-    return this.funcGenerales.dameFormatoCantidad(valor, this.NumDecimales);
+  Confirmar(){
+    this.funcGenerales.limpiarMensajes();
+    this.mostrarCargado();
+    let json: any = {};
+    json.CODIGO = this.itemSeleccionado.CODIGO;
+    this.peticiones.peticionPost(json, 'eliminarrProductoC').then((resultado: any) => {
+      if(this.funcGenerales.extraerCodigo(resultado) == 11 || this.funcGenerales.extraerCodigo(resultado) == "01"){
+        this.mensajeError(resultado.message);
+      }else{
+        this.mensajeEliminarExitoso();
+        this.consulta();
+      }
+      this.quitarCargando();
+
+    }).catch((error) => {
+      this.mensajeErrorHttp(error);
+      this.quitarCargando();
+    });
+  }
+
+  Cancelar(){
+    this.funcGenerales.limpiarMensajes();
   }
 
 }

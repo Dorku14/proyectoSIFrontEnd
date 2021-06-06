@@ -53,7 +53,7 @@ export class BalanceInicialBancosComponent extends ConsultasBaseComponent implem
       for (let i of this.dataSource) {
         num += 1;
         i.NUM = num;
-        i.IMPORTE = this.funcGenerales.dameFormatoMoneda(i.IMPORTE,2);
+        i.BANCO = i.BANCO + ' - ' + i.NUMERO_CTA;
       }
       this.quitarCargando();
     }).catch((error) => {
@@ -73,7 +73,7 @@ export class BalanceInicialBancosComponent extends ConsultasBaseComponent implem
     let configGrid = {
       columns: 3,
       header: ['#','Banco', 'Importe Inicial'],
-      field: ['NUM', 'ID_CUENTA', 'IMPORTE'],
+      field: ['NUM', 'BANCO', 'IMPORTE'],
 
     };
     this.columns = this.funcGenerales.aplicaConfigGrid(configGrid);

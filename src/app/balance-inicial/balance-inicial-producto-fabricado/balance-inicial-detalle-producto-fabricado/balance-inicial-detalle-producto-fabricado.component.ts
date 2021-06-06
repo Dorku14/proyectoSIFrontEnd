@@ -1,52 +1,46 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NuevosProductosFabricadosService } from 'src/app/services/NuevosProductosFabricados.service';
+import { mov_ProductosFabricadosService } from "src/app/services/mov_ProductosFabricados.service";
 import { FuncionesGenerales } from 'src/app/sharedModules/funcionesgenerales';
 import { PeticionesWebComponent } from 'src/app/sharedModules/peticiones-web/peticiones-web.component';
 import { MODO, mascaraMoneda } from 'src/app/sharedModules/constantes';
-import { CatActFijosService } from 'src/app/services/cat_act_fijos.service';
-import { mov_ActivosFijosService } from 'src/app/services/mov_ActivosFijos.service';
-import { CategoriaActivosFijosComponent } from 'src/app/categoria-activos-fijos/categoria-activos-fijos.component';
-import { activosfijosService } from 'src/app/services/activos_fijos.service';
 
 @Component({
-  selector: 'app-balance-inicial-detalle-activos-fijos',
-  templateUrl: './balance-inicial-detalle-activos-fijos.component.html',
-  styleUrls: ['./balance-inicial-detalle-activos-fijos.component.scss']
+  selector: 'app-balance-inicial-detalle-producto-fabricado',
+  templateUrl: './balance-inicial-detalle-producto-fabricado.component.html',
+  styleUrls: ['./balance-inicial-detalle-producto-fabricado.component.scss']
 })
-export class BalanceInicialDetalleActivosFijosComponent implements OnInit {
+export class BalanceInicialDetalleProductoFabricadoComponent implements OnInit {
   modo: any;
   itemSeleccionado: any;
   TituloVentana: string;
   isCargando: boolean;
   datosTemporales: any;
   mascaraMoneda: any;
-  ListaCategorias: any = {};
 
-  constructor(public dialogRef: MatDialogRef<BalanceInicialDetalleActivosFijosComponent>,
+  constructor(
+    public dialogRef: MatDialogRef<BalanceInicialDetalleProductoFabricadoComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-    public CategoriasAF: CatActFijosService, 
-    public MovAF: mov_ActivosFijosService,
-    public Activos: activosfijosService,
+    public ProductosFabricados: NuevosProductosFabricadosService,
+    public movPF: mov_ProductosFabricadosService,
     private peticiones: PeticionesWebComponent,
-    public dialog: MatDialog,
-    private funcGenerales: FuncionesGenerales) { this.mascaraMoneda = mascaraMoneda; }
+    private funcGenerales: FuncionesGenerales
+  ) { this.mascaraMoneda = mascaraMoneda; }
 
   ngOnInit(): void {
     this.modo = this.data.Proceso;
     this.itemSeleccionado = this.data.item;
     this.definirModo();
-    this.CategoriasAF.incicializarVariables();
-    this.MovAF.incicializarVariables();
-    this.consultaCategorias();
   }
 
   definirModo() {
     switch (this.modo) {
       case MODO.ALTA:
-        this.TituloVentana = 'Activos Fijos';
+        this.TituloVentana = 'Alta de Productos Fabricados';
         break;
       case MODO.MODIFICAR:
-        this.TituloVentana = 'Detalle Activos Fijos';
+        this.TituloVentana = 'Detalle del Producto Fabricado';
         if (!this.funcGenerales.EsVacioNulo(this.itemSeleccionado)) {
           this.consultaDetalle(this.itemSeleccionado);
         }
@@ -69,7 +63,7 @@ export class BalanceInicialDetalleActivosFijosComponent implements OnInit {
         }
         break;
       case 'IMPORTE':
-        respuesta = this.funcGenerales.permiteNumerico(this.MovAF.IMPORTE, valorS);
+        respuesta = this.funcGenerales.permiteNumerico(this.movPF.IMPORTE, valorS);
         break;
     }
     // if (isNaN(valor)) {
@@ -84,7 +78,7 @@ export class BalanceInicialDetalleActivosFijosComponent implements OnInit {
     let json: any = {};
     json.CODIGO = item.CODIGO;
     this.peticiones
-      .peticionPost(json, 'consultaMovAF')
+      .peticionPost(json, 'consultaCreditoClientesIni')
       .then((resultado: any) => {
         (resultado);
         let datos = resultado.datos[0];
@@ -97,7 +91,7 @@ export class BalanceInicialDetalleActivosFijosComponent implements OnInit {
   }
 
   llenarCampoDetalle(datos: any) {
-    this.MovAF.llenarCampos(datos);
+    this.ProductosFabricados.llenarCampos(datos);
     this.quitarCargando();
   }
 
@@ -111,24 +105,23 @@ export class BalanceInicialDetalleActivosFijosComponent implements OnInit {
 
   guardar() {
     let json: any = {};
-      json.ID_CAT_AF = this.CategoriasAF.ID;
-      json.NOMBRE_AF = this.Activos.NOMBRE_AF;
-      json.UNIDADES = this.Activos.UNIDADES;
-      json.ESTATUS = 'A';
-      json.FECHA  = this.MovAF.FECHA;
-      json.IMPORTE = this.MovAF.IMPORTE;
-      json.FOLIO = this.Activos.FOLIO;
+      json.CODIGO = this.ProductosFabricados.CODIGO;
+      json.NOM_PRODUCTO = this.ProductosFabricados.NOM_PRODUCTO;
+      json.UNIDADES = this.movPF.UNIDADES;
+      json.FECHA = this.movPF.FECHA;
+      json.IMPORTE = this.movPF.IMPORTE;
       json.TIPO_MOV = 'I';
       switch (this.modo) {
         case MODO.ALTA:
+          json.ESTATUS = 'A';
           this.peticiones
-            .peticionPost(json, 'altaMovAF')
+            .peticionPost(json, 'altaPFMovIni')
             .then((resultado: any) => {
               ('resultado then');
               (resultado);
               this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','Elemento agredado correctamente',false);
               this.quitarCargando();
-              this.MovAF.incicializarVariables();
+              this.ProductosFabricados.incicializarVariables();
               this.CerrarVentana();
             })
             .catch((error) => {
@@ -146,7 +139,7 @@ export class BalanceInicialDetalleActivosFijosComponent implements OnInit {
               (resultado);
               this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','El elemento se ha editado correctamente',false);
               this.quitarCargando();
-              this.MovAF.incicializarVariables();
+              this.ProductosFabricados.incicializarVariables();
               this.CerrarVentana();
             })
             .catch((error) => {
@@ -165,7 +158,7 @@ export class BalanceInicialDetalleActivosFijosComponent implements OnInit {
               (resultado);
               this.funcGenerales.mensajeConfirmacion('esquinaSupDer','success','','El elemento se ha reactivado correctamente',false);
               this.quitarCargando();
-              this.MovAF.incicializarVariables();
+              this.ProductosFabricados.incicializarVariables();
               this.CerrarVentana();
             })
             .catch((error) => {
@@ -181,40 +174,6 @@ export class BalanceInicialDetalleActivosFijosComponent implements OnInit {
   reactivar() {
     this.modo = MODO.REACTIVAR;
     this.llenarCampoDetalle(this.datosTemporales);
-  }
-
-  ventanaDetalle(Modo) {
-    var width = '45vh';
-    var height = '25vh';
-
-    const dialogRef = this.dialog.open(CategoriaActivosFijosComponent, {
-      disableClose: true,
-      width: width,
-      height: height,
-      data: {
-        Proceso: Modo,
-        item: this.itemSeleccionado,
-      },
-    });
-
-    return new Promise((resolve) => {
-      dialogRef.afterClosed().subscribe((result) => {
-        (result);
-        this.consultaCategorias();
-      });
-    });
-  }
-
-  consultaCategorias(){
-    this.peticiones.peticionPost({}, 'consultaCatAF').then((resultado: any) => {
-      (resultado);
-      let datos = resultado;
-      this.ListaCategorias = datos;
-      console.log(this.ListaCategorias)
-    }).catch((error) => {
-      (error);
-      this.quitarCargando();
-    });
   }
 
   presionaBoton(e: KeyboardEvent) {

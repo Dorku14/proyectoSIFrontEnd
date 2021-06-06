@@ -91,13 +91,19 @@
                             </mat-form-field>
                           </div>
 
-                          <!--<div class="col-md-12" style="width: 50%">
-                            <!-- Almacen 
+                          <!-- Separador -->
+                          <div class="col-md-12">
+                            <mat-toolbar>
+                              <span></span>
+                            </mat-toolbar>
+                          </div>
+
+                          <!-- <div class="col-md-12" style="width: 50%">
                             <mat-form-field  >
                                 <mat-label class="labelForm">Almacen</mat-label>
                                 <input class="Input" currencyMask matInput #inputDias [(ngModel)]="BI.ALMACEN" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
                             </mat-form-field>
-                          </div>-->
+                          </div> -->
 
                           <div class="col-md-12" style="width: 50%">
                             <!-- Producto Comercial -->
@@ -111,7 +117,15 @@
                             <!-- Producto Fabricado -->
                             <mat-form-field  >
                                 <mat-label class="labelForm">Producto Fabricado</mat-label>
-                                <input class="Input" currencyMask matInput #inputDias [(ngModel)]="BI.PRODUC_FABRI" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
+                                <input class="Input" readonly (click)="addTab('Producto Fabricado')" currencyMask matInput #inputDias [(ngModel)]="BI.PRODUC_FABRI" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%">
+                            <!-- Producto en Proceso -->
+                            <mat-form-field  >
+                                <mat-label class="labelForm">Producto en Proceso</mat-label>
+                                <input class="Input" readonly (click)="addTab('Producto Proceso')" currencyMask matInput #inputDias [(ngModel)]="BI.PRODUCTO_PROCESO" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
                             </mat-form-field>
                           </div>
 
@@ -121,6 +135,13 @@
                                 <mat-label class="labelForm">Materia Prima</mat-label>
                                 <input class="Input" readonly (click)="addTab('Materia Prima')" currencyMask matInput #inputDias [(ngModel)]="BI.MATERIA_PRIMA" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
                             </mat-form-field>
+                          </div>
+
+                          <!-- Separador -->
+                          <div class="col-md-12">
+                            <mat-toolbar>
+                              <span></span>
+                            </mat-toolbar>
                           </div>
 
                           <div class="col-md-12" style="width: 50%">
@@ -162,12 +183,27 @@
                             </mat-form-field>
                           </div>-->
 
-                          
-
                           <div class="col-md-12">
-                            <mat-toolbar
-                              ><span>ACTIVOS FIJOS</span></mat-toolbar
-                            >
+                            <mat-toolbar>
+                              <span>ACTIVOS FIJOS</span>
+                            </mat-toolbar>
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%" *ngFor="let ActF of ActivosFijos">
+                            <mat-form-field >
+                              <mat-label class="labelForm">{{ActF.NOM_CAT}}</mat-label>
+                              <input
+                                class="Input"
+                                matInput
+                                #inputCodigo
+                                autocomplete="off"
+                                value="{{ActF.ACUMULADO_INI}}"
+                                [options]="mascaraMoneda"
+                                currencyMask
+                                (click)="addTab('Activos Fijos')"
+                                readonly
+                              />
+                            </mat-form-field>
                           </div>
 
                           <div class="col-md-12" style="width: 50%">
@@ -192,6 +228,20 @@
                             </mat-form-field>
                           </div> -->
 
+                          <div class="col-md-12">
+                            <mat-toolbar>
+                              <span></span>
+                            </mat-toolbar>
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%">
+                            <!-- Total Activos -->
+                            <mat-form-field  >
+                                <mat-label class="labelForm">Total Activos</mat-label>
+                                <input class="Input" readonly currencyMask matInput #inputDias [(ngModel)]="BI.TOTAL_ACTIVOS" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
+                            </mat-form-field>
+                          </div>
+
                         </div>
                       </div>
 
@@ -210,7 +260,71 @@
                             >
                           </div>
 
-                          <div class="col-md-12" style="width: 50%" *ngFor="let Pas of Pasivos">
+                          <div class="col-md-12" style="width: 50%">
+                            <!-- Crédito Proveedores -->
+                            <mat-form-field  >
+                                <mat-label class="labelForm">Crédito Proveedores</mat-label>
+                                <input class="Input" readonly (click)="addTab('Crédito Proveedores')" currencyMask matInput #inputDias [(ngModel)]="BI.CREDITO_PROV" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%">
+                            <!-- Provisión IVA Pend. x Pagar -->
+                            <mat-form-field  >
+                                <mat-label class="labelForm">Provisión IVA Pend. x Pagar</mat-label>
+                                <input class="Input" readonly (click)="addTab('Crédito Proveedores')" currencyMask matInput #inputDias [(ngModel)]="BI.PROV_IVAxPAGAR" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%">
+                            <!-- Acreedores diversos -->
+                            <mat-form-field  >
+                                <mat-label class="labelForm">Acreedores diversos</mat-label>
+                                <input class="Input" readonly (click)="addTab('Acreedores Diversos')" currencyMask matInput #inputDias [(ngModel)]="BI.ACREEDORES_DIV" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%">
+                            <!-- Nomima Destajo -->
+                            <mat-form-field  >
+                                <mat-label class="labelForm">Nomima Destajo</mat-label>
+                                <input class="Input" currencyMask matInput #inputDias [(ngModel)]="BI.NOMINA_DESTAJO" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%">
+                            <!-- Nomima Indirecta -->
+                            <mat-form-field  >
+                                <mat-label class="labelForm">Nomima Indirecta</mat-label>
+                                <input class="Input" currencyMask matInput #inputDias [(ngModel)]="BI.NOMINA_INDIRECTA" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%">
+                            <!-- Deuda Por Créditos -->
+                            <mat-form-field  >
+                                <mat-label class="labelForm">Deuda Por Créditos</mat-label>
+                                <input class="Input" readonly (click)="addTab('Deuda Por Créditos')" currencyMask matInput #inputDias [(ngModel)]="BI.DEUDA_CRE" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%">
+                            <!-- IVA Por Pagar -->
+                            <mat-form-field  >
+                                <mat-label class="labelForm">IVA Por Pagar</mat-label>
+                                <input class="Input" currencyMask matInput #inputDias [(ngModel)]="BI.IVAxPAGAR" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%">
+                            <!-- Total Pasivos -->
+                            <mat-form-field  >
+                                <mat-label class="labelForm">Total Pasivos</mat-label>
+                                <input class="Input" currencyMask matInput #inputDias [(ngModel)]="BI.TOTAL_PASIVOS" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
+                            </mat-form-field>
+                          </div>
+
+                          <!-- <div class="col-md-12" style="width: 50%" *ngFor="let Pas of Pasivos">
                             <mat-form-field (click)="addTab(Pas.NOMBRE)">
                               <mat-label class="labelForm">{{Pas.NOMBRE}}</mat-label>
                               <input
@@ -222,7 +336,7 @@
                                 disabled="{{Pas.ACTIVO}}"
                               />
                             </mat-form-field>
-                          </div>
+                          </div> -->
 
                           <div class="col-md-12">
                             <mat-toolbar

@@ -10,6 +10,7 @@ export class activosfijosService {
     NOMBRE_AF: String;
     UNIDADES: Number;
     COSTO_UNIDAD: Number;
+    FOLIO: String;
     ESTATUS: String;
 
     incicializarVariables() {
@@ -18,6 +19,7 @@ export class activosfijosService {
         this.NOMBRE_AF = '';
         this.UNIDADES = 0;
         this.COSTO_UNIDAD = 0;
+        this.FOLIO = '',
         this.ESTATUS = '';
     }
 
@@ -27,6 +29,7 @@ export class activosfijosService {
         this.NOMBRE_AF = datos.NOMBRE_AF;
         this.UNIDADES = datos.UNIDADES;
         this.COSTO_UNIDAD = datos.COSTO_UNIDAD;
+        this.FOLIO = datos.FOLIO;
         this.ESTATUS = datos.ESTATUS;
     }
 

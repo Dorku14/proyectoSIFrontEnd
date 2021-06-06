@@ -1,0 +1,72 @@
+<mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
+    <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
+    <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
+</mat-toolbar>
+<mat-dialog-content class="contenido-ayuda-ventana">
+    <mat-toolbar class="toolbarMatDialog">
+        <button mat-icon-button class="sinborde" tabindex="-1"  matTooltip="Guardar"[matTooltipPosition]="'right'" (click)="guardar()">
+            <mat-icon>save</mat-icon>
+        </button>
+    </mat-toolbar>
+    <p-toast position="top-right" key="esquinaSupDer"></p-toast>
+    <div class="container-fluid contenido">
+        <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field  >
+                    <!-- Fecha -->
+                    <mat-label class="labelForm">Fecha</mat-label>
+                    <input type="date" matInput #inputNombre  [(ngModel)]="movPP.FECHA" [maxLength]="25" autocomplete="off"  (keydown)="presionaBoton($event)" (focus)="ObtenerFoco($event)" >
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- Estatus -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Estatus</mat-label>
+                    <mat-select class="Input" [(ngModel)]="movPP.ESTATUS">
+                        <mat-option *ngFor="let E of Estatus" [value]="E.ID">
+                          {{E.DESC}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- Folio -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Folio</mat-label>
+                    <input class="Input" matInput #inputNombre [(ngModel)]="ProductoPro.FOLIO" [maxLength]="10" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- Codigo -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Codigo</mat-label>
+                    <input class="Input" matInput #inputNombre [(ngModel)]="Producto.CODIGO" [maxLength]="10" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+
+            </div>
+            <div class="col-md-6">
+                <!-- Nombre -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Nombre</mat-label>
+                    <input class="Input" matInput #inputNombre [(ngModel)]="Producto.NOMBRE" [maxLength]="10" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+
+            </div>
+            <div class="col-md-6">
+                <!-- Unidades -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Unidades</mat-label>
+                    <input class="Input" matInput #inputNombre [(ngModel)]="movPP.UNIDADES" [maxLength]="10" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- Valor Producción -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Valor Producción</mat-label>
+                    <input class="Input" currencyMask matInput #inputDias [(ngModel)]="ProductoPro.VALOR_PRODUCCION" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'IVA')" (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

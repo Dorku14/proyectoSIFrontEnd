@@ -135,6 +135,12 @@ import { BalanceInicialDetalleBancosComponent } from './balance-inicial/balance-
 import { BalanceInicialActivosFijosComponent } from './balance-inicial/balance-inicial-activos-fijos/balance-inicial-activos-fijos.component';
 import { BalanceInicialDetalleActivosFijosComponent } from './balance-inicial/balance-inicial-activos-fijos/balance-inicial-detalle-activos-fijos/balance-inicial-detalle-activos-fijos.component';
 import { CategoriaActivosFijosComponent } from './categoria-activos-fijos/categoria-activos-fijos.component';
+import { BalanceInicialDetalleProductoFabricadoComponent } from './balance-inicial/balance-inicial-producto-fabricado/balance-inicial-detalle-producto-fabricado/balance-inicial-detalle-producto-fabricado.component';
+import { BalanceInicialDetalleCreditoProveedoresComponent } from './balance-inicial/balance-inicial-credito-proveedores/balance-inicial-detalle-credito-proveedores/balance-inicial-detalle-credito-proveedores.component';
+import { BalanceInicialDetalleAcreedoresDiversosComponent } from './balance-inicial/balance-inicial-acreedores-diversos/balance-inicial-detalle-acreedores-diversos/balance-inicial-detalle-acreedores-diversos.component';
+import { BalanceInicialDetalleDeudaCreditosComponent } from './balance-inicial/balance-inicial-deuda-creditos/balance-inicial-detalle-deuda-creditos/balance-inicial-detalle-deuda-creditos.component';
+import { BalanceInicialProductoEnProcesoComponent } from './balance-inicial/balance-inicial-producto-en-proceso/balance-inicial-producto-en-proceso.component';
+import { BalanceInicialDetalleProductoEnProcesoComponent } from './balance-inicial/balance-inicial-producto-en-proceso/balance-inicial-detalle-producto-en-proceso/balance-inicial-detalle-producto-en-proceso.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -228,7 +234,13 @@ import { CategoriaActivosFijosComponent } from './categoria-activos-fijos/catego
     BalanceInicialDetalleBancosComponent,
     BalanceInicialActivosFijosComponent,
     BalanceInicialDetalleActivosFijosComponent,
-    CategoriaActivosFijosComponent
+    CategoriaActivosFijosComponent,
+    BalanceInicialDetalleProductoFabricadoComponent,
+    BalanceInicialDetalleCreditoProveedoresComponent,
+    BalanceInicialDetalleAcreedoresDiversosComponent,
+    BalanceInicialDetalleDeudaCreditosComponent,
+    BalanceInicialProductoEnProcesoComponent,
+    BalanceInicialDetalleProductoEnProcesoComponent
   ],
   imports: [
     BrowserModule,

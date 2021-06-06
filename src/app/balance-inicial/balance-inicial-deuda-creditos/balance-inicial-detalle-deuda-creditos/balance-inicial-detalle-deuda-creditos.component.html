@@ -1,0 +1,70 @@
+<mat-toolbar class="toolbarAyudaVentana" mat-dialog-title [color]="'primary'">
+    <span class="titulo-Ayuda-Ventana labelForm">{{TituloVentana}}</span>
+    <mat-icon class="cerrar-estilo-Ayuda " (click)="CerrarVentana()">close</mat-icon>
+</mat-toolbar>
+<mat-dialog-content class="contenido-ayuda-ventana">
+    <mat-toolbar class="toolbarMatDialog">
+        <button mat-icon-button class="sinborde" tabindex="-1"  matTooltip="Guardar"[matTooltipPosition]="'right'" (click)="guardar()">
+            <mat-icon>save</mat-icon>
+        </button>
+    </mat-toolbar>
+    <p-toast position="top-right" key="esquinaSupDer"></p-toast>
+    <div class="container-fluid contenido">
+        <app-peticiones-web [isCargando]="isCargando"></app-peticiones-web>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field  >
+                    <!-- Fecha -->
+                    <mat-label class="labelForm">Fecha</mat-label>
+                    <input type="date" matInput #inputNombre  [(ngModel)]="DeudaCreditos.FECHA" [maxLength]="25" autocomplete="off"  (keydown)="presionaBoton($event)" (focus)="ObtenerFoco($event)" >
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- Folio -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Folio</mat-label>
+                    <input class="Input" matInput #inputNombre [(ngModel)]="DeudaCreditos.FOLIO" [maxLength]="10" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- Forma de Recibirlo -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Forma de Recibirlo</mat-label>
+                    <input class="Input" matInput #inputNombre [(ngModel)]="DeudaCreditos.RECIBIDO_EN" [maxLength]="10" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- Proveedor Financiero -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Proveedor Financiero</mat-label>
+                    <input class="Input" matInput #inputNombre [(ngModel)]="DeudaCreditos.PROVEEDOR" [maxLength]="10" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- Crédito -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Crédito</mat-label>
+                    <mat-select class="Input" [(ngModel)]="DeudaCreditos.ID_C">
+                        <mat-option *ngFor="let C of listaCreditos" [value]="C.ID">
+                          {{C.NOM_CREDITO + ' ' + C.PLAZO}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- Importe -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Importe del Prestamo</mat-label>
+                    <input class="Input" matInput #inputNombre [(ngModel)]="DeudaCreditos.IMPORTE" [maxLength]="10" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <!-- Descripción -->
+                <mat-form-field  >
+                    <mat-label class="labelForm">Descripción</mat-label>
+                    <input class="Input" matInput #inputNombre [(ngModel)]="DeudaCreditos.DESCRIPCION" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
