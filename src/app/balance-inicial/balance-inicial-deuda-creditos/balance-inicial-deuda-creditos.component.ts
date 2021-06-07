@@ -58,7 +58,7 @@ export class BalanceInicialDeudaCreditosComponent extends ConsultasBaseComponent
         i.NUM = num;
         i.IMPORTE = this.funcGenerales.dameFormatoMoneda(i.IMPORTE,2);
         i.FECHA = this.datePipe.transform(i.FECHA, "dd/MM/yyyy");
-        //i.PLAZO = i.PLAZO == 'L' ? 'Largo Plazo' : 'Corto Plazo';
+        i.RECIBIDO_EN = i.RECIBIDO_EN == '' ? 'Efectivo' : 'Banco';
         i.NOMBRE = i.NOMBRE + ' ' + i.APELLIDO_P;
       }
       this.quitarCargando();

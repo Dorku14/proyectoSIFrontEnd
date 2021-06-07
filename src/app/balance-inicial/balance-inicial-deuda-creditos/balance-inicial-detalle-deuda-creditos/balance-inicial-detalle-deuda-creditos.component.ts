@@ -20,6 +20,7 @@ export class BalanceInicialDetalleDeudaCreditosComponent implements OnInit {
   datosTemporales: any;
   mascaraMoneda: any;
   listaCreditos: Array<{ID, NOM_CREDITO, PLAZO}>;
+  Recibido: any;
 
   constructor(
     public dialogRef: MatDialogRef<BalanceInicialDetalleDeudaCreditosComponent>,
@@ -35,6 +36,14 @@ export class BalanceInicialDetalleDeudaCreditosComponent implements OnInit {
     this.itemSeleccionado = this.data.item;
     this.definirModo();
     this.consultaCreditos();
+    this.recibido();
+  }
+
+  recibido(){
+    this.Recibido = [
+      {ID:1, DESC:'Efectivo'},
+      {ID:0, DESC:'Banco'}
+    ]
   }
 
   consultaCreditos(){

@@ -27,10 +27,14 @@
                 </mat-form-field>
             </div>
             <div class="col-md-6">
-                <!-- Forma de Recibirlo -->
+                <!-- Forma De Recibirlo -->
                 <mat-form-field  >
-                    <mat-label class="labelForm">Forma de Recibirlo</mat-label>
-                    <input class="Input" matInput #inputNombre [(ngModel)]="DeudaCreditos.RECIBIDO_EN" [maxLength]="10" autocomplete="off"  (focus)="ObtenerFoco($event)" (keydown)="presionaBoton($event)">
+                    <mat-label class="labelForm">Forma De Recibirlo</mat-label>
+                    <mat-select class="Input" [(ngModel)]="DeudaCreditos.RECIBIDO_EN">
+                        <mat-option *ngFor="let R of Recibido" [value]="R.ID">
+                          {{R.DESC}}
+                        </mat-option>
+                      </mat-select>
                 </mat-form-field>
             </div>
             <div class="col-md-6">

@@ -344,7 +344,7 @@
                             >
                           </div>
 
-                          <div class="col-md-12" style="width: 50%" *ngFor="let Cap of Capital">
+                          <!-- <div class="col-md-12" style="width: 50%" *ngFor="let Cap of Capital">
                             <mat-form-field (click)="addTab(Cap.NOMBRE)">
                               <mat-label class="labelForm">{{Cap.NOMBRE}}</mat-label>
                               <input
@@ -355,6 +355,54 @@
                                 name="{{Cap.NAME}}"
                                 disabled="{{Cap.ACTIVO}}"
                               />
+                            </mat-form-field>
+                          </div> -->
+
+                          <div class="col-md-12" style="width: 50%">
+                            <!-- Total Patrimonio -->
+                            <mat-form-field  >
+                                <mat-label class="labelForm">Total Patrimonio</mat-label>
+                                <input class="Input" readonly currencyMask matInput #inputDias [(ngModel)]="BI.TOTAL_PATRI" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%">
+                            <!-- Capital Inicial -->
+                            <mat-form-field  >
+                                <mat-label class="labelForm">Capital Inicial</mat-label>
+                                <input class="Input" readonly currencyMask matInput #inputDias [(ngModel)]="BI.CAPITAL_INI" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%">
+                            <!-- Utilidad Del Ejercicio -->
+                            <mat-form-field  >
+                                <mat-label class="labelForm">Utilidad Del Ejercicio</mat-label>
+                                <input class="Input" currencyMask matInput #inputDias [(ngModel)]="BI.UTILIDAD_EJE" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%">
+                            <!-- Utiliddad Reinvertida (Acumulada) -->
+                            <mat-form-field  >
+                                <mat-label class="labelForm">Utiliddad Reinvertida (Acumulada)</mat-label>
+                                <input class="Input" currencyMask matInput #inputDias [(ngModel)]="BI.UTILIDAD_REIN" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%">
+                            <!-- Incremento De Capital -->
+                            <mat-form-field  >
+                                <mat-label class="labelForm">Incremento De Capital</mat-label>
+                                <input class="Input" currencyMask matInput #inputDias [(ngModel)]="BI.INCREMENTO_CAP" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-12" style="width: 50%">
+                            <!-- Total Pasivo + Patrimonio -->
+                            <mat-form-field  >
+                                <mat-label class="labelForm">Total Pasivo + Patrimonio</mat-label>
+                                <input class="Input" readonly currencyMask matInput #inputDias [(ngModel)]="BI.TOTAL_PAS_PAT" [options]="mascaraMoneda"  [maxLength]="16"  autocomplete="off" (keypress)="validarTyping($event,'BANCOS')" (focus)="ObtenerFoco($event)">
                             </mat-form-field>
                           </div>
                         </div>

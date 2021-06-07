@@ -73,7 +73,7 @@ export class BalanceInicialComponent implements OnInit {
     this.activos();
     this.pasivos();
     this.capital();
-    this.BI.incicializarVariables();
+    //this.BI.incicializarVariables();
     this.consulta();
     this.activosFijos();
   }
@@ -82,7 +82,6 @@ export class BalanceInicialComponent implements OnInit {
     this.Activos = [
       {NOMBRE: 'Bancos',                      CONSTANTE: NombreComponente.BALANCEINICIAL_BANCOS},
       {NOMBRE: 'Crédito Clientes',            CONSTANTE: NombreComponente.BALANCEINICIAL_CREDITOCLIENTES},
-      {NOMBRE: 'Almacen',                     CONSTANTE: ''},
       {NOMBRE: 'Producto Comercial',          CONSTANTE: NombreComponente.BALANCEINICIAL_PRODUCTOCOMERCIAL},
       {NOMBRE: 'Producto Fabricado',          CONSTANTE: NombreComponente.BALANCEINICIAL_PRODUCTOFABRICADO},
       {NOMBRE: 'Producto Proceso',            CONSTANTE: NombreComponente.BALANCEINICIAL_PRODUCTOPROCESO},
@@ -280,7 +279,9 @@ export class BalanceInicialComponent implements OnInit {
       json.NOMINA_DESTAJO = this.BI.NOMINA_DESTAJO;
       json.NOMINA_INDIRECTA = this.BI.NOMINA_INDIRECTA;
       json.IVAxPAGAR = this.BI.IVAxPAGAR;
-
+      json.UTILIDAD_EJE = this.BI.UTILIDAD_EJE;
+      json.UTILIDAD_REIN = this.BI.UTILIDAD_REIN;
+      json.INCREMENTO_CAP = this.BI.INCREMENTO_CAP;
       console.log(json);
       this.peticiones
             .peticionPost(json, 'altaBalanceInicial')

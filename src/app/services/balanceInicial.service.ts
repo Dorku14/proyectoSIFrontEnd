@@ -28,6 +28,12 @@ export class balanceinicialService {
     DEUDA_CRE: Number;
     IVAxPAGAR: Number;
     TOTAL_PASIVOS: Number;
+    TOTAL_PATRI: Number;
+    CAPITAL_INI: Number;
+    UTILIDAD_EJE: Number;
+    UTILIDAD_REIN: Number;
+    INCREMENTO_CAP: Number;
+    TOTAL_PAS_PAT: Number;
 
     incicializarVariables() {
         this.ID = 0;
@@ -53,6 +59,12 @@ export class balanceinicialService {
         this.DEUDA_CRE = 0;
         this.IVAxPAGAR = 0;
         this.TOTAL_PASIVOS = 0;
+        this.TOTAL_PATRI = 0;
+        this.CAPITAL_INI = 0;
+        this.UTILIDAD_EJE = 0;
+        this.UTILIDAD_REIN = 0;
+        this.INCREMENTO_CAP = 0;
+        this.TOTAL_PAS_PAT = 0;
     }
 
     llenarCampos(datos: balanceinicialService) {
@@ -79,6 +91,12 @@ export class balanceinicialService {
         this.DEUDA_CRE = datos.DEUDA_CRE;
         this.IVAxPAGAR = datos.IVAxPAGAR;
         this.TOTAL_PASIVOS = datos.TOTAL_PASIVOS;
+        this.TOTAL_PATRI = datos.TOTAL_PATRI;
+        this.CAPITAL_INI = datos.CAPITAL_INI;
+        this.UTILIDAD_EJE = datos.UTILIDAD_EJE;
+        this.UTILIDAD_REIN = datos.UTILIDAD_REIN;
+        this.INCREMENTO_CAP = datos.INCREMENTO_CAP;
+        this.TOTAL_PAS_PAT = datos.TOTAL_PAS_PAT;
     }
 
 }
